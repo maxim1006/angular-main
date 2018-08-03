@@ -1,5 +1,6 @@
 import {Component, OnInit, HostBinding, NgZone, ElementRef, AfterViewInit, Input} from '@angular/core';
 import * as Highcharts from "highcharts";
+
 require('highcharts/highcharts-more')(Highcharts);
 
 @Component({
