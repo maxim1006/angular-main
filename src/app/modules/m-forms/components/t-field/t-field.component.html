@@ -1,0 +1,77 @@
+<label class="t-field" [formGroup]="form">
+
+    <div class="t-field__label">
+        {{fieldLabel}}
+        <span class="t-field__label-appendix"
+              *ngIf="isRequired && !control?.disabled && !disabled"
+        >*</span>
+    </div>
+
+    <input type="{{type}}"
+           placeholder="{{placeholder}}"
+           class="input _size-x _bordered {{inputStyleClass}}"
+           [ngModel]="model"
+           (ngModelChange)="controlChange($event)"
+           [formControlName]="controlName"
+           autocomplete="{{autoComplete}}"
+    >
+
+    <!--В инпуте можно не использовать [disabled]="disabled" ангулар форм сам проставит-->
+
+    <div class="t-field__errors" *ngIf="control?.errors">
+        <div
+                *ngIf="control?.hasError('required') && !control?.pristine"
+                class="m-form__error">
+            <span class="t-field__error-text" *ngIf="controlName==='name'">
+                Name is required
+            </span>
+
+            <span class="t-field__error-text" *ngIf="controlName==='surname'">
+                Surname is required
+            </span>
+        </div>
+
+        <div
+                *ngIf="control?.hasError('maxlength') && !control?.pristine"
+                class="m-form__error">
+            <span class="t-field__error-text" *ngIf="controlName==='name'">
+                Name max length have to be < 10 letters
+            </span>
+        </div>
+
+        <div
+                *ngIf="control?.hasError('invalidName') && !control?.pristine"
+                class="m-form__error">
+
+            <span class="t-field__error-text" *ngIf="controlName==='name'">
+                Name is invalid, please start with capitalized first letter
+            </span>
+
+            <span class="t-field__error-text" *ngIf="controlName==='surname'">
+                Surname is invalid, please start with capitalized first letter
+            </span>
+
+        </div>
+
+        <div
+                *ngIf="control?.hasError('pattern') && !control?.pristine"
+                class="m-form__error">
+            <span class="t-field__error-text" *ngIf="controlName==='phone'">
+                Incorrect phone Number, has to be (123)-456-7899
+            </span>
+
+            <span class="t-field__error-text" *ngIf="controlName==='email'">
+                Email is wrong, ex.: john@doe.com
+            </span>
+
+            <span class="t-field__error-text" *ngIf="controlName==='zip'">
+                ZIP is wrong, ex.: 1111-1111
+            </span>
+        </div>
+    </div>
+
+    <div class="t-field__hint">
+        {{hint}}
+    </div>
+
+</label>

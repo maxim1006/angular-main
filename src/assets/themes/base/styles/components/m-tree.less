@@ -1,0 +1,76 @@
+.m-tree {
+    list-style: none;
+
+    &__brunch {
+        position: relative;
+        padding-left: 40px;
+        font-size: 12px;
+        line-height: 30px;
+        color: #4f5ca1;
+        background: url("../../images/icons/folder.png") 18px 7px no-repeat;
+        cursor: pointer;
+        user-select: none;
+
+        &:before {
+            content: "+";
+            position: absolute;
+            top: 8px;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            font-size: 16px;
+            line-height: 9px;
+            color: #445964;
+            text-align: center;
+            border: 1px solid #445964;
+        }
+
+        &._opened:before {
+            content: "-";
+            font-size: 20px;
+            line-height: 6px;
+        }
+
+        & > &-list {
+            display: none;
+            transition: all 0.2s;
+        }
+
+        &._opened > &-list {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &-list {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        &._empty {
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    &__leaf {
+        &-text {
+            display: inline-block;
+            padding: 0 10px 0 40px;
+            font-size: 12px;
+            line-height: 30px;
+            color: #9aa3af;
+            background: url("../../images/icons/file.png") 18px 7px no-repeat;
+            user-select: none;
+        }
+
+        &._selected &-text {
+            padding-left: 40px;
+            color: #fff;
+            background: url("../../images/icons/file-active.png") 18px 7px no-repeat;
+            background-color: #4f5ca1;
+            border-radius: 20px;
+        }
+    }
+}

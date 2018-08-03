@@ -1,0 +1,32 @@
+.m-form {
+
+    &__label {
+        display: block;
+
+        &+& {
+            margin-top: 20px;
+        }
+    }
+
+    &__errors {
+        margin: 10px 0 0;
+    }
+
+    &__error {
+        margin: 10px 0;
+
+        &._margin-top-m {
+            margin-top: 25px;
+        }
+    }
+
+    &__submit {
+        margin-top: 15px;
+        padding: 10px;
+        box-shadow: 0 0 10px #ccc;
+
+        &:disabled {
+            opacity: 0.4;
+        }
+    }
+}

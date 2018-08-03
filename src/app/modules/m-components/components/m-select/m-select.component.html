@@ -1,0 +1,27 @@
+<h3>Select</h3>
+
+<div class="m-select"
+     [ngClass]="{
+         _opened: panelVisible
+     }"
+     [ngStyle]="customStyle"
+     (blur)="blur()"
+     tabindex="0"
+>
+    <div class="m-select__header" (click)="headerClick($event)">
+        <span class="m-select__header-text">{{selectedOption}}</span>
+    </div>
+
+    <div class="m-select__body">
+        <ul class="m-select__list">
+            <li
+                    class="m-select__list-item"
+                    *ngFor="let option of options; trackBy: trackByFn"
+                    (click)="itemClick($event, option)"
+                    [class._selected]="selectedOption === option"
+            >
+                {{option?.label ? option?.label : option}}
+            </li>
+        </ul>
+    </div>
+</div>

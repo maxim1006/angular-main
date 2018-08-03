@@ -1,0 +1,143 @@
+.m-select {
+    position: relative;
+    user-select: none;
+    outline: none;
+
+    &._long {
+        max-width: 435px;
+    }
+
+    &._middle {
+        max-width: 320px;
+    }
+
+    &__header {
+        display: flex;
+        position: relative;
+        height: 33px;
+        padding: 0 30px 0 6px;
+        font-size: 14px;
+        color: #183147;
+        line-height: 29px;
+        border-bottom: 1px solid transparent;
+        border-left: 1px solid #f3f3ef;
+        border-top: 1px solid #f3f3ef;
+        border-right: 1px solid #f3f3ef;
+        border-radius: 1px;
+        box-shadow: 0 1px 0 0 #cfd5d9;
+        background-color: #f7f7f7;
+        cursor: pointer;
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 30px;
+            height: 31px;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAYAAAD68A/GAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTMyIDc5LjE1OTI4NCwgMjAxNi8wNC8xOS0xMzoxMzo0MCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUuNSAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QjM4NUI4QUNBNEQyMTFFNjgzQzhBREQxMkY1OTdDMUIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QjM4NUI4QURBNEQyMTFFNjgzQzhBREQxMkY1OTdDMUIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpCMzg1QjhBQUE0RDIxMUU2ODNDOEFERDEyRjU5N0MxQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpCMzg1QjhBQkE0RDIxMUU2ODNDOEFERDEyRjU5N0MxQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pv+GwTEAAABySURBVHjaYqxdfHAZAwPDJCA+wYAdWAJxLhOQWA7Em4DYEIsiIyDeCFIDUrgZpAOItwGxNpIiEHsrEOeA1LBABVcCMRcQ7wRiB6gYiF0FxKtAHBYkE+YDMTcQ7wFiRiDugIoxoCsEgSlQkxmhbDgACDAAsI4S97GRL80AAAAASUVORK5CYII=") 50% no-repeat;
+            transition: transform 0.2s;
+        }
+
+        &-text {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+            &._bold {
+                font-weight: bold;
+            }
+
+            &._sandwich {
+                position: relative;
+                padding-left: 28px;
+                //.icon_sandwich;
+                background-position: 0 50%;
+            }
+        }
+
+        &-suffix {
+            margin-left: 12px;
+            color: fade(#465a6c, 60%);
+        }
+    }
+
+    &._opened &__header {
+        border-bottom: 1px solid #d4d7d9;
+        box-shadow: 0 0;
+    }
+
+    &._opened &__header:after {
+        transform: rotate(-180deg);
+    }
+
+    &__body {
+        position: absolute;
+        top: 100%;
+        margin-top: 2px;
+        width: 100%;
+        min-width: 150px;
+        background-color: #fff;
+        box-shadow: 0 7px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s, opacity 0.3s;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20%);
+        z-index: 100;
+
+        &._wide {
+            width: 140%;
+        }
+
+        &._right {
+            right: 0;
+        }
+    }
+
+    &._opened &__body {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    &__list {
+
+        max-height: 210px;
+        overflow: auto;
+        list-style: none;
+
+        &-item {
+            padding: 0 6px;
+            font-size: 14px;
+            line-height: 30px;
+            cursor: pointer;
+
+            &:hover {
+                background: #f7f7f7;
+            }
+
+            &._selected {
+                background-color: #d4d7d9;
+                cursor: default;
+            }
+
+            &-text {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            &-bottom {
+                margin-top: 2px;
+                padding: 8px 10px;
+                background-color: #f3f3ef;
+
+                &._align-right {
+                    text-align: right;
+                }
+            }
+        }
+
+    }
+
+}

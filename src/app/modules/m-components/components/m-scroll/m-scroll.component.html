@@ -1,0 +1,33 @@
+<div class="m-scroll {{styleClass}}"
+    [ngStyle]="customStyle"
+     #mScroll
+>
+
+    <div class="m-scroll__inner"
+         [ngStyle]="scrollBlockStyle"
+         [ngClass]="{
+            _mobile: mobile
+         }"
+         #mScrollInner>
+
+        <div class="m-scroll__content">
+            <ng-content></ng-content>
+        </div>
+
+    </div>
+
+    <div class="m-scroll__slider-wrap"
+         [style.display]="ySliderWrapVisible ? 'block' : 'none'"
+         #mScrollSliderWrap
+    >
+        <div class="m-scroll__slider"
+             #mScrollSlider
+        ></div>
+    </div>
+    <div class="m-scroll__slider-wrap-horizontal"
+         [style.display]="ySliderHorizontalWrapVisible ? 'block' : 'none'"
+         #mScrollSliderWrapHorizontal
+    >
+        <div class="m-scroll__slider-horizontal" #mScrollSliderHorizontal></div>
+    </div>
+</div>

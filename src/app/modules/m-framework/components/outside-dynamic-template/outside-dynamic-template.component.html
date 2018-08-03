@@ -1,0 +1,12 @@
+<h2>Outside dynamic component</h2>
+
+<ng-template
+        #defaultTemplate
+        let-prop="prop">
+    <div>
+    {{prop}} from template
+    </div>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="inputTemplate || defaultTemplate"
+             [ngTemplateOutletContext ]="{prop: _prop}"></ng-template>

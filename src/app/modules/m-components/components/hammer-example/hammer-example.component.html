@@ -1,0 +1,23 @@
+<h3>Hammer example</h3>
+<div class="hammer-example__pan" (tap)="onTap($event)" style="margin-bottom: 20px;">
+    <h4>Tap example (tap it)</h4>
+    <p>{{panString}}</p>
+</div>
+
+<div class="hammer-example__pan" (swipe)="onSwipe($event)">
+    <h4>Swipe example (swipe it)</h4>
+    <p>Swiped {{isSwiped}}</p>
+</div>
+
+<div class="draggable-area"
+     style="width: 400px;height: 400px;background-color: darkgreen; overflow: hidden;"
+     #draggableArea
+>
+    <div class="draggable-area__content"
+         style="width: 200px;height: 200px;background-color: #4B8AB8;cursor: pointer"
+         #draggableContent
+    >
+        <ng-content></ng-content>
+    </div>
+</div>
+

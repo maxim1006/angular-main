@@ -1,0 +1,40 @@
+<h3>M-autocomplete</h3>
+
+<div class="m-autocomplete {{styleClass}}"
+     [ngClass]="{
+        _opened: opened,
+        _empty: !filteredItems?.length
+     }"
+>
+
+    <div class="m-autocomplete__header">
+        <div class="m-autocomplete__header-input">
+            <input type="text"
+                   [ngClass]="'input _size-x _bordered _length-x'"
+                   [ngModel]="currentValue"
+                   (ngModelChange)="onInputChange($event)"
+                   autocomplete="new password"
+                   (blur)="blur($event)"
+            >
+        </div>
+        <div class="m-autocomplete__header-button"
+             (click)="onButtonClick()"
+        ></div>
+    </div>
+
+    <div class="m-autocomplete__body"
+         *ngIf="opened && filteredItems?.length"
+    >
+        <div class="m-autocomplete__list">
+            <div class="m-autocomplete__list-item"
+                 (click)="setCurrentItem(item)"
+                 [ngClass]="{
+                    _selected: item === currentItem
+                 }"
+                 *ngFor="let item of filteredItems; trackBy: trackByFn">
+                {{item?.name || item}}
+            </div>
+        </div>
+    </div>
+
+</div>

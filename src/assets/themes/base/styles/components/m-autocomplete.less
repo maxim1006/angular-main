@@ -1,0 +1,61 @@
+@import "../common/base";
+
+.m-autocomplete {
+
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    outline: none;
+
+    &__header {
+        display: flex;
+
+        &-button {
+            width: 22px;
+            height: 22px;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+    }
+
+    &._opened &__header-button:before {
+        transform: rotate(-90deg);
+    }
+
+    &__body {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 420px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        background-color: @panel-text;
+    }
+
+    &__list {
+        padding: 10px 0;
+
+        &-item {
+            padding: 0 20px;
+            color: @second;
+            line-height: 50px;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &:hover {
+                background-color: fade(@accepted, 30%);
+            }
+
+            &+& {
+                margin-top: 4px;
+            }
+
+            &._selected {
+                color: @panel-text;
+                background-color: @accepted;
+                cursor: default;
+            }
+        }
+    }
+
+}

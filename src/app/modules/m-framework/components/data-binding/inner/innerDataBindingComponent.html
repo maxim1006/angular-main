@@ -1,0 +1,18 @@
+<h4>Inner component</h4>
+
+<p>{{oneTimeStringBinding}}</p>
+
+<p>One-way simple prop: {{prop?.name}}</p>
+
+<p>One-way alias prop: {{aliasPropInner}}</p>
+
+<p>Two-way (type in input): {{twoWayProp}} <input type="text" [(ngModel)]="twoWayProp" (ngModelChange)="onInnerComponentNgModelChange($event)"></p>
+
+<p (click)="twoWayClick('argument from inner directive', '');">Two-way function (click me)</p>
+
+<span>selected item:</span> {{selectedItem}}
+<ul>
+    <li (click)="selectItem('Item1')">Item1</li>
+    <li (click)="selectItem('Item2')">Item2</li>
+    <li (click)="selectItem('Item3')">Item3</li>
+</ul>

@@ -1,0 +1,9 @@
+<h3>Attribute example</h3>
+
+<p>
+
+    <span [attr.title]="'title'">Simple attribute</span>
+    <button [attr.title]="'button'" [attr.disabled]="true">Multiple attribute</button>
+    <button [attr.title]="getAttributes().title" [attr.disabled]="getAttributes().disabled">Multiple attribute 2</button>
+
+</p>

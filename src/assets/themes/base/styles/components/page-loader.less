@@ -1,0 +1,25 @@
+.page-loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    z-index: 100000;
+    opacity: 0;
+    background: linear-gradient(to right, fade(#71baf8, 25%), #71baf8);
+    transition: transform 0.5s ease 0s, opacity 0s ease 0.6s;
+    transform-origin: 0 0;
+    transform: scaleX(1);
+
+    &._loading-start {
+        transform: scaleX(0);
+        opacity: 1;
+        transition: none;
+    }
+    
+    &._loading {
+        transition: transform 20s cubic-bezier(0, 1, .3, .87) 0s;
+        transform: scaleX(0.9);
+        opacity: 1;
+    }
+}

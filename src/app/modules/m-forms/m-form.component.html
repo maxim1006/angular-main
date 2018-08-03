@@ -1,0 +1,60 @@
+<h3>m-form</h3>
+
+myNgForm.valid {{myNgForm.valid}}<br />
+myNgForm.dirty {{myNgForm.dirty}}
+
+<!--#myNgForm="ngForm" тут myNgForm - ссылка на контроллер формы-->
+<form class="m-form"
+        novalidate
+        #myNgForm="ngForm"
+        [formGroup]="myForm"
+        (ngSubmit)="onSubmit(myForm?.value)"
+>
+     <t-field
+            [fieldLabel]="'Name'"
+            [controlName]="'name'"
+            [form]="myForm"
+            [model]="myForm.get('name').value"
+            [isRequired]="true"
+            (onControlChange)="formModel.name = $event"
+    ></t-field>
+
+    <t-field
+            [fieldLabel]="'Surname'"
+            [controlName]="'surname'"
+            [form]="myForm"
+            [isRequired]="true"
+            [model]="myForm.get('surname').value"
+            (onControlChange)="formModel.surname = $event"
+    ></t-field>
+
+    <t-field
+            [fieldLabel]="'Phone'"
+            [controlName]="'phone'"
+            [form]="myForm"
+            [isRequired]="true"
+            (onControlChange)="formModel.phone = $event"
+    ></t-field>
+
+    <t-field
+            [fieldLabel]="'Email'"
+            [controlName]="'email'"
+            [form]="myForm"
+            [isRequired]="true"
+            (onControlChange)="formModel.email = $event"
+    ></t-field>
+
+    <m-form-control 
+        [formControl]="myForm.get('customFormControl')"     
+        style="display: block;margin-bottom: 20px;"
+    ></m-form-control>
+
+    <div *ngIf="!myForm?.valid && !myForm?.pristine" class="m-form__error _margin-top-m">
+        Form is invalid
+    </div>
+
+    <button type="submit" class="m-form__submit" [disabled]="!myForm.valid">Submit</button>
+
+    <!--<p>formModel: {{formModel | json}}</p>-->
+
+</form>

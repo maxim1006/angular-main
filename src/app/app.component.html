@@ -1,0 +1,21 @@
+<div class="page-loader"
+     [class._loading]="pageLoaderService.pageLoading"
+     [class._loading-start]="pageLoaderService.pageLoadingStart"
+></div>
+
+<nav class="nav">
+    <a class="nav__link" routerLink="/home" routerLinkActive="_active">Home</a>
+    <a class="nav__link" routerLink="/framework" routerLinkActive="_active">Angular framework</a>
+    <a class="nav__link" routerLink="/components" routerLinkActive="_active">Components</a>
+    <a class="nav__link" routerLink="/http" routerLinkActive="_active">Http</a>
+    <a class="nav__link" routerLink="/forms" routerLinkActive="_active">Forms</a>
+    <a class="nav__link" routerLink="/admin" routerLinkActive="_active">Admin</a>
+    <a class="nav__link" routerLink="/lazy" routerLinkActive="_active">Lazy</a>
+    <a class="nav__link" routerLink="/rxjs" routerLinkActive="_active">Rxjs</a>
+    <a class="nav__link" routerLink="/ngrx" routerLinkActive="_active">Ngrx</a>
+</nav>
+
+<main class="main" [@routerTransition]="getState(o)">
+    <router-outlet #o="outlet" (activate)="activateEvent($event)" (deactivate)="deactivateEvent($event)"></router-outlet>
+</main>
+

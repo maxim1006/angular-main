@@ -1,0 +1,19 @@
+<h3>Element link example</h3>
+
+<!--[(ngModel)]="inputValue" - двусоронний биндинг + ngModel-->
+<p>
+    <input type="text" #myInput [(ngModel)]="inputValue"> {{myInput.value}}
+    <button (click)="onButtonClick(myInput, inputValue)">Get input</button>
+</p>
+
+<!--Ничего не передаю, но инпут все-равно есть из-за @ViewChild-->
+<button (click)="getInput()">Get input</button>
+
+<!--@ViewChildren - выбор нескольких ссылок-->
+<p>
+    <input #inputItem type="text" class="input-item">
+    <input #inputItem type="text" class="input-item">
+    <input #inputItem type="text" class="input-item">
+    <br />
+    <button (click)="getInputs()">Get inputs</button>
+</p>

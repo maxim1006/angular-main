@@ -1,0 +1,88 @@
+.m-scroll {
+    //for https://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox fix
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+
+    &__inner {
+        position: relative;
+        overflow: scroll !important;
+        height: ~'calc(100% + 50px)';
+        width: ~'calc(100% + 50px)';
+
+        /*to hide scroll on mobile devices*/
+        &._mobile::-webkit-scrollbar,
+        &._mobile::-webkit-scrollbar-track {
+            display: none;
+            width: 0;
+        }
+    }
+
+    &__content {
+        padding-right: 10px;
+    }
+
+    &__slider-wrap {
+        position: absolute;
+        overflow: hidden;
+        right: 0;
+        top: 0;
+        width: 10px;
+        height: 100%;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    &__slider-wrap-horizontal {
+        position: absolute;
+        overflow: hidden;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 10px;
+        z-index: 10;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    &:hover &__slider-wrap,
+    &:hover &__slider-wrap-horizontal {
+        opacity: 0.6;
+    }
+
+    &__slider {
+        position: absolute;
+        right: 2px;
+        top: 0;
+        width: 6px;
+        background: #bac0c8;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    &__slider-horizontal {
+        position: absolute;
+        left: 0;
+        bottom: 2px;
+        height: 6px;
+        background: #bac0c8;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    &-measure {
+        width: 100px;
+        height: 100px;
+        overflow: scroll;
+        position: absolute;
+        top: -9999px;
+    }
+}
+
+._unselectable {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

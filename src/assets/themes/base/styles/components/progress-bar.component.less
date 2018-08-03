@@ -1,0 +1,32 @@
+.progress-bar {
+  display: block;
+  width: 346px;
+  padding: 15px 50px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+  
+  &__line {
+    position: relative;
+    height: 4px;
+    background-color: #F1F1F1;
+    overflow: hidden;
+
+    &-inner {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateX(-100%);
+      background-color: #4B8AB8;
+      transition: left 0.3s;
+    }
+  }
+
+  &__text {
+    margin-top: 10px;
+    font-size: 12px;
+    font-style: italic;
+    font-family: Arial;
+    color: #666;
+  }
+}

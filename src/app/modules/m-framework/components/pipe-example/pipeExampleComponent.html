@@ -1,0 +1,12 @@
+<h3>Pipe example</h3>
+
+<div>{{time | date:'hh:mm'}} {{time | date:'dd/MM/yyyy'}}</div>
+
+
+<input type="text" [(ngModel)]="filterString">
+
+<p *ngFor="let member of family | custom:filterString; let i = index">
+    {{i}} {{member.name}}
+</p>
+
+{{"impure pipe" | impure}}

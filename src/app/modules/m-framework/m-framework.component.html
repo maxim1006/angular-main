@@ -1,0 +1,125 @@
+<m-animations></m-animations>
+
+<!--<h3>Dynamic component</h3>-->
+<!--<dynamic-component></dynamic-component>-->
+
+<!--<custom-structural-directive></custom-structural-directive>-->
+
+<!--<m-directive-example></m-directive-example>-->
+
+<!--<ng-for-example></ng-for-example>-->
+
+<!--<parent-component></parent-component>-->
+
+<!--<renderer-example></renderer-example>-->
+
+<!--<ng-template-->
+        <!--#dynamicTemplate-->
+    <!--let-prop="prop"-->
+<!--&gt;-->
+    <!--<div>-->
+   <!--insert here dynamic content {{prop}}-->
+    <!--</div>-->
+<!--</ng-template>-->
+
+<!--<outside-dynamic-template [inputTemplate]="dynamicTemplate"></outside-dynamic-template>-->
+
+<!--<m-decorators></m-decorators>-->
+
+<!--<ng-template-example></ng-template-example>-->
+
+<!--<ng-if-example></ng-if-example>-->
+
+<!--<custom-change-detection></custom-change-detection>-->
+
+<!--<detect-property-change [visible]="detectVisiblePropertyChange"></detect-property-change>   <button class="button" (click)="detectPropertyChange()">!!!Change Visible property!!!</button>-->
+
+<!--<ng-for-example-with-object></ng-for-example-with-object>-->
+
+
+<!--<h1 (click)="onClick($event)">-->
+    <!--{{title}}-->
+<!--</h1>-->
+
+
+<!--<p>{{2+2}}</p>-->
+
+<!--<p>{{getValue()}}</p>-->
+
+<!--<p>{{person.name}}</p>-->
+
+<!--<p></p>-->
+
+<!--<element-link></element-link>-->
+
+<!--<data-binding></data-binding>-->
+
+<!--<class-example></class-example>-->
+
+<!--<attribute-example></attribute-example>-->
+
+<!--<style-example></style-example>-->
+
+<!--<event-example></event-example>-->
+
+<!--<encapsulation-example></encapsulation-example>-->
+
+<!--<component-with-directive></component-with-directive>-->
+
+<!--<ngswitch-example></ngswitch-example>-->
+
+<!-- <pipe-example></pipe-example> -->
+
+
+
+<!--#transcludeExample здесь для использования со случаем
+      <class-example *transclude="transcludeExample"></class-example>
+-->
+<!--<transclude-example #transcludeExample [template]="transcludeTemplate">-->
+<!--<transclude-example #transcludeExample>-->
+    <!--Transclude content-->
+
+    <!--&lt;!&ndash;Если оставить просто в <ng-container> то результат попадет после дива в котором он должен отобразиться, это и лечит ngProjectAs&ndash;&gt;-->
+    <!--<ng-container ngProjectAs="class-example">-->
+        <!--<class-example></class-example>-->
+        <!--<class-example></class-example>-->
+        <!--<class-example></class-example>-->
+    <!--</ng-container>-->
+
+    <!--<div #innerTranscludeExampleDiv>-->
+        <!--Inner Transclude component-->
+    <!--</div>-->
+
+    <!--<div ts-content>-->
+        <!--Transcluded content that was initially after div #innerTranscludeExampleDiv-->
+    <!--</div>-->
+<!--</transclude-example>-->
+
+
+<!--этот код такой же  -->
+<!--<ng-template #transcludeTemplate transclude>-->
+    <!--<class-example></class-example>-->
+    <!--<class-example></class-example>-->
+    <!--<class-example></class-example>-->
+<!--</ng-template>-->
+<!--что и этот, только проблема в том, что спроектируется только 1ый <class-example *transclude="transcludeExample" или див>-->
+<!--<div class="transcluded-outside" *transclude="transcludeExample"-->
+<!--&gt;-->
+    <!--outside transcluded div content-->
+    <!--{{item}}-->
+<!--</div>-->
+<!--<class-example *transclude="transcludeExample"></class-example>-->
+<!--<class-example *transclude="transcludeExample"></class-example>-->
+
+
+
+
+<parent-component></parent-component>
+
+<!--<rxjs-example></rxjs-example>-->
+
+<!--<el-native-element></el-native-element>-->
+
+<!--<host-binding></host-binding>-->
+
+

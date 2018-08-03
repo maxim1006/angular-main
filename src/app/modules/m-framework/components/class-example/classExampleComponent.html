@@ -1,0 +1,18 @@
+<h3>Class example</h3>
+
+<p>Property from dynamic creation: {{prop}}</p>
+
+<p>
+
+    <span [class.item]="true">Simple class</span>
+
+    <span [ngClass]="getClasses()">Multiple class</span>
+
+    <span
+        [ngClass]="{
+            item: true,
+            _next: true
+        }"
+    >Multiple class inline</span>
+
+</p>

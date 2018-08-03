@@ -1,0 +1,14 @@
+<h3>ngFor example with Service</h3>
+
+<input type="text" [(ngModel)]="filterValue">
+<button (click)="addItem()">Add Item</button>
+<button (click)="updateList()">Update array</button>
+
+<ul>
+    <!--тут доступны: index, first, last, even, odd-->
+    <li *ngFor="let member of family | custom:filterValue; let i = index; let c = count; let isOdd = odd; trackBy: trackByFn" [style.background]="isOdd ? '#ccc' : ''">
+        {{i+1}}. Name: {{member.name}}<span *ngIf="member.sex === 'male'">, age: {{member.age}}</span>
+
+        <p *ngIf="i === c - 1">Length of array{{c}}</p>
+    </li>
+</ul>

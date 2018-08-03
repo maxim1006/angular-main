@@ -1,0 +1,22 @@
+<h3>Data binding</h3>
+
+<p>
+    <!--one-way binding свойство в [prop]-->
+    <img [src]="image">
+
+    <!--one-way binding функция (function)-->
+    <img [src]="image1" (click)="onImage1Click()">
+
+    <!--2 way data-binding-->
+    <input type="text" [(ngModel)]="inputValue" (ngModelChange)="onModelChange()"> {{inputValue}}
+
+    Outer One-way prop: {{prop.name}}
+
+    <inner-data-binding
+            (onSelectItem)="onSelectItem($event)"
+            [prop]="prop"
+            [alias-prop]="aliasProp"
+            [(twoWayProp)]="inputValue"
+            oneTimeStringBinding="one time string binding"
+    ></inner-data-binding>
+</p>

@@ -1,0 +1,23 @@
+<h3>Style example</h3>
+
+<p>
+
+    <span [style.width]="'10%'" [style.fontSize]="'20px'">style inline</span>
+
+    <span [style.width.%]="'10'" [style.fontSize.px]="'20'">style inline</span>
+
+    <button [ngStyle]="getStyles()">Multiple styles</button>
+
+    <button [ngStyle]="{
+                width: '10%',
+                color: 'red',
+                fontSize: '20px',
+                transform: 'translate(10px, 0)',
+                'background-image': 'url(' + imageUrl + ')',
+                'background-size': 'contain'
+            }"
+            >Multiple styles inline</button>
+
+    <img [src]="img?.url" alt="{{img?.name}}" align="center">
+
+</p>

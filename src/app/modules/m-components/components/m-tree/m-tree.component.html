@@ -1,0 +1,35 @@
+<ul class="m-tree" #rootEl>
+    <ng-container *ngFor="let item of model?.children; trackBy: trackByFn">
+        <li *ngIf="item?.type === 'brunch'"
+            [attr.data-level]="level"
+            (click)="brunchClick($event, item)"
+            [ngClass]="{
+                _opened: item?.opened,
+                _empty: !item?.children?.length
+            }"
+            class="m-tree__brunch {{item?.opened ? '_' + item?.opened : ''}}"
+        >
+            {{item?.text}}
+            <m-tree class="m-tree__brunch-list"
+                    [multipleChoice]="multipleChoice"
+                    [rootInputEl]="level === 1 ? rootEl : rootInputEl"
+                    [model]="item"
+                    [rootModel]="level === 1 ? model : rootModel"
+                    [level]="level"
+                    (clickOutput)="leafClickEmit()"
+            ></m-tree>
+        </li>
+
+        <li *ngIf="item?.type === 'leaf'"
+            [attr.data-level]="level"
+            [ngClass]="{
+                _selected: item?.selected
+            }"
+            (click)="leafClick($event, item)"
+            class="m-tree__leaf {{item?.selected ? '_' + item?.selected : ''}}">
+            <span class="m-tree__leaf-text">{{item?.text}}</span>
+        </li>
+    </ng-container>
+</ul>
+
+

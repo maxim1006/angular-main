@@ -1,0 +1,23 @@
+<h3>*ngIf example</h3>
+
+<p>
+    *ngIf = true <span *ngIf="true">result</span>
+</p>
+<p>
+    *ngIf = false <span *ngIf="false">result</span>
+</p>
+<p>
+    [class.hidden]=true <span [class._hidden]="true">result</span>
+</p>
+<p>
+    [style.display]=value ? 'block' : 'none' <span [style.display]="displayValue ? 'block' : 'none'">result</span>
+</p>
+
+<h4 style="margin-top: 10px">*ngIf="condition; else elseBlock"</h4>
+<div *ngIf="condition; else elseBlock">result</div>
+<ng-template #elseBlock>elseBlock</ng-template>
+
+<h4 style="margin-top: 10px">*ngIf="thenCondition; then thenBlock else elseThenBlock"</h4>
+<div *ngIf="thenCondition; then thenBlock else elseThenBlock">result</div>
+<ng-template #thenBlock>thenBlock</ng-template>
+<ng-template #elseThenBlock>elseThenBlock</ng-template>

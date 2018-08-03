@@ -1,0 +1,32 @@
+.t-field {
+
+    &__label {
+        margin-bottom: 10px;
+        font-size: 18px;
+
+        &-appendix {
+            color: #E4465A;
+        }
+    }
+
+    &__errors,
+    &__hint {
+        margin-top: 6px;
+        font-size: 16px;
+        line-height: 24px;
+        color: #E4465A;
+
+        .account-info-form__field._zip & {
+            white-space: nowrap;
+        }
+    }
+
+    &__hint {
+        color: #888888;
+    }
+
+    &__errors + &__hint {
+        margin-top: 2px;
+    }
+
+}

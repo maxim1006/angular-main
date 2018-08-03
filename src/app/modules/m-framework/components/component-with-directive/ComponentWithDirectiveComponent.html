@@ -1,0 +1,7 @@
+<h3>Component with directive</h3>
+
+<input type="text" [(ngModel)]="value" simple-log> {{value}}
+
+<p ngNonBindable>I can see {{this is not interpolated}}</p>
+
+<p [custom-directive]="options">Custom directive</p>

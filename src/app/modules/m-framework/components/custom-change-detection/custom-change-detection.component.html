@@ -1,0 +1,6 @@
+<h3 id="customChangeDetectionComponentHeader">Custom Change Detection example (triggers browser click)</h3>
+<button (click)="click()">Trigger change on click</button>
+
+<h4>Object</h4>
+{{obj?.name}} - from CustomChangeDetectionComponent <br>
+<custom-change-detection-inner [name]="obj.name" [obj]="obj" #inner></custom-change-detection-inner>

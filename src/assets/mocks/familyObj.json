@@ -1,0 +1,10 @@
+{
+    "Max": {
+        "age": 29,
+        "sex": "male"
+    },
+    "Aliya": {
+       "age": 30,
+       "sex": "female"
+    }
+}

@@ -1,0 +1,54 @@
+<h3>Пример загрузки списка</h3>
+
+<p>Основной</p>
+<ng-container *ngIf="(family$ | async) as family; else loading">
+    <ul>
+        <li *ngFor="let member of family">
+            {{member?.name}} - {{member?.age}}
+        </li>
+    </ul>
+</ng-container>
+
+<p>Такой же хороший</p>
+<ul *ngIf="(family$ | async) as family; else loading">
+    <li *ngFor="let member of family">
+        {{member?.name}} - {{member?.age}}
+    </li>
+</ul>
+
+<p>Похуже</p>
+<ul>
+    <li *ngFor="let member of (family$ | async)">
+        {{member?.name}} - {{member?.age}}
+    </li>
+</ul>
+
+<ng-template #loading>
+    Loading...
+</ng-template>
+
+<h3>Пример загрузки файла</h3>
+<div class="upload-button">
+    <span class="upload-button__text">
+        Attach files
+    </span>
+    <input class="upload-button__input"
+           #uploadFilesInput
+           type="file"
+           name="file"
+           multiple
+           (click)="uploadButtonClick()"
+           (change)="attachFiles(uploadFilesInput.files)"
+    >
+</div>
+
+<span style="position:relative;margin-left: 40px;">
+    <m-loader [isActive]="isLoading" [text]="progress"></m-loader>
+</span>
+
+<ul>
+    <li *ngFor="let file of uploadedFiles">
+        <span class="upload-button__text">{{file?.name}}: {{file?.size}} is loaded</span>
+    </li>
+</ul>
+

@@ -1,0 +1,9 @@
+<h3>ngFor example With Object</h3>
+
+<ul>
+    <!--тут доступны: index, first, last, even, odd-->
+    {{family | json}}
+    <li *ngFor="let member of family | objToArrPipe; let i = index;">
+        {{i+1}}. Name: {{member.key}}<span *ngIf="member?.value?.sex === 'male'">, age: {{member?.value?.age}}</span>
+    </li>
+</ul>

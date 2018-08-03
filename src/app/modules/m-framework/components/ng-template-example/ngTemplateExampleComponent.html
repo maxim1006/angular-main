@@ -1,0 +1,18 @@
+<h3>ng-template example</h3>
+
+<ng-template #example let-from="from">
+    <p>&laquo;ng-template&raquo; content from {{from}}</p>
+</ng-template>
+
+<ng-container
+        [ngTemplateOutlet]="example"
+        [ngTemplateOutletContext]="{from: 'ng-container'}"
+></ng-container>
+
+<ng-template
+        [ngTemplateOutlet]="example"
+        [ngTemplateOutletContext]="{from: 'ng-template'}"
+></ng-template>
+
+<ng-template *ngTemplateOutlet="example; context: {from: 'ng-template like structual directive'}"
+></ng-template>

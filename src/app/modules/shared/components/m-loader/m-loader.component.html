@@ -1,0 +1,15 @@
+<div class="m-loader-wrapper" *ngIf="_isLoading">
+
+    <div class="m-loader {{modifier}}">
+        <div class="m-loader__child1"></div>
+        <div class="m-loader__child2"></div>
+
+        <div class="m-loader__text" *ngIf="text">
+            {{text}}
+            <span class="m-loader__text-dot _1">.</span>
+            <span class="m-loader__text-dot _2">.</span>
+            <span class="m-loader__text-dot _3">.</span>
+        </div>
+    </div>
+
+</div>

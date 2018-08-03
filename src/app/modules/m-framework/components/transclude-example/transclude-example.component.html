@@ -1,0 +1,48 @@
+<h3>Transclude example</h3>
+
+<ng-content select="[ts-content]"></ng-content>
+
+
+<div class="class">
+    <!--*ngIf=true - не будет убивать и заново создавать элементы, которые сюда передали, она работает как appendChild в этом случае, те просто забирает контент и вставляет сюда-->
+    <!--ng-content - работает как parent.appendChild(el), те ничего нового не создает, а просто аппендит код в нужное место из места где этот код отрендерился-->
+    <ng-content
+            *ngIf="_toggleNgContent && !template; else template"
+            select="class-example"
+    ></ng-content>
+</div>
+
+<!--Могу задать через ; else template, а могу так -->
+<div class="templateOutlet"
+     [ngTemplateOutlet]="template"
+></div>
+<!--или-->
+<ng-container
+     [ngTemplateOutlet]="template"
+></ng-container>
+<ng-template
+        [ngTemplateOutlet]="template"
+        [ngTemplateOutletContext]="{
+            item: 1
+        }"
+></ng-template>
+<!--или-->
+<!--<ng-container-->
+        <!--*ngFor="let item of [1,2]; template: template"-->
+<!--&gt;</ng-container>-->
+
+<span (click)="_toggleNgContent = !_toggleNgContent">Toggle ng-content</span>
+
+
+
+<inner-transclude-example></inner-transclude-example>
+
+
+
+<!--in child-->
+<!--<ng-content select=".class"></ng-content>-->
+<!--<ng-content select="h1"></ng-content>-->
+
+<!--in parent-->
+<!--<span class="class"></span>-->
+<!--<h1 class="punchline"></h1>-->
