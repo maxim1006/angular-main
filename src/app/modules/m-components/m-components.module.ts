@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {MComponentsComponent} from "./m-components.component";
 import {MAutocompleteComponent} from "./components/m-autocomplete/m-autocomplete.component";
@@ -20,6 +20,7 @@ import {MGraphWrapperComponent} from "./components/m-graph/wrapper/m-graph-wrapp
 import {MSparklineGraphComponent} from "./components/m-graph/sparkline/m-sparkline-graph.component";
 import {MSlideToggleComponent} from "./components/slide-toggle/slide-toggle.component";
 import {ProgressBarComponent} from "./components/progress-bar/progress-bar.component";
+import {MGridExampleComponent} from './components/grid-example/grid-example.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -51,9 +52,9 @@ let directives = [
 
 
 @NgModule({
-    imports: [SharedModule, HttpModule, FormsModule, RouterModule.forChild(routes)],
+    imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
     declarations: [
-        ...components, ...directives
+        ...components, ...directives, MGridExampleComponent
     ],
     exports: [MComponentsComponent],
     entryComponents: [...components],
