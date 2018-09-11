@@ -7,7 +7,8 @@ import {DynamicHostDirective} from "./dynamic-host.directive";
 @Component({
     selector: 'dynamic-component',
     template: `
-    
+        <div #viewFromSomeDiv class="some-div-view-container"></div>
+        
         <ng-template #tmpl let-options>
             
             Template createEmbeddedView with property: {{options?.prop}} 
@@ -27,6 +28,8 @@ import {DynamicHostDirective} from "./dynamic-host.directive";
 export class DynamicComponent {
     @ViewChild("tmpl")
     public template: any;
+
+    @ViewChild("viewFromSomeDiv", {read: ViewContainerRef}) viewFromSomeDiv: ViewContainerRef;
 
     @ViewChild(DynamicHostDirective) host: DynamicHostDirective;
 
@@ -49,6 +52,7 @@ export class DynamicComponent {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ClassExampleComponent);
 
         this._componentRef = this.view.createComponent(componentFactory);
+        this.viewFromSomeDiv.createComponent(componentFactory);
 
         const data = {prop: "createComponent prop"};
 
