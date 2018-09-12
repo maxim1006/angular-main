@@ -52,7 +52,10 @@ export class DynamicComponent {
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ClassExampleComponent);
 
         this._componentRef = this.view.createComponent(componentFactory);
-        this.viewFromSomeDiv.createComponent(componentFactory);
+
+        let dynamicComponentFromSomeDiv = this.viewFromSomeDiv.createComponent(componentFactory);
+
+        console.log(dynamicComponentFromSomeDiv.instance); // могу у него менять проперти и делать subscribe на эвент эмиттер
 
         const data = {prop: "createComponent prop"};
 
