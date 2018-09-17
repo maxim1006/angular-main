@@ -1,8 +1,20 @@
 <h3>ng-template example</h3>
 
+<div class="some-div" #someDiv></div>
+
+<!--Этот темплейт встанет сразу после дива-->
+<ng-template #tmpl let-name let-city="city">
+    {{name}}: {{city}}
+</ng-template>
+
 <ng-template #example let-from="from">
     <p>&laquo;ng-template&raquo; content from {{from}}</p>
 </ng-template>
+
+<div
+    [ngTemplateOutlet]="example"
+    [ngTemplateOutletContext]="{from: 'div'}"
+></div>
 
 <ng-container
         [ngTemplateOutlet]="example"
