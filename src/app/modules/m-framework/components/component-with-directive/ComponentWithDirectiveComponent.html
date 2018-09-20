@@ -1,7 +1,28 @@
-<h3>Component with directive</h3>
+<h3>Component with directive
+    <span tooltip="Here u can see directives"
+        #myTooltip="tooltip"
+        (mouseenter)="myTooltip.show()"
+        (mouseleave)="myTooltip.hide()"
+    >
+        [?]
+    </span>
+</h3>
 
 <input type="text" [(ngModel)]="value" simple-log> {{value}}
 
 <p ngNonBindable>I can see {{this is not interpolated}}</p>
 
 <p [custom-directive]="options">Custom directive</p>
+
+Список через *myFor
+<ul>
+    <li *myFor="let item of items; let i = index">{{item.name}}</li>
+</ul>
+
+<ul>
+    <li myFor [MyForOf]="items">
+        <ng-template let-item let-i="index">
+            {{item.name}}
+        </ng-template>
+    </li>
+</ul>

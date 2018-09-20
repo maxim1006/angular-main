@@ -40,6 +40,8 @@ import {CustomStructuralDirective} from "./directives/custom-structural.directiv
 import {CustomStructuralDirectiveComponent} from "./components/custom-structure-directive/custom-structural-directive.component";
 import {DynamicHostDirective} from "./components/dynamic/dynamic-host.directive";
 import { MAnimationsComponent } from "./components/animations/animationa.component";
+import {TooltipDirective} from "./directives/tooltip.directive";
+import {MyForDirective} from "./directives/my-for.directive";
 
 const routes: Routes = [
     {path: '', component: MFrameworkComponent},
@@ -85,7 +87,9 @@ const routes: Routes = [
         RendererExampleComponent,
         TranscludeDirective,
         DynamicHostDirective,
-        MAnimationsComponent
+        MAnimationsComponent,
+        TooltipDirective,
+        MyForDirective
     ],
     exports: [MFrameworkComponent, ClassExampleComponent, DynamicComponent],
     providers: [],

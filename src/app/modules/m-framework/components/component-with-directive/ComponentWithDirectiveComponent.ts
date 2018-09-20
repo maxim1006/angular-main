@@ -35,4 +35,10 @@ export class ComponentWithDirectiveComponent implements OnInit {
             prop2
         }
     }
+
+    items = [
+        "Max",
+        "Aliya",
+        "Lili"
+    ];
 }
