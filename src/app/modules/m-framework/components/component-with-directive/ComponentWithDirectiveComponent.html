@@ -16,13 +16,13 @@
 
 Список через *myFor
 <ul>
-    <li *myFor="let item of items; let i = index">{{item.name}}</li>
+    <li *myFor="let item of items; let i = index">{{item}}</li>
 </ul>
 
 <ul>
-    <li myFor [MyForOf]="items">
-        <ng-template let-item let-i="index">
-            {{item.name}}
-        </ng-template>
-    </li>
+    <ng-template myFor [myForOf]="items" let-item let-i="index">
+        <li>
+            {{item}}
+        </li>
+    </ng-template>
 </ul>
