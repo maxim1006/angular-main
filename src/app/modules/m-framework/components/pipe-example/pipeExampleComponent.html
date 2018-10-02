@@ -9,4 +9,11 @@
     {{i}} {{member.name}}
 </p>
 
+<ul>
+   <li *ngFor="let file of files$ | async">
+       {{file?.name}}
+       {{file?.size | filesize: "Mb"}}
+   </li>
+</ul>
+
 {{"impure pipe" | impure}}

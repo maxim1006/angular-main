@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import {from, Observable, of} from "rxjs/index";
 
 @Component({
     selector: "pipe-example",
@@ -8,6 +9,8 @@ import { Component } from "@angular/core";
 export class PipeExampleComponent {
     public filterString:string;
     public time:string = new Date().toString();
+
+    files$: Observable<any>;
 
     family = [
         {
@@ -26,4 +29,12 @@ export class PipeExampleComponent {
             sex: "male"
         }
     ];
+
+    ngOnInit() {
+        this.files$ = of([
+            {name: "file1", size: 24},
+            {name: "file2", size: 48},
+            {name: "file3", size: 96}
+        ]);
+    }
 }
