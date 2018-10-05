@@ -71,6 +71,12 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //     console.log('from([1, 1, 2, 3]) ', event); // 1, 2, 3
         // });
 
+        // from([
+        //     {name: "file1"},
+        //     {name: "file2"},
+        //     {name: "file3"}
+        // ]).subscribe((data) => {console.log("from ", data);}) // {name: "file1"}, затем {name: "file2"}, затем {name: "file3"}
+
         // from('str')
         // .subscribe((event) => {
         //     console.log('from(str) ', event); // s, t, r

@@ -9,10 +9,19 @@
     {{i}} {{member.name}}
 </p>
 
+<h3>Custom pipe</h3>
 <ul>
    <li *ngFor="let file of files$ | async">
        {{file?.name}}
        {{file?.size | filesize: "Mb"}}
+   </li>
+</ul>
+
+<h3>Pipe as provider</h3>
+<ul>
+   <li *ngFor="let file of filesPipeAsProvider">
+       {{file?.name}}
+       {{file?.size}}
    </li>
 </ul>
 
