@@ -23,10 +23,8 @@ export function nameValidator(control: FormControl) {
             if (controlValue && controlValue.charAt(0) === controlValue.toLocaleLowerCase().charAt(0)) {
                 resolve({invalidName: true});
             } else {
-                resolve({invalidName: false});
+                resolve(null);
             }
-
-            console.log(self, "async name validation end");
         }, 2000);
 
         previousName = controlValue;

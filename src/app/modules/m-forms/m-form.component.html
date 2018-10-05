@@ -1,60 +1,69 @@
 <h3>m-form</h3>
 
-myNgForm.valid {{myNgForm.valid}}<br />
-myNgForm.dirty {{myNgForm.dirty}}
-
 <!--#myNgForm="ngForm" тут myNgForm - ссылка на контроллер формы-->
 <form class="m-form"
         novalidate
         #myNgForm="ngForm"
         [formGroup]="myForm"
-        (ngSubmit)="onSubmit(myForm?.value)"
+        (ngSubmit)="onSubmit(myForm.value)"
 >
      <t-field
             [fieldLabel]="'Name'"
-            [controlName]="'name'"
-            [form]="myForm"
-            [model]="myForm.get('name').value"
+            formControlName="name"
             [isRequired]="true"
-            (onControlChange)="formModel.name = $event"
     ></t-field>
+
+    <div style="color: red" *ngIf="_getErrorText('name') && !myForm.controls.name.untouched">Max length should be < 10</div>
 
     <t-field
             [fieldLabel]="'Surname'"
-            [controlName]="'surname'"
-            [form]="myForm"
+            formControlName="surname"
             [isRequired]="true"
-            [model]="myForm.get('surname').value"
-            (onControlChange)="formModel.surname = $event"
     ></t-field>
+
+    <div>
+        Age:
+        <input formControlName="age" type="text" inputmode="numeric" pattern="[0-9]*">
+    </div>
 
     <t-field
             [fieldLabel]="'Phone'"
-            [controlName]="'phone'"
-            [form]="myForm"
-            [isRequired]="true"
-            (onControlChange)="formModel.phone = $event"
+            formControlName="phone"
     ></t-field>
 
-    <t-field
-            [fieldLabel]="'Email'"
-            [controlName]="'email'"
-            [form]="myForm"
-            [isRequired]="true"
-            (onControlChange)="formModel.email = $event"
-    ></t-field>
+    <div formGroupName="nested">
+        <t-field
+                [fieldLabel]="'Email'"
+                formControlName="email"
+        ></t-field>
+    </div>
 
-    <m-form-control 
-        [formControl]="myForm.get('customFormControl')"     
-        style="display: block;margin-bottom: 20px;"
-    ></m-form-control>
+    <div formArrayName="dynamicFields">
+        <h3>Dynamically added fields</h3>
 
-    <div *ngIf="!myForm?.valid && !myForm?.pristine" class="m-form__error _margin-top-m">
+        <div style="display: flex;">
+            <ng-container *ngFor="let control of _dynamicFields?.controls; let i = index;">
+                <t-field
+                    [fieldLabel]="'Dynamic text field'"
+                    [formControlName]="i"
+                ></t-field>
+                <div style="cursor: pointer;"
+                     (click)="_removeField(i)"
+                >Remove {{i}}</div>
+            </ng-container>
+        </div>
+    </div>
+
+    <div *ngIf="myForm?.invalid && !myForm?.pristine" class="m-form__error _margin-top-m">
         Form is invalid
     </div>
 
     <button type="submit" class="m-form__submit" [disabled]="!myForm.valid">Submit</button>
-
-    <!--<p>formModel: {{formModel | json}}</p>-->
-
+    <button type="button" class="m-form__submit" (click)="_patchValue()">patch</button>
+    <button type="button" class="m-form__submit" (click)="_resetForm()">reset</button>
+    <button type="button" class="m-form__submit" (click)="_addField()">Add field</button>
 </form>
+
+myNgForm.valid {{myNgForm.valid}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; myNgForm.dirty {{myNgForm.dirty}}
+<p>formModel: {{myForm.value | json}}</p>
+

@@ -7,7 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MFormControlComponent } from './components/form-control/form-control.component';
 
 @NgModule({
-    imports: [SharedModule, HttpModule, FormsModule, ReactiveFormsModule],
+    imports: [SharedModule, ReactiveFormsModule],
     declarations: [MFormComponent, TField, MFormControlComponent],
     exports: [MFormComponent],
     providers: [
