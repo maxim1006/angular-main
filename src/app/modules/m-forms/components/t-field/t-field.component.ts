@@ -19,6 +19,9 @@ export class TField implements ControlValueAccessor {
     @HostBinding("class.t-field")
     private hostClass = true;
 
+    @HostBinding("class._disabled")
+    private disabledState = false;
+
     @ViewChild("input")
     private inputRef: ElementRef;
 
@@ -105,6 +108,10 @@ export class TField implements ControlValueAccessor {
         if (this.inputRef && this.inputRef.nativeElement) {
             this.inputRef.nativeElement.value = this.value;
         }
+    }
+
+    public setDisabledState(isDisabled: boolean): void {
+        this.disabledState = isDisabled;
     }
 
 }

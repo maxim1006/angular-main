@@ -3,7 +3,7 @@
 
 import {Component, OnInit, ViewChild} from "@angular/core";
 import {FormBuilder, FormGroup, Validators, AbstractControl, FormControl, NgForm, FormArray} from "@angular/forms";
-import {nameValidator} from "./validators/validators";
+import {ayncNameValidator, dynamicFieldValidator, nameValidator} from "./validators/validators";
 import {ValidationConstants} from "../shared/constants/validation.constant";
 
 @Component({
@@ -71,11 +71,12 @@ export class MFormComponent implements OnInit {
             'name':[
                     //исходный value в input, нужно еще проставить disabled иначе приходит object, либо первым аргументом передавать не объект, а значение
                     "",
-                Validators.compose([Validators.required, Validators.maxLength(10)])
+                Validators.compose([Validators.required, Validators.maxLength(10), nameValidator()])
             ], //пример с кастомной валидацией
             'surname': [
                 "",
-                Validators.compose([Validators.required, Validators.maxLength(10)])
+                [Validators.required, Validators.maxLength(10)],
+                [ayncNameValidator]
             ],
             'age': [
                 ""
@@ -91,6 +92,8 @@ export class MFormComponent implements OnInit {
                 ],
             }),
             "dynamicFields": this.fb.array([])
+        }, {
+            validator: dynamicFieldValidator()
         });
 
         // this.myForm.controls["name"].valueChanges.subscribe((value: string) => {
@@ -115,6 +118,7 @@ export class MFormComponent implements OnInit {
         // this.form.controls[i].markAsDirty();
 
         // Default values  //https://angular.io/docs/ts/latest/api/forms/index/FormControl-class.html
+        // setValue отличается от patchValue тем, что в setValue мы должны передавать (в случае если value - объект) - объект целиком со всеми свойствами, а patchValue достаточно только 1 свойство передать.
         // this.myForm.controls['name'].setValue('max', {});
         // this.myForm.controls['name'].markAsDirty();
 
@@ -144,9 +148,24 @@ export class MFormComponent implements OnInit {
             if (control.errors["maxlength"] !== undefined) {
                 errorText = `Value should be less then ${control.errors["maxlength"].requiredLength}`;
             }
+
+            if (control.errors["nameValidation"] !== undefined) {
+                errorText = `Should start with capital letter`;
+            }
+
+            if (control.errors["ayncNameValidation"] !== undefined) {
+                errorText = `Async validation: should start with capital letter`;
+            }
         }
 
         return errorText;
     }
 
+    public enableControl(control: FormControl) {
+        control.enable();
+    }
+
+    public disableControl(control: FormControl) {
+        control.disable();
+    }
 }

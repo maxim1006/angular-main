@@ -13,13 +13,15 @@
             [isRequired]="true"
     ></t-field>
 
-    <div style="color: red" *ngIf="_getErrorText('name') && !myForm.controls.name.untouched">Max length should be < 10</div>
+    <div style="color: red" *ngIf="_getErrorText('name') && !myForm.controls.name.untouched">{{_getErrorText('name')}}</div>
 
     <t-field
             [fieldLabel]="'Surname'"
             formControlName="surname"
             [isRequired]="true"
     ></t-field>
+
+    <div style="color: red" *ngIf="_getErrorText('surname') && !myForm.controls.surname.untouched">{{_getErrorText('surname')}}</div>
 
     <div>
         Age:
@@ -41,16 +43,22 @@
     <div formArrayName="dynamicFields">
         <h3>Dynamically added fields</h3>
 
-        <div style="display: flex;">
-            <ng-container *ngFor="let control of _dynamicFields?.controls; let i = index;">
+        <div style="display: flex;flex-wrap: wrap">
+            <div style="margin: 0 30px 30px 0" *ngFor="let control of _dynamicFields?.controls; let i = index;">
                 <t-field
                     [fieldLabel]="'Dynamic text field'"
                     [formControlName]="i"
                 ></t-field>
-                <div style="cursor: pointer;"
+                <div style="cursor: pointer;margin-right: 10px;"
                      (click)="_removeField(i)"
-                >Remove {{i}}</div>
-            </ng-container>
+                >Remove</div>
+                <div style="cursor: pointer;margin-right: 10px;"
+                     (click)="disableControl(_dynamicFields?.controls[i])"
+                >Disable</div>
+                <div style="cursor: pointer;"
+                     (click)="enableControl(_dynamicFields?.controls[i])"
+                >Enable</div>
+            </div>
         </div>
     </div>
 
