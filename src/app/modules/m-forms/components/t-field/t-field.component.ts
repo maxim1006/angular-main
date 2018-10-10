@@ -62,6 +62,9 @@ export class TField implements ControlValueAccessor {
     public disabled: boolean;
 
     @Input()
+    public maxlength: number;
+
+    @Input()
     public model: any;
 
     @Input()

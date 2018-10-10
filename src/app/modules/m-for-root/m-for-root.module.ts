@@ -1,7 +1,9 @@
-import {NgModule} from '@angular/core';
+import {InjectionToken, ModuleWithProviders, NgModule} from '@angular/core';
 
 import {MForRootComponent} from './m-for-root.component';
 import {MForRootService} from "./m-for-root.service";
+
+export const ForRootDataServiceConfig = new InjectionToken('mForRootDataService'); // делаю этот токен, чтобы не перезаписывался сервис, если вдруг 2 одинаковых имени зададут подряд.
 
 @NgModule({
     imports: [],
@@ -10,13 +12,13 @@ import {MForRootService} from "./m-for-root.service";
     providers: [],
 })
 export class MForRootModule {
-    static forRoot(data: any): any {
+    static forRoot(data: any): ModuleWithProviders {
 
         return {
             ngModule: MForRootModule,
             providers: [
                 MForRootService,
-                {provide: 'mForRootDataService', useValue: data}
+                {provide: ForRootDataServiceConfig, useValue: data || {}}
             ]
         }
     }

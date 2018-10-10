@@ -9,7 +9,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
-            useExisting: MFormControlComponent,
+            useExisting: MFormControlComponent, // еще используется, чтобы выдать только методы, которые хотел
             multi: true
         }
     ]
