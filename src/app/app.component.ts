@@ -51,16 +51,13 @@ export const routerTransition1: any = trigger('routerTransition', [
     // styleUrls: ['./app.component.css']
     animations: [ routerTransition1 ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
     @HostBinding("class")
     public hostClass: String = "app-component";
 
 
     constructor(public pageLoaderService: PageLoaderService) {}
-
-    ngOnInit() {
-    }
 
     activateEvent(event) {
         this.pageLoaderService.activateRoute(event);

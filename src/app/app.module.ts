@@ -11,20 +11,21 @@ import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {MHomeModule} from "./modules/m-home/m-home.module";
-import {MAdminModule} from "./modules/m-admin/m-admin.module";
 import {MRxjsModule} from "./modules/m-rxjs/m-rxjs.module";
 import {MForRootModule} from "./modules/m-for-root/m-for-root.module";
 import {SharedModule} from "./modules/shared/shared.module";
 import {RouteService} from "./route.service";
 import {MFormsModule} from "./modules/m-forms/m-forms.module";
 import {MHttpModule} from "./modules/m-http/m-http.module";
-import {AppRoutingModule, MyPreloadStrategy} from "./app-routing.module";
+import {AppRoutingModule, MyPreloadStrategy, ProtectedLazyGuard} from "./app-routing.module";
 import {PageUtilsService} from "./common/services/page-utils.service";
 import {domenToken} from "./modules/shared/tokens/tokens";
 import {AppService} from "./modules/app.service";
 import {HammerPluginPatch} from "./common/patches/hammer-plugin.patch";
 import {PageLoaderService} from "./common/services/page-loader.service";
 import {StaticInjector} from "@angular/core/src/di/injector";
+import {MAdminComponent} from "./modules/admin/admin.component";
+import {MAdminGuardService} from "./modules/admin/admin-guard.service";
 
 
 export function routeServiceFactory (route: RouteService):()=>{} {
@@ -48,7 +49,8 @@ const childInjector: Injector = Injector.create({
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        MAdminComponent
     ],
     imports: [
         BrowserModule, //подключает коммон модуль, директивы, пайпы
@@ -59,7 +61,6 @@ const childInjector: Injector = Injector.create({
         MFormsModule,
         MHttpModule,
         SharedModule,
-        MAdminModule,
         MRxjsModule,
         MForRootModule.forRoot({data: 1}), //так могу в модуль прокинуть инфу
         AppRoutingModule //этот модуль, в котором все руты приложения должен идти в самом конце, после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
@@ -67,9 +68,11 @@ const childInjector: Injector = Injector.create({
     providers: [
         PageUtilsService,
         PageLoaderService,
+        MAdminGuardService,
         {provide: domenToken, useValue: domenToken},
         {provide: "NamedService", useClass: AppService, multi: true},
         MyPreloadStrategy,
+        ProtectedLazyGuard,
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig

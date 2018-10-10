@@ -1,0 +1,36 @@
+<h3>Router component</h3>
+
+
+<div>
+
+    <a routerLink="/router" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" style="margin-right: 20px;">default router</a>
+    <!--<a routerLink="/router/1" [queryParams]="{page: 1}" routerLinkActive="active" style="margin-right: 20px;">router 1</a>-->
+    <!--это как пример перехода с параметрами-->
+    <!--<a [routerLink]="['/router', 1]" [queryParams]="{page: 1}"  routerLinkActive="active" style="margin-right: 20px;">router 1</a>-->
+    <!--это как пример закрытия именованного аутлета и переход на основной-->
+    <a [routerLink]="['/router',{outlets: {primary: '1', routerPopup: null}}]"
+       [queryParams]="{page: 1}"  routerLinkActive="active" style="margin-right: 20px;">router 1</a>
+    <!--[routerLink]="['/router', 2]" - так передаю параметры, а также могу сделать 2ичку динамической-->
+    <a [routerLink]="['/router',{outlets: {primary: '2', routerPopup: null}}]" [queryParams]="{page: 2}" routerLinkActive="active" style="margin-right: 20px;">router 2</a>
+
+    <a [routerLink]="['/router/default', {outlets: {routerPopup: 'routerPopupPath'}}]" routerLinkActive="active">router popup</a>
+
+</div>
+
+
+<p>Please insert your router ID</p>
+<form (submit)="submit(id)" novalidate>
+    <input [(ngModel)]="id" name="id" type="number">
+    <button type="submit">Submit</button>
+</form>
+
+<router-outlet
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+></router-outlet>
+
+
+
+
+
+

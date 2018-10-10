@@ -5,6 +5,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
 import {NavigationEnd, Router} from "@angular/router/";
 import {concatMap, map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs/index";
 
 
 export const slideInDownAnimation: any =
@@ -33,15 +34,17 @@ export const slideInDownAnimation: any =
 
 
 @Component({
-    selector: "admin-id",
+    selector: "router-id",
     template: `
         Your id is: {{params.id}}<br />
         param is: {{params.param}}
         Your data is: {{family | json}}
+
+        <router-outlet name="routerPopup"></router-outlet>
     `,
     animations: [ slideInDownAnimation ]
 })
-export class AdminIdComponent implements OnInit {
+export class RouterIdComponent implements OnInit {
     routerSubscription: any;
     public family;
     @HostBinding('@routeAnimation') routeAnimation = true;
@@ -53,18 +56,19 @@ export class AdminIdComponent implements OnInit {
     constructor(private route: ActivatedRoute,
                 private http: HttpClient,
                 private router: Router,
-                private cdr: ChangeDetectorRef,
-                @Inject(domenToken) private _domenToken
+                private cdr: ChangeDetectorRef
     ) {}
 
 
     ngOnInit() {
-        this.params = this.route.snapshot.params;
+        // так могу получить 1 раз
+        // this.params = this.route.snapshot.params;
 
         this.route.params.pipe(
             concatMap(
                     (params: Params) => {
-                        return this.http.get(`http://localhost:4201/assets/mocks/family` + params['id'] + '.json')
+                        this.params = params;
+                        return this.http.get(`${domenToken}family` + params['id'] + '.json')
                     }
             ))
             .pipe(
@@ -99,4 +103,7 @@ export class AdminIdComponent implements OnInit {
     ngOnDestroy() {
         this.routerSubscription.unsubscribe();
     }
+
+    // так могу прокидывать данные из роутера в компонент (resolve)
+    resolvedDataInRoute: Observable<any> = this.route.data;
 }
