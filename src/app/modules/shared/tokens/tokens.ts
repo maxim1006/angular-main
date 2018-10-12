@@ -1,5 +1,5 @@
 import {InjectionToken} from "@angular/core";
 
-const opaqueToken = new InjectionToken('domen');
+const injectionToken = new InjectionToken('domen');
 
-export const domenToken = "./assets/mocks/";
+export const domenToken = "http://localhost:3000/";
