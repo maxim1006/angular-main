@@ -33,28 +33,3 @@ export class MNgrxComponent implements OnInit {
     }
 }
 
-
-// Redux
-// state, reducer, dispatch, Store, middleware (effects in ngrx)
-
-// store - контейнер для state
-// state - представление приложение, которое хранится в store
-
-// Store {
-//     state
-//
-//     private reducer(state, action) {
-//         switch(action) {
-//             case("1"):
-//                 return state.copy();
-//                 break;
-//         }
-//     }
-//
-//     dispatch(action) {
-//         return reducer(state, action);
-//     }
-// }
-
-// middleware - позволют подписываться на асинхронные события
-// в ngrx - это эффекты

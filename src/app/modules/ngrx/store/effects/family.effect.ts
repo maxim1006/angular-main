@@ -21,7 +21,7 @@ export class FamilyEffect {
     loadFamily$: Observable<Action> = this.actions$.pipe(
         ofType(FamilyActionTypes.Load),
         mergeMap(action =>
-            this.http.get(`${domenToken}family.json`).pipe(
+            this.http.get(`${domenToken}family`).pipe(
                 map((data: FamilyMember[]) => (new FamilyLoadSuccessAction(data))),
                 catchError(err => of(new FamilyLoadFailureAction(err)))
             )

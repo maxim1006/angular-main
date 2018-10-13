@@ -48,6 +48,7 @@ const routes: Routes = [
     {path: 'ngrx', loadChildren: './modules/ngrx/ngrx.module#MNgrxModule', data: {state: 'ngrx', preload: true}},
     {path: 'redux', loadChildren: './modules/redux/redux.module#MReduxModule', data: {state: 'ngrx', preload: true}},
     {path: 'my-store', loadChildren: './modules/my-store/my-store.module#MyStoreModule'},
+    {path: 'my-redux-store', loadChildren: './modules/my-redux-store/my-redux-store.module#MyReduxStoreModule'},
     //  preload: true - делаю специально, чтобы не подгружать лезийный модуль с помощью прелоадинга
     {path: 'lazy', loadChildren: './modules/m-lazy/m-lazy.module#MLazyModule', data: { state: 'lazy'}},
     {path: 'protected-lazy',

@@ -60,7 +60,7 @@ export class MNgrxEffectsComponent implements OnInit {
         let name = inputName.value,
             age = +inputAge.value;
 
-        if (!name || !name) {
+        if (!name) {
             return;
         }
 
