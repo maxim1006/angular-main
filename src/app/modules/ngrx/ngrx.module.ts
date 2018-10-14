@@ -3,14 +3,17 @@ import {NgModule} from '@angular/core';
 import {MNgrxComponent} from './ngrx.component';
 import {SharedModule} from "../shared/shared.module";
 import {RouterModule, Routes} from "@angular/router";
-import {StoreModule} from "@ngrx/store";
+import {MetaReducer, StoreModule} from "@ngrx/store";
 import {counterReducer} from "./store/reducers/counter.reducer";
 import {MNgrxEffectsComponent} from "./components/ngrx-effects.component";
 import {familyReducer} from "./store/reducers/family.reducer";
 import {EffectsModule} from "@ngrx/effects";
 import {FamilyEffect} from "./store/effects/family.effect";
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {storeFreeze} from 'ngrx-store-freeze';
+import {environment} from "../../../environments/environment";
 
-
+export const metaReducers: MetaReducer<any>[] = !environment.production ? [storeFreeze] : [];
 
 // Redux
 
@@ -107,8 +110,26 @@ import {FamilyEffect} from "./store/effects/family.effect";
 
 
 
+/*
+* NGRX
+*
+* Reactive state management
+*
+* Reducer returns a pice of state to => Container component => presentational component
+*
+* Container (Aware of store, Dispatches actions, reads data from store)
+* Presentational (Not aware of store, trigger callbacks via @Output)
+* Read data from @Inputs
+*
+* */
+
+
 const routes: Routes = [
     {path: '', component: MNgrxComponent},
+    {
+        path: 'products',
+        loadChildren: './modules/products/products.module#ProductsModule',
+    },
 ];
 
 
@@ -122,13 +143,14 @@ const routes: Routes = [
     {
                 counter: counterReducer,
                 family: familyReducer
-            },
+            }, { metaReducers }
             // могу задать initial state
             // {initialState: {
             //     counter: 0
             // }}
         ),
-        EffectsModule.forRoot([FamilyEffect])
+        EffectsModule.forRoot([FamilyEffect]),
+        environment.hmr ? StoreDevtoolsModule.instrument() : [],
     ],
     exports: [],
     declarations: [

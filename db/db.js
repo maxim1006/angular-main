@@ -7,5 +7,7 @@ module.exports = () => {
         family2: require("./mocks/family2.json"),
         familyObj: require("./mocks/familyObj.json"),
         mocks: require("./mocks/mocks.json"),
+        toppings: require("./mocks/toppings.json"),
+        pizzas: require("./mocks/pizzas.json"),
     }
 };
