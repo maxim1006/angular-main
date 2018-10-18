@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Pizza} from '../../models/pizza.model';
-import {ProductsState} from "../../store/index";
 import {Store} from "@ngrx/store";
 import * as fromStore from "../../store";
 import {Observable} from "rxjs/index";
+import {ProductsState} from "../../store/reducers";
 
 @Component({
     selector: 'products',
@@ -40,5 +40,6 @@ export class ProductsComponent implements OnInit {
 
     ngOnInit() {
         this.pizzas$ = this.store.select(fromStore.getAllPizzas);
+        this.store.dispatch(new fromStore.LoadPizzas);
     }
 }
