@@ -14,6 +14,9 @@ import * as fromContainers from './containers';
 import * as fromServices from './services';
 import {StoreModule} from "@ngrx/store";
 import {productsReducers} from "./store/index";
+import {EffectsModule} from '@ngrx/effects';
+import {FamilyEffect} from '../../store/effects/family.effect';
+import * as FromEffects from './store/effects';
 
 // routes
 export const ROUTES: Routes = [
@@ -38,7 +41,8 @@ export const ROUTES: Routes = [
     HttpClientModule,
     RouterModule.forChild(ROUTES),
       // forFeature использую для лезийных модулей, свой кусок стора этот модуль добавит к общему
-      StoreModule.forFeature('products', productsReducers)
+      StoreModule.forFeature('products', productsReducers),
+      EffectsModule.forFeature([FromEffects.PizzasEffects]),
   ],
   providers: [...fromServices.services],
   declarations: [...fromContainers.containers, ...fromComponents.components],

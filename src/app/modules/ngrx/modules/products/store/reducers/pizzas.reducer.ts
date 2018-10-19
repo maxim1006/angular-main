@@ -1,5 +1,5 @@
-import {Pizza} from "../../models/pizza.model";
-import {LOAD_PIZZAS, LOAD_PIZZAS_FAIL, LOAD_PIZZAS_SUCCESS, PizzasAction} from "../actions/pizzas.action";
+import {Pizza} from '../../models/pizza.model';
+import {PizzasActionTypes, PizzasActionUnion} from '../actions';
 
 export interface PizzaState {
     data: Pizza[];
@@ -8,55 +8,14 @@ export interface PizzaState {
 }
 
 export const initialState: PizzaState = {
-    data: [{
-        "name": "Seaside Surfin'",
-        "toppings": [
-            {
-                "id": 6,
-                "name": "mushroom"
-            },
-            {
-                "id": 7,
-                "name": "olive"
-            },
-            {
-                "id": 2,
-                "name": "bacon"
-            },
-            {
-                "id": 3,
-                "name": "basil"
-            },
-            {
-                "id": 1,
-                "name": "anchovy"
-            },
-            {
-                "id": 8,
-                "name": "onion"
-            },
-            {
-                "id": 11,
-                "name": "sweetcorn"
-            },
-            {
-                "id": 9,
-                "name": "pepper"
-            },
-            {
-                "id": 5,
-                "name": "mozzarella"
-            }
-        ],
-        "id": 2
-    }],
+    data: [],
     loaded: false,
     loading: false
 };
 
-export function pizzaReducer(state = initialState, action: PizzasAction): PizzaState {
+export function pizzaReducer(state = initialState, action: PizzasActionUnion): PizzaState {
     switch (action.type) {
-        case LOAD_PIZZAS: {
+        case PizzasActionTypes.Load: {
             return {
                 ...state,
                 loading: true,
@@ -64,15 +23,17 @@ export function pizzaReducer(state = initialState, action: PizzasAction): PizzaS
             };
         }
 
-        case LOAD_PIZZAS_SUCCESS: {
+        case PizzasActionTypes.LoadSuccess: {
+            console.log(action.payload);
             return {
                 ...state,
                 loading: false,
-                loaded: true
+                loaded: true,
+                data: [...action.payload]
             };
         }
 
-        case LOAD_PIZZAS_FAIL: {
+        case PizzasActionTypes.LoadFail: {
             return {
                 ...state,
                 loading: false,
