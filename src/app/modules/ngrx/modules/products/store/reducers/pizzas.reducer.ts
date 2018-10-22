@@ -2,13 +2,13 @@ import {Pizza} from '../../models/pizza.model';
 import {PizzasActionTypes, PizzasActionUnion} from '../actions';
 
 export interface PizzaState {
-    data: Pizza[];
+    entities?: {[id: number]: Pizza};
     loaded: boolean;
     loading: boolean;
 }
 
 export const initialState: PizzaState = {
-    data: [],
+    entities: {},
     loaded: false,
     loading: false
 };
@@ -25,11 +25,23 @@ export function pizzaReducer(state = initialState, action: PizzasActionUnion): P
 
         case PizzasActionTypes.LoadSuccess: {
             console.log(action.payload);
+            const pizzas = action.payload;
+
+            // превращаю массив в объект
+            const entities =  pizzas.reduce((entities: {[id: number]: Pizza}, pizza) => {
+                    return {
+                        ...entities,
+                        [pizza.id]: pizza
+                    };
+                },
+                {...state.entities}
+            );
+
             return {
                 ...state,
                 loading: false,
                 loaded: true,
-                data: [...action.payload]
+                entities
             };
         }
 
@@ -47,6 +59,6 @@ export function pizzaReducer(state = initialState, action: PizzasActionUnion): P
 }
 
 // небольшие функции которые помогут вытащить нужную дату из store
+export const getPizzaEntities = (state: PizzaState) => state.entities;
 export const getPizzasLoading = (state: PizzaState) => state.loading;
 export const getPizzasLoaded = (state: PizzaState) => state.loaded;
-export const getPizzas = (state: PizzaState) => state.data;

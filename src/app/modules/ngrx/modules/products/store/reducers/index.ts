@@ -16,7 +16,11 @@ export const getProductsState = createFeatureSelector<ProductsState>('products')
 // pizza state, те сверху мы получили продукты, а теперь стейт для пиц, когда мы внутри пиц, мы можем использовать пицца редюсеры, селекторы мемоизированы и нужны чтобы быстро добираться до свойств стора. Тут спускаюсь по стейт три вниз от продуктов до пиц, от пиц до ее свойств
 export const getPizzaState = createSelector(getProductsState, (state: ProductsState) => state.pizzas);
 
-export const getAllPizzas = createSelector(getPizzaState, fromPizzasReducer.getPizzas);
+export const getPizzaEntities = createSelector(getPizzaState, fromPizzasReducer.getPizzaEntities);
+
+export const getAllPizzas = createSelector(getPizzaEntities, (entities) => {
+    return Object.keys(entities).map(id => entities[id]);
+});
 
 export const getPizzasLoaded = createSelector(getPizzaState, fromPizzasReducer.getPizzasLoaded);
 

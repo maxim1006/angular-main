@@ -17,6 +17,8 @@ export const metaReducers: MetaReducer<any>[] = !environment.production ? [store
 
 // Redux
 
+// http://extension.remotedev.io/ - дев тулз для хрома
+
 // Redux 3 principles
 //
 // Single source of truth (One state tree inside Store, predictability, Server side rendering, testing and debugging)

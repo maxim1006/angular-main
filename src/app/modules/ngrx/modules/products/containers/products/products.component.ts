@@ -37,7 +37,7 @@ export class ProductsComponent implements OnInit {
     constructor(private store: Store<ProductsState>) {
     }
 
-    pizzas$: Observable<Pizza[]>;
+    pizzas$: Observable<{[id: number]: Pizza}>;
 
     ngOnInit() {
         this.pizzas$ = this.store.pipe(select(fromStore.getAllPizzas));
