@@ -73,6 +73,7 @@ const childInjector: Injector = Injector.create({
         {provide: "NamedService", useClass: AppService, multi: true},
         MyPreloadStrategy,
         ProtectedLazyGuard,
+        {provide: "someOptionalObject.someOptionalProperty", useValue: "someOptionalPropertyValueFromOptionalProveder"},
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig
