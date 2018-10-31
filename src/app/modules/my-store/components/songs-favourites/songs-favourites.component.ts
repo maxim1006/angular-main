@@ -14,7 +14,7 @@ import {filter, map, takeUntil} from "rxjs/internal/operators";
 })
 
 export class SongsFavouritesComponent implements OnInit {
-    private favourites$: Observable<any>;
+    public favourites$: Observable<any>;
     private destroy$: Subject<any> = new Subject();
     constructor(private store: MyStore, private myStoreService: MyStoreService) {
     }

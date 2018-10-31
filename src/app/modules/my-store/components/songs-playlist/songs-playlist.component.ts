@@ -15,7 +15,7 @@ import {takeUntil} from "rxjs/internal/operators";
 })
 
 export class SongsPlayListComponent implements OnInit, OnDestroy {
-    private playlist$: Observable<any>;
+    public playlist$: Observable<any>;
     private destroy$: Subject<any> = new Subject();
     constructor(private store: MyStore, private myStoreService: MyStoreService) {
     }

@@ -37,7 +37,7 @@ interface PropertyHandlers<T> {
 
 export function PropertyHandler<T>(handlers: PropertyHandlers<T>): PropertyDecorator {
 
-    return (target: any, propertyKey: string | symbol): void => {
+    return (target: any, propertyKey: string): void => {
 
         let spoofPropertyKey = `__PropertyHandler_${propertyKey}_value`;
 
