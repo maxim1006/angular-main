@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, HostBinding, Inject, OnInit, Optional} from '@angular/core';
 import {PageLoaderService} from "./common/services/page-loader.service";
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from "@angular/animations";
 
@@ -57,7 +57,10 @@ export class AppComponent {
     public hostClass: String = "app-component";
 
 
-    constructor(public pageLoaderService: PageLoaderService) {}
+    constructor(
+        @Optional() @Inject("someOptionalObject.someOptionalProperty") private optionalPropery,
+        public pageLoaderService: PageLoaderService
+    ) {}
 
     activateEvent(event) {
         this.pageLoaderService.activateRoute(event);
