@@ -13,7 +13,7 @@ export const initialState: PizzaState = {
     loading: false
 };
 
-export function pizzaReducer(state = initialState, action: PizzasActionUnion): PizzaState {
+export function reducer(state = initialState, action: PizzasActionUnion): PizzaState {
     switch (action.type) {
         case PizzasActionTypes.Load: {
             return {

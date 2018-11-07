@@ -6,6 +6,10 @@ import { PizzasService } from '../../services/pizzas.service';
 
 import { Topping } from '../../models/topping.model';
 import { ToppingsService } from '../../services/toppings.service';
+import {LoadToppingsAction} from '../../store/actions';
+import {Store} from '@ngrx/store';
+import * as fromStore from "../../store";
+import {ProductsState} from "../../store/reducers";
 
 @Component({
   selector: 'product-item',
@@ -36,24 +40,27 @@ export class ProductItemComponent implements OnInit {
     private pizzaService: PizzasService,
     private toppingsService: ToppingsService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<fromStore.ProductsState>,
   ) {}
 
   ngOnInit() {
-    this.pizzaService.getPizzas().subscribe(pizzas => {
-      const param = this.route.snapshot.params.id;
-      let pizza;
-      if (param === 'new') {
-        pizza = {};
-      } else {
-        pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
-      }
-      this.pizza = pizza;
-      this.toppingsService.getToppings().subscribe(toppings => {
-        this.toppings = toppings;
-        this.onSelect(toppings.map(topping => topping.id));
-      });
-    });
+      this.store.dispatch(new LoadToppingsAction());
+
+    // this.pizzaService.getPizzas().subscribe(pizzas => {
+    //   const param = this.route.snapshot.params.id;
+    //   let pizza;
+    //   if (param === 'new') {
+    //     pizza = {};
+    //   } else {
+    //     pizza = pizzas.find(pizza => pizza.id == parseInt(param, 10));
+    //   }
+    //   this.pizza = pizza;
+    //   this.toppingsService.getToppings().subscribe(toppings => {
+    //     this.toppings = toppings;
+    //     this.onSelect(toppings.map(topping => topping.id));
+    //   });
+    // });
   }
 
   onSelect(event: number[]) {
