@@ -1,7 +1,7 @@
 // в данном случае это типо апп редюсеры
 import * as fromRouter from '@ngrx/router-store';
-import {Params} from "@angular/router";
-import {ActionReducerMap, createFeatureSelector} from "@ngrx/store";
+import {ActivatedRouteSnapshot, Params, RouterStateSnapshot} from '@angular/router';
+import {ActionReducerMap, createFeatureSelector} from '@ngrx/store';
 
 export interface RouterStateUrl {
     url: string;
@@ -10,13 +10,29 @@ export interface RouterStateUrl {
 }
 
 export interface State {
-    routerReducer: fromRouter.RouterReducerState<RouterStateUrl>
+    routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
 }
 
 export const reducers: ActionReducerMap<State> = {
     routerReducer: fromRouter.routerReducer
 };
 
-export const getRouterState = createFeatureSelector<
-        fromRouter.RouterReducerState<RouterStateUrl>
-    >('routerReducer');
+export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState<RouterStateUrl>>('routerReducer');
+
+export class CustomSerializer implements fromRouter.RouterStateSerializer<RouterStateUrl> {
+    serialize(routerState: RouterStateSnapshot): RouterStateUrl {
+        const {url} = routerState;
+        const {queryParams} = routerState.root;
+
+        let state: ActivatedRouteSnapshot = routerState.root;
+
+        while (state.firstChild) {
+            state = state.firstChild;
+        }
+
+        const {params} = state;
+
+        // этот объект будет в нашем store tree, когда что-то изменится в роутере вызовется эта функция и мы получим обновленный объект с текущим router state
+        return {url, queryParams, params};
+    }
+}

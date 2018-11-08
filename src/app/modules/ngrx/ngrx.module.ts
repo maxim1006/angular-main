@@ -12,7 +12,8 @@ import {FamilyEffect} from "./store/effects/family.effect";
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
 import {environment} from "../../../environments/environment";
-import {reducers} from "./store/reducers/index";
+import {reducers, CustomSerializer} from "./store/reducers";
+import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
 
 export const metaReducers: MetaReducer<any>[] = !environment.production ? [storeFreeze] : [];
 
@@ -154,6 +155,7 @@ const routes: Routes = [
             //     counter: 0
             // }}
         ),
+        StoreRouterConnectingModule,
         EffectsModule.forRoot([FamilyEffect]),
         environment.hmr ? StoreDevtoolsModule.instrument() : [],
     ],
@@ -162,7 +164,11 @@ const routes: Routes = [
         MNgrxComponent,
         MNgrxEffectsComponent
     ],
-    providers: [],
+    providers: [
+        {
+            provide: RouterStateSerializer, useClass: CustomSerializer
+        }
+    ],
 })
 export class MNgrxModule {
 }
