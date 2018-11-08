@@ -12,6 +12,7 @@ import {FamilyEffect} from "./store/effects/family.effect";
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
 import {environment} from "../../../environments/environment";
+import {reducers} from "./store/reducers/index";
 
 export const metaReducers: MetaReducer<any>[] = !environment.production ? [storeFreeze] : [];
 
@@ -141,8 +142,10 @@ const routes: Routes = [
     imports: [
         SharedModule,
         RouterModule.forChild(routes),
+        // в данном случае это типо апп стор
         StoreModule.forRoot(
     {
+                ...reducers,
                 counter: counterReducer,
                 family: familyReducer
             }, { metaReducers }
