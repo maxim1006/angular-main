@@ -7,6 +7,7 @@ import {select, Store} from '@ngrx/store';
 import * as fromStore from '../../store';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
+import {CreatePizzaAction} from '../../store';
 
 @Component({
   selector: 'product-item',
@@ -82,6 +83,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   onCreate(event: Pizza) {
+      this.store.dispatch(new fromStore.CreatePizzaAction(event));
     // this.pizzaService.createPizza(event).subscribe(pizza => {
     //   this.router.navigate([`/ngrx/products`]);
     // });
