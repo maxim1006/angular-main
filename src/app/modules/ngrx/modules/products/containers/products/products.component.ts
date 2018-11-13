@@ -2,10 +2,9 @@ import {Component, OnInit} from '@angular/core';
 
 import {Pizza} from '../../models/pizza.model';
 import {select, Store} from '@ngrx/store';
-import * as fromStore from "../../store";
-import {ProductsState} from "../../store/reducers";
-import {Observable} from "rxjs/index";
-import {LoadPizzasAction, LoadToppingsAction} from '../../store';
+import * as fromStore from '../../store';
+import {ProductsState} from '../../store/reducers';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'products',
@@ -41,6 +40,7 @@ export class ProductsComponent implements OnInit {
 
     ngOnInit() {
         this.pizzas$ = this.store.pipe(select(fromStore.getAllPizzas));
-        this.store.dispatch(new LoadPizzasAction());
+        this.store.dispatch(new fromStore.LoadPizzasAction());
+        this.store.dispatch(new fromStore.LoadToppingsAction());
     }
 }

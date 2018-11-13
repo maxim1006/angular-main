@@ -24,7 +24,6 @@ export function reducer(state = initialState, action: PizzasActionUnion): PizzaS
         }
 
         case PizzasActionTypes.LoadSuccess: {
-            console.log(action.payload);
             const pizzas = action.payload;
 
             // превращаю массив в объект
@@ -50,6 +49,19 @@ export function reducer(state = initialState, action: PizzasActionUnion): PizzaS
                 ...state,
                 loading: false,
                 loaded: false
+            };
+        }
+
+        case PizzasActionTypes.CreateSuccess: {
+            const newPizza = action.payload;
+            const entities = {
+                ...state.entities,
+                [newPizza.id]: newPizza
+            };
+
+            return {
+                ...state,
+                entities
             };
         }
 

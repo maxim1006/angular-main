@@ -1,15 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
 
-import { Pizza } from '../../models/pizza.model';
-import { PizzasService } from '../../services/pizzas.service';
+import {Pizza} from '../../models/pizza.model';
 
-import { Topping } from '../../models/topping.model';
-import { ToppingsService } from '../../services/toppings.service';
-import {LoadToppingsAction} from '../../store/actions';
-import {Store} from '@ngrx/store';
-import * as fromStore from "../../store";
-import {ProductsState} from "../../store/reducers";
+import {Topping} from '../../models/topping.model';
+import {select, Store} from '@ngrx/store';
+import * as fromStore from '../../store';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {CreatePizzaAction} from '../../store';
 
 @Component({
   selector: 'product-item',
@@ -18,34 +16,42 @@ import {ProductsState} from "../../store/reducers";
     <div 
       class="product-item">
       <pizza-form
-        [pizza]="pizza"
-        [toppings]="toppings"
+        [pizza]="pizza$ | async"
+        [toppings]="toppings$ | async"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
         (remove)="onRemove($event)">
         <pizza-display
-          [pizza]="visualise">
+          [pizza]="visualise$ | async">
         </pizza-display>
       </pizza-form>
     </div>
   `,
 })
 export class ProductItemComponent implements OnInit {
-  pizza: Pizza;
-  visualise: Pizza;
-  toppings: Topping[];
+  pizza$: Observable<Pizza>;
+  visualise$: Observable<Pizza>;
+  toppings$: Observable<Topping[]>;
 
   constructor(
-    private pizzaService: PizzasService,
-    private toppingsService: ToppingsService,
-    private route: ActivatedRoute,
-    private router: Router,
     private store: Store<fromStore.ProductsState>,
   ) {}
 
   ngOnInit() {
-      this.store.dispatch(new LoadToppingsAction());
+      this.pizza$ = this.store.pipe(select(fromStore.getSelectedPizza))
+          .pipe(tap((pizza: Pizza = null) => {
+              let toppings = [];
+
+              if (pizza && pizza.toppings) {
+                  toppings = pizza.toppings.map(topping => topping.id);
+              }
+
+              this.store.dispatch(new fromStore.VisualiseToppingsAction(toppings));
+          }));
+      this.toppings$ = this.store.pipe(select(fromStore.getAllToppings));
+      this.visualise$ = this.store.pipe(select(fromStore.getPizzaVisualised));
+
 
     // this.pizzaService.getPizzas().subscribe(pizzas => {
     //   const param = this.route.snapshot.params.id;
@@ -64,35 +70,37 @@ export class ProductItemComponent implements OnInit {
   }
 
   onSelect(event: number[]) {
-    let toppings;
-    if (this.toppings && this.toppings.length) {
-      toppings = event.map(id =>
-        this.toppings.find(topping => topping.id === id)
-      );
-    } else {
-      toppings = this.pizza.toppings;
-    }
-    this.visualise = { ...this.pizza, toppings };
+      this.store.dispatch(new fromStore.VisualiseToppingsAction(event));
+    // let toppings;
+    // if (this.toppings && this.toppings.length) {
+    //   toppings = event.map(id =>
+    //     this.toppings.find(topping => topping.id === id)
+    //   );
+    // } else {
+    //   toppings = this.pizza.toppings;
+    // }
+    // this.visualise = { ...this.pizza, toppings };
   }
 
   onCreate(event: Pizza) {
-    this.pizzaService.createPizza(event).subscribe(pizza => {
-      this.router.navigate([`/ngrx/products`]);
-    });
+      this.store.dispatch(new fromStore.CreatePizzaAction(event));
+    // this.pizzaService.createPizza(event).subscribe(pizza => {
+    //   this.router.navigate([`/ngrx/products`]);
+    // });
   }
 
   onUpdate(event: Pizza) {
-    this.pizzaService.updatePizza(event).subscribe(() => {
-      this.router.navigate([`/ngrx/products`]);
-    });
+    // this.pizzaService.updatePizza(event).subscribe(() => {
+    //   this.router.navigate([`/ngrx/products`]);
+    // });
   }
 
   onRemove(event: Pizza) {
     const remove = window.confirm('Are you sure?');
     if (remove) {
-      this.pizzaService.removePizza(event).subscribe(() => {
-        this.router.navigate([`/ngrx/products`]);
-      });
+      // this.pizzaService.removePizza(event).subscribe(() => {
+      //   this.router.navigate([`/ngrx/products`]);
+      // });
     }
   }
 }

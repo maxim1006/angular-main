@@ -5,7 +5,11 @@ import {Pizza} from "../../models/pizza.model";
 export enum PizzasActionTypes {
     Load = '[Products] Load Pizzas',
     LoadSuccess = '[Products] Load Pizzas Success',
-    LoadFail = '[Products] Load Pizzas Fail'
+    LoadFail = '[Products] Load Pizzas Fail',
+
+    Create = '[Products] Create Pizza',
+    CreateSuccess = '[Products] Create Pizza Success',
+    CreateFail = '[Products] Create Pizza Faikl'
 }
 
 export class LoadPizzasAction implements Action {
@@ -22,7 +26,29 @@ export class LoadPizzasSuccessAction implements Action {
     constructor(public payload: Pizza[]) {}
 }
 
+// create pizza
+export class CreatePizzaAction implements Action {
+    readonly type = PizzasActionTypes.Create;
+    constructor(public payload: any) {}
+}
+
+export class CreatePizzaSuccessAction implements Action {
+    readonly type = PizzasActionTypes.CreateSuccess;
+    constructor(public payload: any) {}
+}
+
+export class CreatePizzaFailAction implements Action {
+    readonly type = PizzasActionTypes.CreateFail;
+    constructor(public payload: any) {}
+}
+
 // action types
-export type PizzasActionUnion = LoadPizzasAction | LoadPizzasFailAction | LoadPizzasSuccessAction;
+export type PizzasActionUnion =
+    | LoadPizzasAction
+    | LoadPizzasFailAction
+    | LoadPizzasSuccessAction
+    | CreatePizzaAction
+    | CreatePizzaSuccessAction
+    | CreatePizzaFailAction;
 
 
