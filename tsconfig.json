@@ -10,6 +10,8 @@
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "strictFunctionTypes": false,
+        "strictPropertyInitialization": false,
+        "noStrictGenericChecks": true,
         "target": "es5",
         "typeRoots": [
             "node_modules/@types"

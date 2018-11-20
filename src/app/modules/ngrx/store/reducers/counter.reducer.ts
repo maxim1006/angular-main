@@ -1,10 +1,11 @@
 import {CounterActionTypes, CounterActionsUnion} from "../actions/counter.action";
 
+export type CounterState = number;
 
-const INITIAL_STATE = 0;
+let initialState = 0;
 
 
-export function reducer(state: number = INITIAL_STATE, action: CounterActionsUnion) {
+export function reducer(state: CounterState = initialState, action: CounterActionsUnion) {
     switch (action.type) {
         case CounterActionTypes.Increment:
 
@@ -19,3 +20,7 @@ export function reducer(state: number = INITIAL_STATE, action: CounterActionsUni
             return state;
     }
 }
+
+export const getCurrentCounter = (state: CounterState) => {
+    return state;
+};

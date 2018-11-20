@@ -15,7 +15,7 @@ export interface RouterStateUrl {
 
 export interface State {
     routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
-    counter: number;
+    counter: fromCounterReducer.CounterState;
     family: fromFamilyReducer.FamilyState;
 }
 
@@ -26,6 +26,8 @@ export const reducers: ActionReducerMap<State> = {
 };
 
 export const getFamilyState = createFeatureSelector<fromFamilyReducer.FamilyState>('family');
+
+export const getCounterState = createFeatureSelector<fromCounterReducer.CounterState>('counter');
 
 export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState<RouterStateUrl>>('routerReducer');
 

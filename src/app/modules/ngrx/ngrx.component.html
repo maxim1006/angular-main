@@ -2,7 +2,9 @@
 
 
 <button type="button" (click)="_increase()">+</button>
-<p>{{_counter$ | async}}</p>
+<p>Reducer {{_counter$ | async}}</p>
+<p>Selector {{_counterSelector$ | async}}</p>
+<p>Route Selector {{_counterRouteSelector$ | async}}</p>
 <button type="button" (click)="_decrease()">-</button>
 
 <p>
