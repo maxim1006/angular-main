@@ -1,4 +1,4 @@
-import * as fromToppings from '../actions/toppings.action';
+import * as fromToppingActions from '../actions/toppings.action';
 import {Topping} from '../../models/topping.model';
 import {Pizza} from '../../models/pizza.model';
 
@@ -20,10 +20,10 @@ export const initialState: ToppingsState = {
 
 
 
-export function reducer(state = initialState, action: fromToppings.ToppingsActionUnion): ToppingsState {
+export function reducer(state = initialState, action: fromToppingActions.ToppingsActionUnion): ToppingsState {
 
     switch (action.type) {
-        case fromToppings.ToppingsActionTypes.VisualiseToppings: {
+        case fromToppingActions.ToppingsActionTypes.VisualiseToppings: {
             const selectedToppings = action.payload;
             return {
                 ...state,
@@ -31,14 +31,14 @@ export function reducer(state = initialState, action: fromToppings.ToppingsActio
             };
         }
 
-        case fromToppings.ToppingsActionTypes.Load: {
+        case fromToppingActions.ToppingsActionTypes.Load: {
             return {
                 ...state,
                 loading: true
             };
         }
 
-        case fromToppings.ToppingsActionTypes.LoadSuccess: {
+        case fromToppingActions.ToppingsActionTypes.LoadSuccess: {
             const toppings = action.payload;
 
             const entities =  toppings.reduce((entities: {[id: number]: Topping}, topping) => {
@@ -58,7 +58,7 @@ export function reducer(state = initialState, action: fromToppings.ToppingsActio
             };
         }
 
-        case fromToppings.ToppingsActionTypes.LoadFail: {
+        case fromToppingActions.ToppingsActionTypes.LoadFail: {
             return {
                 ...state,
                 loaded: false,

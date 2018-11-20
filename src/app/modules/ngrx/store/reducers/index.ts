@@ -1,7 +1,11 @@
 // в данном случае это типо апп редюсеры
 import * as fromRouter from '@ngrx/router-store';
+import * as fromFamilyReducer from './family.reducer';
+import * as fromCounterReducer from './counter.reducer';
 import {ActivatedRouteSnapshot, Params, RouterStateSnapshot} from '@angular/router';
-import {ActionReducerMap, createFeatureSelector} from '@ngrx/store';
+import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
+import {RouterStateSerializer} from "@ngrx/router-store";
+
 
 export interface RouterStateUrl {
     url: string;
@@ -11,28 +15,37 @@ export interface RouterStateUrl {
 
 export interface State {
     routerReducer: fromRouter.RouterReducerState<RouterStateUrl>;
+    counter: number;
+    family: fromFamilyReducer.FamilyState;
 }
 
 export const reducers: ActionReducerMap<State> = {
-    routerReducer: fromRouter.routerReducer
+    routerReducer: fromRouter.routerReducer,
+    counter: fromCounterReducer.reducer,
+    family: fromFamilyReducer.reducer
 };
+
+export const getFamilyState = createFeatureSelector<fromFamilyReducer.FamilyState>('family');
 
 export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState<RouterStateUrl>>('routerReducer');
 
-export class CustomSerializer implements fromRouter.RouterStateSerializer<RouterStateUrl> {
+
+export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {
     serialize(routerState: RouterStateSnapshot): RouterStateUrl {
-        const {url} = routerState;
-        const {queryParams} = routerState.root;
+        let route = routerState.root;
 
-        let state: ActivatedRouteSnapshot = routerState.root;
-
-        while (state.firstChild) {
-            state = state.firstChild;
+        while (route.firstChild) {
+            route = route.firstChild;
         }
 
-        const {params} = state;
+        const {
+            url,
+            root: { queryParams },
+        } = routerState;
+        const { params } = route;
 
-        // этот объект будет в нашем store tree, когда что-то изменится в роутере вызовется эта функция и мы получим обновленный объект с текущим router state
-        return {url, queryParams, params};
+        // Only return an object including the URL, params and query params
+        // instead of the entire snapshot
+        return { url, params, queryParams };
     }
 }

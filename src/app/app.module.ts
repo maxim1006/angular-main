@@ -96,7 +96,7 @@ const childInjector: Injector = Injector.create({
             multi: true
         },
 
-        //{provide: APP_BASE_HREF, useValue: '/'} //можно исxjsExampleComponent.tsпользовать вместо <base href="/">
+        //{provide: APP_BASE_HREF, useValue: '/'} //можно использовать ExampleComponent.ts вместо <base href="/">
     ],
     bootstrap: [
         AppComponent
@@ -104,7 +104,7 @@ const childInjector: Injector = Injector.create({
 })
 export class AppModule {
     constructor (private injector: Injector) {
-        console.log(this.injector.get(PageUtilsService) === childInjector.get(PageUtilsService)); //создал новый инстанс сервиса (см. выше) и сравниваю с общим
+        // console.log(this.injector.get(PageUtilsService) === childInjector.get(PageUtilsService)); // false - создал новый инстанс сервиса (см. выше) и сравниваю с общим
     }
 }
 

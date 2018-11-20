@@ -4,16 +4,14 @@ import {MNgrxComponent} from './ngrx.component';
 import {SharedModule} from "../shared/shared.module";
 import {RouterModule, Routes} from "@angular/router";
 import {MetaReducer, StoreModule} from "@ngrx/store";
-import {counterReducer} from "./store/reducers/counter.reducer";
 import {MNgrxEffectsComponent} from "./components/ngrx-effects.component";
-import {familyReducer} from "./store/reducers/family.reducer";
 import {EffectsModule} from "@ngrx/effects";
-import {FamilyEffect} from "./store/effects/family.effect";
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {storeFreeze} from 'ngrx-store-freeze';
 import {environment} from "../../../environments/environment";
-import {reducers, CustomSerializer} from "./store/reducers";
+import {reducers, effects, CustomSerializer} from "./store";
 import {RouterStateSerializer, StoreRouterConnectingModule} from '@ngrx/router-store';
+
 
 export const metaReducers: MetaReducer<any>[] = !environment.production ? [storeFreeze] : [];
 
@@ -146,9 +144,7 @@ const routes: Routes = [
         // в данном случае это типо апп стор
         StoreModule.forRoot(
     {
-                ...reducers,
-                counter: counterReducer,
-                family: familyReducer
+                ...reducers
             }, { metaReducers }
             // могу задать initial state
             // {initialState: {
@@ -156,8 +152,11 @@ const routes: Routes = [
             // }}
         ),
         StoreRouterConnectingModule,
-        EffectsModule.forRoot([FamilyEffect]),
-        environment.hmr ? StoreDevtoolsModule.instrument() : [],
+        EffectsModule.forRoot(effects),
+        environment.hmr ? StoreDevtoolsModule.instrument({
+            name: 'NgRx App',
+            logOnly: environment.production,
+        }) : [],
     ],
     exports: [],
     declarations: [

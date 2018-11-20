@@ -1,31 +1,88 @@
-import {FamilyMember} from "../../components/ngrx-effects.component";
-import {FamilyActionsUnion, FamilyActionTypes} from "../actions/family.action";
+import * as fromFamilyActions from "../actions";
+import {FamilyMember} from "../../models/family.model";
 
-let initialState = [];
+export interface FamilyState {
+    entities: {
+        [id: number]: FamilyMember
+    },
+    loaded: boolean;
+    loading: boolean;
+}
 
-export function familyReducer(state: FamilyMember[] = initialState, action: FamilyActionsUnion) {
+let initialState: FamilyState = {
+    entities: [],
+    loaded: false,
+    loading: false
+};
+
+export function reducer(state: FamilyState = initialState, action: fromFamilyActions.FamilyActionsUnion) {
 
     switch (action.type) {
-        case FamilyActionTypes.LoadSuccess:
-            initialState = [...action.payload];
-            return initialState;
+        case fromFamilyActions.FamilyActionTypes.LoadSuccess: {
+            const familyMembers = action.payload;
 
-        case FamilyActionTypes.Add:
-            state.push(action.payload);
+            const entities =  familyMembers.reduce((entities: {[id: number]: FamilyMember}, topping) => {
+                    return {
+                        ...entities,
+                        [topping.id]: topping
+                    };
+                },
+                {...state.entities}
+            );
 
-            return [...state];
+            return {
+                ...state,
+                loaded: true,
+                loading: false,
+                entities
+            };
+        }
 
-        case FamilyActionTypes.Remove:
-            state.splice(state.indexOf(action.payload), 1);
 
-            return [...state];
+        case fromFamilyActions.FamilyActionTypes.LoadFail: {
+            return {
+                ...state,
+                loaded: false,
+                loading: false
+            };
+        }
 
-        case FamilyActionTypes.Reset:
-            return [...initialState];
+        case fromFamilyActions.FamilyActionTypes.Add: {
+            const newFamilyMember = action.payload;
+            const entities = {
+                ...state.entities,
+                [newFamilyMember.id]: newFamilyMember
+            };
+
+            return {
+                ...state,
+                entities
+            };
+        }
+
+        case fromFamilyActions.FamilyActionTypes.Remove: {
+            const familyMember = action.payload;
+            const {[familyMember.id]: removed, ...entities} = state.entities;
+
+            return {
+                ...state,
+                entities
+            };
+        }
+
+
+        case fromFamilyActions.FamilyActionTypes.Reset:
+            return {
+                ...initialState
+            };
 
         default:
-
             return state;
     }
-
 }
+
+
+
+export const getFamilyEntities = (state: FamilyState) => state.entities;
+export const getFamilyLoading = (state: FamilyState) => state.loading;
+export const getFamilyLoaded = (state: FamilyState) => state.loaded;

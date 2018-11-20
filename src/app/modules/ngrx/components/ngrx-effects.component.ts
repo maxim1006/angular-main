@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs/internal/Observable";
-import {FamilyAddAction, FamilyLoadAction, FamilyRemoveAction, FamilyResetAction} from "../store/actions/family.action";
+import * as fromStore from '../store';
+import {FamilyMember} from "../models/family.model";
 
-export interface FamilyMember {
-    name: string;
-    age: number;
-}
+
 
 export interface AppState {
     family: {name: string;age: number;}[]
@@ -48,8 +46,8 @@ export class MNgrxEffectsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.store.dispatch(new FamilyLoadAction());
-        this._family$ = this.store.pipe(select('family'));
+        this.store.dispatch(new fromStore.LoadFamilyAction());
+        this._family$ = this.store.pipe(select(fromStore.getFamilyMembers));
     }
 
     /** @internal */
@@ -64,19 +62,20 @@ export class MNgrxEffectsComponent implements OnInit {
             return;
         }
 
-        this.store.dispatch(new FamilyAddAction({
+        this.store.dispatch(new fromStore.FamilyAddAction({
             name,
-            age
+            age,
+            id: + new Date()
         }));
     }
 
     /** @internal */
     public _removeFamilyMember(familyMember: FamilyMember): void {
-        this.store.dispatch(new FamilyRemoveAction(familyMember));
+        this.store.dispatch(new fromStore.FamilyRemoveAction(familyMember));
     }
 
     /** @internal */
     public _resetFamily(): void {
-        this.store.dispatch(new FamilyResetAction());
+        this.store.dispatch(new fromStore.FamilyResetAction());
     }
 }

@@ -9,9 +9,18 @@ export enum PizzasActionTypes {
 
     Create = '[Products] Create Pizza',
     CreateSuccess = '[Products] Create Pizza Success',
-    CreateFail = '[Products] Create Pizza Faikl'
+    CreateFail = '[Products] Create Pizza Fail',
+
+    Update = '[Products] Update Pizza',
+    UpdateSuccess = '[Products] Update Pizza Success',
+    UpdateFail = '[Products] Update Pizza Fail',
+
+    Remove = '[Products] Remove Pizza',
+    RemoveSuccess = '[Products] Remove Pizza Success',
+    RemoveFail = '[Products] Remove Pizza Fail',
 }
 
+// Load
 export class LoadPizzasAction implements Action {
     readonly type = PizzasActionTypes.Load;
 }
@@ -26,7 +35,7 @@ export class LoadPizzasSuccessAction implements Action {
     constructor(public payload: Pizza[]) {}
 }
 
-// create pizza
+// create
 export class CreatePizzaAction implements Action {
     readonly type = PizzasActionTypes.Create;
     constructor(public payload: any) {}
@@ -42,6 +51,38 @@ export class CreatePizzaFailAction implements Action {
     constructor(public payload: any) {}
 }
 
+// update
+export class UpdatePizzaAction implements Action {
+    readonly type = PizzasActionTypes.Update;
+    constructor(public payload: Pizza) {}
+}
+
+export class UpdatePizzaSuccessAction implements Action {
+    readonly type = PizzasActionTypes.UpdateSuccess;
+    constructor(public payload: Pizza) {}
+}
+
+export class UpdatePizzaFailAction implements Action {
+    readonly type = PizzasActionTypes.UpdateFail;
+    constructor(public payload: any) {}
+}
+
+// remove
+export class RemovePizzaAction implements Action {
+    readonly type = PizzasActionTypes.Remove;
+    constructor(public payload: Pizza) {}
+}
+
+export class RemovePizzaSuccessAction implements Action {
+    readonly type = PizzasActionTypes.RemoveSuccess;
+    constructor(public payload: Pizza) {}
+}
+
+export class RemovePizzaFailAction implements Action {
+    readonly type = PizzasActionTypes.RemoveFail;
+    constructor(public payload: any) {}
+}
+
 // action types
 export type PizzasActionUnion =
     | LoadPizzasAction
@@ -49,6 +90,12 @@ export type PizzasActionUnion =
     | LoadPizzasSuccessAction
     | CreatePizzaAction
     | CreatePizzaSuccessAction
-    | CreatePizzaFailAction;
+    | CreatePizzaFailAction
+    | UpdatePizzaAction
+    | UpdatePizzaSuccessAction
+    | UpdatePizzaFailAction
+    | RemovePizzaAction
+    | RemovePizzaSuccessAction
+    | RemovePizzaFailAction;
 
 

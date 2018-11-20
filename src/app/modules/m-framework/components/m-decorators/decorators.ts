@@ -36,10 +36,10 @@ export function logProperty(target: any, propertyKey: string):any {
 }
 
 export function logProperty1(...args): any {
-    console.log("logProperty1");
+    // console.log("logProperty1");
     return function(target: any, propertyKey: string) {
 
-        console.log(target, propertyKey, "logProperty1 inner");
+        // console.log(target, propertyKey, "logProperty1 inner");
 
         ++target;
 

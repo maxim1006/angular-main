@@ -1,10 +1,10 @@
 import {Pizza} from '../../models/pizza.model';
-import {PizzasActionTypes, PizzasActionUnion} from '../actions';
+import * as fromPizzaActions from '../actions';
 
 export interface PizzaState {
     entities?: {[id: number]: Pizza};
-    loaded: boolean;
-    loading: boolean;
+    loaded?: boolean;
+    loading?: boolean;
 }
 
 export const initialState: PizzaState = {
@@ -13,9 +13,9 @@ export const initialState: PizzaState = {
     loading: false
 };
 
-export function reducer(state = initialState, action: PizzasActionUnion): PizzaState {
+export function reducer(state = initialState, action: fromPizzaActions.PizzasActionUnion): PizzaState {
     switch (action.type) {
-        case PizzasActionTypes.Load: {
+        case fromPizzaActions.PizzasActionTypes.Load: {
             return {
                 ...state,
                 loading: true,
@@ -23,7 +23,7 @@ export function reducer(state = initialState, action: PizzasActionUnion): PizzaS
             };
         }
 
-        case PizzasActionTypes.LoadSuccess: {
+        case fromPizzaActions.PizzasActionTypes.LoadSuccess: {
             const pizzas = action.payload;
 
             // превращаю массив в объект
@@ -44,7 +44,7 @@ export function reducer(state = initialState, action: PizzasActionUnion): PizzaS
             };
         }
 
-        case PizzasActionTypes.LoadFail: {
+        case fromPizzaActions.PizzasActionTypes.LoadFail: {
             return {
                 ...state,
                 loading: false,
@@ -52,12 +52,26 @@ export function reducer(state = initialState, action: PizzasActionUnion): PizzaS
             };
         }
 
-        case PizzasActionTypes.CreateSuccess: {
+        case fromPizzaActions.PizzasActionTypes.CreateSuccess:
+        case fromPizzaActions.PizzasActionTypes.UpdateSuccess: {
             const newPizza = action.payload;
             const entities = {
                 ...state.entities,
                 [newPizza.id]: newPizza
             };
+
+            return {
+                ...state,
+                entities,
+            };
+        }
+
+        case fromPizzaActions.PizzasActionTypes.RemoveSuccess: {
+            const pizza = action.payload;
+            // тут делаю деструктуризацию, нахожу пиццу по id п присваиваю ей переменную removed
+            // console.log(removed); // removed pizza
+            // а в entities попадут все пиццы кроме удаленной
+            const { [pizza.id]: removed, ...entities  } = state.entities;
 
             return {
                 ...state,

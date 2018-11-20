@@ -49,6 +49,7 @@ export class ProductItemComponent implements OnInit {
 
               this.store.dispatch(new fromStore.VisualiseToppingsAction(toppings));
           }));
+
       this.toppings$ = this.store.pipe(select(fromStore.getAllToppings));
       this.visualise$ = this.store.pipe(select(fromStore.getPizzaVisualised));
 
@@ -90,6 +91,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   onUpdate(event: Pizza) {
+      this.store.dispatch(new fromStore.UpdatePizzaAction(event));
     // this.pizzaService.updatePizza(event).subscribe(() => {
     //   this.router.navigate([`/ngrx/products`]);
     // });
@@ -98,6 +100,7 @@ export class ProductItemComponent implements OnInit {
   onRemove(event: Pizza) {
     const remove = window.confirm('Are you sure?');
     if (remove) {
+        this.store.dispatch(new fromStore.RemovePizzaAction(event));
       // this.pizzaService.removePizza(event).subscribe(() => {
       //   this.router.navigate([`/ngrx/products`]);
       // });

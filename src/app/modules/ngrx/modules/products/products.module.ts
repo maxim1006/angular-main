@@ -13,10 +13,8 @@ import * as fromContainers from './containers';
 // services
 import * as fromServices from './services';
 import {StoreModule} from '@ngrx/store';
-import {effects, productsReducers} from './store/index';
+import {effects, productsReducers} from './store';
 import {EffectsModule} from '@ngrx/effects';
-import {FamilyEffect} from '../../store/effects/family.effect';
-import * as FromEffects from './store/effects';
 
 // routes
 export const ROUTES: Routes = [

@@ -1,27 +1,27 @@
 import {Action} from "@ngrx/store";
-import {FamilyMember} from "../../components/ngrx-effects.component";
+import {FamilyMember} from "../../models/family.model";
 
 export enum FamilyActionTypes {
     Load = '[Family] Load',
     LoadSuccess = '[Family] Load Success',
-    LoadFailure = '[Family] Load Failure',
+    LoadFail  = '[Family] Load Failure',
     Add = '[Family] Add',
     Remove = '[Family] Remove',
     Reset = '[Family] Reset'
 }
 
-export class FamilyLoadAction implements Action {
+export class LoadFamilyAction implements Action {
     readonly type = FamilyActionTypes.Load;
 }
 
-export class FamilyLoadSuccessAction implements Action {
+export class LoadFamilySuccessAction implements Action {
     readonly type = FamilyActionTypes.LoadSuccess;
 
     constructor(public payload: FamilyMember[]) {}
 }
 
-export class FamilyLoadFailureAction implements Action {
-    readonly type = FamilyActionTypes.LoadFailure;
+export class LoadFamilyFailAction implements Action {
+    readonly type = FamilyActionTypes.LoadFail;
 
     constructor(public payload: any) {}
 }
@@ -44,9 +44,9 @@ export class FamilyResetAction implements Action {
 
 
 export type FamilyActionsUnion =
-    FamilyLoadAction |
-    FamilyLoadSuccessAction |
-    FamilyLoadFailureAction |
-    FamilyAddAction |
-    FamilyRemoveAction |
-    FamilyResetAction;
+    | LoadFamilyAction
+    | LoadFamilySuccessAction
+    | LoadFamilyFailAction
+    | FamilyAddAction
+    | FamilyRemoveAction
+    | FamilyResetAction;
