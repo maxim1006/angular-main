@@ -1,0 +1,22 @@
+const family = [
+    {
+        'name': 'Max',
+        'age': 29,
+        'sex': 'male',
+        'id': 1
+    },
+    {
+        'name': 'Aliya',
+        'age': 30,
+        'sex': 'female',
+        'id': 2
+    },
+    {
+        'name': 'Liliya',
+        'age': 2,
+        'sex': 'female',
+        'id': 3
+    }
+];
+
+export { family };

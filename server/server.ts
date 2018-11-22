@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import dictionariesRouter from './routers/dictionaries.router';
+import * as routers from './routers';
+import * as path from 'path';
 
 const app = express(),
       port = process.env.NODEJS_PORT || 3000,
@@ -16,17 +17,29 @@ const allowCrossDomain = (req, res, next) => {
 
 
 // Add your mock router here
-const routers = [
+const appRouters = [
     {
         url: 'dictionaries',
-        middleware: dictionariesRouter
+        middleware: routers.dictionariesRouter
+    },
+    {
+        url: 'example',
+        middleware: routers.exampleRouter
+    },
+    {
+        url: 'family',
+        middleware: routers.familyRouter
     }
 ];
 
 app.use(allowCrossDomain);
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-routers.forEach(router => app.use(root + router.url, router.middleware));
+// TODO переносить картинки, так как tsw этого не делает, приходится подкладывать в dist руками
+app.use(root + 'images', express.static(path.join(__dirname, './mocks/images')));
+
+appRouters.forEach(router => app.use(root + router.url, router.middleware));
 
 app.listen(port, () => {
     console.log(`Mock server is listening on port ${port}`);

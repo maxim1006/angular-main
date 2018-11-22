@@ -7,4 +7,5 @@ dictionariesRouter.get('/', (req, res) => {
     res.status(200).json(dictionaries);
 });
 
-export default dictionariesRouter;
+export { dictionariesRouter };
+

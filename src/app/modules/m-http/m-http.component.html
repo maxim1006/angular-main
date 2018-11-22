@@ -1,5 +1,14 @@
 <h3>Пример загрузки списка</h3>
 
+<ng-template #loading>
+    <m-loader
+        style="position: fixed; top: 30px; left: 30px;"
+        [isActive]="true"
+        [text]="progress"
+    ></m-loader>
+</ng-template>
+
+<div style="display: flex;flex-wrap: wrap">
 <p>Основной</p>
 <ng-container *ngIf="(family$ | async) as family; else loading">
     <ul>
@@ -23,9 +32,17 @@
     </li>
 </ul>
 
-<ng-template #loading>
-    Loading...
-</ng-template>
+</div>
+
+<h3>Posted data</h3>
+<ng-container *ngIf="(postData$ | async) as member; else loading">
+    {{member?.name}} - {{member?.age}}
+</ng-container>
+
+<h3>Data by ID</h3>
+Id : {{dataById$ | async}}
+
+
 
 <h3>Пример загрузки файла</h3>
 <div class="upload-button">
@@ -41,10 +58,6 @@
            (change)="attachFiles(uploadFilesInput.files)"
     >
 </div>
-
-<span style="position:relative;margin-left: 40px;">
-    <m-loader [isActive]="isLoading" [text]="progress"></m-loader>
-</span>
 
 <ul>
     <li *ngFor="let file of uploadedFiles">

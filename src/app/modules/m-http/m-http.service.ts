@@ -1,28 +1,41 @@
-import {Injectable} from "@angular/core";
-import {Observable, Observer, Subscriber} from "rxjs";
-import {domenToken} from "../shared/tokens/tokens";
-import {HttpClient} from "@angular/common/http";
-import {delay, map, share} from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {Observable, Observer, Subscriber, throwError} from 'rxjs';
+import {catchError} from 'rxjs/operators';
+import {domenToken} from '../shared/tokens/tokens';
+import {HttpClient} from '@angular/common/http';
+import {FamilyMember} from './m-http.component';
+
 
 @Injectable()
 export class MHttpService {
     public _data: any;
-    constructor(private _http: HttpClient) {}
+    constructor(private http: HttpClient) {}
 
-    getData():Observable<any> {
-        return this._http.get(`${domenToken}family.json`)
-            .pipe(
-                delay(2000),
-                map (
-                    (data) => {
-                        return data
-                    }
-                ),
-                share()
-            );
+    getData(): Observable<FamilyMember[]> {
+        return this.http
+            .get<FamilyMember[]>(`${domenToken}api/family`)
+            .pipe(catchError((error: any) => throwError(error)));
     }
 
-    postFile(url: string, files: File[]): { response: Observable<Response>, progress: Observable<number> } {
+    getDataById(): Observable<number> {
+        return this.http
+            .get<number>(`${domenToken}api/example/1`)
+            .pipe(catchError((error: any) => throwError(error)));
+    }
+
+    postData(data): Observable<FamilyMember> {
+        return this.http
+            .post<FamilyMember>(`${domenToken}api/family`, data)
+            .pipe(catchError((error: any) => throwError(error)));
+    }
+
+    postFile(formData: FormData): Observable<any> {
+        return this.http
+            .post<FamilyMember>(`${domenToken}api/example/upload`, formData)
+            .pipe(catchError((error: any) => throwError(error)));
+    }
+
+    postFileOld(url: string, files: File[]): { response: Observable<Response>, progress: Observable<number> } {
         let formData: FormData = new FormData(),
             progressObserver: Subscriber<number>,
             progress = Observable.create((subscriber: Subscriber<number>) => {

@@ -1,9 +1,8 @@
-import {NgModule, Injectable, InjectionToken} from "@angular/core";
-import {MHttpComponent, httpInjectables} from "./m-http.component";
-import {MHttpService} from "./m-http.service";
-import {NewService, NewService2} from "./new.service";
-import {SharedModule} from "../shared/shared.module";
-import {HttpClientModule} from "@angular/common/http";
+import {InjectionToken, NgModule} from '@angular/core';
+import {httpInjectables, MHttpComponent} from './m-http.component';
+import {MHttpService} from './m-http.service';
+import {NewService, NewService2} from './new.service';
+import {SharedModule} from '../shared/shared.module';
 
 
 export function httpModuleFactory(newService2: NewService2) {
@@ -18,7 +17,7 @@ export const ValueConfig = new InjectionToken('Value'); // делаю этот �
 
 
 @NgModule({
-    imports: [SharedModule, HttpClientModule],
+    imports: [SharedModule],
     exports: [MHttpComponent],
     declarations: [MHttpComponent],
     providers: [
