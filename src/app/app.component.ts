@@ -1,6 +1,7 @@
 import {Component, HostBinding, Inject, OnInit, Optional} from '@angular/core';
-import {PageLoaderService} from "./common/services/page-loader.service";
-import {trigger, animate, style, group, animateChild, query, stagger, transition} from "@angular/animations";
+import {PageLoaderService} from './common/services/page-loader.service';
+import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
+import {of} from 'rxjs';
 
 export const routerTransition: any = trigger('routerTransition', [
     transition('* <=> *', [
@@ -53,12 +54,11 @@ export const routerTransition1: any = trigger('routerTransition', [
 })
 export class AppComponent {
 
-    @HostBinding("class")
-    public hostClass: String = "app-component";
-
+    @HostBinding('class')
+    public hostClass: String = 'app-component';
 
     constructor(
-        @Optional() @Inject("someOptionalObject.someOptionalProperty") private optionalPropery,
+        @Optional() @Inject('someOptionalObject.someOptionalProperty') private optionalPropery,
         public pageLoaderService: PageLoaderService
     ) {}
 
