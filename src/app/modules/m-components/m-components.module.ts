@@ -21,6 +21,7 @@ import {MSparklineGraphComponent} from "./components/m-graph/sparkline/m-sparkli
 import {MSlideToggleComponent} from "./components/slide-toggle/slide-toggle.component";
 import {ProgressBarComponent} from "./components/progress-bar/progress-bar.component";
 import {MGridExampleComponent} from './components/grid-example/grid-example.component';
+import {MGridComponent} from "./components/grid/grid.component";
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -43,7 +44,8 @@ let components = [
     MSparklineGraphComponent,
     MGraphWrapperComponent,
     MSlideToggleComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    MGridComponent
 ];
 
 let directives = [
