@@ -29,6 +29,8 @@ export class RxjsExampleComponent implements OnInit {
             observer.next("string2");
         }).share();
 
+        // TODO make shareReplay example
+
         o.subscribe((string) => {
             console.log(string);
         });

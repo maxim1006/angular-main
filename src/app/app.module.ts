@@ -9,7 +9,7 @@ import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MHomeModule} from "./modules/m-home/m-home.module";
 import {MRxjsModule} from "./modules/m-rxjs/m-rxjs.module";
 import {MForRootModule} from "./modules/m-for-root/m-for-root.module";
@@ -26,6 +26,7 @@ import {PageLoaderService} from "./common/services/page-loader.service";
 import {StaticInjector} from "@angular/core/src/di/injector";
 import {MAdminComponent} from "./modules/admin/admin.component";
 import {MAdminGuardService} from "./modules/admin/admin-guard.service";
+import {MHttpRequestInterceptor} from "./common/interceptors/http-request.interceptor";
 
 
 export function routeServiceFactory (route: RouteService):()=>{} {
@@ -95,6 +96,11 @@ const childInjector: Injector = Injector.create({
             useClass: HammerPluginPatch,
             multi: true
         },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: MHttpRequestInterceptor,
+            multi: true
+        }
 
         //{provide: APP_BASE_HREF, useValue: '/'} //можно использовать ExampleComponent.ts вместо <base href="/">
     ],
