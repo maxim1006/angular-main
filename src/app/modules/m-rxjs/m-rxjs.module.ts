@@ -11,6 +11,7 @@ import {RxjsOnDestroyComponent} from './components/rxjs-example/rxjs-ondestroy.c
 import { RxjsExample1Component } from './components/rxjs-example1/rxjs-example1.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {RxjsExample2Component} from "./components/rxjs-example2/rxjs-erxample2.component";
 
 const routes: Routes = [
     { path: 'rxjs', component: MRxjsComponent, children: [{
@@ -31,6 +32,10 @@ const routes: Routes = [
         {
             path: 'rxjs-example1',
             component: RxjsExample1Component, data: { state: 'rxjs-example1' }
+        },
+        {
+            path: 'rxjs-example2',
+            component: RxjsExample2Component, data: { state: 'rxjs-example2' }
         }
     ]
     }
@@ -50,6 +55,7 @@ const routes: Routes = [
         MRxjsComponent,
         RxjsExampleComponent,
         RxjsExample1Component,
+        RxjsExample2Component,
         RxJsComponent,
         MRxjsAsyncPipeComponent,
         RxjsOnDestroyComponent

@@ -1,12 +1,13 @@
 import {Component, OnInit} from "@angular/core";
 import {from, Observable, Observer} from "rxjs";
+import {share, shareReplay} from "rxjs/internal/operators";
 
 @Component({
-    selector: "rxjs-example",
-    templateUrl: "./rxjsExampleComponent.html"
+    selector: "rxjs-example2",
+    templateUrl: "./rxjs-example2.component.html"
 })
 
-export class RxjsExampleComponent implements OnInit {
+export class RxjsExample2Component implements OnInit {
     public inputValue: string;
     public arr:string[] = ['Hi', 'rxjs', '!!!'];
     //создаю observable array
@@ -23,20 +24,28 @@ export class RxjsExampleComponent implements OnInit {
     }
 
     ngOnInit() {
+        let obs;
+
         let o:Observable<string> = Observable.create((observer:Observer<string>) => {
+            obs = observer;
             observer.next("string");
-            observer.next("string1");
-            observer.next("string2");
-        }).share();
+        }).pipe(shareReplay(1)); // если просто share, то сабскрайберы не получат значений при подписке после next, а если shareReplay, то получат
 
         // TODO make shareReplay example
+        setTimeout(() => {
+            obs.next("string1");
 
-        o.subscribe((string) => {
-            console.log(string);
+            o.subscribe((string) => {
+                console.log("subscribe in timeout after next ", string);
+            });
         });
 
         o.subscribe((string) => {
-            console.log(string);
+            console.log("subscribe ", string);
+        });
+
+        o.subscribe((string) => {
+            console.log("subscribe ", string);
         });
     }
 

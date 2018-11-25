@@ -17,7 +17,6 @@ import {NgSwitchExampleComponent} from "./components/ng-switch-example/ngSwitchE
 import {PipeExampleComponent} from "./components/pipe-example/pipeExampleComponent";
 import {ParentComponent} from "./components/parent-component/parentComponent";
 import {ChildComponent} from "./components/parent-component/child-component/childComponent";
-import {RxjsExampleComponent} from "./components/rxjs-example/rxjsExampleComponent";
 import {ElNativeElementComponent} from "./components/el-native-element/el-native-element.component";
 import {HostBindingComponent} from "./components/host-binding/host-binding.component";
 import {SharedModule} from "../shared/shared.module";
@@ -72,7 +71,6 @@ const routes: Routes = [
         InnerTranscludeExampleComponent,
         ParentComponent,
         ChildComponent,
-        RxjsExampleComponent,
         DynamicComponent,
         ElNativeElementComponent,
         HostBindingComponent,
