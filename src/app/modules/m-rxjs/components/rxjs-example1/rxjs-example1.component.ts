@@ -14,35 +14,108 @@ import {
 } from 'rxjs/operators';
 import {Observable, throwError, Observer} from "rxjs";
 import {observable} from "rxjs/internal-compatibility";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {concatMap, mergeMap} from "rxjs/internal/operators";
+import {HttpClient, HttpParams} from "@angular/common/http";
+import {domenToken} from "../../../shared/tokens/tokens";
 
 @Component({
     selector: 'rxjs-example1',
     template: `
-        <h2>Rxjs Example 1</h2>
-        <input #input type='text' style='border: 1px solid;'/>
-
-        <button (click)='_unsubscribeInputEvent()'>Unsubscribe input event</button>
+        <form novalidate [formGroup]="form">
+            <h2>Rxjs Example 1</h2>
+            <input formControlName="text" #input type='text' style='border: 1px solid;'/>
+    
+            <button (click)='_unsubscribeInputEvent()'>Unsubscribe input event</button>
+        </form>
 
     `
 })
 
 export class RxjsExample1Component implements AfterViewInit, OnDestroy {
+    form: FormGroup;
+
     @ViewChild('input')
     private inputRef: ElementRef;
 
     private destroy$: Subject<any> = new Subject();
 
-    public ngAfterViewInit(): void {
-        const input = this.inputRef.nativeElement;
+    constructor(
+        private fb: FormBuilder,
+        private http: HttpClient
+    ) {}
 
-        fromEvent(input, 'input')
-        .pipe(
-            debounceTime(500),
-            takeUntil(this.destroy$)
-        )
-        .subscribe((event) => {
-            console.log(`fromEvent(input, 'input') `, event['target'].value);
+    public ngOnInit() {
+        this.form = this.fb.group({
+            'text': [""]
         });
+
+        // ConcatMap - запросы посылаются по очереди, пока предыдущий обзервбл не закомлитится второй не пойдет и т.д. Косяк в том, что даже если сейчас запросы не отправились то очередь запросов в любом случае
+        // дойдем до конца и запросы отправятся, поэтому лучше switchMap, который делает ансабскрайб
+        // this.form.valueChanges
+        //     .pipe(
+        //         map((value) => {
+        //             return new HttpParams().set('value', value.text);
+        //         }),
+        //         concatMap(params => this.http.get(`${domenToken}api/rxjs/words`, {
+        //             params
+        //         })))
+        //     .subscribe((value) => {
+        //         console.log("form value ", value);
+        //     });
+
+        // MergeMap - запросы посылаются подряд и неважно кто когда закомплитится.
+        // this.form.valueChanges
+        //     .pipe(
+        //         map((value) => {
+        //             return new HttpParams().set('value', value.text);
+        //         }),
+        //         mergeMap(params => this.http.get(`${domenToken}api/rxjs/words`, {
+        //             params
+        //         })))
+        //     .subscribe((value) => {
+        //         console.log("form value ", value);
+        //     });
+
+        // switchMap делает unsubscribe от подписанного обзервбла в случае следующего значения в инпуте, тем
+        //тем самым останавливая предыдующий запрос и запуская новый
+        // this.form.valueChanges
+        //     .pipe(
+        //         map((value) => {
+        //             return new HttpParams().set('value', value.text);
+        //         }),
+        //         switchMap(params => this.http.get(`${domenToken}api/rxjs/words`, {
+        //             params
+        //         })))
+        //     .subscribe((value) => {
+        //         console.log("form value ", value);
+        //     });
+
+        // пока выполяется текущий запрос остальные будут проигнорированы (т.е. пока не закомплитится предыдущий обзервбл новый не заработает), удобно использовать для отслеживания клика по кнопке save. В отличие от concatMap не выполнятся те запросы которые встали в очередь.
+        // this.form.valueChanges
+        //     .pipe(
+        //         map((value) => {
+        //             return new HttpParams().set('value', value.text);
+        //         }),
+        //         exhaustMap(params => this.http.get(`${domenToken}api/rxjs/words`, {
+        //             params
+        //         })))
+        //     .subscribe((value) => {
+        //         console.log("form value ", value);
+        //     });
+    }
+
+    public ngAfterViewInit(): void {
+        // const input = this.inputRef.nativeElement;
+        //
+        // fromEvent(input, 'input')
+        // .pipe(
+        //     debounceTime(500),
+        //     takeUntil(this.destroy$)
+        // )
+        // .subscribe((event) => {
+        //     console.log(`fromEvent(input, 'input') `, event['target'].value);
+        // });
 
         // of(1,2,3).pipe(scan((total, current) => {
         //     console.log(total, current); //результат будет 3 раза: 1 затем 1, 2, затем, 3, 3
@@ -176,12 +249,27 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //     });
 
 
-        // // упращенная схема multicast
+        // // упращенная схема multicast, т.е. так превращаю обзервабл в сабджект
+        // let Observer;
+        //
+        // const O$ = new Observable((observer) => {
+        //     Observer = observer;
+        //     console.log("console.log from create Observer");
+        // });
+        //
         // function multicast(observable: Observable<any>) {
         //     const subject = new Subject();
         //     observable.subscribe(subject);
         //     return subject;
         // }
+        //
+        // let multicastedO = multicast(O$);
+        //
+        // multicastedO.subscribe((value) => console.log(value));
+        // multicastedO.subscribe((value) => console.log(value));
+        //
+        // Observer.next("next from multicasted Observable")
+
 
         // let o = interval(1000)
         //     .pipe(

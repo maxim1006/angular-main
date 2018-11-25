@@ -9,6 +9,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MRxjsAsyncPipeComponent} from './components/async-pipe/m-rxjs-async-pipe.component';
 import {RxjsOnDestroyComponent} from './components/rxjs-example/rxjs-ondestroy.component';
 import { RxjsExample1Component } from './components/rxjs-example1/rxjs-example1.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 const routes: Routes = [
     { path: 'rxjs', component: MRxjsComponent, children: [{
@@ -37,7 +39,9 @@ const routes: Routes = [
 @NgModule({
     imports: [
         SharedModule,
+        HttpClientModule,
         BrowserAnimationsModule,
+        ReactiveFormsModule,
         RouterModule.forChild(routes),
         // StoreModule.provideStore({ events })   //not working in aot and for now it sucks
     ],

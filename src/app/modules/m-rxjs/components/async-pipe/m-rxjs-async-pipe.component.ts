@@ -1,6 +1,7 @@
 import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
 import {fromEvent, Observable, Subscriber, Subscription} from 'rxjs/index';
 import { throttleTime, share } from 'rxjs/operators';
+import {auditTime} from "rxjs/internal/operators";
 
 @Component({
     selector: 'm-rxjs-async-pipe',
@@ -39,7 +40,8 @@ export class MRxjsAsyncPipeComponent implements OnInit, OnDestroy {
 
         this._numberObservable$ = Observable.create((subscriber: Subscriber<any>) => {
             this.subscriber = subscriber;
-        }).pipe(throttleTime(200), share());
+            // тут использу auditTime так как throttleTime выдает неверные значения
+        }).pipe(auditTime(200), share());
     }
 
     ngAfterViewInit() {

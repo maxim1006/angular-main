@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as multer from 'multer';
+// import * as multer from 'multer';
 
 const exampleRouter = express.Router();
 
@@ -28,12 +28,12 @@ exampleRouter.post('/', (req, res) => {
 });
 
 // TODO доделать аплоад
-exampleRouter.post('/upload', multer({ dest: 'uploads/' }).array('files'), function (req, res, next) {
-    const body = req.file;
-
-    console.log('example upload', body);
-
-    // res.json(req.body);
-});
+// exampleRouter.post('/upload', multer({ dest: 'uploads/' }).array('files'), function (req, res, next) {
+//     const body = req.file;
+//
+//     console.log('example upload', body);
+//
+//     // res.json(req.body);
+// });
 
 export { exampleRouter };

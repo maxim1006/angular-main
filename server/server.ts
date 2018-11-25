@@ -29,6 +29,10 @@ const appRouters = [
     {
         url: 'family',
         middleware: routers.familyRouter
+    },
+    {
+        url: 'rxjs',
+        middleware: routers.rxjsRouter
     }
 ];
 
