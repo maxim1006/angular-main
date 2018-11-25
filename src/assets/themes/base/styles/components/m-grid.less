@@ -1,8 +1,12 @@
 .m-grid {
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    &__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+        border: 1px solid green;
+    }
 
     &__row {
         display: flex;
@@ -13,6 +17,7 @@
     }
 
     &__item {
+        position: absolute;
         border: 1px solid;
     }
 

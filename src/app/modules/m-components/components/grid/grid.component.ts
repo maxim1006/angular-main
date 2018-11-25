@@ -1,29 +1,46 @@
-import {Component, OnInit, AfterViewInit, ViewChildren, QueryList, ElementRef} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChildren, QueryList, ElementRef, ViewChild} from '@angular/core';
+
+type GridItemInArrayModel = string | GridItemModel;
+
+export interface GridItemModel {
+    id: string;
+    level: string;
+    children?: GridItemInArrayModel[];
+    parent?: string;
+    styleClass?: string;
+    centralAxes?: number;
+}
+
+export interface GridParamsModel {
+    canvasWidth: number,
+    margin: number;
+    itemWidth: number;
+}
 
 
-const CANVAS_WIDTH = 600;
-const MARGIN = CANVAS_WIDTH / 30;
-const ITEM_WIDTH = CANVAS_WIDTH / 6;
+
 
 @Component({
     selector: 'm-grid',
     template: `
 
-        <div id="jsGrid" class="m-grid">
-            <ng-container *ngFor="let row of viewModel.rows;">
-                <div #rowRef class="m-grid__row">
-                    <ng-container *ngFor="let child of row.children;">
-                        <div  #itemRef class="m-grid__item {{child.styleClass}}" 
-                            [attr.data-parent]="child.parent"
-                            [attr.data-id]="child.id"
-                            [attr.data-sibling]="!!child.styleClass"
-                            [attr.data-level]="child.level"
-                        >
-                            {{child.id}}
-                        </div>
-                     </ng-container>
-                </div>
-            </ng-container>
+        <div #gridCanvas class="m-grid" [ngStyle]="{width: params.canvasWidth + 'px'}">
+            <div #gridCanvasInner class="m-grid__inner">
+                <ng-container *ngFor="let row of viewModel.rows;">
+                    <div #rowRef class="m-grid__row">
+                        <ng-container *ngFor="let child of row.children;">
+                            <div  #itemRef class="m-grid__item {{child.styleClass}}" 
+                                [attr.data-parent]="child.parent"
+                                [attr.data-id]="child.id"
+                                [attr.data-sibling]="!!child.styleClass"
+                                [attr.data-level]="child.level"
+                            >
+                                {{child.id}}
+                            </div>
+                         </ng-container>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     
     `
@@ -36,34 +53,61 @@ export class MGridComponent implements OnInit, AfterViewInit {
     @ViewChildren('itemRef')
     private itemList: QueryList<ElementRef>;
 
+    @ViewChild("gridCanvas")
+    private gridCanvasRef: ElementRef;
+
+    @ViewChild("gridCanvasInner")
+    private gridCanvasInnerRef: ElementRef;
+
     private rowElementList: HTMLElement[];
+    private gridCanvasElement: HTMLElement;
+    private gridCanvasInnerElement: HTMLElement;
     private itemElementMap: {[id: string]: HTMLElement};
     private modelEntitiesByLevel: {[id: string]: any[]} = {};
+    private mainAxesCoords: number = 600 / 2;
+    private scaleRatio: number = 1;
+
+    public params: GridParamsModel = {
+        canvasWidth: 600,
+        margin: 600 / 30,
+        itemWidth: 600 / 6
+    };
 
     viewModel: any = {
         rows: []
     };
 
-    model = {
+    model: {entities: {[id: string]: GridItemModel}} = {
         entities: {
-            0: {id: 0, level: 0, children: [1, 2], parent: null},
-            1: {id: 1, level: 1, children: [3, 4], parent: 0},
-            2: {id: 2, level: 1, children: [5, 6], parent: 0},
-            3: {id: 3, level: 2, children: [7, 8, 9, 10], parent: 1},
-            4: {id: 4, level: 2, children: [], parent: 1},
-            5: {id: 5, level: 2, children: [], parent: 2},
-            6: {id: 6, level: 2, children: [11, 12], parent: 2},
-            7: {id: 7, level: 3, children: [], parent: 3},
-            8: {id: 8, level: 3, children: [], parent: 3},
-            9: {id: 9, level: 3, children: [], parent: 3},
-            10: {id: 10, level: 3, children: [], parent: 3},
-            11: {id: 11, level: 3, children: [], parent: 6},
-            12: {id: 12, level: 3, children: [], parent: 6},
+            "0": {id: "0", level: "0", children: ["1", "2"], parent: null},
+            "1": {id: "1", level: "1", children: ["3", "4"], parent: "0"},
+            "2": {id: "2", level: "1", children: ["5", "6"], parent: "0"},
+            "3": {id: "3", level: "2", children: ["7", "8", "9", "10"], parent: "1"},
+            "4": {id: "4", level: "2", children: [], parent: "1"},
+            "5": {id: "5", level: "2", children: [], parent: "2"},
+            "6": {id: "6", level: "2", children: ["11", "12"], parent: "2"},
+            "7": {id: "7", level: "3", children: [], parent: "3"},
+            "8": {id: "8", level: "3", children: [], parent: "3"},
+            "9": {id: "9", level: "3", children: [], parent: "3"},
+            "10": {id: "10", level: "3", children: [], parent: "3"},
+            "11": {id: "11", level: "3", children: [], parent: "6"},
+            "12": {id: "12", level: "3", children: [], parent: "6"},
+            "13": {id: "13", level: "3", children: [], parent: "6"},
+            "14": {id: "14", level: "3", children: [], parent: "6"},
+            "15": {id: "15", level: "3", children: [], parent: "6"},
+            "16": {id: "16", level: "3", children: [], parent: "6"},
+            "17": {id: "17", level: "3", children: [], parent: "6"},
+            "18": {id: "18", level: "3", children: [], parent: "6"},
+            "19": {id: "19", level: "3", children: [], parent: "6"},
+            "20": {id: "20", level: "3", children: [], parent: "6"},
+            "21": {id: "21", level: "3", children: [], parent: "6"},
         }
     };
 
     ngOnInit() {
         this.setViewModel();
+
+        // group model by level to go through them from top to bottom
         this.groupModelEntitiesByLevel();
     }
 
@@ -73,6 +117,7 @@ export class MGridComponent implements OnInit, AfterViewInit {
             previousParent,
             currentRow;
 
+        // create view model rows to display them via ngFor
         Object.keys(this.model.entities).forEach((key) => {
             const currentItem = this.model.entities[key],
                 currentLevel = currentItem.level,
@@ -106,34 +151,194 @@ export class MGridComponent implements OnInit, AfterViewInit {
     }
 
     public ngAfterViewInit() {
+        this.gridCanvasElement = this.gridCanvasRef.nativeElement;
+        this.gridCanvasInnerElement = this.gridCanvasInnerRef.nativeElement;
         this.rowElementList = this.convertQueryListToElementList(this.rowList);
         this.itemElementMap = this.convertQueryListToElementMap(this.itemList);
 
-        console.log(this.itemElementMap);
-
         this.setItemsStyle(this.itemList);
 
-        // this.modelEntitiesByLevel
+        this.gridCanvasElement.addEventListener("mousewheel", this.onMouseWheel);
+        this.gridCanvasElement.addEventListener("DOMMouseScroll", this.onMouseWheel);
+        this.gridCanvasElement.addEventListener("MozMousePixelScroll", this.onMouseWheel);
 
-        for (let i = 0; i < this.rowElementList.length; i++) {
-            this.modelEntitiesByLevel[i].forEach((row) => {
-                this.shiftElementsInRow(row);
-            });
+        // this.modelEntitiesByLevel // {0: Array(1), 1: Array(2), 2: Array(4), 3: Array(6)}
+
+        for (let i = 0; i < Object.keys(this.modelEntitiesByLevel).length; i++) {
+            this.shiftElementsInRow(i, this.modelEntitiesByLevel[i]);
         }
     }
 
-    private shiftElementsInRow(row): void {
-        if (row.level === 0) {
-            console.log(this.itemElementMap[this.modelEntitiesByLevel[0][0].id]);
-            // this.itemElementMap[this.modelEntitiesByLevel[0][0].id].style.left = CANVAS_WIDTH / 2 - ITEM_WIDTH / 2 + 'px';
-            console.log();
+    private onMouseWheel = (event) => {
+
+        let direction = void 0,
+            STEP = 0.1,
+            scale = void 0;
+
+        if (event.detail > 0 || event.wheelDelta < 0) {
+            // direction = 'down';
+            this.scaleRatio -= STEP;
+
+            if (this.scaleRatio < 0.3) {
+                this.scaleRatio = 0.3;
+            }
+        } else {
+            // direction = 'up';
+            this.scaleRatio += STEP;
         }
 
+        this.gridCanvasInnerElement.style.transform = `scale(${this.scaleRatio})`;
+
+        return false;
+    };
+
+    private shiftElementsInRow(rowIndex, row): void {
+
+        if (rowIndex === 0) {
+            const gridItem = this.modelEntitiesByLevel[0][0];
+            gridItem.centralAxes = this.params.canvasWidth / 2;
+
+            this.itemElementMap[gridItem.id].style.left = gridItem.centralAxes - this.params.itemWidth / 2 + "px";
+        } else {
+            let previousParentInLevel = undefined,
+                childrenOfPreviousParentInLevelNumber = 0;
+
+            this.modelEntitiesByLevel[rowIndex].forEach((gridItem, index) => {
+                // store this values to subtract them from indexes of next children in one level
+                if (previousParentInLevel !== gridItem.parent) {
+                    previousParentInLevel = gridItem.parent;
+
+                    if (index) {
+                        childrenOfPreviousParentInLevelNumber = index;
+                    }
+                }
+
+                const gridItemsWithSameParentLength = this.getSameParentItemsLength(this.modelEntitiesByLevel[rowIndex], gridItem);
+
+                // count central axes position for children to give them axes to align with
+                const position =
+                    // shift children after parent's central Axis
+                    this.getParentCentralAxes(gridItem)
+                    // shift them in the middle of axes
+                    - gridItemsWithSameParentLength * this.params.itemWidth / 2
+                    // shift according to index in children's array
+                    + (index - childrenOfPreviousParentInLevelNumber) * this.params.itemWidth;
+
+                gridItem.centralAxes = position + this.params.itemWidth / 2;
+
+                const shiftByChildren = this.getShiftByChildren(gridItem);
+
+                gridItem.centralAxes += shiftByChildren;
+
+                this.itemElementMap[gridItem.id].style.left = position + shiftByChildren + "px";
+            });
+
+            previousParentInLevel = undefined;
+            childrenOfPreviousParentInLevelNumber = 0;
+        }
+
+        // if (rowIndex === 1) {
+        //     let previousParentInLevel,
+        //         childrenOfPreviousParentInLevelNumber = 0;
+        //
+        //     this.modelEntitiesByLevel[1].forEach((gridItem, index) => {
+        //         // store this values to subtract them from indexes of next children in one level
+        //         if (previousParentInLevel !== gridItem.parent) {
+        //             previousParentInLevel = gridItem.parent;
+        //
+        //             if (index) {
+        //                 childrenOfPreviousParentInLevelNumber = index;
+        //             }
+        //         }
+        //
+        //         const gridItemsWithSameParentLength = this.getSameParentItemsLength(this.modelEntitiesByLevel[1], gridItem);
+        //
+        //         // count central axes position for children to give them axes to align with
+        //         const position =
+        //             // shift children after parent's central Axis
+        //             this.getParentCentralAxes(gridItem)
+        //             // shift them in the middle of axes
+        //             - gridItemsWithSameParentLength * this.params.itemWidth / 2
+        //             // shift according to index in children's array
+        //             + (index - childrenOfPreviousParentInLevelNumber) * this.params.itemWidth;
+        //
+        //         gridItem.centralAxes = position + this.params.itemWidth / 2;
+        //
+        //         const shiftByChildren = this.getShiftByChildren(gridItem);
+        //
+        //         gridItem.centralAxes += shiftByChildren;
+        //
+        //         this.itemElementMap[gridItem.id].style.left = position + shiftByChildren + "px";
+        //     });
+        //
+        //     previousParentInLevel = undefined;
+        //     childrenOfPreviousParentInLevelNumber = 0;
+        // }
+        //
+        // if (rowIndex === 2) {
+        //     let previousParentInLevel,
+        //         childrenOfPreviousParentInLevelNumber = 0;
+        //
+        //     this.modelEntitiesByLevel[2].forEach((gridItem, index) => {
+        //
+        //         // store this values to subtract them from indexes of next children in one level
+        //         if (previousParentInLevel !== gridItem.parent) {
+        //             previousParentInLevel = gridItem.parent;
+        //
+        //             if (index) {
+        //                 console.log(123);
+        //                 // check if there were previous children with different parent,
+        //                 // also set index and not index - 1, because index starts with 0.
+        //                 childrenOfPreviousParentInLevelNumber = index;
+        //             }
+        //         }
+        //
+        //         const gridItemsWithSameParentLength = this.getSameParentItemsLength(this.modelEntitiesByLevel[2], gridItem);
+        //
+        //         const position =
+        //             // shift children after parent's central Axis
+        //             this.getParentCentralAxes(gridItem)
+        //             // shift them in the middle of axes
+        //             - gridItemsWithSameParentLength * this.params.itemWidth / 2
+        //             // shift according to index in children's array
+        //             + (index - childrenOfPreviousParentInLevelNumber) * this.params.itemWidth;
+        //
+        //         gridItem.centralAxes = position + this.params.itemWidth / 2;
+        //
+        //         const shiftByChildren = this.getShiftByChildren(gridItem);
+        //
+        //         gridItem.centralAxes += shiftByChildren;
+        //
+        //         this.itemElementMap[gridItem.id].style.left = position + shiftByChildren + "px";
+        //     });
+        // }
+    }
+
+    // get parent central Axes line, according to this line shift children
+    private getParentCentralAxes(gridItem: GridItemModel): number {
+        return this.model.entities[gridItem.parent].centralAxes;
+    }
+
+    // get shift by children to prevent collision
+    private getShiftByChildren(gridItem: GridItemModel): number {
+        let shiftSign;
+        if (gridItem.centralAxes < this.mainAxesCoords) {
+            shiftSign = -1;
+        } else {
+            shiftSign = 1;
+        }
+
+        return gridItem.children.length * this.params.itemWidth / 2 * shiftSign;
+    }
+
+    // get number of gridItems with the same parent in one level
+    private getSameParentItemsLength(level, gridItem: GridItemModel): number {
+        return level.filter(item => item.parent === gridItem.parent).length;
     }
 
     private setItemsStyle(arr: QueryList<ElementRef>): void {
         arr.forEach((item: ElementRef) => {
-            item.nativeElement.style.width = ITEM_WIDTH + 'px';
+            item.nativeElement.style.width = this.params.itemWidth + 'px';
         });
     }
 
@@ -161,7 +366,7 @@ export class MGridComponent implements OnInit, AfterViewInit {
 
         arr.forEach((item: ElementRef) => {
             const element = item.nativeElement;
-            map[element['dataset'].id] = item;
+            map[element['dataset'].id] = element;
         });
 
         return map;
@@ -171,10 +376,5 @@ export class MGridComponent implements OnInit, AfterViewInit {
         return arr.map((item: ElementRef) => {
             return item.nativeElement;
         });
-    }
-
-    private createSegment() {
-        const div = document.createElement('div');
-        div.classList.add('grid__segment');
     }
 }
