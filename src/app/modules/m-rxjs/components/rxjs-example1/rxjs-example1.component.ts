@@ -22,7 +22,11 @@ import {domenToken} from "../../../shared/tokens/tokens";
 @Component({
     selector: 'rxjs-example1',
     template: `
-        <form novalidate [formGroup]="form">
+        <form 
+            #myForm
+            novalidate 
+            [formGroup]="form"
+        >
             <h2>Rxjs Example 1</h2>
             <input formControlName="text" #input type='text' style='border: 1px solid;'/>
     
@@ -34,6 +38,9 @@ import {domenToken} from "../../../shared/tokens/tokens";
 
 export class RxjsExample1Component implements AfterViewInit, OnDestroy {
     form: FormGroup;
+
+    @ViewChild("myForm")
+    myFormRef: ElementRef;
 
     @ViewChild('input')
     private inputRef: ElementRef;
@@ -103,9 +110,25 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //     .subscribe((value) => {
         //         console.log("form value ", value);
         //     });
+
+
     }
 
     public ngAfterViewInit(): void {
+
+        fromEvent(this.myFormRef.nativeElement, "submit")
+            .pipe(
+                map(() => {
+                    return new HttpParams().set('value', this.form.value.text);
+                }),
+                exhaustMap(params => this.http.get(`${domenToken}api/rxjs/words`, {
+                    params
+                }))
+            )
+            .subscribe((value) => {
+                console.log("form value ", value);
+            });
+
         // const input = this.inputRef.nativeElement;
         //
         // fromEvent(input, 'input')
