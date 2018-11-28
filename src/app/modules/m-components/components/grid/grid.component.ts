@@ -87,22 +87,28 @@ export class MGridComponent implements OnInit, AfterViewInit {
             '2': {id: '2', level: '1', children: ['5', '6'], parent: '0'},
             '3': {id: '3', level: '2', children: ['7', '8', '9', '10'], parent: '1'},
             '4': {id: '4', level: '2', children: ['17', '18'], parent: '1'},
-            '5': {id: '5', level: '2', children: ['11', '12', '13'], parent: '2'},
-            '6': {id: '6', level: '2', children: ['14', '15', '16'], parent: '2'},
+            '5': {id: '5', level: '2', children: ['11', '12', '13', '14'], parent: '2'},
+            '6': {id: '6', level: '2', children: ['15', '16'], parent: '2'},
             '7': {id: '7', level: '3', children: [], parent: '3'},
-            '8': {id: '8', level: '3', children: [], parent: '3'},
+            '8': {id: '8', level: '3', children: ['21', '22', '23'], parent: '3'},
             '9': {id: '9', level: '3', children: [], parent: '3'},
             '10': {id: '10', level: '3', children: [], parent: '3'},
             '11': {id: '11', level: '3', children: [], parent: '5'},
             '12': {id: '12', level: '3', children: [], parent: '5'},
             '13': {id: '13', level: '3', children: [], parent: '5'},
-            '14': {id: '14', level: '3', children: [], parent: '6'},
+            '14': {id: '14', level: '3', children: [], parent: '5'},
             '15': {id: '15', level: '3', children: [], parent: '6'},
             '16': {id: '16', level: '3', children: [], parent: '6'},
             '17': {id: '17', level: '3', children: ['19', '20'], parent: '4'},
             '18': {id: '18', level: '3', children: [], parent: '4'},
             '19': {id: '19', level: '4', children: [], parent: '17'},
             '20': {id: '20', level: '4', children: [], parent: '17'},
+            '21': {id: '21', level: '4', children: [], parent: '8'},
+            '22': {id: '22', level: '4', children: [], parent: '8'},
+            '23': {id: '23', level: '4', children: [], parent: '8'},
+            '24': {id: '24', level: '2', children: ['25', '26'], parent: '2'},
+            '25': {id: '25', level: '4', children: [], parent: '24'},
+            '26': {id: '26', level: '4', children: [], parent: '24'},
         }
     };
 
@@ -165,6 +171,7 @@ export class MGridComponent implements OnInit, AfterViewInit {
         this.gridCanvasElement.addEventListener('MozMousePixelScroll', this.onMouseWheel);
 
         // this.modelEntitiesByLevel // {0: Array(1), 1: Array(2), 2: Array(4), 3: Array(6)}
+        console.log(this.modelEntitiesByLevel);
 
         for (let i = 0; i < Object.keys(this.modelEntitiesByLevel).length; i++) {
             this.shiftElementsInRow(i, this.modelEntitiesByLevel[i]);
@@ -234,7 +241,7 @@ export class MGridComponent implements OnInit, AfterViewInit {
 
                 // shift previous siblings according to current grid item children
                 if (index) {
-                    this.shiftPreviousSiblings(this.modelEntitiesByLevel[rowIndex], gridItem, index - 1);
+                    this.shiftPreviousSiblings(this.modelEntitiesByLevel[rowIndex], gridItem);
                 }
             });
         }
@@ -323,20 +330,30 @@ export class MGridComponent implements OnInit, AfterViewInit {
 
     // get shift by children to prevent collision
     private getShiftByChildren(gridItem: GridItemModel): number {
-        return gridItem.children.length * this.params.itemWidth / 2 * this.getGridItemShiftSign(gridItem);
+        return this.getCountedShiftByChildrenOneSide(gridItem) * this.getGridItemShiftSign(gridItem);
+    }
+
+    private getCountedShiftByChildrenOneSide(gridItem: GridItemModel) {
+        if (gridItem.children && gridItem.children.length) {
+            return (gridItem.children.length > 1 ? (gridItem.children.length - 1) / 2 : 1) * this.params.itemWidth;
+        }
+
+        return 0;
     }
 
     //  shift previous siblings according to current grid item children
-    private shiftPreviousSiblings(level: GridItemModel[], gridItem: GridItemModel, index: number): void {
+    private shiftPreviousSiblings(level: GridItemModel[], gridItem: GridItemModel): void {
         const shiftSign = this.getGridItemShiftSign(gridItem);
 
         const gridItemChildrenLength = gridItem.children ? gridItem.children.length : 0;
+        const previousSiblingsOnLevel = this.getPreviousSiblingsOnLevel(level, gridItem);
 
         if (gridItemChildrenLength) {
             if (shiftSign < 0) {
-                this.getPreviousSiblingsOnLevel(level, gridItem).forEach((item: GridItemModel) => {
-                    item.centralAxes += shiftSign * gridItemChildrenLength / 2 * this.params.itemWidth;
-
+                previousSiblingsOnLevel.forEach((item: GridItemModel) => {
+                    // this.getCountedShiftByChildrenOneSide(gridItem) * 2 because element that shifts left sibling
+                    // will be also shift itself, so siblings have to be shifted too
+                    item.centralAxes += shiftSign * this.getCountedShiftByChildrenOneSide(gridItem) * 2;
                     this.itemElementMap[item.id].style.left = item.centralAxes - this.params.itemWidth / 2 + 'px';
                 });
             } else {
@@ -345,13 +362,15 @@ export class MGridComponent implements OnInit, AfterViewInit {
                 let previousRightSiblingsChildrenLength = 0;
 
                 this.getPreviousSiblingsOnLevelBeforeCenterAxes(level, gridItem).forEach((item) => {
-                    previousRightSiblingsChildrenLength += item.children.length / 2;
+                    previousRightSiblingsChildrenLength += this.getCountedShiftByChildrenOneSide(item);
                 });
 
-                console.log("previousRightSiblingsChildrenLength ", previousRightSiblingsChildrenLength);
-
+                console.log(previousRightSiblingsChildrenLength);
+                console.log(this.getCountedShiftByChildrenOneSide(gridItem));
                 if (previousRightSiblingsChildrenLength) {
-                    gridItem.centralAxes += (previousRightSiblingsChildrenLength * this.params.itemWidth) + this.params.itemWidth / 2;
+                    // shift right element according to previous left element (but before main axes)
+                    // count all
+                    gridItem.centralAxes += previousRightSiblingsChildrenLength + this.getCountedShiftByChildrenOneSide(gridItem) + this.params.itemWidth;
                     this.itemElementMap[gridItem.id].style.left = gridItem.centralAxes - this.params.itemWidth / 2 + 'px';
                 }
             }
@@ -361,13 +380,17 @@ export class MGridComponent implements OnInit, AfterViewInit {
 
     private getPreviousSiblingsOnLevel(level, gridItem: GridItemModel): GridItemModel[] {
         return level.filter((item) => {
-            return item.centralAxes < gridItem.centralAxes;
+            if (gridItem.id !== item.id) {
+                return item.centralAxes <= gridItem.centralAxes;
+            }
         });
     }
 
     private getPreviousSiblingsOnLevelBeforeCenterAxes(level, gridItem: GridItemModel): GridItemModel[] {
         return level.filter((item) => {
-            return item.centralAxes < gridItem.centralAxes && item.centralAxes > this.mainAxesCoords;
+            if (gridItem.id !== item.id) {
+                return item.centralAxes >= gridItem.centralAxes && item.centralAxes > this.mainAxesCoords;
+            }
         });
     }
 
@@ -402,7 +425,8 @@ export class MGridComponent implements OnInit, AfterViewInit {
         Object.keys(entities).forEach((key) => {
             const currentLevel = entities[key].level;
 
-            if (previousLevel !== currentLevel) {
+            if (previousLevel !== currentLevel
+                && !this.modelEntitiesByLevel[currentLevel]) {
                 previousLevel = currentLevel;
                 this.modelEntitiesByLevel[currentLevel] = [];
             }
