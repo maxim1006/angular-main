@@ -1,8 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {domenToken} from "../../../shared/tokens/tokens";
 import {HttpClient} from "@angular/common/http";
-import {forkJoin, Observable, of, Subscription, interval, combineLatest, asyncScheduler} from "rxjs/index";
-import {zip, mergeAll, observeOn} from 'rxjs/operators';
+import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler} from "rxjs/index";
+import {mergeAll, observeOn} from 'rxjs/operators';
+import {delay} from "rxjs/internal/operators";
 
 @Component({
     selector: 'rxjs-example',
@@ -137,8 +138,8 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
 
-        // const intervalOne$ = interval(1000);
-        // const intervalTwo$ = interval(3000);
+        const intervalOne$ = interval(1000);
+        const intervalTwo$ = interval(3000);
 
         // когда хоть одно значение хоть у 1 обзервабла сработало выдает результат 2х
         // intervalOne$.pipe(
@@ -146,12 +147,12 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //         intervalTwo$
         //     )).subscribe(all => console.log('combineLatest ', all));
 
-        // ждет результат 2х обзерваблов и затем срабатывает
-        // intervalOne$.pipe(zip(
-        //     intervalTwo$
-        // )).subscribe(all => console.log('zip ', all));
+        // ждет результат 2х обзерваблов и затем срабатывает, выдаст [[...],[...]]
+        zip(this._http.get(`${domenToken}api/family/0`),
+            this._http.get(`${domenToken}api/family/1`)
+        ).subscribe(all => console.log('zip ', all));
 
-        //
+        //`
         // //либо с запросами
         // Observable.combineLatest(
         //     this._http.get(`${domenToken}family0.json`),

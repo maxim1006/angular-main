@@ -19,4 +19,40 @@ const family = [
     }
 ];
 
-export { family };
+const family0 = [
+    {
+        "name": "Max299",
+        "age": 299,
+        "sex": "male"
+    },
+    {
+        "name": "Aliya300",
+        "age": 300,
+        "sex": "female"
+    },
+    {
+        "name": "Anton300",
+        "age": 300,
+        "sex": "male"
+    }
+];
+
+const family1 = [
+    {
+        "name": "Max2999",
+        "age": 2999,
+        "sex": "male"
+    },
+    {
+        "name": "Aliya3000",
+        "age": 3000,
+        "sex": "female"
+    },
+    {
+        "name": "Anton3000",
+        "age": 3000,
+        "sex": "male"
+    }
+];
+
+export { family, family0, family1 };
