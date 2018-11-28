@@ -9,7 +9,6 @@ familyRouter.get('/', (req, res) => {
 });
 
 familyRouter.get('/:id', (req, res) => {
-    console.log(req.params);
     if (req.params && typeof +req.params.id === "number") {
         if (fromFamily["family" + req.params.id]) {
             res.status(200).json(fromFamily["family" + req.params.id]);
