@@ -18,3 +18,13 @@ shipOrder = this.actions.pipe(
   })
 )
 */
+
+/*
+* Множественные экшены в эффекте
+* @Effect() save = this.update$.pipe(
+   map(action => action.payload),
+   switchMap(payload => this.myService.save(payload)),
+   tap(res => this.store.dispatch(new Notification('save success'))),
+   map(res => new SaveSuccess(res))
+);
+* */
