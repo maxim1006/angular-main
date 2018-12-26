@@ -61,6 +61,7 @@ process.on("uncaughtException", (err) => {
 gulp.on("err", (gulpErr) => {
     if(gulpErr.err) {
         console.error("Gulp error details", [gulpErr.err.message, gulpErr.err.stack, gulpErr.err.errors].filter(Boolean));
+        process.exit(255);
     }
 });
 
