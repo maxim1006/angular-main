@@ -1,7 +1,12 @@
-import {Component, HostBinding, Inject, OnInit, Optional} from '@angular/core';
+import {
+    AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import {PageLoaderService} from './common/services/page-loader.service';
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
 import {of} from 'rxjs';
+import {MDynamicService} from "./services/dynamic.service";
+import {MDynamicAppComponent} from "./components/dynamic-app/dynamic-app.component";
 
 export const routerTransition: any = trigger('routerTransition', [
     transition('* <=> *', [
@@ -52,14 +57,18 @@ export const routerTransition1: any = trigger('routerTransition', [
     // styleUrls: ['./app.component.css']
     animations: [ routerTransition1 ]
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
+
+    @ViewChild("dynamicComponent", {read: ViewContainerRef})
+    dynamicComponentRef: ViewContainerRef;
 
     @HostBinding('class')
     public hostClass: String = 'app-component';
 
     constructor(
         @Optional() @Inject('someOptionalObject.someOptionalProperty') private optionalPropery,
-        public pageLoaderService: PageLoaderService
+        public pageLoaderService: PageLoaderService,
+        private mDynamicService: MDynamicService
     ) {}
 
     activateEvent(event) {
@@ -74,6 +83,21 @@ export class AppComponent {
 
     getState(outlet) {
         return outlet.activatedRouteData.state;
+    }
+
+    ngAfterViewInit() {
+        this.mDynamicService.init(this.dynamicComponentRef);
+
+        // Создаю динамический компонент, как пример для динамического сервиса.
+        const dynamicComponentRef = this.mDynamicService.createDynamicComponent(MDynamicAppComponent, {
+            text: "text from MDynamicAppComponent"
+        });
+
+        // делаю детект только в апп компоненте, так как обычно буду вставлять в onInit, но в данном случае изначальный инит сервиса нужен.
+        dynamicComponentRef.changeDetectorRef.detectChanges();
+
+        // убиваю компонент
+        setTimeout(_ => dynamicComponentRef.destroy(), 3000);
     }
 
 

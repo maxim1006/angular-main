@@ -50,7 +50,7 @@ const routes: Routes = [
     {path: 'my-store', loadChildren: './modules/my-store/my-store.module#MyStoreModule'},
     {path: 'my-redux-store', loadChildren: './modules/my-redux-store/my-redux-store.module#MyReduxStoreModule'},
     //  preload: true - делаю специально, чтобы не подгружать лезийный модуль с помощью прелоадинга
-    {path: 'lazy', loadChildren: './modules/m-lazy/m-lazy.module#MLazyModule', data: { state: 'lazy'}},
+    {path: 'lazy', loadChildren: './modules/lazy/lazy.module#MLazyModule', data: { state: 'lazy'}},
     {path: 'protected-lazy',
         canLoad: [ProtectedLazyGuard], // cпецифично для лезийных модулей или лезийных чайлдов
         loadChildren: './modules/m-protected-lazy/m-protected-lazy.module#MProtectedLazyModule', data: { state: 'protectedLazy'}},

@@ -27,6 +27,9 @@ import {StaticInjector} from "@angular/core/src/di/injector";
 import {MAdminComponent} from "./modules/admin/admin.component";
 import {MAdminGuardService} from "./modules/admin/admin-guard.service";
 import {MHttpRequestInterceptor} from "./common/interceptors/http-request.interceptor";
+import {MDynamicService} from "./services/dynamic.service";
+import {MDynamicInternalService} from "./services/dynamic-internal.service";
+import { MDynamicAppComponent } from './components/dynamic-app/dynamic-app.component';
 
 
 export function routeServiceFactory (route: RouteService):()=>{} {
@@ -51,7 +54,8 @@ const childInjector: Injector = Injector.create({
 @NgModule({
     declarations: [
         AppComponent,
-        MAdminComponent
+        MAdminComponent,
+        MDynamicAppComponent
     ],
     imports: [
         BrowserModule, //подключает коммон модуль, директивы, пайпы
@@ -70,6 +74,8 @@ const childInjector: Injector = Injector.create({
         PageUtilsService,
         PageLoaderService,
         MAdminGuardService,
+        MDynamicService,
+        MDynamicInternalService,
         {provide: domenToken, useValue: domenToken},
         {provide: "NamedService", useClass: AppService, multi: true},
         MyPreloadStrategy,
@@ -106,6 +112,9 @@ const childInjector: Injector = Injector.create({
     ],
     bootstrap: [
         AppComponent
+    ],
+    entryComponents: [
+        MDynamicAppComponent
     ]
 })
 export class AppModule {
