@@ -7,7 +7,10 @@ export enum FamilyActionTypes {
     LoadFail  = '[Family] Load Failure',
     Add = '[Family] Add',
     Remove = '[Family] Remove',
-    Reset = '[Family] Reset'
+    Reset = '[Family] Reset',
+    ServerSearch = '[Family] Server Search',
+    ServerSearchSuccess = '[Family] Server Search success',
+    ServerSearchFail = '[Family] Server Search fail',
 }
 
 export class LoadFamilyAction implements Action {
@@ -42,6 +45,24 @@ export class FamilyResetAction implements Action {
     readonly type = FamilyActionTypes.Reset;
 }
 
+export class FamilyServerSearchAction implements Action {
+    readonly type = FamilyActionTypes.ServerSearch;
+
+    constructor(public payload: string) {}
+}
+
+export class FamilyServerSearchSuccessAction implements Action {
+    readonly type = FamilyActionTypes.ServerSearchSuccess;
+
+    constructor(public payload: FamilyMember[]) {}
+}
+
+export class FamilyServerSearchFailAction implements Action {
+    readonly type = FamilyActionTypes.ServerSearchFail;
+
+    constructor(public payload: any) {}
+}
+
 
 export type FamilyActionsUnion =
     | LoadFamilyAction
@@ -49,4 +70,7 @@ export type FamilyActionsUnion =
     | LoadFamilyFailAction
     | FamilyAddAction
     | FamilyRemoveAction
-    | FamilyResetAction;
+    | FamilyResetAction
+    | FamilyServerSearchAction
+    | FamilyServerSearchSuccessAction
+    | FamilyServerSearchFailAction;

@@ -4,7 +4,8 @@ import {Pizza} from '../../models/pizza.model';
 import {select, Store} from '@ngrx/store';
 import * as fromStore from '../../store';
 import {ProductsState} from '../../store/reducers';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
+import {catchError, delay, filter, switchMap, timeout} from "rxjs/internal/operators";
 
 @Component({
     selector: 'products',
@@ -40,7 +41,7 @@ export class ProductsComponent implements OnInit {
 
     ngOnInit() {
         this.pizzas$ = this.store.pipe(select(fromStore.getAllPizzas));
-        this.store.dispatch(new fromStore.LoadPizzasAction());
-        this.store.dispatch(new fromStore.LoadToppingsAction());
+        // вместо диспатча тут делаю это в guards, для инит загрузки всех пиц, отдельной пиццы и новой
+        // this.store.dispatch(new fromStore.LoadToppingsAction());
     }
 }

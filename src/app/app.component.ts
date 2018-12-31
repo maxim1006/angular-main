@@ -72,12 +72,12 @@ export class AppComponent implements AfterViewInit{
     ) {}
 
     activateEvent(event) {
-        this.pageLoaderService.activateRoute(event);
+        // this.pageLoaderService.activateRoute(event);
         console.log(event, ' activated component');
     }
 
     deactivateEvent(event) {
-        this.pageLoaderService.deactivateRoute();
+        // this.pageLoaderService.deactivateRoute();
         console.log(event, ' deactivated component');
     }
 

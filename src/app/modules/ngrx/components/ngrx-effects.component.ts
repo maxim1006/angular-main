@@ -28,6 +28,21 @@ export interface AppState {
             </li>
         </ul>
         
+        <p>Family server search:</p>
+        <input 
+            type="text" 
+            #searchInput
+            placeholder="family member name"
+            (input)="_onInput(searchInput.value)"
+        >
+        <span *ngIf="_searchLoading$ | async">Loading...</span>
+        <ul>
+            <li *ngFor="let member of _foundFamilyMember$ | async">
+                {{member.name}}:
+                {{member.age}} years
+            </li>
+        </ul>
+        
         <form>
             <input type="text" placeholder="name" #inputName>
             <input type="text" placeholder="age"  #inputAge>
@@ -40,14 +55,18 @@ export interface AppState {
 })
 export class MNgrxEffectsComponent implements OnInit {
     /** @internal */
-    public _family$: Observable<FamilyMember[]>;
+    public _family$: Observable<FamilyMember[]> = this.store.pipe(select(fromStore.getFamilyMembers));
 
-    constructor(private store: Store<AppState>) {
-    }
+    /** @internal */
+    public _foundFamilyMember$: Observable<FamilyMember[]> = this.store.pipe(select(fromStore.getFamilyFoundMembers));
+
+    /** @internal */
+    public _searchLoading$: Observable<boolean> = this.store.pipe(select(fromStore.getFamilySearchLoading));
+
+    constructor(private store: Store<AppState>) {}
 
     ngOnInit() {
         this.store.dispatch(new fromStore.LoadFamilyAction());
-        this._family$ = this.store.pipe(select(fromStore.getFamilyMembers));
     }
 
     /** @internal */
@@ -77,5 +96,10 @@ export class MNgrxEffectsComponent implements OnInit {
     /** @internal */
     public _resetFamily(): void {
         this.store.dispatch(new fromStore.FamilyResetAction());
+    }
+
+    /** @internal */
+    public _onInput(value): void {
+        this.store.dispatch(new fromStore.FamilyServerSearchAction(value));
     }
 }

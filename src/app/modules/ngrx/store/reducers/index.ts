@@ -1,7 +1,7 @@
 // в данном случае это типо апп редюсеры
 import * as fromRouter from '@ngrx/router-store';
-import * as fromFamilyReducer from './family.reducer';
 import * as fromCounterReducer from './counter.reducer';
+import * as fromFamilyReducer from './family.reducer';
 import {ActivatedRouteSnapshot, Params, RouterStateSnapshot} from '@angular/router';
 import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
 import {RouterStateSerializer} from "@ngrx/router-store";
@@ -25,7 +25,7 @@ export const reducers: ActionReducerMap<State> = {
     family: fromFamilyReducer.reducer
 };
 
-export const getFamilyState = createFeatureSelector<fromFamilyReducer.FamilyState>('family');
+
 
 export const getCounterState = createFeatureSelector<fromCounterReducer.CounterState>('counter');
 

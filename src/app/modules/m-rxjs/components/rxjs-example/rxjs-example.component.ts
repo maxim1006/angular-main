@@ -148,8 +148,8 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //     )).subscribe(all => console.log('combineLatest ', all));
 
         // ждет результат 2х обзерваблов и затем срабатывает, выдаст [[...],[...]]
-        zip(this._http.get(`${domenToken}api/family/0`),
-            this._http.get(`${domenToken}api/family/1`)
+        zip(this._http.get(`${domenToken}api/family/families/0`),
+            this._http.get(`${domenToken}api/family/families/1`)
         ).subscribe(all => console.log('zip ', all));
 
         //`
