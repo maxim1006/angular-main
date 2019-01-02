@@ -39,6 +39,7 @@
         "hammerjs": "^2.0.8",
         "highcharts": "^6.1.0",
         "install": "^0.12.1",
+        "jasmine-marbles": "^0.4.1",
         "less-loader": "^3.0.0",
         "npm": "^6.2.0",
         "rxjs": "^6.3.3",
