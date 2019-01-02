@@ -41,6 +41,7 @@ import {DynamicHostDirective} from "./components/dynamic/dynamic-host.directive"
 import { MAnimationsComponent } from "./components/animations/animationa.component";
 import {TooltipDirective} from "./directives/tooltip.directive";
 import {MyForDirective} from "./directives/my-for.directive";
+import {MComponentAsDirectiveComponent} from "./components/component-as-directive/component-as-directive.component";
 
 const routes: Routes = [
     {path: '', component: MFrameworkComponent},
@@ -87,7 +88,8 @@ const routes: Routes = [
         DynamicHostDirective,
         MAnimationsComponent,
         TooltipDirective,
-        MyForDirective
+        MyForDirective,
+        MComponentAsDirectiveComponent
     ],
     exports: [MFrameworkComponent, ClassExampleComponent, DynamicComponent],
     providers: [],

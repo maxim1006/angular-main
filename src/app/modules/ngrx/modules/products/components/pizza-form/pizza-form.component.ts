@@ -134,7 +134,7 @@ export class PizzaFormComponent implements OnChanges {
 
   updatePizza(form: FormGroup) {
     const { value, valid, touched } = form;
-    if (touched && valid) {
+    if (valid) {
       this.update.emit({ ...this.pizza, ...value });
     }
   }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LazyDynamicComponent } from './lazy-dynamic.component';
+import { MLazyDynamicComponent } from './lazy-dynamic.component';
 
 describe('LazyDynamicComponent', () => {
-  let component: LazyDynamicComponent;
-  let fixture: ComponentFixture<LazyDynamicComponent>;
+  let component: MLazyDynamicComponent;
+  let fixture: ComponentFixture<MLazyDynamicComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LazyDynamicComponent ]
+      declarations: [ MLazyDynamicComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LazyDynamicComponent);
+    fixture = TestBed.createComponent(MLazyDynamicComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
