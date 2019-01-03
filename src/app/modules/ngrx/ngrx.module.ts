@@ -128,11 +128,16 @@ export const metaReducers: MetaReducer<any>[] = !environment.production ? [store
 
 
 const routes: Routes = [
-    {path: '', component: MNgrxComponent},
     {
-        path: 'products',
-        loadChildren: './modules/products/products.module#ProductsModule',
-    },
+        path: '',
+        component: MNgrxComponent,
+        children: [
+            {
+                path: 'products',
+                loadChildren: './modules/products/products.module#ProductsModule',
+            },
+        ]
+    }
 ];
 
 

@@ -37,10 +37,9 @@ export class ProductsComponent implements OnInit {
     constructor(private store: Store<ProductsState>) {
     }
 
-    pizzas$: Observable<{[id: number]: Pizza}>;
+    pizzas$: Observable<{[id: number]: Pizza}> = this.store.pipe(select(fromStore.getAllPizzas));
 
     ngOnInit() {
-        this.pizzas$ = this.store.pipe(select(fromStore.getAllPizzas));
         // вместо диспатча тут делаю это в guards, для инит загрузки всех пиц, отдельной пиццы и новой
         // this.store.dispatch(new fromStore.LoadToppingsAction());
     }

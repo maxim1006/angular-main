@@ -15,6 +15,10 @@ export function reducer(state: CounterState = initialState, action: CounterActio
 
             return state + action.payload;
 
+        case CounterActionTypes.MultiplyBy:
+            console.log(state * action.payload);
+            return state * action.payload;
+
         default:
 
             return state;

@@ -6,6 +6,8 @@ import * as fromRoot from '../../../../store';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {PizzasService} from '../../services';
 import {of} from 'rxjs';
+import {pluck} from "rxjs/internal/operators";
+import {Pizza} from "../../models/pizza.model";
 
 @Injectable()
 export class PizzasEffects {
@@ -27,30 +29,31 @@ export class PizzasEffects {
     @Effect()
     createPizza$ = this.actions$.pipe(
         ofType(fromPizzaAction.PizzasActionTypes.Create),
-        map((action: fromPizzaAction.CreatePizzaAction) => action.payload),
-        switchMap((pizza) => {
-            return this.pizzasService.createPizza(pizza).pipe(
-                map(pizza => new fromPizzaAction.CreatePizzaSuccessAction(pizza)),
-                catchError(error => of(new fromPizzaAction.CreatePizzaFailAction(error)))
-            );
-        })
+        pluck('payload'),
+        switchMap((pizza) => this.pizzasService.createPizza(pizza).pipe(
+            map(pizza => new fromPizzaAction.CreatePizzaSuccessAction(pizza)),
+            catchError(error => of(new fromPizzaAction.CreatePizzaFailAction(error)))
+        ))
     );
 
     @Effect()
     createPizzaSuccess = this.actions$.pipe(
         ofType(fromPizzaAction.PizzasActionTypes.CreateSuccess),
-        map((action: fromPizzaAction.CreatePizzaSuccessAction) => action.payload),
-        map((pizza) => {
-            return new fromRoot.Go({
-                path: ['/ngrx/products/', pizza.id]
-            })
-        })
+        pluck('payload'),
+        // тут сделал чисто пример возврата 2х экшенов
+        switchMap((pizza: Pizza) => [
+                new fromPizzaAction.ShowHintAction("create success"),
+                new fromRoot.Go({
+                    path: ['/ngrx/products/', pizza.id]
+                })
+            ]
+        )
     );
 
     @Effect()
     updatePizza$ = this.actions$.pipe(
         ofType(fromPizzaAction.PizzasActionTypes.Update),
-        map((action: fromPizzaAction.UpdatePizzaAction) => action.payload),
+        pluck('payload'),
         switchMap((pizza) => {
             return this.pizzasService.updatePizza(pizza).pipe(
                 map(pizza => new fromPizzaAction.UpdatePizzaSuccessAction(pizza)),

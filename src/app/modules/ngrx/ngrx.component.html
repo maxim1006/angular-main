@@ -2,6 +2,18 @@
 
 
 <button type="button" (click)="_increase()">+</button>
+<input
+    placeholder="multiply by"
+    type="number"
+    #input
+    (change)="_multiplyBy(input)"
+>
+<input
+    placeholder="increase on"
+    type="number"
+    #input1
+    (change)="_increaseOn(input1)"
+>
 <p>Reducer {{_counter$ | async}}</p>
 <p>Selector {{_counterSelector$ | async}}</p>
 <p>Route Selector {{_counterRouteSelector$ | async}}</p>
@@ -12,5 +24,9 @@
 </p>
 
 <a routerLink="products">Go to products</a>
+
+<span style="margin-left: 30px">
+    {{ pizzasHint }}
+</span>
 
 <router-outlet></router-outlet>

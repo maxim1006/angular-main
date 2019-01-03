@@ -27,8 +27,6 @@ export class FamilyEffects {
         map(action => action.payload),
         withLatestFrom(this.store.pipe(select(fromFamilySelectors.getFamilyLoaded))),
         switchMap(([payload, familyLoaded]) => {
-            console.log("loadFamily$ payload ", payload);
-            console.log("loadFamily$ familyLoaded ", familyLoaded);
             return this.mFamilyService.getFamily().pipe(
                 map((data: FamilyMember[]) => {
                     return new fromFamilyActions.LoadFamilySuccessAction(data);

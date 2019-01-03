@@ -5,12 +5,14 @@ export interface PizzaState {
     entities?: {[id: number]: Pizza};
     loaded?: boolean;
     loading?: boolean;
+    hint?: string;
 }
 
 export const initialState: PizzaState = {
     entities: {},
     loaded: false,
-    loading: false
+    loading: false,
+    hint: null
 };
 
 export function reducer(state = initialState, action: fromPizzaActions.PizzasActionUnion): PizzaState {
@@ -52,7 +54,39 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             };
         }
 
-        case fromPizzaActions.PizzasActionTypes.CreateSuccess:
+        case fromPizzaActions.PizzasActionTypes.Create: {
+            return {
+                ...state,
+                loading: true,
+                loaded: false,
+                hint: "Create in progress"
+            };
+        }
+
+        case fromPizzaActions.PizzasActionTypes.Update: {
+            return {
+                ...state,
+                loading: true,
+                loaded: false,
+                hint: "Update in progress"
+            };
+        }
+
+        // case fromPizzaActions.PizzasActionTypes.CreateSuccess:
+        case fromPizzaActions.PizzasActionTypes.CreateSuccess: {
+            const newPizza = action.payload;
+            const entities = {
+                ...state.entities,
+                [newPizza.id]: newPizza
+            };
+
+            return {
+                ...state,
+                entities,
+                hint: 'Create success'
+            };
+        }
+
         case fromPizzaActions.PizzasActionTypes.UpdateSuccess: {
             const newPizza = action.payload;
             const entities = {
@@ -63,6 +97,14 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             return {
                 ...state,
                 entities,
+                hint: 'Update success'
+            };
+        }
+
+        case fromPizzaActions.PizzasActionTypes.Remove: {
+            return {
+                ...state,
+                hint: "Remove in progress"
             };
         }
 
@@ -75,8 +117,17 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
 
             return {
                 ...state,
-                entities
+                entities,
+                hint: "Remove success"
             };
+        }
+
+        case fromPizzaActions.PizzasActionTypes.ShowHint: {
+            console.log("romPizzaActions.PizzasActionTypes.ShowHint ", action);
+            return {
+                ...state,
+                hint: action.payload
+            }
         }
 
         default:
@@ -88,3 +139,4 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
 export const getPizzaEntities = (state: PizzaState) => state.entities;
 export const getPizzasLoading = (state: PizzaState) => state.loading;
 export const getPizzasLoaded = (state: PizzaState) => state.loaded;
+export const getPizzasHint = (state: PizzaState) => state.hint;

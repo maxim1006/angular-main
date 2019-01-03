@@ -18,6 +18,8 @@ export enum PizzasActionTypes {
     Remove = '[Products] Remove Pizza',
     RemoveSuccess = '[Products] Remove Pizza Success',
     RemoveFail = '[Products] Remove Pizza Fail',
+
+    ShowHint = '[Products] Show hint'
 }
 
 // Load
@@ -83,6 +85,11 @@ export class RemovePizzaFailAction implements Action {
     constructor(public payload: any) {}
 }
 
+export class ShowHintAction implements Action {
+    readonly type = PizzasActionTypes.ShowHint;
+    constructor(public payload: string) {}
+}
+
 // action types
 export type PizzasActionUnion =
     | LoadPizzasAction
@@ -96,6 +103,7 @@ export type PizzasActionUnion =
     | UpdatePizzaFailAction
     | RemovePizzaAction
     | RemovePizzaSuccessAction
-    | RemovePizzaFailAction;
+    | RemovePizzaFailAction
+    | ShowHintAction;
 
 

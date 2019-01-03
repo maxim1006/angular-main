@@ -8,6 +8,14 @@ export const getCurrentCounter = createSelector(
     fromCounterReducers.getCurrentCounter
 );
 
+// selector with data
+export const getCurrentParametrizedCounter = createSelector(
+    getCurrentCounter,
+    (state, props) => {
+        return state + props.increaseOn;
+    }
+);
+
 export const getCurrentCounterRouteState = createSelector(
     getCurrentCounter,
     fromRoot.getRouterState,
