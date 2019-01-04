@@ -1,24 +1,24 @@
-import {Component, HostBinding} from "@angular/core";
-import {NavigationEnd, Router} from "@angular/router";
-import {filter, takeUntil} from "rxjs/internal/operators";
-import {Subject} from "rxjs/index";
+import {Component, HostBinding} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {filter, takeUntil} from 'rxjs/internal/operators';
+import {Subject} from 'rxjs/index';
 
 
 
 @Component({
-    selector: "m-router",
-    templateUrl: "router.component.html"
+    selector: 'm-router',
+    templateUrl: 'router.component.html'
 })
 export class MRouterComponent {
-    private _id: number = 0;
+    private _id = 0;
 
-    public get id():number {
+    public get id(): number {
         return this._id;
     }
 
     public set id(value) {
         this._id = value;
-        console.log("id is changed to: ", value);
+        console.log('id is changed to: ', value);
     }
 
     constructor(private router: Router) {}
@@ -28,7 +28,7 @@ export class MRouterComponent {
             takeUntil(this.destroy$),
             filter(event => event instanceof NavigationEnd)
         ).subscribe((event) => {
-            console.log("NavigationEnd ", event);
+            console.log('NavigationEnd ', event);
         });
     }
 
@@ -57,11 +57,11 @@ export class MRouterComponent {
     }
 
     onActivate(event) {
-        console.log("Mrouter router-outlet activate ", event);
+        console.log('Mrouter router-outlet activate ', event);
     }
 
     onDeactivate(event) {
-        console.log("Mrouter router-outlet deactivate ", event);
+        console.log('Mrouter router-outlet deactivate ', event);
     }
 
 }

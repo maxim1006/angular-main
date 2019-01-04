@@ -31,8 +31,8 @@ import {
 } from '@angular/core';
 
 @Component({
-    selector: "custom-change-detection",
-    templateUrl: "custom-change-detection.component.html",
+    selector: 'custom-change-detection',
+    templateUrl: 'custom-change-detection.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush //если проставить это, то не будет changeDetection, хотя а2 клик сработает, а сеттаймаут и браузер клик не сработает. Стратегия не наследуюется, поэтому должен и на этом элементе и на детях проставить эту стратегию
 })
 
@@ -40,7 +40,7 @@ export class CustomChangeDetectionComponent implements OnInit {
     obj: { name: number|string; };
     name: string;
 
-    @ViewChild("inner") inner;
+    @ViewChild('inner') inner;
 
     constructor(private cdr: ChangeDetectorRef, private appRef: ApplicationRef, private ngZone: NgZone) {
 
@@ -62,12 +62,12 @@ export class CustomChangeDetectionComponent implements OnInit {
           setTimeout(() => {
               //this.cdr.detach(); //отключить все детекты изменений
               this.obj.name = 2;
-              this.name = "Max";
+              this.name = 'Max';
               // this.cdr.markForCheck(); //если не поставить, то при ChangeDetectionStrategy.OnPush не сработает
           }, 1000);
 
-          document.querySelector("#customChangeDetectionComponentHeader").addEventListener('click', () => {
-              this.obj.name = "browser click";
+          document.querySelector('#customChangeDetectionComponentHeader').addEventListener('click', () => {
+              this.obj.name = 'browser click';
               console.log(this.inner.obj);
               // this.appRef.tick();
               // this.ngZone.run(() => {
@@ -79,7 +79,7 @@ export class CustomChangeDetectionComponent implements OnInit {
      }
 
      click() {
-         this.obj.name = "a2 click";
+         this.obj.name = 'a2 click';
          console.log(this.inner.obj);
          //this.cdr.detectChanges(); //после отключения детектов сделать кастомный триггер изменений
      }

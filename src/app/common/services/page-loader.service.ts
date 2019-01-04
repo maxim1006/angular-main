@@ -4,16 +4,16 @@ import {Injectable} from '@angular/core';
     providedIn: 'root',
 })
 export class PageLoaderService {
-    public pageLoading: boolean = false;
-    public pageLoadingStart: boolean = true;
-    private _deactivatedRoute: boolean = false;
+    public pageLoading = false;
+    public pageLoadingStart = true;
+    private _deactivatedRoute = false;
     private _visitedRoutesCache: any = {};
 
     constructor() {
     }
 
     activateRoute(event) {
-        let constructorName = event.constructor.name;
+        const constructorName = event.constructor.name;
 
         if (!this._visitedRoutesCache[constructorName]) {
             this._visitedRoutesCache[constructorName] = constructorName;

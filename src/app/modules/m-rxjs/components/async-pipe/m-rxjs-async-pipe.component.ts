@@ -1,7 +1,7 @@
 import {Component, OnInit, HostListener, OnDestroy} from '@angular/core';
 import {fromEvent, Observable, Subscriber, Subscription} from 'rxjs/index';
 import { throttleTime, share } from 'rxjs/operators';
-import {auditTime} from "rxjs/internal/operators";
+import {auditTime} from 'rxjs/internal/operators';
 
 @Component({
     selector: 'm-rxjs-async-pipe',

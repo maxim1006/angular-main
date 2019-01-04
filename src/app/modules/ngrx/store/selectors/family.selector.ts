@@ -1,6 +1,6 @@
-import {createFeatureSelector, createSelector} from "@ngrx/store";
-import * as fromFeature from "../reducers";
-import * as fromFamilyReducers from "../reducers/family.reducer";
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import * as fromFeature from '../reducers';
+import * as fromFamilyReducers from '../reducers/family.reducer';
 import * as fromFamilyReducer from '../reducers/family.reducer';
 
 export const getFamilyState = createFeatureSelector<fromFamilyReducer.FamilyState>('family');

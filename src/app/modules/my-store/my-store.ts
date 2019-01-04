@@ -5,9 +5,9 @@
 *
 * */
 
-import {BehaviorSubject, Observable} from "rxjs";
-import {MyState} from "./my-state";
-import {distinctUntilChanged, pluck} from "rxjs/internal/operators";
+import {BehaviorSubject, Observable} from 'rxjs';
+import {MyState} from './my-state';
+import {distinctUntilChanged, pluck} from 'rxjs/internal/operators';
 
 const myState: MyState = {
     playlist: undefined

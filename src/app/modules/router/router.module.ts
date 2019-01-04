@@ -1,14 +1,14 @@
-import {Injectable, NgModule} from "@angular/core";
-import {SharedModule} from "../shared/shared.module";
-import {MRouterComponent} from "./router.component";
-import {RouterIdComponent} from "./components/router-id.component";
-import {FormsModule} from "@angular/forms";
-import {MRouterPopupComponent} from "./components/router-popup.component";
-import {ActivatedRouteSnapshot, Resolve, RouterModule, RouterStateSnapshot, Routes} from "@angular/router";
-import {domenToken, domenTokenDb} from "../shared/tokens/tokens";
-import {HttpClient} from "@angular/common/http";
-import {of} from "rxjs/index";
-import {delay} from "rxjs/internal/operators";
+import {Injectable, NgModule} from '@angular/core';
+import {SharedModule} from '../shared/shared.module';
+import {MRouterComponent} from './router.component';
+import {RouterIdComponent} from './components/router-id.component';
+import {FormsModule} from '@angular/forms';
+import {MRouterPopupComponent} from './components/router-popup.component';
+import {ActivatedRouteSnapshot, Resolve, RouterModule, RouterStateSnapshot, Routes} from '@angular/router';
+import {domenToken, domenTokenDb} from '../shared/tokens/tokens';
+import {HttpClient} from '@angular/common/http';
+import {of} from 'rxjs/index';
+import {delay} from 'rxjs/internal/operators';
 
 
 @Injectable()
@@ -26,7 +26,7 @@ export class RouterResolve implements Resolve<any> {
 @Injectable()
 export class RouterPopupResolve implements Resolve<any> {
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        let routerPopupData = "router popup content";
+        const routerPopupData = 'router popup content';
         return of(routerPopupData).pipe(delay(2000));
     }
 }
@@ -36,19 +36,19 @@ export class RouterPopupResolve implements Resolve<any> {
 
 const routes: Routes = [
     {
-        path: "",
+        path: '',
         component: MRouterComponent,
         children: [
             {
-                path: "",
-                pathMatch: "full",
-                redirectTo: "default",
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'default',
             },
             {
                 path: 'default',
                 component: RouterIdComponent,
                 data: {
-                    title: "Router"
+                    title: 'Router'
                 },
                 // все что в resolve также попадет в data, вызывается когда переходим на данный роут и создается компонент, удобно передавать асинхронную дату на переход роута
                 resolve: {
@@ -58,7 +58,7 @@ const routes: Routes = [
                     {
                         path: 'routerPopupPath',
                         component: MRouterPopupComponent,
-                        outlet: "routerPopup",
+                        outlet: 'routerPopup',
                         // resolve: {
                         //     content: RouterPopupResolve
                         // }

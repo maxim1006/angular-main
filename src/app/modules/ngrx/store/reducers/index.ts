@@ -4,7 +4,7 @@ import * as fromCounterReducer from './counter.reducer';
 import * as fromFamilyReducer from './family.reducer';
 import {ActivatedRouteSnapshot, Params, RouterStateSnapshot} from '@angular/router';
 import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
-import {RouterStateSerializer} from "@ngrx/router-store";
+import {RouterStateSerializer} from '@ngrx/router-store';
 
 
 export interface RouterStateUrl {

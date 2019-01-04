@@ -1,8 +1,8 @@
-import {Component, OnInit, Input} from "@angular/core";
+import {Component, OnInit, Input} from '@angular/core';
 
 @Component({
-        selector: "m-loader",
-        templateUrl: "./m-loader.component.html"
+        selector: 'm-loader',
+        templateUrl: './m-loader.component.html'
 })
 
 
@@ -10,10 +10,10 @@ export class MLoaderComponent implements OnInit {
 
     private _timeout: number;
 
-    public _isLoading:boolean = false;
+    public _isLoading = false;
 
     @Input()
-    public delay: number = 300;
+    public delay = 300;
 
     @Input()
     public text: string;
@@ -29,17 +29,17 @@ export class MLoaderComponent implements OnInit {
              return;
          }
 
-         if (this._isLoading) return;
+         if (this._isLoading) { return; }
 
          this._timeout = window.setTimeout(() => {
              this._isLoading = true;
              this.cancelTimeout();
          }, this.delay);
-    };
+    }
 
     constructor() {}
 
-    ngOnInit() {};
+    ngOnInit() {}
 
     private cancelTimeout() {
         clearTimeout(this._timeout);

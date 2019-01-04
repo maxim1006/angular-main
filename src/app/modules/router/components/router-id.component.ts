@@ -1,12 +1,12 @@
-import {ChangeDetectorRef, Component, HostBinding, Inject, OnInit} from "@angular/core";
-import {ActivatedRoute, Params} from "@angular/router";
-import {domenToken, domenTokenDb} from "../../shared/tokens/tokens";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {NavigationEnd, Router} from "@angular/router/";
-import {concatMap, map} from "rxjs/operators";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/index";
-import {switchMap} from "rxjs/internal/operators";
+import {ChangeDetectorRef, Component, HostBinding, Inject, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {domenToken, domenTokenDb} from '../../shared/tokens/tokens';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {NavigationEnd, Router} from '@angular/router/';
+import {concatMap, map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/index';
+import {switchMap} from 'rxjs/internal/operators';
 
 
 export const slideInDownAnimation: any =
@@ -35,7 +35,7 @@ export const slideInDownAnimation: any =
 
 
 @Component({
-    selector: "router-id",
+    selector: 'router-id',
     template: `
         Your id is: {{params.id}}<br />
         param is: {{params.param}}
@@ -69,32 +69,32 @@ export class RouterIdComponent implements OnInit {
             switchMap(
                     (params: Params) => {
                         this.params = params;
-                        return this.http.get(`${domenTokenDb}family` + params['id'] + '.json')
+                        return this.http.get(`${domenTokenDb}family` + params['id'] + '.json');
                     }
             ))
             .pipe(
                 map((family, params) => {
-                    return {family, params}
+                    return {family, params};
                 })
             )
             .subscribe(({family, params}) => {
-                console.log("params ", params);
+                console.log('params ', params);
                  this.family = family;
             }, (err) => {
                 this.family = 'There is no data fo you';
             });
 
         this.route.queryParams.subscribe((queryParams) => {
-            console.log("queryParams ", queryParams);
+            console.log('queryParams ', queryParams);
         });
 
         this.route.data.subscribe((data) => {
-            console.log("dataParams ", data);
-        })
+            console.log('dataParams ', data);
+        });
     }
 
     ngAfterViewInit() {
-        this.routerSubscription = this.router.events.subscribe((url:any) => {
+        this.routerSubscription = this.router.events.subscribe((url: any) => {
             if (url instanceof NavigationEnd) {
                 this.cdr.detectChanges();
             }

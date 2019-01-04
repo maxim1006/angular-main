@@ -1,13 +1,13 @@
 const STYLE_MODIFIERS = {
-    top: "_position-top",
-    bottom: "_position-bottom",
-    left: "_position-left",
-    right: "_position-right"
+    top: '_position-top',
+    bottom: '_position-bottom',
+    left: '_position-left',
+    right: '_position-right'
 };
 
 export class DomHelper {
 
-    private static zIndex: number = 1000;
+    private static zIndex = 1000;
 
     /**
      * hide constructor
@@ -23,7 +23,7 @@ export class DomHelper {
         if (element.classList) {
             element.classList.add(className);
         } else {
-            element.className += " " + className;
+            element.className += ' ' + className;
         }
     }
 
@@ -32,7 +32,7 @@ export class DomHelper {
             element.classList.remove(className);
         } else {
             element.className = element.className.replace(
-                new RegExp("(^|\\b)" + className.split(" ").join("|") + "(\\b|$)", "gi"), " ");
+                new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
         }
     }
 
@@ -40,7 +40,7 @@ export class DomHelper {
         if (element.classList) {
             return element.classList.contains(className);
         } else {
-            return new RegExp("(^| )" + className + "( |$)", "gi").test(element.className);
+            return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className);
         }
     }
 
@@ -50,14 +50,14 @@ export class DomHelper {
      * @param {HTMLElement} target
      */
     public static relativePosition(element: any, target: HTMLElement): void {
-        let elementDimensions = element.offsetParent ? {
+        const elementDimensions = element.offsetParent ? {
             width: element.offsetWidth,
             height: element.offsetHeight
         } : DomHelper.getHiddenElementDimensions(element);
-        let targetHeight = target.offsetHeight;
-        let targetWidth = target.offsetWidth;
-        let targetOffset = target.getBoundingClientRect();
-        let viewport = DomHelper.getViewport();
+        const targetHeight = target.offsetHeight;
+        const targetWidth = target.offsetWidth;
+        const targetOffset = target.getBoundingClientRect();
+        const viewport = DomHelper.getViewport();
         let top, left;
 
         if ((targetOffset.top + targetHeight + elementDimensions.height) > viewport.height) {
@@ -80,8 +80,8 @@ export class DomHelper {
             element.classList.remove(STYLE_MODIFIERS.right);
         }
 
-        element.style.top = top + "px";
-        element.style.left = left + "px";
+        element.style.top = top + 'px';
+        element.style.left = left + 'px';
     }
 
     /**
@@ -90,18 +90,18 @@ export class DomHelper {
      * @param {HTMLElement} target
      */
     public static absolutePosition(element: HTMLElement, target: HTMLElement, classes: boolean = false): void {
-        let elementDimensions = element.offsetParent ? {
+        const elementDimensions = element.offsetParent ? {
             width: element.offsetWidth,
             height: element.offsetHeight
         } : DomHelper.getHiddenElementDimensions(element);
-        let elementOuterHeight = elementDimensions.height;
-        let elementOuterWidth = elementDimensions.width;
-        let targetOuterHeight = target.offsetHeight;
-        let targetOuterWidth = target.offsetWidth;
-        let targetOffset = target.getBoundingClientRect();
-        let windowScrollTop = DomHelper.getWindowScrollTop();
-        let windowScrollLeft = DomHelper.getWindowScrollLeft();
-        let viewport = DomHelper.getViewport();
+        const elementOuterHeight = elementDimensions.height;
+        const elementOuterWidth = elementDimensions.width;
+        const targetOuterHeight = target.offsetHeight;
+        const targetOuterWidth = target.offsetWidth;
+        const targetOffset = target.getBoundingClientRect();
+        const windowScrollTop = DomHelper.getWindowScrollTop();
+        const windowScrollLeft = DomHelper.getWindowScrollLeft();
+        const viewport = DomHelper.getViewport();
         let top, left;
 
         if (targetOffset.top + targetOuterHeight + elementOuterHeight > viewport.height) {
@@ -124,13 +124,13 @@ export class DomHelper {
             element.classList.remove(STYLE_MODIFIERS.left);
         }
 
-        element.style.top = top + "px";
-        element.style.left = left + "px";
+        element.style.top = top + 'px';
+        element.style.left = left + 'px';
     }
 
     public static getViewport(): any {
-        let documentElement = document.documentElement,
-            body = document.getElementsByTagName("body")[0],
+        const documentElement = document.documentElement,
+            body = document.getElementsByTagName('body')[0],
             width = documentElement.clientWidth || window.innerWidth || body.clientWidth,
             height = documentElement.clientHeight || window.innerHeight || body.clientHeight;
 
@@ -138,12 +138,12 @@ export class DomHelper {
     }
 
     public static getHiddenElementDimensions(element: HTMLElement): { width: number, height: number } {
-        let dimensions: any = {};
-        let oldVisibility = element.style.visibility || "visible";
-        let oldDisplay = element.style.display || "none";
+        const dimensions: any = {};
+        const oldVisibility = element.style.visibility || 'visible';
+        const oldDisplay = element.style.display || 'none';
 
-        element.style.visibility = "hidden";
-        element.style.display = "block";
+        element.style.visibility = 'hidden';
+        element.style.display = 'block';
 
         dimensions.width = element.offsetWidth;
         dimensions.height = element.offsetHeight;
@@ -155,13 +155,13 @@ export class DomHelper {
     }
 
     public static fadeIn(element: HTMLElement, duration: number): void {
-        element.style.opacity = "0";
+        element.style.opacity = '0';
 
         let last = Date.now();
         let opacity = 0;
-        let tick = function () {
+        const tick = function () {
             opacity = +element.style.opacity + (Date.now() - last) / duration;
-            element.style.opacity = "" + opacity;
+            element.style.opacity = '' + opacity;
             last = Date.now();
 
             if (+opacity < 1) {
@@ -177,24 +177,24 @@ export class DomHelper {
             interval = 50,
             gap = interval / duration;
 
-        let fading = setInterval(() => {
+        const fading = setInterval(() => {
             opacity = opacity - gap;
 
             if (opacity <= 0) {
                 opacity = 0;
                 clearInterval(fading);
             }
-            element.style.opacity = "" + opacity;
+            element.style.opacity = '' + opacity;
         }, interval);
     }
 
     public static getWindowScrollTop(): number {
-        let documentElement = document.documentElement;
+        const documentElement = document.documentElement;
         return (window.pageYOffset || documentElement.scrollTop) - (documentElement.clientTop || 0);
     }
 
     public static getWindowScrollLeft(): number {
-        let documentElement = document.documentElement;
+        const documentElement = document.documentElement;
         return (window.pageXOffset || documentElement.scrollLeft) - (documentElement.clientLeft || 0);
     }
 
@@ -205,7 +205,7 @@ export class DomHelper {
 
         let width = element.offsetWidth;
         if (margin) {
-            let style = getComputedStyle(element);
+            const style = getComputedStyle(element);
             width += parseFloat(style.marginLeft) + parseFloat(style.marginRight);
         }
         return width;
@@ -218,7 +218,7 @@ export class DomHelper {
 
         let height = element.offsetHeight;
         if (margin) {
-            let style = getComputedStyle(element);
+            const style = getComputedStyle(element);
             height += parseFloat(style.marginTop) + parseFloat(style.marginBottom);
         }
         return height;
@@ -230,7 +230,7 @@ export class DomHelper {
         } else if (target && target.nativeElement) {
             target.nativeElement.appendChild(element);
         } else {
-            throw "Cannot append " + target + " to " + element;
+            throw new Error('Cannot append ' + target + ' to ' + element);
         }
     }
 
@@ -246,7 +246,7 @@ export class DomHelper {
         } else if (target.element && target.element.nativeElement) {
             target.element.nativeElement.removeChild(element);
         } else {
-            throw "Cannot remove " + element + " from " + target;
+            throw new Error('Cannot remove ' + element + ' from ' + target);
         }
     }
 
@@ -254,13 +254,13 @@ export class DomHelper {
         if (DomHelper.isElement(element) && element.parentNode) {
             element.parentNode.removeChild(element);
         } else {
-            throw "Cannot remove " + element;
+            throw new Error('Cannot remove ' + element);
         }
     }
 
     public static isElement(object: any): boolean {
-        return (typeof HTMLElement === "object" ? object instanceof HTMLElement :
-                object && typeof object === "object" && object !== null && object.nodeType === 1 && typeof object.nodeName === "string"
+        return (typeof HTMLElement === 'object' ? object instanceof HTMLElement :
+                object && typeof object === 'object' && object !== null && object.nodeType === 1 && typeof object.nodeName === 'string'
         );
     }
 
@@ -271,9 +271,9 @@ export class DomHelper {
      * @returns {ClientRect}
      */
     public static getDocumentRelativePosition(element: Element): ClientRect {
-        if (!element) return;
+        if (!element) { return; }
 
-        let clientRect = element.getBoundingClientRect();
+        const clientRect = element.getBoundingClientRect();
 
         return {
             left: clientRect.left + pageXOffset,
@@ -282,7 +282,7 @@ export class DomHelper {
             bottom: clientRect.bottom + pageYOffset,
             width: clientRect.width,
             height: clientRect.height
-        }
+        };
     }
 
 
@@ -296,7 +296,7 @@ export class DomHelper {
         return {
             width: container.clientWidth,
             height: container.clientHeight
-        }
+        };
     }
 
 
@@ -304,8 +304,8 @@ export class DomHelper {
     public static getScrollbarWidth(): number {
         let scrollDiv, scrollbarWidth;
 
-        scrollDiv = document.createElement("div");
-        scrollDiv.style.cssText = "width: 100px; height: 100px; overflow: scroll; position: absolute; top: -9999px";
+        scrollDiv = document.createElement('div');
+        scrollDiv.style.cssText = 'width: 100px; height: 100px; overflow: scroll; position: absolute; top: -9999px';
         document.body.appendChild(scrollDiv);
         scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
         document.body.removeChild(scrollDiv);
@@ -316,7 +316,7 @@ export class DomHelper {
 
 
     public static checkIfIE(): boolean {
-        return navigator.appName === "Microsoft Internet Explorer"
+        return navigator.appName === 'Microsoft Internet Explorer'
             || !!(navigator.userAgent.match(/Trident/)
                 || navigator.userAgent.match(/rv:11/))
             || /msie/.test(navigator.userAgent.toLowerCase());
@@ -332,7 +332,7 @@ export class DomHelper {
  * @param {number} y - y-axis scroll
  */
 export function uxScrollBy(element: Element, x: number, y: number): void {
-    if (typeof element.scrollBy === "function") {
+    if (typeof element.scrollBy === 'function') {
         element.scrollBy(x, y);
     } else {
         uxScrollByPolyfill(element, x, y);

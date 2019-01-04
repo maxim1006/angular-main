@@ -22,7 +22,7 @@ export const ValueConfig = new InjectionToken('Value'); // делаю этот �
     providers: [
         httpInjectables,
         NewService2,
-        {provide: ValueConfig, useValue: "someValue"},
+        {provide: ValueConfig, useValue: 'someValue'},
         // могу использовать любой класс через useClass:
         // {provide: MHttpService, useClass: MHttpService},
         {

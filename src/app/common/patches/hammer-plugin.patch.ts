@@ -1,8 +1,8 @@
-import {Inject} from "@angular/core";
-import {HAMMER_GESTURE_CONFIG, HammerGestureConfig, ɵHammerGesturesPlugin} from "@angular/platform-browser";
-import {DOCUMENT} from "@angular/common";
+import {Inject} from '@angular/core';
+import {HAMMER_GESTURE_CONFIG, HammerGestureConfig, ɵHammerGesturesPlugin} from '@angular/platform-browser';
+import {DOCUMENT} from '@angular/common';
 
-import "hammerjs/hammer";
+import 'hammerjs/hammer';
 
 /**
  * Hot fix of built-in HammerGesturesPlugin to avoid memory leaks,
@@ -14,7 +14,7 @@ import "hammerjs/hammer";
 export class HammerPluginPatch extends ɵHammerGesturesPlugin {
     constructor(@Inject(DOCUMENT) doc: any,
                 @Inject(HAMMER_GESTURE_CONFIG) private config: HammerGestureConfig) {
-        super(doc, config, {log(message: string){}, warn(message: string){}});
+        super(doc, config, {log(message: string) {}, warn(message: string) {}});
     }
 
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function {
@@ -23,12 +23,12 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
         const zone = this.manager.getZone();
         eventName = eventName.toLowerCase();
 
-        if (!element["uxEvents"]) {
-            element["uxEvents"] = {};
+        if (!element['uxEvents']) {
+            element['uxEvents'] = {};
         }
 
         // store handlers for each event
-        element["uxEvents"][eventName] = handler;
+        element['uxEvents'][eventName] = handler;
 
         return zone.runOutsideAngular(() => {
             // Creating the manager bind events, must be done outside of angular
@@ -52,12 +52,12 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
             return () => {
                 mc.off(eventName, callback);
                 // destroy mc to prevent memory leak
-                if (typeof mc["destroy"] === "function") {
-                    mc["destroy"]();
+                if (typeof mc['destroy'] === 'function') {
+                    mc['destroy']();
                 }
 
                 // delete uxEvents from element
-                delete element["uxEvents"][eventName];
+                delete element['uxEvents'][eventName];
             };
         });
     }
@@ -70,18 +70,18 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
      * @param {string} eventName
      */
     private triggerEvents(eventObj: any, element: HTMLElement, eventName: string): void {
-        let elements = this.getElements(eventObj, element);
+        const elements = this.getElements(eventObj, element);
 
         if (!eventObj.srcEvent.triggered) {
 
             for (let i = 0; i < elements.length; i++) {
-                if (elements[i]["uxEvents"] && elements[i]["uxEvents"][eventName]) {
+                if (elements[i]['uxEvents'] && elements[i]['uxEvents'][eventName]) {
 
                     if (eventObj.srcEvent.propagationStopped) {
                         break;
                     }
 
-                    elements[i]["uxEvents"][eventName](eventObj);
+                    elements[i]['uxEvents'][eventName](eventObj);
                 }
             }
 
@@ -116,7 +116,7 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
     }
 
     public supports(eventName: string): boolean {
-        if (eventName === "doubletap") {
+        if (eventName === 'doubletap') {
             return true;
         }
         return super.supports(eventName);
@@ -126,7 +126,7 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
 
 
 // Allow user selection
-delete window["Hammer"].defaults.cssProps.userSelect;
+delete window['Hammer'].defaults.cssProps.userSelect;
 
 /*if browser supports touch-action set it to "pan-x pan-y" to allow control
 for touch devices (allow scroll within zooming on touch devices, scrolls on page or blocks), because Hammer makes touch-action="none" by default.
@@ -137,4 +137,4 @@ If you need Hammer 'swipe' action, you should disable touch-action on exact bloc
 }
 
 */
-window["Hammer"].defaults.touchAction = "pan-x pan-y";
+window['Hammer'].defaults.touchAction = 'pan-x pan-y';

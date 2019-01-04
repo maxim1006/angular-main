@@ -1,11 +1,11 @@
-import * as fromStore from "../store";
+import * as fromStore from '../store';
 
 import {Injectable} from '@angular/core';
-import {CanActivate} from "@angular/router";
-import {Observable, of} from "rxjs";
-import {select, Store} from "@ngrx/store";
-import {filter, tap, take} from "rxjs/operators";
-import {catchError, switchMap} from "rxjs/internal/operators";
+import {CanActivate} from '@angular/router';
+import {Observable, of} from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {filter, tap, take} from 'rxjs/operators';
+import {catchError, switchMap} from 'rxjs/internal/operators';
 
 @Injectable()
 export class PizzasGuard implements CanActivate {
@@ -24,11 +24,11 @@ export class PizzasGuard implements CanActivate {
             select(fromStore.getPizzasLoaded),
             tap((loaded) => {
                 if (!loaded) {
-                    this.store.dispatch(new fromStore.LoadPizzasAction())
+                    this.store.dispatch(new fromStore.LoadPizzasAction());
                 }
             }),
             filter(loaded => loaded),
             take(1)
-        )
+        );
     }
 }

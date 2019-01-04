@@ -5,8 +5,8 @@ import {
 import {PageLoaderService} from '@services/page-loader.service';
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
 import {of} from 'rxjs';
-import {MDynamicService} from "@services/dynamic.service";
-import {MDynamicAppComponent} from "./components/dynamic-app/dynamic-app.component";
+import {MDynamicService} from '@services/dynamic.service';
+import {MDynamicAppComponent} from './components/dynamic-app/dynamic-app.component';
 
 export const routerTransition: any = trigger('routerTransition', [
     transition('* <=> *', [
@@ -57,20 +57,20 @@ export const routerTransition1: any = trigger('routerTransition', [
     // styleUrls: ['./app.component.css']
     animations: [ routerTransition1 ]
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewInit {
 
     // пример readonly объекта и массива
     public readOnlyObject: Readonly<{name: string}> = {
-        name: "Max"
+        name: 'Max'
     };
 
     public readOnlyArray: ReadonlyArray<{name: string}> = [{
-        name: "Max"
+        name: 'Max'
     }];
     /*************************************/
 
 
-    @ViewChild("dynamicComponent", {read: ViewContainerRef})
+    @ViewChild('dynamicComponent', {read: ViewContainerRef})
     dynamicComponentRef: ViewContainerRef;
 
     @HostBinding('class')
@@ -101,7 +101,7 @@ export class AppComponent implements AfterViewInit{
 
         // Создаю динамический компонент, как пример для динамического сервиса.
         const dynamicComponentRef = this.mDynamicService.createDynamicComponent(MDynamicAppComponent, {
-            text: "text from MDynamicAppComponent"
+            text: 'text from MDynamicAppComponent'
         });
 
         // делаю детект только в апп компоненте, так как обычно буду вставлять в onInit, но в данном случае изначальный инит сервиса нужен.

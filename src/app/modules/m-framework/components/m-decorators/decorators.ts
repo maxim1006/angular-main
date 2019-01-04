@@ -4,7 +4,7 @@ export function decorator(...args) {
         console.log(target, ' target');
         console.log(propertyKey, ' propertyKey');
         console.log(descriptor, ' descriptor');
-    }
+    };
 }
 
 export function decorator1(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
@@ -14,15 +14,15 @@ export function decorator1(target: any, propertyKey: string, descriptor: Propert
     target.a = 1;
 }
 
-export function logProperty(target: any, propertyKey: string):any {
+export function logProperty(target: any, propertyKey: string): any {
     let _val = target[propertyKey];
     // console.log(target); //Account {} //прототип объекта Account
     // console.log(propertyKey); //firstName - декорируемое свойство
-    let getter = (): typeof _val => {
+    const getter = (): typeof _val => {
         console.log(`Get ${propertyKey} => ${_val}`);
         return _val;
     };
-    let setter = (newValue):void => {
+    const setter = (newValue): void => {
         console.log(`Before set ${propertyKey} => ${_val} to ${newValue}`);
         _val = newValue;
         console.log(`After set ${propertyKey} => ${_val} to ${newValue}`);
@@ -43,28 +43,28 @@ export function logProperty1(...args): any {
 
         ++target;
 
-    }
+    };
 }
 
 interface PropertyHandlers<T> {
-    beforeChange?: (newValue: T, oldValue: T) => boolean | void,
-    afterChange?: (newValue: T, oldValue: T) => void
+    beforeChange?: (newValue: T, oldValue: T) => boolean | void;
+    afterChange?: (newValue: T, oldValue: T) => void;
 }
 
 export function PropertyHandler<T>(handlers: PropertyHandlers<T>): PropertyDecorator {
 
     return (target: any, propertyKey: string): void => {
 
-        let shadowPropertyKey = `__PropertyHandler_${propertyKey}_value`;
+        const shadowPropertyKey = `__PropertyHandler_${propertyKey}_value`;
 
-        let propertyDescriptor = {
+        const propertyDescriptor = {
             configurable: true,
             enumerable: false,
             get: function () {
                 return this[shadowPropertyKey];
             },
             set: function (newValue: T) {
-                let oldValue = this[shadowPropertyKey];
+                const oldValue = this[shadowPropertyKey];
                 if (newValue === oldValue) {
                     return;
                 }

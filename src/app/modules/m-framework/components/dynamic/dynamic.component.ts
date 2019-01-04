@@ -8,10 +8,10 @@ import {
     Injector,
     ViewChild,
     ViewContainerRef
-} from "@angular/core";
-import {ClassExampleComponent} from "../class-example/classExampleComponent";
-import {MDirectiveExampleComponent} from "../directive-example/directive-example.component";
-import {DynamicHostDirective} from "./dynamic-host.directive";
+} from '@angular/core';
+import {ClassExampleComponent} from '../class-example/classExampleComponent';
+import {MDirectiveExampleComponent} from '../directive-example/directive-example.component';
+import {DynamicHostDirective} from './dynamic-host.directive';
 
 
 @Component({
@@ -38,12 +38,12 @@ import {DynamicHostDirective} from "./dynamic-host.directive";
     `
 })
 export class DynamicComponent {
-    @ViewChild("tmpl")
+    @ViewChild('tmpl')
     public template: any;
 
-    @ViewChild("viewFromSomeDiv", {read: ViewContainerRef}) viewFromSomeDiv: ViewContainerRef;
+    @ViewChild('viewFromSomeDiv', {read: ViewContainerRef}) viewFromSomeDiv: ViewContainerRef;
 
-    @ViewChild("viewFromSomeDivElementRef") viewFromSomeDivElementRef: ElementRef;
+    @ViewChild('viewFromSomeDivElementRef') viewFromSomeDivElementRef: ElementRef;
 
     @ViewChild(DynamicHostDirective) host: DynamicHostDirective;
 
@@ -51,7 +51,7 @@ export class DynamicComponent {
 
     /** @internal */
     // 3ий способ через ngComponentOutlet
-    public _dynamicComponentClass:any = MDirectiveExampleComponent;
+    public _dynamicComponentClass: any = MDirectiveExampleComponent;
 
     private _componentRef: ComponentRef<any>;
     private _componentRefViaCreate: ComponentRef<any>;
@@ -68,7 +68,7 @@ export class DynamicComponent {
     public ngOnInit() {
         // первый способ - забираю ng-template и использую его, могу вставить сразу в вью, также возможно, сделать
         // как в afterViewInit, те после того как отренедрил во вью компонента, сделать appendChild в нужное место
-        this.contentEmbeddedView = this.view.createEmbeddedView(this.template, {$implicit: {prop: "createEmbeddedView prop"}});
+        this.contentEmbeddedView = this.view.createEmbeddedView(this.template, {$implicit: {prop: 'createEmbeddedView prop'}});
 
         // второй способ
         const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ClassExampleComponent);
@@ -89,7 +89,7 @@ export class DynamicComponent {
         //
         // console.log("dynamicComponentFromSomeDiv.instance ", dynamicComponentFromSomeDiv.instance); // могу у него менять проперти и делать subscribe на эвент эмиттер
         //
-        const data = {prop: "createComponent prop"};
+        const data = {prop: 'createComponent prop'};
 
         if (data) {
             Object.keys(data).forEach((key: string) => {
@@ -122,7 +122,7 @@ export class DynamicComponent {
         this._componentRefViaCreate = componentFactory.create(this.injector);
         this.appRef.attachView(this._componentRefViaCreate.hostView);
 
-        const domElement = this._componentRefViaCreate.hostView["rootNodes"][0];
+        const domElement = this._componentRefViaCreate.hostView['rootNodes'][0];
         document.body.appendChild(domElement);
 
         // если создаю так, то должен при дестрое сделать, вместо таймаута это надо положить в дестрой

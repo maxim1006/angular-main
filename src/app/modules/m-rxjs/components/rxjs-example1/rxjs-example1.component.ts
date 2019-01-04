@@ -12,12 +12,12 @@ import {
     flatMap,
     switchMap, exhaustMap, pluck, delay, timeout, catchError, retry, tap, retryWhen, share, shareReplay
 } from 'rxjs/operators';
-import {Observable, throwError, Observer} from "rxjs";
-import {observable} from "rxjs/internal-compatibility";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {concatMap, mergeMap, switchMapTo} from "rxjs/internal/operators";
-import {HttpClient, HttpParams} from "@angular/common/http";
-import {domenToken} from "../../../shared/tokens/tokens";
+import {Observable, throwError, Observer} from 'rxjs';
+import {observable} from 'rxjs/internal-compatibility';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {concatMap, mergeMap, switchMapTo} from 'rxjs/internal/operators';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {domenToken} from '../../../shared/tokens/tokens';
 
 @Component({
     selector: 'rxjs-example1',
@@ -39,7 +39,7 @@ import {domenToken} from "../../../shared/tokens/tokens";
 export class RxjsExample1Component implements AfterViewInit, OnDestroy {
     form: FormGroup;
 
-    @ViewChild("myForm")
+    @ViewChild('myForm')
     myFormRef: ElementRef;
 
     @ViewChild('input')
@@ -54,7 +54,7 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
 
     public ngOnInit() {
         this.form = this.fb.group({
-            'text': [""]
+            'text': ['']
         });
 
         // ConcatMap - запросы посылаются по очереди, пока предыдущий обзервбл не закомлитится второй не пойдет и т.д. Косяк в том, что даже если сейчас запросы не отправились то очередь запросов в любом случае
@@ -132,7 +132,7 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         // });
 
         // жму 10 раз а уйдет только й запрос
-        fromEvent(this.myFormRef.nativeElement, "submit")
+        fromEvent(this.myFormRef.nativeElement, 'submit')
             .pipe(
                 map(() => {
                     return new HttpParams().set('value', this.form.value.text);
@@ -142,7 +142,7 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
                 }))
             )
             .subscribe((value) => {
-                console.log("form value ", value);
+                console.log('form value ', value);
             });
 
         // const input = this.inputRef.nativeElement;

@@ -1,22 +1,22 @@
-import {CanLoad, RouterModule, Routes} from "@angular/router";
-import {Injectable, NgModule} from "@angular/core";
-import {MHttpComponent} from "./modules/m-http/m-http.component";
-import {MFormComponent} from "./modules/m-forms/m-form.component";
-import {PageNotFoundComponent} from "./modules/shared/components/page-not-found/page-not-found.component";
-import {MAdminComponent} from "./modules/admin/admin.component";
-import {MAdminGuardService} from "./modules/admin/admin-guard.service";
-import {MHomeComponent} from "./modules/m-home/m-home.component";
-import {MRxjsComponent} from "./modules/m-rxjs/m-rxjs.component";
-import {Route} from "@angular/router/src/config";
-import {Observable, of} from "rxjs/index";
-import {PreloadingStrategy} from "@angular/router/src/router_preloader";
+import {CanLoad, RouterModule, Routes} from '@angular/router';
+import {Injectable, NgModule} from '@angular/core';
+import {MHttpComponent} from './modules/m-http/m-http.component';
+import {MFormComponent} from './modules/m-forms/m-form.component';
+import {PageNotFoundComponent} from './modules/shared/components/page-not-found/page-not-found.component';
+import {MAdminComponent} from './modules/admin/admin.component';
+import {MAdminGuardService} from './modules/admin/admin-guard.service';
+import {MHomeComponent} from './modules/m-home/m-home.component';
+import {MRxjsComponent} from './modules/m-rxjs/m-rxjs.component';
+import {Route} from '@angular/router/src/config';
+import {Observable, of} from 'rxjs/index';
+import {PreloadingStrategy} from '@angular/router/src/router_preloader';
 
 
 @Injectable()
 export class ProtectedLazyGuard implements CanLoad {
     constructor() {}
     canLoad() {
-        return JSON.parse(localStorage.getItem("lazy"));
+        return JSON.parse(localStorage.getItem('lazy'));
     }
 }
 
@@ -27,7 +27,7 @@ export class MyPreloadStrategy implements PreloadingStrategy {
     preload(route: Route, load: () => Observable<any>): Observable<any> {
         // return of(null); // если не хочу прелоад
 
-        return route.data && route.data["preload"] ? load() : of(null);
+        return route.data && route.data['preload'] ? load() : of(null);
     }
 }
 

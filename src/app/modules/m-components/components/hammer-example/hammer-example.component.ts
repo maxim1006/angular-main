@@ -1,23 +1,23 @@
-import {Component, ElementRef, HostBinding, NgZone, ViewChild} from "@angular/core";
-import * as Hammer from "hammerjs";
+import {Component, ElementRef, HostBinding, NgZone, ViewChild} from '@angular/core';
+import * as Hammer from 'hammerjs';
 
 @Component({
-    selector: "hammer-example",
-    templateUrl: "./hammer-example.component.html"
+    selector: 'hammer-example',
+    templateUrl: './hammer-example.component.html'
 })
 export class HammerExampleComponent {
-    public panString: string = '';
+    public panString = '';
     public isSwiped: boolean;
 
     private lastPosX = 0;
     private lastPosY = 0;
     private hammerManager: any;
 
-    @ViewChild("draggableArea") draggableArea: ElementRef;
-    @ViewChild("draggableContent") draggableContent: ElementRef;
+    @ViewChild('draggableArea') draggableArea: ElementRef;
+    @ViewChild('draggableContent') draggableContent: ElementRef;
 
 
-    private _styleClass: string = '';
+    private _styleClass = '';
     private draggableAreaCoords: { x: any; y: any; w: any; h: any; };
 
     @HostBinding('class')
@@ -42,17 +42,17 @@ export class HammerExampleComponent {
     }
 
     public ngAfterViewInit(): void {
-        let self = this;
+        const self = this;
 
         self.zone.runOutsideAngular(() => {
             const element = self.draggableArea.nativeElement;
 
             self.hammerManager = new Hammer.Manager(element);
             self.hammerManager.add(new Hammer.Pan({direction: Hammer.DIRECTION_ALL, threshold: 0}));
-            self.hammerManager.on("pan", self._handleDrag);
+            self.hammerManager.on('pan', self._handleDrag);
         });
 
-        let draggableAreaElement = self.draggableArea.nativeElement,
+        const draggableAreaElement = self.draggableArea.nativeElement,
             draggableAreaElementRect = draggableAreaElement.getBoundingClientRect();
 
         self.draggableAreaCoords = {
@@ -66,7 +66,7 @@ export class HammerExampleComponent {
     }
 
     ngOnDestroy() {
-        this.hammerManager.off("pan", this._handleDrag);
+        this.hammerManager.off('pan', this._handleDrag);
         this.hammerManager.destroy();
     }
 
@@ -77,7 +77,7 @@ export class HammerExampleComponent {
             posX = event.deltaX + self.lastPosX,
             posY = event.deltaY + self.lastPosY;
 
-        self.draggableContent.nativeElement.style.transform = "translate3d(" + posX + "px," + posY + "px, 0)";
+        self.draggableContent.nativeElement.style.transform = 'translate3d(' + posX + 'px,' + posY + 'px, 0)';
 
         if (event.isFinal) {
             self.lastPosX = posX;

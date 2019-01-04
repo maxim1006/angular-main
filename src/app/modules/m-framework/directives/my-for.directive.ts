@@ -13,7 +13,7 @@ export class MyForDirective {
                 $implicit: item,
                 index
             });
-        })
+        });
     }
 
     constructor(private view: ViewContainerRef, private template: TemplateRef<any>) {

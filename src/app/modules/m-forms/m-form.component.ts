@@ -1,14 +1,14 @@
 //Форм билдер не сохраняет в форме дизейблд значения
 //Встроенные валидаторы https://angular.io/api/forms/Validators
 
-import {Component, OnInit, ViewChild} from "@angular/core";
-import {FormBuilder, FormGroup, Validators, AbstractControl, FormControl, NgForm, FormArray} from "@angular/forms";
-import {ayncNameValidator, dynamicFieldValidator, nameValidator} from "./validators/validators";
-import {ValidationConstants} from "../shared/constants/validation.constant";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, Validators, AbstractControl, FormControl, NgForm, FormArray} from '@angular/forms';
+import {ayncNameValidator, dynamicFieldValidator, nameValidator} from './validators/validators';
+import {ValidationConstants} from '../shared/constants/validation.constant';
 
 @Component({
-    selector: "m-form",
-    templateUrl: "./m-form.component.html"
+    selector: 'm-form',
+    templateUrl: './m-form.component.html'
 })
 
 export class MFormComponent implements OnInit {
@@ -19,14 +19,14 @@ export class MFormComponent implements OnInit {
 
     /** @internal */
     public get _dynamicFields(): FormArray {
-        return this.myForm.get("dynamicFields") as FormArray;
+        return this.myForm.get('dynamicFields') as FormArray;
     }
 
     /** @internal */
     public _addField(): void {
-        let control = new FormControl();
+        const control = new FormControl();
 
-        control["customData"] = {
+        control['customData'] = {
             customDataInControl: true
         };
 
@@ -54,8 +54,8 @@ export class MFormComponent implements OnInit {
     /** @internal */
     public _patchValue(): void {
         this.myForm.patchValue({
-            name: "Max",
-            surname: "Maximov"
+            name: 'Max',
+            surname: 'Maximov'
         });
     }
 
@@ -63,35 +63,35 @@ export class MFormComponent implements OnInit {
     constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
-        let self = this;
+        const self = this;
 
-        self.service = "testServ`ice";
+        self.service = 'testServ`ice';
 
         this.myForm = this.fb.group({
-            'name':[
+            'name': [
                     //исходный value в input, нужно еще проставить disabled иначе приходит object, либо первым аргументом передавать не объект, а значение
-                    "",
+                    '',
                 Validators.compose([Validators.required, Validators.maxLength(10), nameValidator()])
             ], //пример с кастомной валидацией
             'surname': [
-                "",
+                '',
                 [Validators.required, Validators.maxLength(10)],
                 [ayncNameValidator]
             ],
             'age': [
-                ""
+                ''
             ],
-            'phone': ["",
+            'phone': ['',
                     // disabled: false
                 Validators.compose([Validators.pattern(ValidationConstants.PHONE_NUMBER)])
             ],
-            "nested": this.fb.group({
-                'email': ["",
+            'nested': this.fb.group({
+                'email': ['',
                     // disabled: false
                     Validators.compose([Validators.pattern(ValidationConstants.EMAIL)])
                 ],
             }),
-            "dynamicFields": this.fb.array([])
+            'dynamicFields': this.fb.array([])
         }, {
             validator: dynamicFieldValidator()
         });
@@ -135,25 +135,25 @@ export class MFormComponent implements OnInit {
 
     }
 
-    onSubmit(value: string):void {
-        console.log("submitted info: ", value);
-        console.log("formModel: ", this.formModel);
+    onSubmit(value: string): void {
+        console.log('submitted info: ', value);
+        console.log('formModel: ', this.formModel);
     }
 
     public _getErrorText(controlName: string): string {
-        let errorText = "",
+        let errorText = '',
             control = this.myForm.controls[controlName];
 
         if (control.errors) {
-            if (control.errors["maxlength"] !== undefined) {
-                errorText = `Value should be less then ${control.errors["maxlength"].requiredLength}`;
+            if (control.errors['maxlength'] !== undefined) {
+                errorText = `Value should be less then ${control.errors['maxlength'].requiredLength}`;
             }
 
-            if (control.errors["nameValidation"] !== undefined) {
+            if (control.errors['nameValidation'] !== undefined) {
                 errorText = `Should start with capital letter`;
             }
 
-            if (control.errors["ayncNameValidation"] !== undefined) {
+            if (control.errors['ayncNameValidation'] !== undefined) {
                 errorText = `Async validation: should start with capital letter`;
             }
         }

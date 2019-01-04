@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {select, Store} from "@ngrx/store";
-import {Observable} from "rxjs/internal/Observable";
+import {select, Store} from '@ngrx/store';
+import {Observable} from 'rxjs/internal/Observable';
 import * as fromStore from '../store';
-import {FamilyMember} from "@models/family.model";
+import {FamilyMember} from '@models/family.model';
 
 
 
 export interface AppState {
-    family: {name: string;age: number;}[]
+    family: {name: string; age: number; }[];
 }
 
 @Component({
@@ -74,7 +74,7 @@ export class MNgrxEffectsComponent implements OnInit {
 
         event.preventDefault();
 
-        let name = inputName.value,
+        const name = inputName.value,
             age = +inputAge.value;
 
         if (!name) {

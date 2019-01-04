@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
-import {SharedModule} from "../shared/shared.module";
-import {MHomeComponent} from "./m-home.component";
-import {HomeService} from "./home.service";
+import {NgModule} from '@angular/core';
+import {SharedModule} from '../shared/shared.module';
+import {MHomeComponent} from './m-home.component';
+import {HomeService} from './home.service';
 
 @NgModule({
     imports: [SharedModule],

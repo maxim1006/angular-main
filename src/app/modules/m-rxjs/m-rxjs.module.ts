@@ -9,9 +9,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MRxjsAsyncPipeComponent} from './components/async-pipe/m-rxjs-async-pipe.component';
 import {RxjsOnDestroyComponent} from './components/rxjs-example/rxjs-ondestroy.component';
 import { RxjsExample1Component } from './components/rxjs-example1/rxjs-example1.component';
-import {ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import {RxjsExample2Component} from "./components/rxjs-example2/rxjs-erxample2.component";
+import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import {RxjsExample2Component} from './components/rxjs-example2/rxjs-erxample2.component';
 
 const routes: Routes = [
     { path: 'rxjs', component: MRxjsComponent, children: [{

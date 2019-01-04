@@ -8,13 +8,13 @@ import {
     StepDurationGraphModel,
     SuccessRateCCGraphModel,
     SuccessRateCustomerGraphModel,
-} from "@models/m-graph.model";
+} from '@models/m-graph.model';
 
 
 
 declare namespace Highcharts {
     export interface ChartObject {
-        [key: string]: any
+        [key: string]: any;
     }
 }
 

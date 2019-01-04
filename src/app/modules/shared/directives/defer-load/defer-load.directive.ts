@@ -5,12 +5,12 @@ import {Directive, ElementRef, EventEmitter, HostBinding, Output} from '@angular
     selector: '[mDeferLoad]'
 })
 export class DeferLoadDirective {
-    @HostBinding("class.mDeferLoad__invisible") mDeferLoadInvisible = true;
-    @HostBinding("class.mDeferLoad__visible") mDeferLoadVisible = false;
+    @HostBinding('class.mDeferLoad__invisible') mDeferLoadInvisible = true;
+    @HostBinding('class.mDeferLoad__visible') mDeferLoadVisible = false;
 
     @Output() public deferLoad: EventEmitter<any> = new EventEmitter();
 
-    private _intersectionObserver? : IntersectionObserver;
+    private _intersectionObserver?: IntersectionObserver;
 
     public ngAfterViewInit () {
         this._intersectionObserver = new IntersectionObserver(entries => {

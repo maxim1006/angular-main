@@ -7,39 +7,39 @@ import {
 import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
-import {FormsModule} from "@angular/forms";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {MHomeModule} from "./modules/m-home/m-home.module";
-import {MRxjsModule} from "./modules/m-rxjs/m-rxjs.module";
-import {MForRootModule} from "./modules/m-for-root/m-for-root.module";
-import {SharedModule} from "./modules/shared/shared.module";
-import {RouteService} from "./route.service";
-import {MFormsModule} from "./modules/m-forms/m-forms.module";
-import {MHttpModule} from "./modules/m-http/m-http.module";
-import {AppRoutingModule, MyPreloadStrategy, ProtectedLazyGuard} from "./app-routing.module";
-import {PageUtilsService} from "./common/services/page-utils.service";
-import {domenToken} from "./modules/shared/tokens/tokens";
-import {AppService} from "./modules/app.service";
-import {HammerPluginPatch} from "./common/patches/hammer-plugin.patch";
-import {PageLoaderService} from "@services/page-loader.service";
-import {StaticInjector} from "@angular/core/src/di/injector";
-import {MAdminComponent} from "./modules/admin/admin.component";
-import {MAdminGuardService} from "./modules/admin/admin-guard.service";
-import {MHttpRequestInterceptor} from "./common/interceptors/http-request.interceptor";
-import {MDynamicService} from "@services/dynamic.service";
-import {MDynamicInternalService} from "@services/dynamic-internal.service";
+import {FormsModule} from '@angular/forms';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {MHomeModule} from './modules/m-home/m-home.module';
+import {MRxjsModule} from './modules/m-rxjs/m-rxjs.module';
+import {MForRootModule} from './modules/m-for-root/m-for-root.module';
+import {SharedModule} from './modules/shared/shared.module';
+import {RouteService} from './route.service';
+import {MFormsModule} from './modules/m-forms/m-forms.module';
+import {MHttpModule} from './modules/m-http/m-http.module';
+import {AppRoutingModule, MyPreloadStrategy, ProtectedLazyGuard} from './app-routing.module';
+import {PageUtilsService} from './common/services/page-utils.service';
+import {domenToken} from './modules/shared/tokens/tokens';
+import {AppService} from './modules/app.service';
+import {HammerPluginPatch} from './common/patches/hammer-plugin.patch';
+import {PageLoaderService} from '@services/page-loader.service';
+import {StaticInjector} from '@angular/core/src/di/injector';
+import {MAdminComponent} from './modules/admin/admin.component';
+import {MAdminGuardService} from './modules/admin/admin-guard.service';
+import {MHttpRequestInterceptor} from './common/interceptors/http-request.interceptor';
+import {MDynamicService} from '@services/dynamic.service';
+import {MDynamicInternalService} from '@services/dynamic-internal.service';
 import { MDynamicAppComponent } from './components/dynamic-app/dynamic-app.component';
 
 
-export function routeServiceFactory (route: RouteService):()=>{} {
-    return () => route.init()
+export function routeServiceFactory (route: RouteService): () => {} {
+    return () => route.init();
 }
 
 export class MyHammerConfig extends HammerGestureConfig  {
     overrides = <any>{
         'swipe': {velocity: 0.4, threshold: 20} // override default settings
-    }
+    };
 }
 
 
@@ -75,10 +75,10 @@ const childInjector: Injector = Injector.create({
         MDynamicService,
         MDynamicInternalService,
         {provide: domenToken, useValue: domenToken},
-        {provide: "NamedService", useClass: AppService, multi: true},
+        {provide: 'NamedService', useClass: AppService, multi: true},
         MyPreloadStrategy,
         ProtectedLazyGuard,
-        {provide: "someOptionalObject.someOptionalProperty", useValue: "someOptionalPropertyValueFromOptionalProveder"},
+        {provide: 'someOptionalObject.someOptionalProperty', useValue: 'someOptionalPropertyValueFromOptionalProveder'},
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig

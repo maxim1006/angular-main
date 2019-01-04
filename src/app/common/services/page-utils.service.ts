@@ -1,18 +1,18 @@
-import {Injectable} from "@angular/core";
-import {Observable, Subscriber} from "rxjs";
-import {Media} from "../models/media";
-import {share} from "rxjs/operators";
+import {Injectable} from '@angular/core';
+import {Observable, Subscriber} from 'rxjs';
+import {Media} from '../models/media';
+import {share} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root',
 })
 export class PageUtilsService {
     documentWidth: number = document.documentElement.clientWidth;
-    TABLET_VIEW_WIDTH: number = 768;
-    MOBILE_VIEW_WIDTH: number = 480;
-    mediaObserver:Observable<Media>;
-    mediaSubscriber:Subscriber<Media>;
-    mediaData:Media = {
+    TABLET_VIEW_WIDTH = 768;
+    MOBILE_VIEW_WIDTH = 480;
+    mediaObserver: Observable<Media>;
+    mediaSubscriber: Subscriber<Media>;
+    mediaData: Media = {
         mobile: false,
         tablet: false,
         desktop: false

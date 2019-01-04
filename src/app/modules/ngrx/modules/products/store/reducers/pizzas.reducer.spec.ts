@@ -1,6 +1,6 @@
 import * as fromPizzasReducer from './pizzas.reducer';
 import * as fromPizzasActions from '../actions/pizzas.action';
-import {Pizza} from "@models/pizza.model";
+import {Pizza} from '@models/pizza.model';
 
 describe('PizzasReducer', () => {
     describe('undefined action', () => {
@@ -10,7 +10,7 @@ describe('PizzasReducer', () => {
             const state = fromPizzasReducer.reducer(undefined, action);
 
             expect(state).toBe(initialState);
-        })
+        });
     });
 
     describe('Load Pizza action', () => {
@@ -22,7 +22,7 @@ describe('PizzasReducer', () => {
             expect(state.entities).toEqual({});
             expect(state.loaded).toEqual(false);
             expect(state.loading).toEqual(true);
-        })
+        });
     });
 
     describe('Load Pizza Success action', () => {
@@ -42,6 +42,6 @@ describe('PizzasReducer', () => {
             expect(state.entities).toEqual(entities);
             expect(state.loaded).toEqual(true);
             expect(state.loading).toEqual(false);
-        })
+        });
     });
 });

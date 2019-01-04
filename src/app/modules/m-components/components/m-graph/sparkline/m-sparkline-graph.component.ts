@@ -1,5 +1,5 @@
 import {Component, OnInit, HostBinding, NgZone, ElementRef, AfterViewInit, Input} from '@angular/core';
-import * as Highcharts from "highcharts";
+import * as Highcharts from 'highcharts';
 
 @Component({
     selector: 'm-sparkline-graph',
@@ -7,7 +7,7 @@ import * as Highcharts from "highcharts";
 })
 
 export class MSparklineGraphComponent implements OnInit, AfterViewInit {
-    private _viewInited: boolean = false;
+    private _viewInited = false;
 
     @Input()
     public get model(): Highcharts.ChartObject {
@@ -30,7 +30,7 @@ export class MSparklineGraphComponent implements OnInit, AfterViewInit {
     ngOnInit() {}
 
     ngAfterViewInit(): void {
-        let self = this;
+        const self = this;
 
         self._viewInited = true;
         self.el = self._elRef.nativeElement;
@@ -38,12 +38,12 @@ export class MSparklineGraphComponent implements OnInit, AfterViewInit {
     }
 
     private _updateGraph(value: Highcharts.ChartObject) {
-        let self = this;
+        const self = this;
 
         if ( self._viewInited) {
             self._zone.runOutsideAngular(() => {
 
-                Highcharts["SparkLine"] = function (a, b, c) {
+                Highcharts['SparkLine'] = function (a, b, c) {
                     let hasRenderToArg = typeof a === 'string' || a.nodeName,
                         options = arguments[hasRenderToArg ? 1 : 0],
                         defaultOptions = {
@@ -130,7 +130,7 @@ export class MSparklineGraphComponent implements OnInit, AfterViewInit {
                             }
                         };
 
-                    options = Highcharts["merge"] && Highcharts["merge"](defaultOptions, options);
+                    options = Highcharts['merge'] && Highcharts['merge'](defaultOptions, options);
 
                     return new Highcharts.Chart(a, options, c);
                 };
@@ -175,7 +175,7 @@ export class MSparklineGraphComponent implements OnInit, AfterViewInit {
 
                         n += 1;
 
-                        let date = new Date() as any;
+                        const date = new Date() as any;
 
                         if (date - time > 500) {
                             tds.splice(0, i + 1);

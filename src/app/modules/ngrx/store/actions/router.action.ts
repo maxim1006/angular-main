@@ -1,5 +1,5 @@
-import {Action} from "@ngrx/store";
-import {NavigationExtras} from "@angular/router";
+import {Action} from '@ngrx/store';
+import {NavigationExtras} from '@angular/router';
 
 // все это - работа с роутингом с помощью ngrx, все эти экшены будут испльзованы в router.effect.ts
 

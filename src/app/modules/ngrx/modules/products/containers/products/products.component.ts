@@ -5,7 +5,7 @@ import {select, Store} from '@ngrx/store';
 import * as fromStore from '../../store';
 import {ProductsState} from '../../store/reducers';
 import {Observable, of} from 'rxjs';
-import {catchError, delay, filter, switchMap, timeout} from "rxjs/internal/operators";
+import {catchError, delay, filter, switchMap, timeout} from 'rxjs/internal/operators';
 
 @Component({
     selector: 'products',

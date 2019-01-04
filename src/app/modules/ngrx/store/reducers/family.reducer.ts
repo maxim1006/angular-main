@@ -1,19 +1,19 @@
-import * as fromFamilyActions from "../actions";
-import {FamilyMember} from "@models/family.model";
+import * as fromFamilyActions from '../actions';
+import {FamilyMember} from '@models/family.model';
 
 export interface FamilyState {
     entities: {
         [id: number]: FamilyMember
-    },
+    };
     loaded: boolean;
     loading: boolean;
     foundFamilyEntities: {
         [id: number]: FamilyMember
-    },
-    searchLoading: boolean
+    };
+    searchLoading: boolean;
 }
 
-let initialState: FamilyState = {
+const initialState: FamilyState = {
     entities: [],
     loaded: false,
     loading: false,
@@ -80,7 +80,7 @@ export function reducer(state: FamilyState = initialState, action: fromFamilyAct
             return {
                 ...state,
                 searchLoading: true
-            }
+            };
         }
 
         case fromFamilyActions.FamilyActionTypes.ServerSearchSuccess: {
@@ -91,14 +91,14 @@ export function reducer(state: FamilyState = initialState, action: fromFamilyAct
                     return {
                         ...accumulator,
                         [currentValue.id]: currentValue
-                    }
+                    };
                 }), {});
 
             return {
                 ...state,
                 foundFamilyEntities,
                 searchLoading: false
-            }
+            };
         }
 
         case fromFamilyActions.FamilyActionTypes.ServerSearchFail: {
@@ -108,7 +108,7 @@ export function reducer(state: FamilyState = initialState, action: fromFamilyAct
                 ...state,
                 foundFamilyEntities,
                 searchLoading: false
-            }
+            };
         }
 
         case fromFamilyActions.FamilyActionTypes.Reset:

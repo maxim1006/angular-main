@@ -1,8 +1,8 @@
-import {Component, OnInit, HostBinding, HostListener} from "@angular/core";
+import {Component, OnInit, HostBinding, HostListener} from '@angular/core';
 
 @Component(
     {
-        selector: "host-binding",
+        selector: 'host-binding',
         template: `
             <h3>This is @HostBindling example</h3>
             <p> &laquo;hostBinding&raquo; has id hostBinding</p>
@@ -16,20 +16,20 @@ import {Component, OnInit, HostBinding, HostListener} from "@angular/core";
 
 export class HostBindingComponent implements OnInit {
 
-    @HostBinding('attr.id') id: string = 'hostBinding';
+    @HostBinding('attr.id') id = 'hostBinding';
     @HostBinding('class') classes = 'class1 class2 class3';
 
     @HostListener('document:click') onDocumentClick = () => {
-        console.log("document clicked");
-    };
+        console.log('document clicked');
+    }
 
     @HostListener('window:click') onWindowClick = () => {
-        console.log("window clicked");
-    };
+        console.log('window clicked');
+    }
 
     @HostListener('click', ['$event'])
     onClick(event: MouseEvent) {
-        console.log(event, " clicked with host listener");
+        console.log(event, ' clicked with host listener');
     }
 
     constructor() {

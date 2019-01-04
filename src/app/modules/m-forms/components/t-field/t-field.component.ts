@@ -1,9 +1,9 @@
-import {Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild} from "@angular/core";
-import {AbstractControl, ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from "@angular/forms";
+import {Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {AbstractControl, ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
-        selector: "t-field",
-        templateUrl: "./t-field.component.html",
+        selector: 't-field',
+        templateUrl: './t-field.component.html',
         providers: [
             {
                 provide: NG_VALUE_ACCESSOR,
@@ -16,13 +16,13 @@ import {AbstractControl, ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} fro
 
 export class TField implements ControlValueAccessor {
 
-    @HostBinding("class.t-field")
+    @HostBinding('class.t-field')
     private hostClass = true;
 
-    @HostBinding("class._disabled")
+    @HostBinding('class._disabled')
     private disabledState = false;
 
-    @ViewChild("input")
+    @ViewChild('input')
     private inputRef: ElementRef;
 
     @Output()
@@ -41,11 +41,11 @@ export class TField implements ControlValueAccessor {
 
             this.updateInputValue();
         }
-    };
+    }
 
     public get value(): any {
         return this._value;
-    };
+    }
 
     private _value: any;
 
@@ -71,7 +71,7 @@ export class TField implements ControlValueAccessor {
     public isRequired: boolean;
 
     @Input()
-    public placeholder: string = '';
+    public placeholder = '';
 
     @Input()
     public inputStyleClass: string;
@@ -80,7 +80,7 @@ export class TField implements ControlValueAccessor {
     public fieldLabel: string;
 
     @Input()
-    public type: string = 'text';
+    public type = 'text';
 
     constructor() {}
 

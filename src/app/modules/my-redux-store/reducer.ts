@@ -1,9 +1,9 @@
-import {ADD_TODO, REMOVE_TODO} from "./action";
+import {ADD_TODO, REMOVE_TODO} from './action';
 
 export const initialState = {
     loaded: false,
     loading: false,
-    data: [{label: "make task", complete: false}]
+    data: [{label: 'make task', complete: false}]
 };
 
 export function reducer(state = initialState, action: {type: string, payload: any}) {

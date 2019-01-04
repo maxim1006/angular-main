@@ -1,5 +1,5 @@
-import {Component, OnInit, Inject} from "@angular/core";
-import {HomeService} from "./home.service";
+import {Component, OnInit, Inject} from '@angular/core';
+import {HomeService} from './home.service';
 
 @Component({
     selector: 'm-home',

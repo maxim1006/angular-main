@@ -1,12 +1,12 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
-    selector: "inner-data-binding",
-    templateUrl: "./innerDataBindingComponent.html"
+    selector: 'inner-data-binding',
+    templateUrl: './innerDataBindingComponent.html'
 })
 
 export class InnerDataBindingComponent {
-    public selectedItem:string;
+    public selectedItem: string;
 
     public constructor() {
     }
@@ -14,7 +14,7 @@ export class InnerDataBindingComponent {
     ngOnInit() {
     }
 
-    @Input() oneTimeStringBinding:string;
+    @Input() oneTimeStringBinding: string;
 
     @Input()
     public prop;
@@ -40,9 +40,9 @@ export class InnerDataBindingComponent {
 
     public twoWayClick(string, string1) {
         this.onTwoWayClick.emit([string, string1]);
-    };
+    }
 
-    public selectItem(item):void {
+    public selectItem(item): void {
         //this.selectedItem = item;
         //this.onSelectItem.emit(item);
         this.twoWayPropChange.emit(item);

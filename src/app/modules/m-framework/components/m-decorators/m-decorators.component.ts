@@ -1,5 +1,5 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {decorator, decorator1, logProperty, logProperty1, PropertyHandler} from "./decorators";
+import {decorator, decorator1, logProperty, logProperty1, PropertyHandler} from './decorators';
 
 @Component({
     selector: 'm-decorators',
@@ -35,11 +35,11 @@ export class MDecoratorsComponent implements OnInit {
 }
 
 function beforeChange (newValue, oldValue) {
-    console.log("beforeChange newValue ", newValue);
-    console.log("beforeChange oldValue ", oldValue);
+    console.log('beforeChange newValue ', newValue);
+    console.log('beforeChange oldValue ', oldValue);
 }
 
 function afterChange (newValue, oldValue) {
-    console.log("afterChange newValue ", newValue);
-    console.log("afterChange oldValue ", oldValue);
+    console.log('afterChange newValue ', newValue);
+    console.log('afterChange oldValue ', oldValue);
 }

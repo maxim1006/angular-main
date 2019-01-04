@@ -1,10 +1,10 @@
-import {Component, OnInit} from "@angular/core";
-import {PageUtils} from "../../../shared/utils/page-utils";
-import {PageUtilsService} from "../../../../common/services/page-utils.service";
+import {Component, OnInit} from '@angular/core';
+import {PageUtils} from '../../../shared/utils/page-utils';
+import {PageUtilsService} from '../../../../common/services/page-utils.service';
 
 @Component({
-    selector: "media-query",
-    templateUrl: "media-query.component.html"
+    selector: 'media-query',
+    templateUrl: 'media-query.component.html'
 })
 
 export class MediaQueryComponent extends PageUtils implements OnInit {

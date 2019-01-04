@@ -1,13 +1,13 @@
-import { Pipe, PipeTransform } from "@angular/core";
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe ({
-    name: "objToArrPipe"
+    name: 'objToArrPipe'
 })
 
 export class objToArrPipe implements PipeTransform {
 
-    public transform(value: any[] = [], name=''):any {
-        let arr = [];
+    public transform(value: any[] = [], name= ''): any {
+        const arr = [];
 
         Object.keys(value).forEach((key) => {
             arr.push({

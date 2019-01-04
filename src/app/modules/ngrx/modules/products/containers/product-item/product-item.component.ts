@@ -34,7 +34,7 @@ export class ProductItemComponent implements OnInit {
     visualise$: Observable<Pizza>;
     toppings$: Observable<Topping[]>;
 
-    constructor(private store: Store<fromStore.ProductsState>,) {
+    constructor(private store: Store<fromStore.ProductsState>, ) {
     }
 
     ngOnInit() {

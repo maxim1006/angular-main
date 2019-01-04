@@ -1,12 +1,12 @@
-import {ToppingsService} from "../../services/toppings.service";
-import {Actions, Effect, ofType} from "@ngrx/effects";
-import {Injectable} from "@angular/core";
+import {ToppingsService} from '../../services/toppings.service';
+import {Actions, Effect, ofType} from '@ngrx/effects';
+import {Injectable} from '@angular/core';
 import {
     LoadToppingsAction, LoadToppingsFailAction, LoadToppingsSuccessAction,
     ToppingsActionTypes
-} from "../actions/toppings.action";
-import {catchError, map, switchMap} from "rxjs/internal/operators";
-import {of} from "rxjs/index";
+} from '../actions/toppings.action';
+import {catchError, map, switchMap} from 'rxjs/internal/operators';
+import {of} from 'rxjs/index';
 
 @Injectable()
 export class ToppingsEffects {

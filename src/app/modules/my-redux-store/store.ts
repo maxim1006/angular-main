@@ -19,7 +19,7 @@ export class Store {
 
         return () => {
             this.subscribers.filter(sub => sub !== fn);
-        }
+        };
     }
 
     dispatch(action) {

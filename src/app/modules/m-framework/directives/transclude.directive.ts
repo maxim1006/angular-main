@@ -14,8 +14,8 @@ export class TranscludeDirective {
 
     ngOnInit() {
         if (this.transclude) {
-            console.log("this.templateRef ", this.templateRef);
-            this.transclude["template"] = this.templateRef;
+            console.log('this.templateRef ', this.templateRef);
+            this.transclude['template'] = this.templateRef;
         }
     }
 

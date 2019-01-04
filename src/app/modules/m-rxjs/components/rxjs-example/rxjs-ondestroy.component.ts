@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {takeUntil} from "rxjs/operators";
-import {interval, Subject} from "rxjs";
+import {HttpClient} from '@angular/common/http';
+import {takeUntil} from 'rxjs/operators';
+import {interval, Subject} from 'rxjs';
 
 @Component({
     selector: 'rxjs-ondestroy',
@@ -25,8 +25,8 @@ export class RxjsOnDestroyComponent implements OnInit, OnDestroy {
                 takeUntil(this.onDestroy$)
             )
             .subscribe(
-                () => console.log("onDestroy tick")
-            )
+                () => console.log('onDestroy tick')
+            );
     }
 
     ngOnDestroy() {

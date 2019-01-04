@@ -1,5 +1,5 @@
-import {Action} from "@ngrx/store";
-import {FamilyMember} from "@models/family.model";
+import {Action} from '@ngrx/store';
+import {FamilyMember} from '@models/family.model';
 
 export enum FamilyActionTypes {
     Load = '[Family] Load',

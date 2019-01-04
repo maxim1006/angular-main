@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {domenToken, domenTokenDb} from "../../../shared/tokens/tokens";
-import {HttpClient} from "@angular/common/http";
-import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler} from "rxjs/index";
+import {domenToken, domenTokenDb} from '../../../shared/tokens/tokens';
+import {HttpClient} from '@angular/common/http';
+import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler} from 'rxjs/index';
 import {mergeAll, observeOn} from 'rxjs/operators';
-import {concatMap, delay, map} from "rxjs/internal/operators";
+import {concatMap, delay, map} from 'rxjs/internal/operators';
 
 @Component({
     selector: 'rxjs-example',
@@ -19,11 +19,11 @@ import {concatMap, delay, map} from "rxjs/internal/operators";
 })
 
 export class RxjsExampleComponent implements OnInit, OnDestroy {
-    public _rxjsOnDestroyVisible: boolean = true;
+    public _rxjsOnDestroyVisible = true;
 
     interval: number;
     observerSubscription: Subscription;
-    number:number = 1;
+    number = 1;
     private observer: Observable<any>;
 
     constructor(private _http: HttpClient) {
@@ -31,7 +31,7 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        let self = this;
+        const self = this;
 
         // не делаю внутренние сабскрайбы
         // firstObservable$.pipe(
@@ -92,18 +92,18 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
         // если нужно дождаться 1го и потом 2ой делай так
-        let queueObservable$ = this._http.get(`${domenTokenDb}mocks`).pipe(
+        const queueObservable$ = this._http.get(`${domenTokenDb}mocks`).pipe(
             concatMap(
                 (urls: any) =>
                     self._http.get(`${domenTokenDb}${urls.familyUrl}`)
                         .pipe(
-                            map((data) => {return {urls, data}})
+                            map((data) => ({urls, data}))
                         )
 
             )
         ).subscribe(({urls, data}) => {
-            console.log("queueObservable$ first", urls);
-            console.log("queueObservable$ second", data);
+            console.log('queueObservable$ first', urls);
+            console.log('queueObservable$ second', data);
         });
 
 
@@ -194,11 +194,11 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
         // расписания
-        const o1 = of(1,2).pipe(observeOn(asyncScheduler));
+        const o1 = of(1, 2).pipe(observeOn(asyncScheduler));
         const o2 = of(10);
 
         combineLatest(o1, o2).subscribe((value) => {
-            console.log("combineLatest value ", value);
+            console.log('combineLatest value ', value);
         });
 
 

@@ -45,11 +45,11 @@ export class MHttpService {
             });
 
         for (let i = 0; i < files.length; i++) {
-            formData.append("files[]", files[i]);
+            formData.append('files[]', files[i]);
         }
 
-        let response = Observable.create((observer: Observer<Response>) => {
-            let xhr: XMLHttpRequest = new XMLHttpRequest();
+        const response = Observable.create((observer: Observer<Response>) => {
+            const xhr: XMLHttpRequest = new XMLHttpRequest();
 
             xhr.onreadystatechange = () => {
                 if (xhr.readyState === 4) {

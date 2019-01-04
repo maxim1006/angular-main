@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: "m-directive-example",
+    selector: 'm-directive-example',
     template: `
     
         <!--Здесь mColory использую как сслыку на контроллер директивы, для этого в директиве должно быть exportAs-->

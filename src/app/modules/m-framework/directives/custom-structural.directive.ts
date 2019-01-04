@@ -11,7 +11,7 @@ export class CustomStructuralDirective {
     public ngOnInit() {
         setTimeout(() => {
             this.view.createEmbeddedView(this.template);
-        }, 2000)
+        }, 2000);
     }
 }
 

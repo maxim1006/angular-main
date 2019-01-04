@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MyStore} from "./my-store";
+import {MyStore} from './my-store';
 
 @Component({
     selector: 'my-store',
@@ -16,9 +16,9 @@ export class MyStoreComponent implements OnInit {
     constructor(private store: MyStore) {
     }
 
-    todos$ = this.store.select<any>("todos");
+    todos$ = this.store.select<any>('todos');
 
     ngOnInit() {
-        this.store.set('todos', [{name: "learn"}, {name: "sleep"}])
+        this.store.set('todos', [{name: 'learn'}, {name: 'sleep'}]);
     }
 }

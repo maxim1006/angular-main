@@ -12,11 +12,11 @@ import {Directive, HostListener, HostBinding} from '@angular/core';
 export class SimpleLogDirective {
 
     @HostBinding('class._valid')//это тоже самое, что и '[class._valid]': 'isValid' в host
-    public isValid:boolean;
+    public isValid: boolean;
 
     @HostListener('input', ['$event'])//это тоже самое, что и '(input)': 'onInput($event)' в host
-    public onInput(e):void {
-        let el = e.target as HTMLInputElement,  //assertion, те я понимаю, что это не просто таргет, а именно инпут элемент
+    public onInput(e): void {
+        const el = e.target as HTMLInputElement,  //assertion, те я понимаю, что это не просто таргет, а именно инпут элемент
             value = el.value;
 
         this.isValid = value === 'valid';

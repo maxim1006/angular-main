@@ -10,7 +10,7 @@ import { hmrBootstrap } from './hmr';
 
 if (environment.production) {
     enableProdMode();
-    console.log("You are in Prod mode");
+    console.log('You are in Prod mode');
 }
 
 const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule, {
@@ -18,7 +18,7 @@ const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule, {
 });
 
 if (environment.hmr) {
-    console.log("You are in HMR mode");
+    console.log('You are in HMR mode');
     if (module[ 'hot' ]) {
         hmrBootstrap(module, bootstrap);
     } else {
@@ -27,7 +27,7 @@ if (environment.hmr) {
     }
 } else {
     bootstrap();
-    console.log("You are in Dev mode");
+    console.log('You are in Dev mode');
 }
 
 

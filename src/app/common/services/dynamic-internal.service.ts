@@ -3,7 +3,7 @@ import {
     ComponentRef,
     Injectable,
     ViewContainerRef
-} from "@angular/core";
+} from '@angular/core';
 
 
 @Injectable()

@@ -1,4 +1,4 @@
-import {Injectable} from "@angular/core";
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class NewService {
@@ -7,10 +7,10 @@ export class NewService {
     constructor(private newService2: NewService2) {
         this.anotherValue = newService2.value;
     }
-    private value:number = 1;
+    private value = 1;
 }
 
 @Injectable()
 export class NewService2 {
-    public value:number = 2;
+    public value = 2;
 }

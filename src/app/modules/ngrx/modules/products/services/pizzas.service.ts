@@ -5,7 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Pizza } from '@models/pizza.model';
-import {domenTokenDb} from "../../../../shared/tokens/tokens";
+import {domenTokenDb} from '../../../../shared/tokens/tokens';
 
 @Injectable()
 export class PizzasService {

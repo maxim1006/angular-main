@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {MyStore} from "../../my-store";
-import {MyStoreService} from "../../services/my-store.service";
-import {Observable, Subject} from "rxjs/index";
-import {takeUntil} from "rxjs/internal/operators";
+import {MyStore} from '../../my-store';
+import {MyStoreService} from '../../services/my-store.service';
+import {Observable, Subject} from 'rxjs/index';
+import {takeUntil} from 'rxjs/internal/operators';
 
 @Component({
     selector: 'songs-playlist',
@@ -21,12 +21,12 @@ export class SongsPlayListComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.playlist$ = this.store.select("playlist");
+        this.playlist$ = this.store.select('playlist');
         this.myStoreService.getPlayList$.pipe(takeUntil(this.destroy$)).subscribe();
     }
 
     onSongToggle(song) {
-        this.myStoreService.toggleSong(song)
+        this.myStoreService.toggleSong(song);
     }
 
     ngOnDestroy() {

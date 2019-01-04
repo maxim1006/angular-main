@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject} from '@angular/core';
-import {MHttpService} from "./m-http.service";
-import {NewService} from "./new.service";
-import {Observable} from "rxjs";
-import {shareReplay} from "rxjs/internal/operators";
+import {MHttpService} from './m-http.service';
+import {NewService} from './new.service';
+import {Observable} from 'rxjs';
+import {shareReplay} from 'rxjs/internal/operators';
 
 
 
@@ -21,7 +21,7 @@ export class UploadedFile {
 
 @Component({
     selector: 'm-http',
-    templateUrl: "./m-http.component.html"
+    templateUrl: './m-http.component.html'
 })
 export class MHttpComponent implements OnInit {
     public progress: string;
@@ -100,8 +100,8 @@ export class MHttpComponent implements OnInit {
 
 
 
-let KEY1 = 1;
-let KEY2 = 2;
+const KEY1 = 1;
+const KEY2 = 2;
 
 export const httpInjectables: any[] = [
     {provide: 'KEY1', useValue: KEY1},

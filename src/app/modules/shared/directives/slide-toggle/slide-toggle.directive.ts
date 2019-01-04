@@ -15,32 +15,32 @@ export interface SlideToggleEvent {
 export class SlideToggleDirective implements AfterViewInit {
     public element: HTMLElement;
 
-    private _toggled: boolean = true;
-    private _toggleStateOnAnimationStart: boolean = true;
-    private _isAnimating: boolean = false;
+    private _toggled = true;
+    private _toggleStateOnAnimationStart = true;
+    private _isAnimating = false;
     private _requestAnimationFrameId: number;
-    private _direction: string = 'up';
+    private _direction = 'up';
     private _height: number;
     private _currentStyleHeight: number;
     private _initOverflowStyle: string | any;
 
     @Input()
-    public duration: number = 200;
+    public duration = 200;
 
     @Input()
     public set slideToggle(value: boolean) {
-        let self = this;
+        const self = this;
 
         self._toggled = value;
 
         if (!self._isAnimating && self.element) {
             self._runAnimation();
         }
-    };
+    }
 
     public get slideToggle(): boolean {
         return this._toggled;
-    };
+    }
 
     @Output() public onSlideStart = new EventEmitter<SlideToggleEvent>();
     @Output() public onSlideEnd = new EventEmitter<SlideToggleEvent>();
@@ -51,22 +51,22 @@ export class SlideToggleDirective implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        let self = this;
+        const self = this;
 
         self.element = self._elementRef.nativeElement;
 
-        let initStyles = getComputedStyle(self.element);
+        const initStyles = getComputedStyle(self.element);
         self._initOverflowStyle = initStyles.overflow;
 
         if (!self._toggled) {
-           self.element.style.height = "0px";
-           self.element.style.overflow = "hidden";
+           self.element.style.height = '0px';
+           self.element.style.overflow = 'hidden';
            self._setElHeight();
         }
     }
 
     private _runAnimation() {
-        let self = this;
+        const self = this;
 
         self._toggleStateOnAnimationStart = self._toggled;
         self._isAnimating = true;
@@ -85,8 +85,8 @@ export class SlideToggleDirective implements AfterViewInit {
         });
     }
 
-    private _animate():void {
-        let self = this,
+    private _animate(): void {
+        const self = this,
             start = performance.now();
 
         self._requestAnimationFrameId = requestAnimationFrame(function animate(time) {
@@ -100,16 +100,16 @@ export class SlideToggleDirective implements AfterViewInit {
             self._tick(timePassed);
 
             if (timePassed < self.duration &&
-                self._direction === "up" && self._currentStyleHeight > 0 ||
-                self._direction === "down" && self._currentStyleHeight < self._height
+                self._direction === 'up' && self._currentStyleHeight > 0 ||
+                self._direction === 'down' && self._currentStyleHeight < self._height
             ) {
                 self._requestAnimationFrameId = requestAnimationFrame(animate);
             }
         });
     }
 
-    private _onAnimationEnd():void {
-        let self = this;
+    private _onAnimationEnd(): void {
+        const self = this;
         window.cancelAnimationFrame(self._requestAnimationFrameId);
 
         if (self._toggleStateOnAnimationStart !== self._toggled) {
@@ -129,10 +129,10 @@ export class SlideToggleDirective implements AfterViewInit {
         });
     }
 
-    private _tick(timePassed: number):void {
-        let self = this,
+    private _tick(timePassed: number): void {
+        const self = this,
             timePassedPercentage: number = Math.ceil(Math.abs(timePassed) / self.duration * 100),
-            currentTimePassedPercentage = self._direction === "up" ? 100 - timePassedPercentage : timePassedPercentage,
+            currentTimePassedPercentage = self._direction === 'up' ? 100 - timePassedPercentage : timePassedPercentage,
             elementHeight = self._height * currentTimePassedPercentage / 100;
 
         self._currentStyleHeight = elementHeight;
@@ -151,23 +151,23 @@ export class SlideToggleDirective implements AfterViewInit {
     }
 
     private _setElHeight() {
-        let self = this,
+        const self = this,
             elementInitComputedStyle = getComputedStyle(self.element),
             initVisibilityParametersMap = {},
             visibilityParametersMap = {
-                height: "auto",
+                height: 'auto',
                 opacity: 0,
-                visibility: "hidden"
+                visibility: 'hidden'
             };
 
-        for (let key in visibilityParametersMap) {
+        for (const key in visibilityParametersMap) {
             initVisibilityParametersMap[key] = elementInitComputedStyle[key];
             self.element.style[key] = visibilityParametersMap[key];
         }
 
         self._height = self.element.offsetHeight;
 
-        for (let key in initVisibilityParametersMap) {
+        for (const key in initVisibilityParametersMap) {
             self.element.style[key] = initVisibilityParametersMap[key];
         }
     }

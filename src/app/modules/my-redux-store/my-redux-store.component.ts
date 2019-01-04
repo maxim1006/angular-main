@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
-import {Store} from "./store";
-import {reducer} from "./reducer";
-import {AddTodo, RemoveTodo} from "./action";
+import {Store} from './store';
+import {reducer} from './reducer';
+import {AddTodo, RemoveTodo} from './action';
 
 const reducers = {
     todos: reducer
@@ -38,7 +38,7 @@ export class MyReduxStoreComponent {
     ngOnInit() {
         this.subscription = store.subscribe((data) => {
             this.todos = data.todos.data;
-        })
+        });
     }
 
     ngOnDestroy() {
@@ -47,13 +47,13 @@ export class MyReduxStoreComponent {
 
     _addTodo(input: HTMLInputElement) {
 
-        if (!input.value.trim()) return;
+        if (!input.value.trim()) { return; }
 
         const payload = {label: input.value, complete: false};
 
         store.dispatch(new AddTodo(payload));
 
-        input.value = "";
+        input.value = '';
     }
 
     _removeTodo(todo: HTMLInputElement) {

@@ -1,8 +1,8 @@
 // холодные обзервеблы, все подписавшиеся после первого next вызовутся по умолчанию, а горячие вызовутся все, только подписавшиеся после 1го next и пошарят 1 данные, также горячие сабскрайберы сработают только на то что произошло после сабскрипшина, а холодные на то что произошло до сабскрипшена тоже сработают. Каждый сабскайб обновляет функцию в  Observable.create(вот эта функция триггерится каждый раз))
 
-import {Component, OnInit} from "@angular/core";
-import {domenToken} from "../../../shared/tokens/tokens";
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {domenToken} from '../../../shared/tokens/tokens';
+import {HttpClient} from '@angular/common/http';
 import {
     AsyncSubject,
     BehaviorSubject,
@@ -12,8 +12,8 @@ import {
     Subject,
     Subscriber,
     throwError
-} from "rxjs/index";
-import {catchError, finalize, share} from "rxjs/internal/operators";
+} from 'rxjs/index';
+import {catchError, finalize, share} from 'rxjs/internal/operators';
 
 @Component({
     selector: 'rx-js',
@@ -25,7 +25,7 @@ import {catchError, finalize, share} from "rxjs/internal/operators";
 export class RxJsComponent implements OnInit {
     numberObservable: Observable<any>;
     subscription: any;
-    number: number = 1;
+    number = 1;
     private subscriber: Subscriber<number>;
     private subject: Subject<any> = new Subject<any>();
 
@@ -45,7 +45,7 @@ export class RxJsComponent implements OnInit {
             // }, 3000);
 
             return () => {
-                console.log("rx-js unsubscribed in cold observable");
+                console.log('rx-js unsubscribed in cold observable');
             };
 
         }).pipe(share());

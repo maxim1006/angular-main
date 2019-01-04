@@ -1,8 +1,8 @@
-import {CounterActionTypes, CounterActionsUnion} from "../actions/counter.action";
+import {CounterActionTypes, CounterActionsUnion} from '../actions/counter.action';
 
 export type CounterState = number;
 
-let initialState = 0;
+const initialState = 0;
 
 
 export function reducer(state: CounterState = initialState, action: CounterActionsUnion) {

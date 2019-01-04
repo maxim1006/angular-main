@@ -12,7 +12,7 @@ export interface GridItemModel {
 }
 
 export interface GridParamsModel {
-    canvasWidth: number,
+    canvasWidth: number;
     margin: number;
     itemWidth: number;
 }
@@ -48,7 +48,7 @@ export interface GridParamsModel {
 
 export class MGridComponent implements OnInit, AfterViewInit {
     @HostBinding('class.m-grid')
-    public hostClass: boolean = true;
+    public hostClass = true;
 
     @ViewChildren('rowRef')
     private rowList: QueryList<ElementRef>;
@@ -68,7 +68,7 @@ export class MGridComponent implements OnInit, AfterViewInit {
     private itemElementMap: {[id: string]: HTMLElement};
     private modelEntitiesByLevel: {[id: string]: any[]} = {};
     private mainAxesCoords: number = 600 / 2;
-    private scaleRatio: number = 1;
+    private scaleRatio = 1;
 
     public params: GridParamsModel = {
         canvasWidth: 600,
@@ -196,7 +196,7 @@ export class MGridComponent implements OnInit, AfterViewInit {
         this.gridCanvasInnerElement.style.transform = `scale(${this.scaleRatio})`;
 
         return false;
-    };
+    }
 
     private shiftElementsInRow(rowIndex, row): void {
 

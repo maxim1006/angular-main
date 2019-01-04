@@ -14,14 +14,14 @@ export class EllipsisDirective implements OnInit {
     @HostBinding('attr.title') public titleAttr = '';
 
     @HostBinding('class._ellipsis')
-    public ellipsisStyleClass:boolean = true;
+    public ellipsisStyleClass = true;
 
     private fakeDiv: HTMLDivElement;
     private initialText: string;
     private el: any;
     private viewInited: boolean;
     private TIMEOUT_ID: number;
-    private resizeStartFlag: boolean = true;
+    private resizeStartFlag = true;
 
     constructor(private elRef: ElementRef, private zone: NgZone, private cdr: ChangeDetectorRef) {}
 
@@ -79,7 +79,7 @@ export class EllipsisDirective implements OnInit {
         this.fakeDiv = null;
     }
 
-    isEllipsisActive(e:HTMLElement):boolean {
+    isEllipsisActive(e: HTMLElement): boolean {
         return (e.offsetWidth < e.scrollWidth - 1);
     }
 
@@ -88,7 +88,7 @@ export class EllipsisDirective implements OnInit {
         this.setEllipsis();
     }
 
-    setEllipsis():void {
+    setEllipsis(): void {
         if (this.getDotFlag()) {
             this.el.textContent = this.addDots(this.fitText(this.initialText));
             this.titleAttr = this.initialText;
@@ -100,13 +100,13 @@ export class EllipsisDirective implements OnInit {
         }
     }
 
-    createFakeDiv():void {
+    createFakeDiv(): void {
         this.fakeDiv = document.createElement('div');
         this.fakeDiv.style.position = 'absolute';
         this.fakeDiv.style.left = '-99999px';
     }
 
-    fitText(text: string):string {
+    fitText(text: string): string {
         let fittedTextBeforeLastWord = '';
 
         while (this.fakeDiv.offsetHeight > this.ellipsis) {
@@ -128,13 +128,13 @@ export class EllipsisDirective implements OnInit {
         return text;
     }
 
-    removeWord(text: string):string {
-        let arr = text.split(" ");
+    removeWord(text: string): string {
+        const arr = text.split(' ');
         arr.pop();
-        return arr.join(" ");
+        return arr.join(' ');
     }
 
-    removeSymbol(text: string):string {
+    removeSymbol(text: string): string {
         return text.slice(0, text.length - 1);
     }
 
@@ -147,7 +147,7 @@ export class EllipsisDirective implements OnInit {
     }
 
     setupFakeDiv() {
-        let computedStyle = getComputedStyle(this.el);
+        const computedStyle = getComputedStyle(this.el);
         this.fakeDiv.style.width = computedStyle.width;
         this.fakeDiv.style.paddingLeft = computedStyle.paddingLeft;
         this.fakeDiv.style.paddingRight = computedStyle.paddingRight;

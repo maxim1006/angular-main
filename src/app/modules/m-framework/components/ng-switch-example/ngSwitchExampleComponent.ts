@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: "ngswitch-example",
-    templateUrl: "./ngSwitchExampleComponent.html"
+    selector: 'ngswitch-example',
+    templateUrl: './ngSwitchExampleComponent.html'
 })
 export class NgSwitchExampleComponent {
-    public template: number = 1;
+    public template = 1;
 }

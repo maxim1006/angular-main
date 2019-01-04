@@ -1,18 +1,18 @@
 import {Component, ViewChild, ViewChildren, ElementRef} from '@angular/core';
 
 @Component({
-    selector: "element-link",
-    templateUrl: "./elementLinkComponent.html"
+    selector: 'element-link',
+    templateUrl: './elementLinkComponent.html'
 })
 
 export class ElementLinkComponent {
-    @ViewChild("myInput")
-    input:ElementRef; //nativeElement - cвойство объекта ElementRef - который вернет декоратор
+    @ViewChild('myInput')
+    input: ElementRef; //nativeElement - cвойство объекта ElementRef - который вернет декоратор
 
-    @ViewChildren("inputItem")
+    @ViewChildren('inputItem')
     inputs;
 
-    public inputValue: string = '';
+    public inputValue = '';
 
     public constructor() {
     }

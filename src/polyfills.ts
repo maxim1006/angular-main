@@ -14,7 +14,7 @@
  * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
  */
 
-import "hammerjs/hammer";
+import 'hammerjs/hammer';
 
 /***************************************************************************************************
  * BROWSER POLYFILLS

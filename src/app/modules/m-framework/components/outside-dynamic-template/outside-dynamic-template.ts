@@ -9,7 +9,7 @@ export class OutsideDynamicTemplateComponent implements OnInit {
     @Input() inputTemplate: TemplateRef<any>;
 
     /** @Internal */
-    public _prop: string = "default prop";
+    public _prop = 'default prop';
 
     constructor() {
     }
@@ -18,6 +18,6 @@ export class OutsideDynamicTemplateComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        console.log("this.inputTemplate ", this.inputTemplate);
+        console.log('this.inputTemplate ', this.inputTemplate);
     }
 }

@@ -8,7 +8,7 @@ describe('Pizzas actions', () => {
 
                 expect({...action}).toEqual({
                     type: fromPizzasAction.PizzasActionTypes.Load
-                })
+                });
             });
         });
 
@@ -20,7 +20,7 @@ describe('Pizzas actions', () => {
                 expect({...action}).toEqual({
                     type: fromPizzasAction.PizzasActionTypes.LoadFail,
                     payload
-                })
+                });
             });
         });
 
@@ -28,86 +28,86 @@ describe('Pizzas actions', () => {
             it('should create an action', () => {
                 const payload = [
                         {
-                            "name": "Blazin' Inferno",
-                            "toppings": [
+                            'name': 'Blazin\' Inferno',
+                            'toppings': [
                                 {
-                                    "id": 10,
-                                    "name": "pepperoni"
+                                    'id': 10,
+                                    'name': 'pepperoni'
                                 },
                                 {
-                                    "id": 9,
-                                    "name": "pepper"
+                                    'id': 9,
+                                    'name': 'pepper'
                                 },
                                 {
-                                    "id": 3,
-                                    "name": "basil"
+                                    'id': 3,
+                                    'name': 'basil'
                                 },
                                 {
-                                    "id": 4,
-                                    "name": "chili"
+                                    'id': 4,
+                                    'name': 'chili'
                                 },
                                 {
-                                    "id": 7,
-                                    "name": "olive"
+                                    'id': 7,
+                                    'name': 'olive'
                                 },
                                 {
-                                    "id": 2,
-                                    "name": "bacon"
+                                    'id': 2,
+                                    'name': 'bacon'
                                 }
                             ],
-                            "id": 1
+                            'id': 1
                         },
                         {
-                            "name": "Seaside Surfin'",
-                            "toppings": [
+                            'name': 'Seaside Surfin\'',
+                            'toppings': [
                                 {
-                                    "id": 6,
-                                    "name": "mushroom"
+                                    'id': 6,
+                                    'name': 'mushroom'
                                 },
                                 {
-                                    "id": 7,
-                                    "name": "olive"
+                                    'id': 7,
+                                    'name': 'olive'
                                 },
                                 {
-                                    "id": 2,
-                                    "name": "bacon"
+                                    'id': 2,
+                                    'name': 'bacon'
                                 },
                                 {
-                                    "id": 3,
-                                    "name": "basil"
+                                    'id': 3,
+                                    'name': 'basil'
                                 },
                                 {
-                                    "id": 1,
-                                    "name": "anchovy"
+                                    'id': 1,
+                                    'name': 'anchovy'
                                 },
                                 {
-                                    "id": 8,
-                                    "name": "onion"
+                                    'id': 8,
+                                    'name': 'onion'
                                 },
                                 {
-                                    "id": 11,
-                                    "name": "sweetcorn"
+                                    'id': 11,
+                                    'name': 'sweetcorn'
                                 },
                                 {
-                                    "id": 9,
-                                    "name": "pepper"
+                                    'id': 9,
+                                    'name': 'pepper'
                                 },
                                 {
-                                    "id": 5,
-                                    "name": "mozzarella"
+                                    'id': 5,
+                                    'name': 'mozzarella'
                                 }
                             ],
-                            "id": 2
+                            'id': 2
                         },
                         {
-                            "name": "Plain Ol' Pepperoni",
-                            "toppings": [
+                            'name': 'Plain Ol\' Pepperoni',
+                            'toppings': [
                                 {
-                                    "id": 10,
-                                    "name": "pepperoni"
+                                    'id': 10,
+                                    'name': 'pepperoni'
                                 }
                             ],
-                            "id": 3
+                            'id': 3
                         }
                     ]
 
@@ -117,7 +117,7 @@ describe('Pizzas actions', () => {
                 expect({...action}).toEqual({
                     type: fromPizzasAction.PizzasActionTypes.LoadSuccess,
                     payload
-                })
+                });
             });
         });
     });

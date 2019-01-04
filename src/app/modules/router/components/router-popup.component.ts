@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs/index";
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs/index';
 
 @Component({
     selector: 'm-router-popup',
@@ -19,7 +19,7 @@ export class MRouterPopupComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log("MRouterPopupComponent init");
+        console.log('MRouterPopupComponent init');
         // эту дату прокинул из роутера в резолв
         // this.route.data.subscribe((data) => {
         //     console.log("router popup data ", data);
@@ -27,8 +27,8 @@ export class MRouterPopupComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        let element = this.elementRef.nativeElement;
-        this.renderer.setStyle(element, "display", "block");
-        this.renderer.setStyle(element, "margin", "30px");
+        const element = this.elementRef.nativeElement;
+        this.renderer.setStyle(element, 'display', 'block');
+        this.renderer.setStyle(element, 'margin', '30px');
     }
 }

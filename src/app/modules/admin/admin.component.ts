@@ -1,8 +1,8 @@
-import {Component} from "@angular/core";
+import {Component} from '@angular/core';
 
 
 @Component({
-    selector: "m-admin",
+    selector: 'm-admin',
     template: `
         <h3>Admin component</h3>
     `

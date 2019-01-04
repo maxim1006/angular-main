@@ -59,7 +59,7 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
                 ...state,
                 loading: true,
                 loaded: false,
-                hint: "Create in progress"
+                hint: 'Create in progress'
             };
         }
 
@@ -68,7 +68,7 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
                 ...state,
                 loading: true,
                 loaded: false,
-                hint: "Update in progress"
+                hint: 'Update in progress'
             };
         }
 
@@ -104,7 +104,7 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
         case fromPizzaActions.PizzasActionTypes.Remove: {
             return {
                 ...state,
-                hint: "Remove in progress"
+                hint: 'Remove in progress'
             };
         }
 
@@ -118,16 +118,16 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             return {
                 ...state,
                 entities,
-                hint: "Remove success"
+                hint: 'Remove success'
             };
         }
 
         case fromPizzaActions.PizzasActionTypes.ShowHint: {
-            console.log("romPizzaActions.PizzasActionTypes.ShowHint ", action);
+            console.log('romPizzaActions.PizzasActionTypes.ShowHint ', action);
             return {
                 ...state,
                 hint: action.payload
-            }
+            };
         }
 
         default:

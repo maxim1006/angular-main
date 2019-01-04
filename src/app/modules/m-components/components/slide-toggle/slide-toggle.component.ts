@@ -1,5 +1,5 @@
 import {Component, HostBinding, OnInit} from '@angular/core';
-import {SlideToggleEvent} from "../../../shared/directives/slide-toggle/slide-toggle.directive";
+import {SlideToggleEvent} from '../../../shared/directives/slide-toggle/slide-toggle.directive';
 
 @Component({
     selector: 'slide-toggle',
@@ -17,23 +17,23 @@ import {SlideToggleEvent} from "../../../shared/directives/slide-toggle/slide-to
 
 export class MSlideToggleComponent implements OnInit {
     @HostBinding('class')
-    public class: string = "slide-toggle";
+    public class = 'slide-toggle';
 
-    public toggled: boolean = true;
+    public toggled = true;
 
     constructor() {}
 
     ngOnInit() {}
 
     _onSlideStart(event: SlideToggleEvent) {
-        console.log(event, " _onSlideStart");
+        console.log(event, ' _onSlideStart');
     }
 
     _onSlideEnd(event: SlideToggleEvent) {
-        console.log(event, " _onSlideEnd");
+        console.log(event, ' _onSlideEnd');
     }
 
     _onSlideTick(event: SlideToggleEvent) {
-        console.log(event, " _onSlideTick");
+        console.log(event, ' _onSlideTick');
     }
 }

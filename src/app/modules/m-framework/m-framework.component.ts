@@ -1,18 +1,18 @@
-import {Component, OnInit, HostBinding} from "@angular/core";
+import {Component, OnInit, HostBinding} from '@angular/core';
 
 @Component({
-    selector: "m-framework",
-    templateUrl: "./m-framework.component.html"
+    selector: 'm-framework',
+    templateUrl: './m-framework.component.html'
 })
 
 export class MFrameworkComponent implements OnInit {
 
     @HostBinding('class.framework-component')
-    addClass: boolean = true;
+    addClass = true;
     public detectVisiblePropertyChange: boolean;
 
     public constructor() {
-        console.log("start");
+        console.log('start');
     }
 
     public title = 'app works!';
@@ -22,7 +22,7 @@ export class MFrameworkComponent implements OnInit {
     }
 
     public person = {
-        name: "Max"
+        name: 'Max'
     };
 
     public getValue(): number {

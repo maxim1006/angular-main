@@ -19,13 +19,13 @@ import {Component, ElementRef, Input, ViewChild} from '@angular/core';
         </div>
     `,
     host: {
-        "[class.progress-bar]": "true"
+        '[class.progress-bar]': 'true'
     }
 })
 
 export class ProgressBarComponent {
 
-    @ViewChild("progressBarLineInner")
+    @ViewChild('progressBarLineInner')
     private line: ElementRef;
 
 
@@ -33,14 +33,14 @@ export class ProgressBarComponent {
     public set value(value: number) {
         this.updateCurrentAnimationSpeed();
         this._value = value;
-    };
+    }
 
     public get value() {
         return this._value;
-    };
+    }
 
     @Input()
-    public animationSpeed: number = 300;
+    public animationSpeed = 300;
 
     @Input()
     public text: string;

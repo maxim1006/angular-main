@@ -38,7 +38,7 @@ export const StepDurationGraphModel = {
         data: [3.5, 5.0, 3.8, 3.5, 3.0],
         marker: {
             lineWidth: 2,
-            lineColor: "#EDD4BF",
+            lineColor: '#EDD4BF',
             fillColor: 'white'
         }
     }]
@@ -82,7 +82,7 @@ export const SuccessRateCustomerGraphModel = {
                 color: 'black',
                 textOutline: '0px',
                 borderWidth: 0,
-                backgroundColor: "transparent"
+                backgroundColor: 'transparent'
             }
         }
     },
@@ -244,7 +244,7 @@ export const JourneysStatsGraphModel = {
     },
     plotOptions: {
         area: {
-            fillColor: "#BF5B5B",
+            fillColor: '#BF5B5B',
             marker: {
                 radius: 2
             },
@@ -311,37 +311,37 @@ export const ActivityByJourneyTypeGraphModel = {
     },
     series: [
         {
-            type: "bar",
+            type: 'bar',
             name: '',
             data: [
                 {
-                    color: "rgba(91, 192, 41, 0.6)",
+                    color: 'rgba(91, 192, 41, 0.6)',
                     x: 0,
                     y: 1100000
                 },
                 {
-                    color: "rgba(255, 187, 41, 0.6)",
+                    color: 'rgba(255, 187, 41, 0.6)',
                     x: 1,
                     y: 920000
                 },
                 {
-                    color: "rgba(31, 142, 218, 0.6)",
+                    color: 'rgba(31, 142, 218, 0.6)',
                     x: 2,
                     y: 730000
                 },
                 {
-                    color: "rgba(191, 91, 91, 0.6)",
+                    color: 'rgba(191, 91, 91, 0.6)',
                     x: 3,
                     y: 580000
                 },
                 {
-                    color: "rgba(120, 196, 235, 0.6)",
+                    color: 'rgba(120, 196, 235, 0.6)',
                     x: 4,
                     y: 400000
                 }
             ],
             showInLegend: false,
-            color: "rgba(91, 192, 41, 0.6)",
+            color: 'rgba(91, 192, 41, 0.6)',
             colorIndex: 1
         }
     ]
@@ -383,7 +383,7 @@ export const InboundActivityGraphModel = {
 
     series: [
         {
-            name: "Green",
+            name: 'Green',
             data: [
                 [13.5, 20, 32],
                 [11, 80, 32],
@@ -395,14 +395,14 @@ export const InboundActivityGraphModel = {
                 [1, 80, 32],
             ],
             marker: {
-                fillColor: "rgba(91, 192, 41, 0.6)",
+                fillColor: 'rgba(91, 192, 41, 0.6)',
                 lineWidth: 0
             },
             showInLegend: false,
             zMin: 20
         },
         {
-            name: "Blue",
+            name: 'Blue',
             data: [
                 [11, 25, 25],
                 [10.5, 70, 25],
@@ -414,14 +414,14 @@ export const InboundActivityGraphModel = {
                 [0.7, 50, 41],
             ],
             marker: {
-                fillColor: "rgba(31, 142, 218, 0.6)",
+                fillColor: 'rgba(31, 142, 218, 0.6)',
                 lineWidth: 0
             },
             showInLegend: false,
             zMin: 10
         },
         {
-            name: "Red",
+            name: 'Red',
             data: [
                 [9, 16, 34],
                 [7.7, 5, 27],
@@ -431,14 +431,14 @@ export const InboundActivityGraphModel = {
                 [1, 55, 52]
             ],
             marker: {
-                fillColor: "rgba(191, 91, 91, 0.6);",
+                fillColor: 'rgba(191, 91, 91, 0.6);',
                 lineWidth: 0
             },
             showInLegend: false,
             zMin: 10
         },
         {
-            name: "Red",
+            name: 'Red',
             data: [
                 [8, 30, 25],
                 [6, 16, 25],
@@ -449,7 +449,7 @@ export const InboundActivityGraphModel = {
                 [0.5, 30, 45]
             ],
             marker: {
-                fillColor: "rgba(255, 187, 41, 0.6)",
+                fillColor: 'rgba(255, 187, 41, 0.6)',
                 lineWidth: 0
             },
             showInLegend: false,
@@ -501,7 +501,7 @@ export const JourneysLifecycleGraphModel = {
             {
                 name: 'Drafts',
                 y: 44,
-                color: "#B9B9B9",
+                color: '#B9B9B9',
                 dataLabels: {
                     color: '#999999',
                     connectorColor: '#B9B9B9',
@@ -513,7 +513,7 @@ export const JourneysLifecycleGraphModel = {
             {
                 name: 'Scheduled',
                 y: 12,
-                color: "rgb(255, 187, 41)",
+                color: 'rgb(255, 187, 41)',
                 dataLabels: {
                     color: 'rgb(255, 187, 41)',
                     connectorColor: 'rgb(255, 187, 41)',
@@ -557,7 +557,7 @@ export const DatabaseActivityGraphModel = {
         text: ''
     },
     xAxis: {
-        tickWidth:0,
+        tickWidth: 0,
         gridLineWidth: 0,
         labels: {
             enabled: false
@@ -581,7 +581,7 @@ export const DatabaseActivityGraphModel = {
     },
     plotOptions: {
         column: {
-            groupPadding:0.01
+            groupPadding: 0.01
         }
     },
     series: [{
@@ -604,17 +604,17 @@ export const DatabaseActivityGraphModel = {
 
 /* helpers */
 export function createRandomDateGraphArray(minNumber: number, maxNumber, numberOfElements: number): number[] {
-    let arr = [];
+    const arr = [];
 
-    while(numberOfElements--) {
-        let currentDate = new Date(),
+    while (numberOfElements--) {
+        const currentDate = new Date(),
             dateGraphDataArray = [];
 
         currentDate.setDate(currentDate.getDate() + numberOfElements);
         dateGraphDataArray.push(+currentDate);
-        dateGraphDataArray.push((Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber)/100);
+        dateGraphDataArray.push((Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber) / 100);
 
-        arr.push(dateGraphDataArray)
+        arr.push(dateGraphDataArray);
     }
 
     return arr;

@@ -18,16 +18,16 @@ export class ContentEditableDirective implements OnInit {
     @HostBinding('attr.title') public titleAttr = '';
 
     @HostBinding('class._content-editable')
-    public contentEditableStyleClass:boolean;
+    public contentEditableStyleClass: boolean;
 
     private fakeDiv: HTMLDivElement;
     private initialText: string;
     private el: any;
-    private manuallyUpdatedView: boolean = true;
+    private manuallyUpdatedView = true;
     private viewInited: boolean;
 
     @HostListener('blur', ['$event'])
-    public onBlur():void {
+    public onBlur(): void {
 
         if (!this.elRef.nativeElement.textContent.trim().length && this.contentEditableRequired) {
             this.elRef.nativeElement.textContent = this.contentEditable;
@@ -45,7 +45,7 @@ export class ContentEditableDirective implements OnInit {
     }
 
     @HostListener('focus', ['$event'])
-    public onFocus():void {
+    public onFocus(): void {
 
         this.el.textContent = this.initialText;
     }
@@ -86,7 +86,7 @@ export class ContentEditableDirective implements OnInit {
         this.fakeDiv = null;
     }
 
-    isEllipsisActive(e:HTMLElement):boolean {
+    isEllipsisActive(e: HTMLElement): boolean {
         return (e.offsetWidth < e.scrollWidth - 1);
     }
 
@@ -95,7 +95,7 @@ export class ContentEditableDirective implements OnInit {
         this.setEllipsis();
     }
 
-    setEllipsis():void {
+    setEllipsis(): void {
         if (this.getDotFlag()) {
             this.el.textContent = this.addDots(this.fitText(this.initialText));
             this.titleAttr = this.initialText;
@@ -113,15 +113,15 @@ export class ContentEditableDirective implements OnInit {
 
     }
 
-    createFakeDiv():void {
+    createFakeDiv(): void {
         this.fakeDiv = document.createElement('div');
         this.fakeDiv.style.position = 'absolute';
         this.fakeDiv.style.left = '-99999px';
     }
 
-    fitText(text: string):string {
+    fitText(text: string): string {
 
-        while(this.fakeDiv.offsetHeight > this.contentEditableMaxHeight) {
+        while (this.fakeDiv.offsetHeight > this.contentEditableMaxHeight) {
             text = this.removeWord(text);
             this.fakeDiv.textContent = text;
         }
@@ -129,10 +129,10 @@ export class ContentEditableDirective implements OnInit {
         return text;
     }
 
-    removeWord(text: string):string {
-        let arr = text.split(" ");
+    removeWord(text: string): string {
+        const arr = text.split(' ');
         arr.pop();
-        return arr.join(" ");
+        return arr.join(' ');
     }
 
     addDots(text: string): string {
@@ -144,7 +144,7 @@ export class ContentEditableDirective implements OnInit {
     }
 
     setupFakeDiv() {
-        let computedStyle = getComputedStyle(this.el);
+        const computedStyle = getComputedStyle(this.el);
         this.fakeDiv.style.width = computedStyle.width;
         this.fakeDiv.style.paddingLeft = computedStyle.paddingLeft;
         this.fakeDiv.style.paddingRight = computedStyle.paddingRight;

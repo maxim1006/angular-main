@@ -18,6 +18,6 @@ export class MForRootModule {
             providers: [
                 {provide: ForRootDataServiceConfig, useValue: data || {}}
             ]
-        }
+        };
     }
 }

@@ -1,7 +1,7 @@
-import {OnDestroy, OnInit} from "@angular/core";
-import {Media} from "../../../common/models/media";
-import {PageUtilsService} from "../../../common/services/page-utils.service";
-import {Subscription} from "rxjs/index";
+import {OnDestroy, OnInit} from '@angular/core';
+import {Media} from '../../../common/models/media';
+import {PageUtilsService} from '../../../common/services/page-utils.service';
+import {Subscription} from 'rxjs/index';
 
 export abstract class PageUtils implements OnInit, OnDestroy {
     media: Media;

@@ -1,8 +1,8 @@
 import {Component, ComponentRef, HostBinding, OnInit} from '@angular/core';
-import {MDynamicComponentConstructor} from "./components/m-dynamic/m-dynamic.component";
-import {MCheckboxComponent} from "./components/m-checkbox/m-checkbox.component";
-import {ProgressBarComponent} from "src/app/modules/m-components/components/progress-bar/progress-bar.component";
-import {MSelectComponent} from "./components/m-select/m-select.component";
+import {MDynamicComponentConstructor} from './components/m-dynamic/m-dynamic.component';
+import {MCheckboxComponent} from './components/m-checkbox/m-checkbox.component';
+import {ProgressBarComponent} from 'src/app/modules/m-components/components/progress-bar/progress-bar.component';
+import {MSelectComponent} from './components/m-select/m-select.component';
 
 @Component({
     selector: 'm-components',
@@ -17,7 +17,7 @@ export class MComponentsComponent implements OnInit {
     public autocomplete: any;
     public currentAutocompleteItem: any;
 
-    public _checked:boolean = true;
+    public _checked = true;
 
     ngOnInit() {
 

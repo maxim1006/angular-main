@@ -1,7 +1,7 @@
-import {NgModule} from "@angular/core";
-import {SharedModule} from "../shared/shared.module";
-import {MProtectedLazyComponent} from "./m-protected-lazy.component";
-import {RouterModule, Routes} from "@angular/router";
+import {NgModule} from '@angular/core';
+import {SharedModule} from '../shared/shared.module';
+import {MProtectedLazyComponent} from './m-protected-lazy.component';
+import {RouterModule, Routes} from '@angular/router';
 
 
 const routes: Routes = [

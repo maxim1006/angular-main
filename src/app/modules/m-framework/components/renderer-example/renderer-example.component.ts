@@ -12,8 +12,8 @@ export class RendererExampleComponent implements OnInit {
     private documentClickListener: Function;
 
     ngOnInit() {
-        this.documentClickListener = this.renderer.listen("body", "click", () => {
-            console.log("body click");
+        this.documentClickListener = this.renderer.listen('body', 'click', () => {
+            console.log('body click');
         });
     }
 

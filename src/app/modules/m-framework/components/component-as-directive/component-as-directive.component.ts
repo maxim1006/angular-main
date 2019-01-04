@@ -6,9 +6,9 @@ import {Component, HostBinding, HostListener, OnInit} from '@angular/core';
     styleUrls: ['./component-as-directive.component.less']
 })
 export class MComponentAsDirectiveComponent implements OnInit {
-    @HostListener("click", ['$event'])
+    @HostListener('click', ['$event'])
     public onClick(event) {
-        console.log("HostListener event event ", event);
+        console.log('HostListener event event ', event);
     }
 
     constructor() {

@@ -1,5 +1,5 @@
-import {ComponentFactoryResolver, ComponentRef, Injectable, Type, ViewContainerRef} from "@angular/core";
-import {MDynamicInternalService} from "./dynamic-internal.service";
+import {ComponentFactoryResolver, ComponentRef, Injectable, Type, ViewContainerRef} from '@angular/core';
+import {MDynamicInternalService} from './dynamic-internal.service';
 
 
 @Injectable()

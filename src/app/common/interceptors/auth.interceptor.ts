@@ -5,11 +5,11 @@ import {
     HttpInterceptor,
     HttpRequest,
     HttpResponse
-} from "@angular/common/http";
+} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {Injectable, Injector} from "@angular/core";
-import {tap} from "rxjs/internal/operators";
-import {Observable} from "rxjs/index";
+import {Injectable, Injector} from '@angular/core';
+import {tap} from 'rxjs/internal/operators';
+import {Observable} from 'rxjs/index';
 
 
 // {
@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        let self = this;
+        const self = this;
 
         return next.handle(request).pipe(tap(
             (event: HttpEvent<any>) => {
@@ -36,9 +36,9 @@ export class AuthInterceptor implements HttpInterceptor {
                         // because of cycle injection of services
                         // let someService: SomeService = self.injector.get(SomeService);
 
-                        console.log("401 error", err);
+                        console.log('401 error', err);
 
-                        self.router.navigate(["/"]);
+                        self.router.navigate(['/']);
                     }
                 })
         );

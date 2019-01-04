@@ -1,8 +1,8 @@
-import {AbstractControl, FormControl, ValidatorFn} from "@angular/forms";
-import {of} from "rxjs/index";
-import {delay, map, tap, timeout} from "rxjs/internal/operators";
+import {AbstractControl, FormControl, ValidatorFn} from '@angular/forms';
+import {of} from 'rxjs/index';
+import {delay, map, tap, timeout} from 'rxjs/internal/operators';
 
-let asyncPreviousName= '';
+const asyncPreviousName = '';
 
 export function nameValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {

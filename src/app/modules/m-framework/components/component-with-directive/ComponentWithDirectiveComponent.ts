@@ -16,29 +16,29 @@ export class CustomDirective implements OnInit {
 }
 
 @Component({
-    selector: "component-with-directive",
-    templateUrl: "./ComponentWithDirectiveComponent.html"
+    selector: 'component-with-directive',
+    templateUrl: './ComponentWithDirectiveComponent.html'
 })
 export class ComponentWithDirectiveComponent implements OnInit {
 
-    public value: string = '';
+    public value = '';
 
     public options: any;
 
     public constructor() {}
 
     ngOnInit() {
-        let prop2 = 2;
+        const prop2 = 2;
 
         this.options = {
             prop: 1,
             prop2
-        }
+        };
     }
 
     items = [
-        "Max",
-        "Aliya",
-        "Lili"
+        'Max',
+        'Aliya',
+        'Lili'
     ];
 }

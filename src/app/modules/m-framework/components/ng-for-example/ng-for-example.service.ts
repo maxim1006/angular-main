@@ -1,8 +1,8 @@
-import {Inject, Injectable} from "@angular/core";
-import {domenToken} from "../../../shared/tokens/tokens";
-import {HttpClient} from "@angular/common/http";
-import {Observable, of} from "rxjs/index";
-import {catchError, map} from "rxjs/internal/operators";
+import {Inject, Injectable} from '@angular/core';
+import {domenToken} from '../../../shared/tokens/tokens';
+import {HttpClient} from '@angular/common/http';
+import {Observable, of} from 'rxjs/index';
+import {catchError, map} from 'rxjs/internal/operators';
 
 @Injectable() //дает возможность инжектировать что-нибудь.
 export class NgForExampleService {
@@ -11,7 +11,7 @@ export class NgForExampleService {
         private _http: HttpClient
     ) {}
 
-    public getFamily():Observable<any> {
+    public getFamily(): Observable<any> {
 
         return this._http.get(`${this._domenToken}family.json`)
             .pipe(

@@ -10,7 +10,7 @@ export class ContentEditableComponent implements OnInit {
     public text: string;
 
     constructor() {
-        this.text = 'Content editable text'
+        this.text = 'Content editable text';
     }
 
     ngOnInit() {

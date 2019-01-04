@@ -1,8 +1,8 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: "m-ellipsis",
-    templateUrl: "m-ellipsis.component.html"
+    selector: 'm-ellipsis',
+    templateUrl: 'm-ellipsis.component.html'
 })
 
 export class MEllipsisComponent implements OnInit {
@@ -16,7 +16,7 @@ export class MEllipsisComponent implements OnInit {
     }
 
     getValue() {
-        console.log("!!!change detection update!!!");
+        console.log('!!!change detection update!!!');
     }
 
 }

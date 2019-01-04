@@ -5,7 +5,7 @@ import {Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { Topping } from '@models/topping.model';
-import {domenTokenDb} from "../../../../shared/tokens/tokens";
+import {domenTokenDb} from '../../../../shared/tokens/tokens';
 
 @Injectable()
 export class ToppingsService {

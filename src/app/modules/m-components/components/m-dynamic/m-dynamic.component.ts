@@ -1,7 +1,7 @@
 import {
     Component, ComponentFactoryResolver, ComponentRef, Input, OnDestroy, Type, ViewChild,
     ViewContainerRef
-} from "@angular/core";
+} from '@angular/core';
 
 
 
@@ -48,11 +48,11 @@ export class MDynamicComponent implements OnDestroy {
             data;
 
         if (!model) {
-            console.log("Please add componentModel to m-dynamic");
+            console.log('Please add componentModel to m-dynamic');
             return;
         }
 
-        let componentFactory = this._componentFactoryResolver.resolveComponentFactory(model.component),
+        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(model.component),
             viewContainerRef = this.mDynamic;
         
         viewContainerRef.clear();

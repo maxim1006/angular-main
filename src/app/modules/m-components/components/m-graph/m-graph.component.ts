@@ -1,5 +1,5 @@
 import {Component, OnInit, HostBinding, NgZone, ElementRef, AfterViewInit, Input} from '@angular/core';
-import * as Highcharts from "highcharts";
+import * as Highcharts from 'highcharts';
 
 require('highcharts/highcharts-more')(Highcharts);
 
@@ -9,7 +9,7 @@ require('highcharts/highcharts-more')(Highcharts);
 })
 
 export class MGraphComponent implements OnInit, AfterViewInit {
-    private _viewInited: boolean = false;
+    private _viewInited = false;
 
     @Input()
     public get model(): Highcharts.ChartObject {
@@ -32,7 +32,7 @@ export class MGraphComponent implements OnInit, AfterViewInit {
     ngOnInit() {}
 
     ngAfterViewInit(): void {
-        let self = this;
+        const self = this;
 
         self._viewInited = true;
         self.el = self._elRef.nativeElement;
@@ -40,7 +40,7 @@ export class MGraphComponent implements OnInit, AfterViewInit {
     }
 
     private _updateGraph(value: Highcharts.ChartObject) {
-        let self = this;
+        const self = this;
 
         if (value && self._viewInited) {
             self._zone.runOutsideAngular(() => {
