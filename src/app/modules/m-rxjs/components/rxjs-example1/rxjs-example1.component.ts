@@ -15,7 +15,7 @@ import {
 import {Observable, throwError, Observer} from "rxjs";
 import {observable} from "rxjs/internal-compatibility";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {concatMap, mergeMap} from "rxjs/internal/operators";
+import {concatMap, mergeMap, switchMapTo} from "rxjs/internal/operators";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {domenToken} from "../../../shared/tokens/tokens";
 
@@ -116,6 +116,22 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
 
     public ngAfterViewInit(): void {
 
+        // тут придет только 1, если не нужно предыдущее значение
+        // const documentClick$ = fromEvent(document, 'click');
+        // documentClick$.pipe(mapTo(1)).subscribe((data) => {
+        //     console.log(data); // всегда будет 1
+        // });
+
+        // таже история что и выше, будет возращаться только 1
+        // const documentClick$ = fromEvent(document, 'click');
+        // documentClick$.pipe(
+        //         switchMapTo(of(1))
+        //     )
+        //     .subscribe((data) => {
+        //     console.log(data); // всегда будет 1
+        // });
+
+        // жму 10 раз а уйдет только й запрос
         fromEvent(this.myFormRef.nativeElement, "submit")
             .pipe(
                 map(() => {
@@ -306,6 +322,8 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         // o.subscribe();
         // o.subscribe();
         // o.subscribe();
+
+
     }
 
     public ngOnDestroy(): void {
