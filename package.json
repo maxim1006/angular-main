@@ -8,7 +8,7 @@
         "db": "json-server --port 3004 --watch db/db.js",
         "server": "tsc-watch ./server/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\" --onFailure \"echo Beep! Compilation Failed\" --compiler typescript/bin/tsc",
         "build": "gulp svg && ng build --prod",
-        "buildServer": "cd ./dist && ws --spa index.html --compress",
+        "buildServer": "cd ./dist && ws --spa index.html --compress --open",
         "svg": "gulp svg",
         "test": "ng test",
         "lint": "ng lint",
