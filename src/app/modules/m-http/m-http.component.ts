@@ -2,6 +2,7 @@ import { Component, OnInit, Inject} from '@angular/core';
 import {MHttpService} from "./m-http.service";
 import {NewService} from "./new.service";
 import {Observable} from "rxjs";
+import {shareReplay} from "rxjs/internal/operators";
 
 
 
@@ -40,7 +41,13 @@ export class MHttpComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.family$ = this.mHttpService.getData();
+        // при каждом | async будет subscribe и будет вызов, а при shareReplay(1) - вызовется 1 раз и всем
+        // последующим сабскрайберам раздаст последний результат, удобно использовать если в шаблоне
+        // много | async и трудно сделать через ng-container
+        this.family$ = this.mHttpService.getData().pipe(
+            shareReplay(1)
+        );
+
         this.dataById$ = this.mHttpService.getDataById();
         this.postData$ = this.mHttpService.postData({
             name: 'Anna',

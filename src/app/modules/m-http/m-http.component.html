@@ -9,29 +9,32 @@
 </ng-template>
 
 <div style="display: flex;flex-wrap: wrap">
-<p>Основной</p>
-<ng-container *ngIf="(family$ | async) as family; else loading">
-    <ul>
-        <li *ngFor="let member of family">
-            {{member?.name}} - {{member?.age}}
-        </li>
-    </ul>
-</ng-container>
-
-<p>Такой же хороший</p>
-<ul *ngIf="(family$ | async) as family; else loading">
-    <li *ngFor="let member of family">
-        {{member?.name}} - {{member?.age}}
-    </li>
-</ul>
-
-<p>Похуже</p>
-<ul>
-    <li *ngFor="let member of (family$ | async)">
-        {{member?.name}} - {{member?.age}}
-    </li>
-</ul>
-
+    <div>
+        <p>Основной</p>
+        <ng-container *ngIf="(family$ | async) as family; else loading">
+            <ul>
+                <li *ngFor="let member of family">
+                    {{member?.name}} - {{member?.age}}
+                </li>
+            </ul>
+        </ng-container>
+    </div>
+    <div style="margin-left: 30px;">
+        <p>Такой же хороший</p>
+        <ul *ngIf="(family$ | async) as family; else loading">
+            <li *ngFor="let member of family">
+                {{member?.name}} - {{member?.age}}
+            </li>
+        </ul>
+    </div>
+    <div style="margin-left: 30px;">
+        <p>Похуже</p>
+        <ul>
+            <li *ngFor="let member of (family$ | async)">
+                {{member?.name}} - {{member?.age}}
+            </li>
+        </ul>
+    </div>
 </div>
 
 <h3>Posted data</h3>
@@ -41,7 +44,6 @@
 
 <h3>Data by ID</h3>
 Id : {{dataById$ | async}}
-
 
 
 <h3>Пример загрузки файла</h3>
