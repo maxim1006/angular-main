@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, HostBinding, Inject, OnInit} from "@angular/core";
 import {ActivatedRoute, Params} from "@angular/router";
-import {domenToken} from "../../shared/tokens/tokens";
+import {domenToken, domenTokenDb} from "../../shared/tokens/tokens";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {NavigationEnd, Router} from "@angular/router/";
 import {concatMap, map} from "rxjs/operators";
@@ -68,7 +68,7 @@ export class RouterIdComponent implements OnInit {
             concatMap(
                     (params: Params) => {
                         this.params = params;
-                        return this.http.get(`${domenToken}family` + params['id'] + '.json')
+                        return this.http.get(`${domenTokenDb}family` + params['id'] + '.json')
                     }
             ))
             .pipe(

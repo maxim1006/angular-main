@@ -44,6 +44,7 @@ export class MHttpComponent implements OnInit {
         // при каждом | async будет subscribe и будет вызов, а при shareReplay(1) - вызовется 1 раз и всем
         // последующим сабскрайберам раздаст последний результат, удобно использовать если в шаблоне
         // много | async и трудно сделать через ng-container
+        // Еще можно создать компонент обертку и внутрь него сложный код положить
         this.family$ = this.mHttpService.getData().pipe(
             shareReplay(1)
         );
