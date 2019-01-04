@@ -6,6 +6,7 @@ import {NavigationEnd, Router} from "@angular/router/";
 import {concatMap, map} from "rxjs/operators";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs/index";
+import {switchMap} from "rxjs/internal/operators";
 
 
 export const slideInDownAnimation: any =
@@ -65,7 +66,7 @@ export class RouterIdComponent implements OnInit {
         // this.params = this.route.snapshot.params;
 
         this.route.params.pipe(
-            concatMap(
+            switchMap(
                     (params: Params) => {
                         this.params = params;
                         return this.http.get(`${domenTokenDb}family` + params['id'] + '.json')

@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {domenToken} from "../../../shared/tokens/tokens";
+import {domenToken, domenTokenDb} from "../../../shared/tokens/tokens";
 import {HttpClient} from "@angular/common/http";
 import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler} from "rxjs/index";
 import {mergeAll, observeOn} from 'rxjs/operators';
-import {delay} from "rxjs/internal/operators";
+import {concatMap, delay, map} from "rxjs/internal/operators";
 
 @Component({
     selector: 'rxjs-example',
@@ -32,6 +32,30 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
     ngOnInit() {
 
         let self = this;
+
+        // не делаю внутренние сабскрайбы
+        // firstObservable$.pipe(
+        //     take(1)
+        // )
+        //     .subscribe(firstValue => {
+        //         secondObservable$.pipe(
+        //             take(1)
+        //         )
+        //             .subscribe(secondValue => {
+        //                 console.log(`Combined values are: ${firstValue} & ${secondValue}`);
+        //             });
+        //     });
+        // а делаю так
+        // firstObservable$.pipe(
+        //     withLatestFrom(secondObservable$),
+        //     first()
+        // )
+        //     .subscribe(([firstValue, secondValue]) => {
+        //         console.log(`Combined values are: ${firstValue} & ${secondValue}`);
+        //     });
+
+
+
 
         // this.observer = Observable.create((subscriber: Subscriber<any>) => {
         //     this.interval = window.setInterval(() => {
@@ -68,15 +92,19 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
         // если нужно дождаться 1го и потом 2ой делай так
-//         let queueObservable$ = this._http.get(`${domenToken}mocks.json`).pipe(
-//             concatMap((urls: any) => {
-//                 return self._http.get(`${domenToken}${urls.familyUrl}`)
-//             },
-// (first, second) => {return {first, second}})
-//         ).subscribe(({first, second}) => {
-//             console.log(first);
-//             console.log(second);
-//         });
+        let queueObservable$ = this._http.get(`${domenTokenDb}mocks`).pipe(
+            concatMap(
+                (urls: any) =>
+                    self._http.get(`${domenTokenDb}${urls.familyUrl}`)
+                        .pipe(
+                            map((data) => {return {urls, data}})
+                        )
+
+            )
+        ).subscribe(({urls, data}) => {
+            console.log("queueObservable$ first", urls);
+            console.log("queueObservable$ second", data);
+        });
 
 
         // пример c finally
