@@ -1,6 +1,5 @@
 import {InjectionToken, NgModule} from '@angular/core';
 import {httpInjectables, MHttpComponent} from './m-http.component';
-import {MHttpService} from './m-http.service';
 import {NewService, NewService2} from './new.service';
 import {SharedModule} from '../shared/shared.module';
 
@@ -24,7 +23,8 @@ export const ValueConfig = new InjectionToken('Value'); // делаю этот �
         httpInjectables,
         NewService2,
         {provide: ValueConfig, useValue: "someValue"},
-        {provide: MHttpService, useClass: MHttpService},
+        // могу использовать любой класс через useClass:
+        // {provide: MHttpService, useClass: MHttpService},
         {
             provide: NewService,
             useFactory: httpModuleFactory,

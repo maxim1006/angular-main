@@ -71,8 +71,6 @@ const childInjector: Injector = Injector.create({
         AppRoutingModule //этот модуль, в котором все руты приложения должен идти в самом конце, после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
     ],
     providers: [
-        PageUtilsService,
-        PageLoaderService,
         MAdminGuardService,
         MDynamicService,
         MDynamicInternalService,

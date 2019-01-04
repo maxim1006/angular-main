@@ -59,6 +59,17 @@ export const routerTransition1: any = trigger('routerTransition', [
 })
 export class AppComponent implements AfterViewInit{
 
+    // пример readonly объекта и массива
+    public readOnlyObject: Readonly<{name: string}> = {
+        name: "Max"
+    };
+
+    public readOnlyArray: ReadonlyArray<{name: string}> = [{
+        name: "Max"
+    }];
+    /*************************************/
+
+
     @ViewChild("dynamicComponent", {read: ViewContainerRef})
     dynamicComponentRef: ViewContainerRef;
 

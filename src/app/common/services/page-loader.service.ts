@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class PageLoaderService {
     public pageLoading: boolean = false;
     public pageLoadingStart: boolean = true;

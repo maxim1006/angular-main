@@ -6,7 +6,9 @@ import {HttpClient} from '@angular/common/http';
 import {FamilyMember} from './m-http.component';
 
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class MHttpService {
     public _data: any;
     constructor(private http: HttpClient) {}

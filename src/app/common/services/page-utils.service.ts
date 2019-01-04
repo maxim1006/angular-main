@@ -3,7 +3,9 @@ import {Observable, Subscriber} from "rxjs";
 import {Media} from "../models/media";
 import {share} from "rxjs/operators";
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class PageUtilsService {
     documentWidth: number = document.documentElement.clientWidth;
     TABLET_VIEW_WIDTH: number = 768;
