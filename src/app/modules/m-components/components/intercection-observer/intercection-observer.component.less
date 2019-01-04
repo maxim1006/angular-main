@@ -1,0 +1,17 @@
+:host {
+    display: block;
+
+}
+
+.mDeferLoad {
+    &__invisible {
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+    }
+
+    &__visible {
+        opacity: 1;
+        visibility: visible;
+    }
+}

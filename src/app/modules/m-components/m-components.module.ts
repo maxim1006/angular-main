@@ -22,6 +22,7 @@ import {MSlideToggleComponent} from "./components/slide-toggle/slide-toggle.comp
 import {ProgressBarComponent} from "./components/progress-bar/progress-bar.component";
 import {MGridExampleComponent} from './components/grid-example/grid-example.component';
 import {MGridComponent} from "./components/grid/grid.component";
+import { IntercectionObserverComponent } from './components/intercection-observer/intercection-observer.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -56,7 +57,7 @@ let directives = [
 @NgModule({
     imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
     declarations: [
-        ...components, ...directives, MGridExampleComponent
+        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent
     ],
     exports: [MComponentsComponent],
     entryComponents: [...components],

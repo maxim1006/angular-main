@@ -11,6 +11,7 @@ import {SlideToggleDirective} from "./directives/slide-toggle/slide-toggle.direc
 import {MLoaderComponent} from "./components/m-loader/m-loader.component";
 import {ImpurePipe} from "./pipes/impure.pipe";
 import {FileSizePipe} from "./pipes/filesize.pipe";
+import {DeferLoadDirective} from "./directives/defer-load/defer-load.directive";
 
 @NgModule({
     imports: [CommonModule],
@@ -23,6 +24,7 @@ import {FileSizePipe} from "./pipes/filesize.pipe";
         ContentEditableDirective,
         EllipsisDirective,
         SlideToggleDirective,
+        DeferLoadDirective,
 
         /*Components*/
         MLoaderComponent,
@@ -44,6 +46,7 @@ import {FileSizePipe} from "./pipes/filesize.pipe";
         ContentEditableDirective,
         EllipsisDirective,
         SlideToggleDirective,
+        DeferLoadDirective,
 
         /*Pipes*/
         CustomPipe,

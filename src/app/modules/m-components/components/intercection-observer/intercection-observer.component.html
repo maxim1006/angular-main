@@ -1,0 +1,11 @@
+<ng-container *ngFor="let item of items;">
+    <div
+        mDeferLoad
+        (deferLoad)="item.show = true">
+        <ng-container *ngIf=item.show>
+            <p>Lazy loaded Image:</p>
+            <img src="../../../../../assets/themes/base/images/other-images/panda-splash.png">
+        </ng-container>
+    </div>
+    <div style="height: 500px"></div>
+</ng-container>
