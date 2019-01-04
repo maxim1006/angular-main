@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Topping } from '../models/topping.model';
-import {domenToken} from "../../../../shared/tokens/tokens";
+import { Topping } from '@models/topping.model';
+import {domenTokenDb} from "../../../../shared/tokens/tokens";
 
 @Injectable()
 export class ToppingsService {
@@ -13,7 +13,7 @@ export class ToppingsService {
 
   getToppings(): Observable<Topping[]> {
     return this.http
-      .get<Topping[]>(`${domenToken}toppings`)
+      .get<Topping[]>(`${domenTokenDb}toppings`)
       .pipe(catchError((error: any) => throwError(error)));
   }
 }

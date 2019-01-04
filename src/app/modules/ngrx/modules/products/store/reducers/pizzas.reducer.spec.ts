@@ -1,6 +1,6 @@
 import * as fromPizzasReducer from './pizzas.reducer';
 import * as fromPizzasActions from '../actions/pizzas.action';
-import {Pizza} from "../../models/pizza.model";
+import {Pizza} from "@models/pizza.model";
 
 describe('PizzasReducer', () => {
     describe('undefined action', () => {

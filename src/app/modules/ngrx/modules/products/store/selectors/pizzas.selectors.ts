@@ -3,7 +3,7 @@ import * as fromRoot from '../../../../store';
 import * as fromPizzasReducer from '../reducers/pizzas.reducer';
 import * as fromFeature from '../reducers';
 import * as fromToppings from './toppings.selectors';
-import {Pizza} from '../../models/pizza.model';
+import {Pizza} from '@models/pizza.model';
 
 
 // pizza state, те сверху мы получили продукты, а теперь стейт для пиц, когда мы внутри пиц,

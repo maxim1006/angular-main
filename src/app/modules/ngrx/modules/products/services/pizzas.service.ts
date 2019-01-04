@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Pizza } from '../models/pizza.model';
-import {domenToken} from "../../../../shared/tokens/tokens";
+import { Pizza } from '@models/pizza.model';
+import {domenTokenDb} from "../../../../shared/tokens/tokens";
 
 @Injectable()
 export class PizzasService {
@@ -13,25 +13,25 @@ export class PizzasService {
 
   getPizzas(): Observable<Pizza[]> {
     return this.http
-      .get<Pizza[]>(`${domenToken}pizzas`)
+      .get<Pizza[]>(`${domenTokenDb}pizzas`)
       .pipe(catchError((error: any) => throwError(error)));
   }
 
   createPizza(payload: Pizza): Observable<Pizza> {
     return this.http
-      .post<Pizza>(`${domenToken}pizzas`, payload)
+      .post<Pizza>(`${domenTokenDb}pizzas`, payload)
       .pipe(catchError((error: any) => throwError(error)));
   }
 
   updatePizza(payload: Pizza): Observable<Pizza> {
     return this.http
-      .put<Pizza>(`${domenToken}pizzas/${payload.id}`, payload)
+      .put<Pizza>(`${domenTokenDb}pizzas/${payload.id}`, payload)
       .pipe(catchError((error: any) => throwError(error)));
   }
 
   removePizza(payload: Pizza): Observable<Pizza> {
     return this.http
-      .delete<any>(`${domenToken}pizzas/${payload.id}`)
+      .delete<any>(`${domenTokenDb}pizzas/${payload.id}`)
       .pipe(catchError((error: any) => throwError(error)));
   }
 }

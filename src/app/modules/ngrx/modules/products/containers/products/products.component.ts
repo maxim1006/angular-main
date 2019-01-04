@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {Pizza} from '../../models/pizza.model';
+import {Pizza} from '@models/pizza.model';
 import {select, Store} from '@ngrx/store';
 import * as fromStore from '../../store';
 import {ProductsState} from '../../store/reducers';

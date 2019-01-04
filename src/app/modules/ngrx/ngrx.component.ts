@@ -60,17 +60,17 @@ export class MNgrxComponent implements OnInit, OnDestroy {
         this._counterRouteSelector$ = this.store.pipe(select(fromStore.getCurrentCounterRouteState));
 
 
-        // this.store.pipe(
-        //     select(fromProductsStore.getPizzasHint),
-        //     takeUntil(this.destroy$)
-        // ).subscribe((hint) => {
-        //     this.pizzasHint = hint;
-        //
-        //     clearTimeout(this.pizzaTimeout);
-        //     this.pizzaTimeout = window.setTimeout(() => {
-        //         this.pizzasHint = null;
-        //     }, 500);
-        // });
+        this.store.pipe(
+            select(fromProductsStore.getPizzasHint),
+            takeUntil(this.destroy$)
+        ).subscribe((hint) => {
+            this.pizzasHint = hint;
+
+            clearTimeout(this.pizzaTimeout);
+            this.pizzaTimeout = window.setTimeout(() => {
+                this.pizzasHint = null;
+            }, 500);
+        });
     }
 
     ngAfterViewInit() {

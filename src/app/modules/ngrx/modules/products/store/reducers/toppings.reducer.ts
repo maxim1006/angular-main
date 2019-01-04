@@ -1,6 +1,6 @@
 import * as fromToppingActions from '../actions/toppings.action';
-import {Topping} from '../../models/topping.model';
-import {Pizza} from '../../models/pizza.model';
+import {Topping} from '@models/topping.model';
+import {Pizza} from '@models/pizza.model';
 
 export interface ToppingsState {
     entities: {

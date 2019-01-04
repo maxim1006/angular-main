@@ -5,7 +5,7 @@
         "ng": "ng",
         "start": "gulp svg && ng serve --open",
         "hmr": "gulp svg && ng serve --configuration hmr --open --port 4201",
-        "db": "json-server --watch db/db.js",
+        "db": "json-server --port 3004 --watch db/db.js",
         "server": "tsc-watch ./server/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\" --onFailure \"echo Beep! Compilation Failed\" --compiler typescript/bin/tsc",
         "build": "gulp svg && ng build --prod",
         "buildServer": "cd ./dist && ws --spa index.html --compress",

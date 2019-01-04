@@ -8,7 +8,7 @@ import {
     StepDurationGraphModel,
     SuccessRateCCGraphModel,
     SuccessRateCustomerGraphModel,
-} from "../m-graph.model";
+} from "@models/m-graph.model";
 
 
 
@@ -25,9 +25,9 @@ declare namespace Highcharts {
 })
 
 export class MGraphWrapperComponent {
-    @HostBinding('class.m-graph-wrapper') classes = true;  
+    @HostBinding('class.m-graph-wrapper') classes = true;
 
-    public _stepDurationGraphModel: Highcharts.ChartObject | any = StepDurationGraphModel;      
+    public _stepDurationGraphModel: Highcharts.ChartObject | any = StepDurationGraphModel;
     public _successRateCustomerGraphModel: Highcharts.ChartObject | any = SuccessRateCustomerGraphModel;
     public _successRateCCGraphModel: Highcharts.ChartObject | any = SuccessRateCCGraphModel;
     public _customerProfileGraphModel: Highcharts.ChartObject | any = CustomerProfileGraphModel;

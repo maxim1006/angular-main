@@ -2,7 +2,7 @@ import {StoreModule, Store, combineReducers, select} from '@ngrx/store';
 import {ROUTER_NAVIGATION, StoreRouterConnectingModule} from '@ngrx/router-store';
 
 import {fakeAsync, flush, TestBed} from '@angular/core/testing';
-import {Pizza} from '../../models/pizza.model';
+import {Pizza} from '@models/pizza.model';
 
 import * as fromRoot from '../../../../store/reducers';
 import * as fromReducers from '../reducers';

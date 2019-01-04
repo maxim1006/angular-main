@@ -2,10 +2,10 @@ import {
     AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import {PageLoaderService} from './common/services/page-loader.service';
+import {PageLoaderService} from '@services/page-loader.service';
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
 import {of} from 'rxjs';
-import {MDynamicService} from "./services/dynamic.service";
+import {MDynamicService} from "@services/dynamic.service";
 import {MDynamicAppComponent} from "./components/dynamic-app/dynamic-app.component";
 
 export const routerTransition: any = trigger('routerTransition', [

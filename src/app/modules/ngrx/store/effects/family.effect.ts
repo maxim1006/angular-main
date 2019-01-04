@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {catchError, map, switchMap, withLatestFrom, auditTime, distinctUntilChanged} from "rxjs/operators";
 import * as fromFamilyActions from "../actions/family.action";
 import * as fromFamilySelectors from "../selectors/family.selector";
-import {FamilyMember} from "../../models/family.model";
+import {FamilyMember} from "@models/family.model";
 import {MFamilyService} from "../../services/family.service";
 import {State} from "../reducers";
 

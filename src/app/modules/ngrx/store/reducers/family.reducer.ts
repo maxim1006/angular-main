@@ -1,5 +1,5 @@
 import * as fromFamilyActions from "../actions";
-import {FamilyMember} from "../../models/family.model";
+import {FamilyMember} from "@models/family.model";
 
 export interface FamilyState {
     entities: {

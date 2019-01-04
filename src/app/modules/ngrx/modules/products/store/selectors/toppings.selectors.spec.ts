@@ -2,7 +2,7 @@ import * as fromReducers from '../reducers';
 import * as fromSelectors from '../selectors';
 import * as fromActions from '../actions';
 import {combineReducers, select, Store, StoreModule} from "@ngrx/store";
-import {Topping} from "../../models/topping.model";
+import {Topping} from "@models/topping.model";
 import {TestBed} from "@angular/core/testing";
 
 describe('Toppings selectors', () => {

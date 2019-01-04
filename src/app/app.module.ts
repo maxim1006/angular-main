@@ -22,13 +22,13 @@ import {PageUtilsService} from "./common/services/page-utils.service";
 import {domenToken} from "./modules/shared/tokens/tokens";
 import {AppService} from "./modules/app.service";
 import {HammerPluginPatch} from "./common/patches/hammer-plugin.patch";
-import {PageLoaderService} from "./common/services/page-loader.service";
+import {PageLoaderService} from "@services/page-loader.service";
 import {StaticInjector} from "@angular/core/src/di/injector";
 import {MAdminComponent} from "./modules/admin/admin.component";
 import {MAdminGuardService} from "./modules/admin/admin-guard.service";
 import {MHttpRequestInterceptor} from "./common/interceptors/http-request.interceptor";
-import {MDynamicService} from "./services/dynamic.service";
-import {MDynamicInternalService} from "./services/dynamic-internal.service";
+import {MDynamicService} from "@services/dynamic.service";
+import {MDynamicInternalService} from "@services/dynamic-internal.service";
 import { MDynamicAppComponent } from './components/dynamic-app/dynamic-app.component';
 
 

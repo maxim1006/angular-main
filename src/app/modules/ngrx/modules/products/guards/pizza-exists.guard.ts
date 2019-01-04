@@ -4,7 +4,7 @@ import {select, Store} from "@ngrx/store";
 import {ActivatedRouteSnapshot, CanActivate} from "@angular/router";
 import {Observable} from "rxjs";
 import {filter, map, switchMap, take, tap} from "rxjs/operators";
-import {Pizza} from "../models/pizza.model";
+import {Pizza} from "@models/pizza.model";
 
 @Injectable()
 export class PizzaExistsGuard implements CanActivate {

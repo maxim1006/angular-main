@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {MLazyService} from "./lazy.service";
-import {MDynamicService} from "../../services/dynamic.service";
+import {MDynamicService} from "@services/dynamic.service";
 import {MLazyDynamicComponent} from "./components/lazy-dynamic/lazy-dynamic.component";
 
 @Component({

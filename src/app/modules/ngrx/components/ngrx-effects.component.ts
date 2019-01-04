@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs/internal/Observable";
 import * as fromStore from '../store';
-import {FamilyMember} from "../models/family.model";
+import {FamilyMember} from "@models/family.model";
 
 
 

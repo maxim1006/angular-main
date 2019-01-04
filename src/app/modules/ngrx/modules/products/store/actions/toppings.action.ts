@@ -1,5 +1,5 @@
 import {Action} from '@ngrx/store';
-import {Topping} from '../../models/topping.model';
+import {Topping} from '@models/topping.model';
 
 export enum ToppingsActionTypes {
     Load = '[Products] Load Toppings',

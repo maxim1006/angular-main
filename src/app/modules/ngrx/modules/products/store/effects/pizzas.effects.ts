@@ -7,7 +7,7 @@ import {catchError, map, switchMap} from 'rxjs/operators';
 import {PizzasService} from '../../services';
 import {of} from 'rxjs';
 import {pluck} from "rxjs/internal/operators";
-import {Pizza} from "../../models/pizza.model";
+import {Pizza} from "@models/pizza.model";
 
 @Injectable()
 export class PizzasEffects {
