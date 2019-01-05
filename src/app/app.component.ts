@@ -2,6 +2,7 @@ import {
     AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, ViewChild,
     ViewContainerRef
 } from '@angular/core';
+import {SwUpdate} from '@angular/service-worker'
 import {PageLoaderService} from '@services/page-loader.service';
 import {trigger, animate, style, group, animateChild, query, stagger, transition} from '@angular/animations';
 import {of} from 'rxjs';
@@ -57,7 +58,7 @@ export const routerTransition1: any = trigger('routerTransition', [
     // styleUrls: ['./app.component.css']
     animations: [ routerTransition1 ]
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
     // пример readonly объекта и массива
     public readOnlyObject: Readonly<{name: string}> = {
@@ -76,10 +77,24 @@ export class AppComponent implements AfterViewInit {
     @HostBinding('class')
     public hostClass: String = 'app-component';
 
+    public ngOnInit(): void {
+        if (this.swUpdate.isEnabled) {
+
+            this.swUpdate.available.subscribe(() => {
+
+                if(confirm("New version available. Load New Version?")) {
+
+                    window.location.reload();
+                }
+            });
+        }
+    }
+
     constructor(
         @Optional() @Inject('someOptionalObject.someOptionalProperty') private optionalPropery,
         public pageLoaderService: PageLoaderService,
-        private mDynamicService: MDynamicService
+        private mDynamicService: MDynamicService,
+        private swUpdate: SwUpdate
     ) {}
 
     activateEvent(event) {
