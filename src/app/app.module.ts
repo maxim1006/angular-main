@@ -30,6 +30,8 @@ import {MHttpRequestInterceptor} from './common/interceptors/http-request.interc
 import {MDynamicService} from '@services/dynamic.service';
 import {MDynamicInternalService} from '@services/dynamic-internal.service';
 import { MDynamicAppComponent } from './components/dynamic-app/dynamic-app.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 export function routeServiceFactory (route: RouteService): () => {} {
@@ -68,7 +70,8 @@ const childInjector: Injector = Injector.create({
         SharedModule,
         MRxjsModule,
         MForRootModule.forRoot({data: 1}), //так могу в модуль прокинуть инфу
-        AppRoutingModule //этот модуль, в котором все руты приложения должен идти в самом конце, после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        AppRoutingModule,  //этот модуль, в котором все руты приложения должен идти в самом конце, после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
     ],
     providers: [
         MAdminGuardService,

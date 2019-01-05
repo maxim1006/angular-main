@@ -25,9 +25,10 @@ export class ProtectedLazyGuard implements CanLoad {
 //Можно создать свой класс с preloadStrategy
 export class MyPreloadStrategy implements PreloadingStrategy {
     preload(route: Route, load: () => Observable<any>): Observable<any> {
-        // return of(null); // если не хочу прелоад
+        return of(null); // если не хочу прелоад
 
-        return route.data && route.data['preload'] ? load() : of(null);
+        // если хочу кастомный прелоад
+        // return route.data && route.data['preload'] ? load() : of(null);
     }
 }
 
