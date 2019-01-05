@@ -37,6 +37,7 @@ export const slideInDownAnimation: any =
 @Component({
     selector: 'router-id',
     template: `
+        Resolved data from route resolve: {{resolvedDataInRoute | async | json}}<br />
         Your id is: {{params.id}}<br />
         param is: {{params.param}}
         Your data is: {{family | json}}
@@ -65,20 +66,18 @@ export class RouterIdComponent implements OnInit {
         // так могу получить 1 раз
         // this.params = this.route.snapshot.params;
 
+        // в этом примере показываю как получить параметры из роутера, сделать запрос и прокинуть дальше
+        // также тут пример сохранения params и прокидывания дальше на всякий случа, если нужно и family
+        // и params
         this.route.params.pipe(
             switchMap(
                     (params: Params) => {
                         this.params = params;
-                        return this.http.get(`${domenTokenDb}family` + params['id'] + '.json');
+                        return this.http.get(`${domenTokenDb}family` + params['id'])
+                            .pipe(map((family) => ({family, params})));
                     }
             ))
-            .pipe(
-                map((family, params) => {
-                    return {family, params};
-                })
-            )
             .subscribe(({family, params}) => {
-                console.log('params ', params);
                  this.family = family;
             }, (err) => {
                 this.family = 'There is no data fo you';

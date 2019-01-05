@@ -65,7 +65,13 @@ const routes: Routes = [
                     }
                 ]
             },
-            {path: ':id', component: RouterIdComponent},
+            {
+                path: ':id',
+                component: RouterIdComponent,
+                data: {
+                    title: 'path :id'
+                }
+            },
         ]
     }
 ];
