@@ -41,6 +41,7 @@ const routes: Routes = [
     // {path: 'framework', component: MFrameworkComponent}, //simple module loading
     // {path: 'components', component: MComponentsComponent},
     {path: 'components', loadChildren: './modules/m-components/m-components.module#MComponentsModule', data: { state: 'components', preload: true }},
+    {path: 'css', loadChildren: './modules/css/css.module#CssModule'},
     {path: 'typescript', loadChildren: './modules/typescript/typescript.module#TypescriptModule'},
     {path: 'http', component: MHttpComponent, data: { state: 'http' }},
     {path: 'forms', component: MFormComponent, data: { state: 'forms' }},

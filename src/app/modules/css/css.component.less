@@ -1,0 +1,57 @@
+:host {
+    font-family: 'Noto Sans', sans-serif;
+    font-display: fallback;
+}
+
+.css {
+    &__block {
+        margin-bottom: 40px;
+    }
+
+    &__paragraph {
+        margin-bottom: 15px;
+    }
+
+    &__button-default {
+        // appearance - убирает стили в браузерах
+        appearance: none;
+        background: transparent;
+    }
+
+    &__safari-gradient {
+        background: linear-gradient(rgba(0, 0, 0,0), #d7e0ef), #527ee0;
+    }
+
+    &__sticky-container {
+        width: 200px;
+        height: 200px;
+        overflow: auto;
+
+        &:after {
+            content: "";
+            display: block;
+            height: 1000px;
+        }
+    }
+
+    &__sticky {
+        position: sticky;
+        top: 0;
+    }
+
+    &__img-max-width {
+        max-width: 100%;
+    }
+
+    // стили по умолчанию не наследуются input, button, select, textarea, но обычно используют normalize где им проставлен font: inherit;
+    &__custom-font {
+        input, button, select, textarea {
+            //font-family: your-awesome-font-name;
+        }
+    }
+
+    &__object-fit {
+        object-fit: contain;
+    }
+
+}
