@@ -37,4 +37,11 @@ console.log(one);
 /*********************************/
 
 
+// Пример типа объекта
+/*
+let o: {name: string, getName(): string} = {
+    name: 'Max',
+    getName() { console.log(this);return this.name }
+};
+*/
 

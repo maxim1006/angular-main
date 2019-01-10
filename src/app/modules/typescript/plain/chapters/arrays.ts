@@ -8,7 +8,7 @@ const arr = [1, 2, 3, 4, 5];
 
 console.log(sumAll(arr)); // 15
 
-function sumAll(...arr) {
+function sumAll(...arr: number[]) {
     return arr.reduce((acc, current) => acc + current, 0);
 }
 
