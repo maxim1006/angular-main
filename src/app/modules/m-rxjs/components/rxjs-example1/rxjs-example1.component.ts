@@ -10,7 +10,7 @@ import {
     map,
     mapTo,
     flatMap,
-    switchMap, exhaustMap, pluck, delay, timeout, catchError, retry, tap, retryWhen, share, shareReplay
+    switchMap, exhaustMap, pluck, delay, timeout, catchError, retry, tap, retryWhen, share, shareReplay, switchAll, mergeAll
 } from 'rxjs/operators';
 import {Observable, throwError, Observer} from 'rxjs';
 import {observable} from 'rxjs/internal-compatibility';
@@ -22,6 +22,8 @@ import {domenToken} from '../../../shared/tokens/tokens';
 @Component({
     selector: 'rxjs-example1',
     template: `
+        <span id="rxjsExample1Span">Click</span>
+
         <form 
             #myForm
             novalidate 
@@ -115,6 +117,37 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
     }
 
     public ngAfterViewInit(): void {
+
+
+        // high order observable example
+        const event$ = fromEvent(document.querySelector('#rxjsExample1Span'), 'click');
+        const interval$ = interval(1000);
+
+        // так обзервбл высшего порядка возвращает обезрбл, нет подписки поэтому возвращается обзервбл
+        // event$.pipe(map(() => interval$)).subscribe((data) => {
+        //     console.log(data); // Observable {_isScalar: false, _subscribe: ƒ}
+        // });
+
+        // mergeAll делает подписку к внутреннему обзервблу
+        // event$.pipe(map(() => interval$), mergeAll()).subscribe((data) => {
+        //     console.log(data); // Observable {_isScalar: false, _subscribe: ƒ}
+        // });
+
+        // тоже самое делает mergeMap, подписывается к внутреннему обзервблу и эмитит значения
+        // event$.pipe(mergeMap(() => interval$)).subscribe((data) => {
+        //     console.log(data); // 0,1,2,3
+        // });
+
+
+        // event$.pipe(map(() => interval$), switchAll()).subscribe((data) => {
+        //     console.log(data); // 0,1,2,3... и если кликну то снова 0,1,2,3...
+        // });
+        //
+        // event$.pipe(switchMap(() => interval$)).subscribe((data) => {
+        //     console.log(data); // 0,1,2,3... и если кликну то снова 0,1,2,3...
+        // });
+
+        //////////////////////////////////////////////////////////////
 
         // тут придет только 1, если не нужно предыдущее значение
         // const documentClick$ = fromEvent(document, 'click');
