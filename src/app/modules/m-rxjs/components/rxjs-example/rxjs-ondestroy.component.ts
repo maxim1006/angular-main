@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {takeUntil} from 'rxjs/operators';
-import {interval, Subject} from 'rxjs';
+import {combineAll, concatAll, map, mergeAll, take, takeUntil} from 'rxjs/operators';
+import {combineLatest, interval, merge, of, Subject} from 'rxjs';
 
 @Component({
     selector: 'rxjs-ondestroy',
@@ -17,20 +17,50 @@ export class RxjsOnDestroyComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        const self = this,
-            observable = interval(1000);
+        const observable = interval(2000);
+        const observable1 = interval(4000);
+        const observable2 = of([]);
 
-        observable
-            .pipe(
-                takeUntil(this.onDestroy$)
-            )
-            .subscribe(
-                () => console.log('onDestroy tick')
-            );
+        // observable2.pipe(
+        //     //takeUntil(this.onDestroy$) // ERROR!!! если поставить сюда то сабскрайб не умрет!!!!! так не делать
+        //     map(() => observable1),
+        //     mergeAll(),
+        //     takeUntil(this.onDestroy$) // всегда ставим в конец, тогда отписка произойдет
+        // ).subscribe((data) => console.log('onDestroy mergeAll & takeUntil ', data)); // 0,1,2,3... каждые 2 секунды
+
+        // observable.pipe(
+        //     //takeUntil(this.onDestroy$) // ERROR!!! если поставить сюда то сабскрайб не умрет!!!!! так не делать
+        //     map(() => observable1),
+        //     concatAll(),
+        //     takeUntil(this.onDestroy$) // всегда ставим в конец, тогда отписка произойдет
+        // ).subscribe((data) => console.log('onDestroy concatAll & takeUntil ', data)); // 0,1,2,3,4,5
+
+        // combineAll - работает очень интересно, когда observable закончит, combineAll подписывается ко всем
+        // внутренним обзервблам и использует combineLatest стратегию. Но в отличии от стандартного combineLatest тикнет вначале observable не дождавшись пока observable1 сработает хоть раз
+        // observable2.pipe(
+        //     //takeUntil(this.onDestroy$) // ERROR!!! если поставить сюда то сабскрайб не умрет!!!!! так не делать
+        //     take(1),
+        //     map(() => merge(observable, observable1)),
+        //     combineAll(),
+        //     takeUntil(this.onDestroy$) // всегда ставим в конец, тогда отписка произойдет
+        // ).subscribe((data) => console.log('onDestroy combineAll & takeUntil ', data)); // 0,1,2,3,4,5
+
+        // combineLatest(observable, observable1).pipe(
+        //     takeUntil(this.onDestroy$)
+        // ).subscribe((data) => console.log('onDestroy combineLatest ', data));
+        //
+        // observable
+        //     .pipe(
+        //         takeUntil(this.onDestroy$)
+        //     )
+        //     .subscribe(
+        //         (data) => console.log('onDestroy takeUntil ', data)
+        //     );
     }
 
     ngOnDestroy() {
         this.onDestroy$.next();
         this.onDestroy$.complete();
+        this.onDestroy$ = null;
     }
 }

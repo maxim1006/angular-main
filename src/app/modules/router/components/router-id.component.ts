@@ -38,8 +38,8 @@ export const slideInDownAnimation: any =
     selector: 'router-id',
     template: `
         Resolved data from route resolve: {{resolvedDataInRoute | async | json}}<br />
-        Your id is: {{params.id}}<br />
-        param is: {{params.param}}
+        Your id is: {{params?.id}}<br />
+        param is: {{params?.param}}
         Your data is: {{family | json}}
 
         <router-outlet name="routerPopup"></router-outlet>

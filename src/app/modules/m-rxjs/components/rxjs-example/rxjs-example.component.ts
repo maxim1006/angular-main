@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {domenToken, domenTokenDb} from '../../../shared/tokens/tokens';
 import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler} from 'rxjs/index';
+import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler, merge} from 'rxjs/index';
 import {mergeAll, observeOn} from 'rxjs/operators';
 import {concatMap, delay, map} from 'rxjs/internal/operators';
 
@@ -12,7 +12,8 @@ import {concatMap, delay, map} from 'rxjs/internal/operators';
         {{number}}
         
         <p *ngIf="_rxjsOnDestroyVisible">
-            <rxjs-ondestroy></rxjs-ondestroy>  <button (click)="_rxjsOnDestroyVisible = false">Remove component</button>
+            <rxjs-ondestroy></rxjs-ondestroy>  
+            <button (click)="_rxjsOnDestroyVisible = false">Remove component</button>
         </p>
         
     `
@@ -92,19 +93,19 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
         // если нужно дождаться 1го и потом 2ой делай так
-        const queueObservable$ = this._http.get(`${domenTokenDb}mocks`).pipe(
-            concatMap(
-                (urls: any) =>
-                    self._http.get(`${domenTokenDb}${urls.familyUrl}`)
-                        .pipe(
-                            map((data) => ({urls, data}))
-                        )
-
-            )
-        ).subscribe(({urls, data}) => {
-            console.log('queueObservable$ first', urls);
-            console.log('queueObservable$ second', data);
-        });
+        // const queueObservable$ = this._http.get(`${domenTokenDb}mocks`).pipe(
+        //     concatMap(
+        //         (urls: any) =>
+        //             self._http.get(`${domenTokenDb}${urls.familyUrl}`)
+        //                 .pipe(
+        //                     map((data) => ({urls, data}))
+        //                 )
+        //
+        //     )
+        // ).subscribe(({urls, data}) => {
+        //     console.log('queueObservable$ first', urls);
+        //     console.log('queueObservable$ second', data);
+        // });
 
 
         // пример c finally
@@ -170,23 +171,31 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         const intervalTwo$ = interval(3000);
 
         // когда хоть одно значение хоть у 1 обзервабла сработало выдает результат 2х
-        // intervalOne$.pipe(
-        //      combineLatest(
-        //         intervalTwo$
-        //     )).subscribe(all => console.log('combineLatest ', all));
+        // combineLatest(intervalOne$, intervalTwo$)
+        //     .subscribe(all => console.log('combineLatest ', all)); // [2, 0], [3, 0]...
 
-        // ждет результат 2х обзерваблов и затем срабатывает, выдаст [[...],[...]]
-        zip(this._http.get(`${domenToken}api/family/families/0`),
-            this._http.get(`${domenToken}api/family/families/1`)
-        ).subscribe(all => console.log('zip ', all));
+        // ждет результат 3х обзерваблов и затем срабатывает, выдаст [[...],[...],[...]]
+        // zip(
+        //     this._http.get(`${domenToken}api/family/families/0`),
+        //     this._http.get(`${domenToken}api/family/families/1`),
+        //     this._http.get(`${domenToken}api/family/families/2`)
+        // ).subscribe(all => console.log('zip ', all));
 
-        //`
-        // //либо с запросами
-        // Observable.combineLatest(
-        //     this._http.get(`${domenToken}family0.json`),
-        //     this._http.get(`${domenToken}family1.json`),
-        //     this._http.get(`${domenToken}family2.json`)
-        // ).subscribe(all => console.log(all));
+        //выдает результат 3х, когда тикнет хоть 1,
+        // но не ждет пока все 3 выполняться, выдает результат [[...],[...],[...]],
+        // в начале подождет хотябы 1 результат всех 3х обзервблов
+        // combineLatest(
+        //     this._http.get(`${domenToken}api/family/families/0`),
+        //     this._http.get(`${domenToken}api/family/families/1`),
+        //     this._http.get(`${domenToken}api/family/families/2`)
+        // ).subscribe(all => console.log('combineLatest ', all));
+
+        // выдаст подряд 3 массива с каждой family
+        // merge(
+        //     this._http.get(`${domenToken}api/family/families/0`),
+        //     this._http.get(`${domenToken}api/family/families/1`),
+        //     this._http.get(`${domenToken}api/family/families/2`)
+        // ).subscribe(all => console.log('merge ', all)); // merge [{…}, {…}, {…}], merge [{…}, {…}, {…}], merge [{…}, {…}, {…}]
 
         // this._http.get(`${domenToken}family0.json`).pipe(
         //     combineLatest(this._http.get(`${domenToken}family1.json`), this._http.get(`${domenToken}family2.json`))
@@ -194,12 +203,12 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
         // расписания
-        const o1 = of(1, 2).pipe(observeOn(asyncScheduler));
-        const o2 = of(10);
-
-        combineLatest(o1, o2).subscribe((value) => {
-            console.log('combineLatest value ', value);
-        });
+        // const o1 = of(1, 2).pipe(observeOn(asyncScheduler));
+        // const o2 = of(10);
+        //
+        // combineLatest(o1, o2).subscribe((value) => {
+        //     console.log('combineLatest value ', value); // сработает 2 раза, сперва выдаст [1, 10], затем [2, 10]
+        // });
 
 
 
