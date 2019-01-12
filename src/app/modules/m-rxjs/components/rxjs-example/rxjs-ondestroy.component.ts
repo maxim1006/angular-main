@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {combineAll, concatAll, map, mergeAll, take, takeUntil} from 'rxjs/operators';
-import {combineLatest, interval, merge, of, Subject} from 'rxjs';
+import {combineLatest, fromEvent, interval, merge, of, Subject} from 'rxjs';
 
 @Component({
     selector: 'rxjs-ondestroy',
@@ -20,6 +20,7 @@ export class RxjsOnDestroyComponent implements OnInit, OnDestroy {
         const observable = interval(2000);
         const observable1 = interval(4000);
         const observable2 = of([]);
+        const click$ = fromEvent(document, 'click');
 
         // observable2.pipe(
         //     //takeUntil(this.onDestroy$) // ERROR!!! если поставить сюда то сабскрайб не умрет!!!!! так не делать
@@ -56,6 +57,17 @@ export class RxjsOnDestroyComponent implements OnInit, OnDestroy {
         //     .subscribe(
         //         (data) => console.log('onDestroy takeUntil ', data)
         //     );
+
+        // example with merge in takeUntil
+        observable
+            .pipe(
+                takeUntil(merge(click$, this.onDestroy$))
+            )
+            .subscribe(
+                (data) => console.log('onDestroy takeUntil ', data),
+                _ => {},
+                () => console.log('onDestroy completed by click$ or ngOnDestroy')
+            );
     }
 
     ngOnDestroy() {

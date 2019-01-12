@@ -164,7 +164,7 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //     console.log(data); // всегда будет 1
         // });
 
-        // жму 10 раз а уйдет только й запрос
+        // жму 10 раз а уйдет только 1й запрос
         fromEvent(this.myFormRef.nativeElement, 'submit')
             .pipe(
                 map(() => {
