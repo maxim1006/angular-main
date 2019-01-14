@@ -6,7 +6,8 @@
 // import './chapters/numbers';
 // import './chapters/types';
 // import './chapters/interfaces';
-import './chapters/classes';
+// import './chapters/classes';
+import './chapters/type-query';
 
 
 
