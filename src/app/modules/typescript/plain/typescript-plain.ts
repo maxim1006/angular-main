@@ -7,7 +7,8 @@
 // import './chapters/types';
 // import './chapters/interfaces';
 // import './chapters/classes';
-import './chapters/type-query';
+// import './chapters/type-query';
+import './chapters/mapped-type';
 
 
 
