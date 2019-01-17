@@ -65,3 +65,36 @@ gulp.on("err", (gulpErr) => {
     }
 });
 
+
+
+
+////////// Temp solution ///////////
+
+// TODO - Disable all info / logs for HMR until the log level issue will be fixed - https://github.com/webpack/webpack/issues/4115
+// const replaceInFile = (filePath, searchRegex, replaceString) => {
+//     const fs = require('fs');
+//     filePath = path.resolve(filePath);
+//
+//     fs.readFile(filePath, 'utf8', function (err,data) {
+//         if (err) {
+//             return console.log(err);
+//         }
+//
+//         const result = data.replace(searchRegex, replaceString);
+//
+//         fs.writeFile(filePath, result, 'utf8', function (err) {
+//             if (err) {
+//                 return console.log(err);
+//             }
+//         });
+//     });
+// };
+//
+// // Why do we add `;\n{}`? Some part of the code has if conditions without {} around their content.
+// // So we'll just comment out the console.log line we'll get an error. This way we're adding a line that doesn't do anything.
+// const emptyStatement = '//$1;\n{}';
+// const consoleRegex = /(console\.(info|log).+\);)/g;
+// replaceInFile("node_modules/webpack/hot/dev-server.js", consoleRegex, emptyStatement);
+// replaceInFile("node_modules/webpack/hot/log-apply-result.js", consoleRegex, emptyStatement);
+
+////////// End of temp solution ///////////
