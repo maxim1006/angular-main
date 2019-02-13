@@ -144,5 +144,7 @@ export class DynamicComponent {
         if (this._componentRef) {
             this._componentRef.destroy();
         }
+
+        this.contentEmbeddedView.destroy();
     }
 }
