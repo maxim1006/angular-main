@@ -14,7 +14,8 @@
         "lint": "ng lint",
         "e2e": "ng e2e",
         "report": "webpack-bundle-analyzer dist/stats.json",
-        "ts": "tsc-watch --onSuccess \"node ./src/app/modules/typescript/plain/dist/typescript-plain.js\"  --onFailure \"echo Beep! Compilation Failed\" --compiler typescript/bin/tsc -p ./src/app/modules/typescript/plain/"
+        "ts": "tsc-watch --onSuccess \"node ./src/app/modules/typescript/plain/dist/typescript-plain.js\"  --onFailure \"echo Beep! Compilation Failed\" --compiler typescript/bin/tsc -p ./src/app/modules/typescript/plain/",
+        "ng-high-memory": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng"
     },
     "browserslist": [
         "last 2 versions",

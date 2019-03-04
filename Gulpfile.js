@@ -71,6 +71,10 @@ gulp.on("err", (gulpErr) => {
 ////////// Temp solution ///////////
 
 // TODO - Disable all info / logs for HMR until the log level issue will be fixed - https://github.com/webpack/webpack/issues/4115
+// const fs = require('fs');
+// const browser = 'node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/browser.js';
+// const styles = 'node_modules/@angular-devkit/build-angular/src/angular-cli-files/models/webpack-configs/styles.js';
+
 // const replaceInFile = (filePath, searchRegex, replaceString) => {
 //     const fs = require('fs');
 //     filePath = path.resolve(filePath);
