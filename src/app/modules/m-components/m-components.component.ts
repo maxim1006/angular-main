@@ -23,7 +23,7 @@ export class MComponentsComponent implements OnInit {
 
         setTimeout(() => {
             this.autocomplete = [{name: 'Max'}, {name: 'Aliya'}, {name: 'Anton'}];
-            console.log('autocomplete model loaded');
+            // console.log('autocomplete model loaded');
         }, 2000);
 
         this.dynamicModel = new MDynamicComponentConstructor(MCheckboxComponent, {

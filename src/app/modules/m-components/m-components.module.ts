@@ -23,6 +23,7 @@ import {ProgressBarComponent} from './components/progress-bar/progress-bar.compo
 import {MGridExampleComponent} from './components/grid-example/grid-example.component';
 import {MGridComponent} from './components/grid/grid.component';
 import { IntercectionObserverComponent } from './components/intercection-observer/intercection-observer.component';
+import { AsyncAwaitComponent } from './components/async-await/async-await.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -57,7 +58,7 @@ const directives = [
 @NgModule({
     imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
     declarations: [
-        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent
+        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent
     ],
     exports: [MComponentsComponent],
     entryComponents: [...components],
