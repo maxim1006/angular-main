@@ -13,9 +13,19 @@ if (environment.production) {
     console.log('You are in Prod mode');
 }
 
-const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule, {
-    //ngZone: "noop" //так отключаю зоны в приложении
+// const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule, {
+//     //ngZone: "noop" //так отключаю зоны в приложении
+// });
+
+const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule).then((ngModuleRef) => {
+    if ('serviceWorker' in navigator && environment.production) {
+        navigator.serviceWorker.register('ngsw-worker.js');
+    }
+
+    return ngModuleRef;
 });
+// так не хочет работать hmrBootstrap так как ему нужен ngModuleRef
+// .catch(err => console.log(err));
 
 if (environment.hmr) {
     console.log('You are in HMR mode');
@@ -27,7 +37,6 @@ if (environment.hmr) {
     }
 } else {
     bootstrap();
-    console.log('You are in Dev mode');
 }
 
 
