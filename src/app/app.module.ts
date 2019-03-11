@@ -124,6 +124,14 @@ export class AppModule {
     }
 }
 
+/*
+
+Во всех zone.run, settimeout, requestanimationframe, при onPush у компоненты нужно вызывать this.cdr.markForCheck(),
+так как свойство поменяли внутри контроллера, но инпут не поменялся следовательно никаких проверок, даже при внешнем detectChanges
+
+Все js хендлеры на window document (scroll mousemove и т.д.) дергают changeDetection на всех компонентах на страничке
+
+*/
 
 
 /*как в дев моде получить севис из инжектора из консоли?
