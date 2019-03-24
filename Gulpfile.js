@@ -102,3 +102,6 @@ gulp.on("err", (gulpErr) => {
 // replaceInFile("node_modules/webpack/hot/log-apply-result.js", consoleRegex, emptyStatement);
 
 ////////// End of temp solution ///////////
+
+
+///Users/max/projects/ux-ng2/node_modules/webpack/hot/log.js - вот тут отключаю логи hmr
