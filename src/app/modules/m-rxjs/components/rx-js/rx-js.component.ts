@@ -116,6 +116,7 @@ export class RxJsComponent implements OnInit {
         // this.subject.next("some data"); //не будет вызван
 
         // let subject = new BehaviorSubject(0); // будет вызван 1ый раз без next с инит значением 0
+        // subject.value - будет всегда содержать текущее значение, отсюда удобно забирать
         //
         // subject.subscribe({
         //     next: (v) => console.log('BehaviorSubject A: ' + v)
