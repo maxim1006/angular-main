@@ -82,7 +82,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
             this.swUpdate.available.subscribe(() => {
 
-                if(confirm("New version available. Load New Version?")) {
+                if (confirm("New version available. Load New Version?")) {
 
                     window.location.reload();
                 }

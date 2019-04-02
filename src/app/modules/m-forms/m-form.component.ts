@@ -104,7 +104,7 @@ export class MFormComponent implements OnInit {
         //     console.log("form changed to: ", form);
         // });
 
-        //enable/disable controls
+        // enable/disable controls
         // this.objectToArray(this.myForm.controls).map((control: any) => {
         //     if (state) {
         //         control.enable();
@@ -113,7 +113,7 @@ export class MFormComponent implements OnInit {
         //     }
         // });
 
-        //Make touched/dirty
+        // Make touched/dirty
         // this.form.controls[i].markAsTouched();
         // this.form.controls[i].markAsDirty();
 
