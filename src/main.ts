@@ -45,3 +45,4 @@ if (environment.hmr) {
 
 //ngx build plus
 
+// посмотреть все версии пакета npm: npm show  @netcracker/ux-ng2@* version
