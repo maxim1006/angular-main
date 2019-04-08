@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {domenToken, domenTokenDb} from '../../../shared/tokens/tokens';
 import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler, merge} from 'rxjs/index';
+import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler, merge, defer} from 'rxjs';
 import {mergeAll, observeOn} from 'rxjs/operators';
 import {concatMap, delay, map} from 'rxjs/internal/operators';
 
@@ -248,12 +248,12 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 // .pipe(doOnSubscribe(() => {console.log("subscribed");}))
 
-// export function doOnSubscribe<T>(onSubscribe: () => void): (source: Observable<T>) =>  Observable<T> {
-//     return function inner(source: Observable<T>): Observable<T> {
-//         return defer(() => {
-//             onSubscribe();
-//
-//             return source;
-//         });
-//     };
-// }
+export function doOnSubscribe<T>(onSubscribe: () => void): (source: Observable<T>) =>  Observable<T> {
+    return function inner(source: Observable<T>): Observable<T> {
+        return defer(() => {
+            onSubscribe();
+
+            return source;
+        });
+    };
+}
