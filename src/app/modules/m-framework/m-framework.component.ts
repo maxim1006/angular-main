@@ -36,5 +36,7 @@ export class MFrameworkComponent implements OnInit {
     ngOnInit() {
     }
 
+    /** @internal */
+    public _outputListener() {}
 
 }

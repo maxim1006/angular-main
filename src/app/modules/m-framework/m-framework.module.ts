@@ -42,6 +42,7 @@ import { MAnimationsComponent } from './components/animations/animationa.compone
 import {TooltipDirective} from './directives/tooltip.directive';
 import {MyForDirective} from './directives/my-for.directive';
 import {MComponentAsDirectiveComponent} from './components/component-as-directive/component-as-directive.component';
+import { OutputListenersComponent } from './components/output-listeners/output-listeners.component';
 
 const routes: Routes = [
     {path: '', component: MFrameworkComponent},
@@ -89,7 +90,8 @@ const routes: Routes = [
         MAnimationsComponent,
         TooltipDirective,
         MyForDirective,
-        MComponentAsDirectiveComponent
+        MComponentAsDirectiveComponent,
+        OutputListenersComponent
     ],
     exports: [MFrameworkComponent, ClassExampleComponent, DynamicComponent],
     providers: [],
