@@ -8,18 +8,23 @@ import {Component, OnInit} from '@angular/core';
 export class IntercectionObserverComponent implements OnInit {
 
     public items = [
-        {show: true},
-        {show: false},
-        {show: false},
-        {show: false},
-        {show: false},
-        {show: false},
-        {show: false},
-        {show: false},
-        {show: false},
+        {show: true, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
+        {show: false, height: this.getRandomHeight()},
     ];
 
     ngOnInit() {
     }
 
+    private getRandomHeight(min: number = 100, max: number = 500): string {
+        const randomNumber = min - 0.5 + Math.random() * (max - min + 1);
+
+        return Math.round(randomNumber) + 'px';
+    }
 }
