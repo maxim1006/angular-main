@@ -35,6 +35,7 @@ export class MyPreloadStrategy implements PreloadingStrategy {
 
 
 const routes: Routes = [
+    // {path: '', redirectTo: '', pathMatch: 'full'}, // если просто хочу начать с апп компонента
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'home', component: MHomeComponent, data: { state: 'home' }},
     // {path: '', redirectTo: '/framework', pathMatch: 'full'}, //redirect example
