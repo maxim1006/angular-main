@@ -7,7 +7,7 @@ import {MRouterPopupComponent} from './components/router-popup.component';
 import {ActivatedRouteSnapshot, Resolve, RouterModule, RouterStateSnapshot, Routes} from '@angular/router';
 import {domenToken, domenTokenDb} from '../shared/tokens/tokens';
 import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs/index';
+import {of} from 'rxjs';
 import {delay} from 'rxjs/internal/operators';
 
 

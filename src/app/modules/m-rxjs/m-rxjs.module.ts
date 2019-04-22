@@ -12,6 +12,8 @@ import { RxjsExample1Component } from './components/rxjs-example1/rxjs-example1.
 import {ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {RxjsExample2Component} from './components/rxjs-example2/rxjs-erxample2.component';
+import {RxCacheComponent} from './components/rx-cache/rx-cache.component';
+import {RxCacheService} from './components/rx-cache/rx-cache.service';
 
 const routes: Routes = [
     { path: 'rxjs', component: MRxjsComponent, children: [{
@@ -36,6 +38,10 @@ const routes: Routes = [
         {
             path: 'rxjs-example2',
             component: RxjsExample2Component, data: { state: 'rxjs-example2' }
+        },
+        {
+            path: 'rxjs-cache',
+            component: RxCacheComponent, data: { state: 'rxjs-cache' }
         }
     ]
     }
@@ -58,11 +64,12 @@ const routes: Routes = [
         RxjsExample2Component,
         RxJsComponent,
         MRxjsAsyncPipeComponent,
-        RxjsOnDestroyComponent
+        RxjsOnDestroyComponent,
+        RxCacheComponent
         // NgrxDispatchComponent,
         // NgrxSubscribeComponent
     ],
-    providers: []
+    providers: [RxCacheService]
 })
 
 export class MRxjsModule {}
