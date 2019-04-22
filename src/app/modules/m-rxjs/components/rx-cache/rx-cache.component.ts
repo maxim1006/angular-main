@@ -22,14 +22,6 @@ export class RxCacheComponent implements OnInit {
         this.rxCacheService.getFamily().subscribe(data => console.log(data));
         this.rxCacheService.clearCache();
         this.rxCacheService.getFamily().subscribe(data => console.log(data));
-
-        // this.rxCacheService.getFamily1().subscribe(data => console.log(data));
-        // this.rxCacheService.getFamily1().subscribe(data => console.log(data));
-        // this.rxCacheService.getFamily1().subscribe(data => console.log(data));
-        // this.rxCacheService.clearCache1(); // убьет запрос затем 3 дойдет и 3 кеша
-        // this.rxCacheService.getFamily1().subscribe(data => console.log(data));
-        // this.rxCacheService.getFamily1().subscribe(data => console.log(data));
-        // this.rxCacheService.getFamily1().subscribe(data => console.log(data));
     }
 
 
