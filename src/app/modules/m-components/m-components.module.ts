@@ -25,6 +25,7 @@ import {MGridComponent} from './components/grid/grid.component';
 import { IntercectionObserverComponent } from './components/intercection-observer/intercection-observer.component';
 import { AsyncAwaitComponent } from './components/async-await/async-await.component';
 import { KeydownComponent } from './components/keydown/keydown.component';
+import {ConsoleExamplesComponent} from './components/console-examples/console-examples.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -59,7 +60,7 @@ const directives = [
 @NgModule({
     imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
     declarations: [
-        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent
+        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent
     ],
     exports: [MComponentsComponent],
     entryComponents: [...components],
