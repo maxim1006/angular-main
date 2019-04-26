@@ -28,6 +28,7 @@ import { KeydownComponent } from './components/keydown/keydown.component';
 import {ConsoleExamplesComponent} from './components/console-examples/console-examples.component';
 import { LinkBlankComponent } from './components/link-blank/link-blank.component';
 import { NetworkEffectiveTipeComponent } from './components/network-effective-tipe/network-effective-tipe.component';
+import { InheritanceCompositionComponent } from './components/inheritance-composition/inheritance-composition.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -62,7 +63,7 @@ const directives = [
 @NgModule({
     imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
     declarations: [
-        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent, LinkBlankComponent, NetworkEffectiveTipeComponent
+        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent, LinkBlankComponent, NetworkEffectiveTipeComponent, InheritanceCompositionComponent
     ],
     exports: [MComponentsComponent],
     entryComponents: [...components],
