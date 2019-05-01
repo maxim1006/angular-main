@@ -29,6 +29,9 @@ import {ConsoleExamplesComponent} from './components/console-examples/console-ex
 import { LinkBlankComponent } from './components/link-blank/link-blank.component';
 import { NetworkEffectiveTipeComponent } from './components/network-effective-tipe/network-effective-tipe.component';
 import { InheritanceCompositionComponent } from './components/inheritance-composition/inheritance-composition.component';
+import { DebounceComponent } from './components/debounce/debounce.component';
+import { InterviewTasksComponent } from './components/interview-tasks/interview-tasks.component';
+import { ThrottleComponent } from './components/throttle/throttle.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -52,7 +55,8 @@ const components = [
     MGraphWrapperComponent,
     MSlideToggleComponent,
     ProgressBarComponent,
-    MGridComponent
+    MGridComponent,
+    InterviewTasksComponent
 ];
 
 const directives = [
@@ -63,7 +67,7 @@ const directives = [
 @NgModule({
     imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
     declarations: [
-        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent, LinkBlankComponent, NetworkEffectiveTipeComponent, InheritanceCompositionComponent
+        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent, LinkBlankComponent, NetworkEffectiveTipeComponent, InheritanceCompositionComponent, DebounceComponent, ThrottleComponent
     ],
     exports: [MComponentsComponent],
     entryComponents: [...components],

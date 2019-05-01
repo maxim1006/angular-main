@@ -12,6 +12,12 @@
             "element",
             "m",
             "kebab-case"
+        ],
+        "import-spacing": true,
+        "indent": [
+            true,
+            "spaces",
+            4
         ]
     }
 }
