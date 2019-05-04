@@ -24,6 +24,7 @@
                                 "externals": "prepend"
                             }
                         },
+                        "lazyModules": ["src/app/modules/lazy-runtime/lazy-runtime.module"],
                         "outputPath": "dist",
                         "index": "src/index.html",
                         "main": "src/main.ts",

@@ -36,6 +36,7 @@
         "@angular/pwa": "^0.11.4",
         "@angular/router": "^7.0.1",
         "@angular/service-worker": "^7.0.1",
+        "@herodevs/lazy-af": "0.0.8",
         "@ngrx/effects": "^6.0.1",
         "@ngrx/router-store": "^6.1.2",
         "@ngrx/store": "^6.0.1",

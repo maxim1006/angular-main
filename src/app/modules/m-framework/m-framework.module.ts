@@ -38,18 +38,27 @@ import {MDirectiveExampleComponent} from './components/directive-example/directi
 import {CustomStructuralDirective} from './directives/custom-structural.directive';
 import {CustomStructuralDirectiveComponent} from './components/custom-structure-directive/custom-structural-directive.component';
 import {DynamicHostDirective} from './components/dynamic/dynamic-host.directive';
-import { MAnimationsComponent } from './components/animations/animationa.component';
+import {MAnimationsComponent} from './components/animations/animationa.component';
 import {TooltipDirective} from './directives/tooltip.directive';
 import {MyForDirective} from './directives/my-for.directive';
 import {MComponentAsDirectiveComponent} from './components/component-as-directive/component-as-directive.component';
-import { OutputListenersComponent } from './components/output-listeners/output-listeners.component';
+import {OutputListenersComponent} from './components/output-listeners/output-listeners.component';
+import {RunLazyRuntimeComponent} from './components/run-lazy-runtime/run-lazy-runtime.component';
+import {LazyModule} from '@herodevs/lazy-af';
 
 const routes: Routes = [
     {path: '', component: MFrameworkComponent},
 ];
 
 @NgModule({
-    imports: [SharedModule, HttpModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)],
+    imports: [
+        SharedModule,
+        HttpModule,
+        FormsModule,
+        LazyModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(routes)
+    ],
     declarations: [
         MColoryDirective,
         CustomStructuralDirective,
@@ -91,7 +100,8 @@ const routes: Routes = [
         TooltipDirective,
         MyForDirective,
         MComponentAsDirectiveComponent,
-        OutputListenersComponent
+        OutputListenersComponent,
+        RunLazyRuntimeComponent
     ],
     exports: [MFrameworkComponent, ClassExampleComponent, DynamicComponent],
     providers: [],

@@ -1,0 +1,2 @@
+<div (mouseover)="load = true">Hover to load TestModule</div>
+<lazy-af *ngIf="load" moduleName="src/app/modules/lazy-runtime/lazy-runtime.module#LazyRuntimeModule"></lazy-af>
