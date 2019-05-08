@@ -45,7 +45,8 @@ import {MComponentAsDirectiveComponent} from './components/component-as-directiv
 import {OutputListenersComponent} from './components/output-listeners/output-listeners.component';
 import {RunLazyRuntimeComponent} from './components/run-lazy-runtime/run-lazy-runtime.component';
 import {LazyModule} from '@herodevs/lazy-af';
-import { TextareaTestComponent } from './components/textarea-test/textarea-test.component';
+import {TextareaTestComponent} from './components/textarea-test/textarea-test.component';
+import {LazyRuntimeModuleService} from './services/lazy-module.service';
 
 const routes: Routes = [
     {path: '', component: MFrameworkComponent},
@@ -103,10 +104,10 @@ const routes: Routes = [
         MComponentAsDirectiveComponent,
         OutputListenersComponent,
         RunLazyRuntimeComponent,
-        TextareaTestComponent
+        TextareaTestComponent,
     ],
     exports: [MFrameworkComponent, ClassExampleComponent, DynamicComponent],
-    providers: [],
+    providers: [LazyRuntimeModuleService],
     entryComponents: [ClassExampleComponent, MDirectiveExampleComponent]
 })
 export class MFrameworkModule {

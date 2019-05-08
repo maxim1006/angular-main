@@ -1,2 +1,8 @@
-<div (mouseover)="load = true">Hover to load TestModule</div>
+<div style="margin-bottom: 30px;">
+    <button type="button" (click)="_loadRuntimeModule()">load lazy runtime module via Lazy runtime module service</button>
+    <ng-template #vcr></ng-template>
+</div>
+
+
+<div (mouseover)="load = true">Hover to load TestModule via <b>lazy-af</b></div>
 <lazy-af *ngIf="load" moduleName="src/app/modules/lazy-runtime/lazy-runtime.module#LazyRuntimeModule"></lazy-af>

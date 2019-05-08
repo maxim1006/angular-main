@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
     exports: [],
     declarations: [LazyRuntimeComponent],
     bootstrap: [LazyRuntimeComponent],
+    entryComponents: [LazyRuntimeComponent]
 })
 export class LazyRuntimeModule {
 }

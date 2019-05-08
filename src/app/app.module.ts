@@ -1,9 +1,4 @@
-import {
-    BrowserModule,
-    EVENT_MANAGER_PLUGINS,
-    HAMMER_GESTURE_CONFIG,
-    HammerGestureConfig
-} from '@angular/platform-browser';
+import {BrowserModule, EVENT_MANAGER_PLUGINS, HAMMER_GESTURE_CONFIG, HammerGestureConfig} from '@angular/platform-browser';
 import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
@@ -22,35 +17,31 @@ import {PageUtilsService} from './common/services/page-utils.service';
 import {domenToken} from './modules/shared/tokens/tokens';
 import {AppService} from './modules/app.service';
 import {HammerPluginPatch} from './common/patches/hammer-plugin.patch';
-import {PageLoaderService} from '@services/page-loader.service';
-import {StaticInjector} from '@angular/core/src/di/injector';
 import {MAdminComponent} from './modules/admin/admin.component';
 import {MAdminGuardService} from './modules/admin/admin-guard.service';
 import {MHttpRequestInterceptor} from './common/interceptors/http-request.interceptor';
 import {MDynamicService} from '@services/dynamic.service';
 import {MDynamicInternalService} from '@services/dynamic-internal.service';
-import { MDynamicAppComponent } from './components/dynamic-app/dynamic-app.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {MDynamicAppComponent} from './components/dynamic-app/dynamic-app.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
 
-export function routeServiceFactory (route: RouteService): () => {} {
+export function routeServiceFactory(route: RouteService): () => {} {
     return () => route.init();
 }
 
-export class MyHammerConfig extends HammerGestureConfig  {
+export class MyHammerConfig extends HammerGestureConfig {
     overrides = <any>{
         'swipe': {velocity: 0.4, threshold: 20} // override default settings
     };
 }
 
 
-
 /*Создать инстанс сервиса*/
 const childInjector: Injector = Injector.create({
     providers: [{provide: PageUtilsService, useClass: PageUtilsService, deps: []}]
 });
-
 
 
 @NgModule({
@@ -70,7 +61,7 @@ const childInjector: Injector = Injector.create({
         SharedModule,
         MRxjsModule,
         MForRootModule.forRoot({data: 1}), //так могу в модуль прокинуть инфу
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         AppRoutingModule,  //этот модуль, в котором все руты приложения должен идти в самом конце, после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
     ],
     providers: [
@@ -107,7 +98,7 @@ const childInjector: Injector = Injector.create({
             provide: HTTP_INTERCEPTORS,
             useClass: MHttpRequestInterceptor,
             multi: true
-        }
+        },
 
         //{provide: APP_BASE_HREF, useValue: '/'} //можно использовать ExampleComponent.ts вместо <base href="/">
     ],
@@ -119,7 +110,7 @@ const childInjector: Injector = Injector.create({
     ]
 })
 export class AppModule {
-    constructor (private injector: Injector) {
+    constructor(private injector: Injector) {
         // console.log(this.injector.get(PageUtilsService) === childInjector.get(PageUtilsService)); // false - создал новый инстанс сервиса (см. выше) и сравниваю с общим
     }
 }
