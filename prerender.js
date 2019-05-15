@@ -8,7 +8,13 @@ const { uniq, difference } = require('lodash');
 const PORT = 4000;
 const HOST = `http://localhost:${PORT}`;
 
-let PAGES = [
+// это аргументы которые могу передать после команды
+// npm run buildPrerenderSSR. Первые 2 значения это пути к ноде и скрипту
+// т.е. могу сделать такую команду и отренедерить только '' и home странички:
+// "buildPrerenderSSR": "node ./prerender.js '' home",
+process.argv = process.argv.splice(2);
+
+let PAGES = process.argv.length ? process.argv : [
     'home',
     'components',
     'css',
@@ -26,6 +32,7 @@ let PAGES = [
     'protected-lazy',
     'admin',
 ];
+
 let RENDERED_PAGES = [];
 
 async function main() {
