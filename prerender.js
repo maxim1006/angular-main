@@ -75,7 +75,7 @@ async function main() {
             await mkdir(dir);
 
         // Write the rendered html file
-        await writeFile(file, result);
+        await writeFile(file, `<!doctype html> ${result}`);
     }
 
 
