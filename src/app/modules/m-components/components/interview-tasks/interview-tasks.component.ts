@@ -74,3 +74,56 @@ export class InterviewTasksComponent implements OnInit {
   }
 
 }
+
+
+// Дана строка, состоящая из букв A-Z:
+// AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB
+//
+// Нужно написать функцию RLE, которая на выходе даст строку вида:
+//     A4B3C2XYZD4E3F3A6B28
+//
+// И сгенерирует ошибку, если на вход пришла невалидная строка.
+//     Пояснения:
+// Если символ встречается 1 раз, он остается без изменений;
+// Если символ повторяется более 1 раза, к нему добавляется количество повторений.
+
+
+// На входе массив
+// var arr = [
+//     {name: 'width', value: 10},
+//     {name: 'height', value: 20}
+// ];
+// На выходе объект {width: 10, height: 20}
+function  convertToObject(arr) {
+    const obj = {};
+
+    arr.forEach(({name, value}) => {
+        obj[name] = value;
+    });
+
+    return obj;
+}
+
+
+// var i = 10;
+// var array = [];
+//
+//
+// while (i--) {
+//     array.push(function() {
+//         return i + i;
+//     });
+// }
+
+let i = 10;
+const array = [];
+
+while (i--) {
+    ((i) => {
+        array.push(function() {
+            return i + i;
+        });
+    })(i);
+}
+
+console.log(array[0](), array[1]());

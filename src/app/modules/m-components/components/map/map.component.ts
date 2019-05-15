@@ -55,14 +55,11 @@ export class MapComponent implements OnInit {
 
 
         // set full
-        let map1 = new Map<any, any>([
-            [1, 1],
-            ['1', '1']
-        ]);
+        let map1 = new Map();
 
         const obj1 = {name: 'Max', age: 31};
 
-        map1 = [Object.entries(obj1)];
+        map1 = [Object.entries(obj1)] as any;
 
         console.log(map1);
     }
