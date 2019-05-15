@@ -71,8 +71,9 @@ async function main() {
         const file = join(process.cwd(), 'dist', p, 'index' + '.html');
 
         // Test if the directory exist, if not create the directory
-        if (!(await exists(dir)))
-            await mkdir(dir);
+        if (!(await exists(dir))) {
+            await mkdir(dir, {recursive: true});
+        }
 
         // Write the rendered html file
         await writeFile(file, `<!doctype html> ${result}`);
