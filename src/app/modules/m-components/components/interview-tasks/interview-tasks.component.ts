@@ -118,12 +118,20 @@ function  convertToObject(arr) {
 let i = 10;
 const array = [];
 
+// while (i--) {
+//     ((i) => {
+//         array.push(function() {
+//             return i + i;
+//         });
+//     })(i);
+// }
+
 while (i--) {
-    ((i) => {
-        array.push(function() {
-            return i + i;
-        });
-    })(i);
+    const currentI = i;
+
+    array.push(function() {
+        return currentI + currentI;
+    });
 }
 
 console.log(array[0](), array[1]());
