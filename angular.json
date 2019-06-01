@@ -24,7 +24,9 @@
                                 "externals": "prepend"
                             }
                         },
-                        "lazyModules": ["src/app/modules/lazy-runtime/lazy-runtime.module"],
+                        "lazyModules": [
+                            "src/app/modules/lazy-runtime/lazy-runtime.module"
+                        ],
                         "outputPath": "dist",
                         "index": "src/index.html",
                         "main": "src/main.ts",
@@ -42,7 +44,13 @@
                                 "bundleName": "base"
                             }
                         ],
-                        "scripts": []
+                        "scripts": [
+                            {
+                                "input": "src/global.script.ts",
+                                "bundleName": "renamed-global",
+                                "lazy": true
+                            }
+                        ]
                     },
                     "configurations": {
                         "hmr": {
