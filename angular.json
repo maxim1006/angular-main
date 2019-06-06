@@ -37,7 +37,7 @@
                             "src/assets",
                             "src/manifest.json"
                         ],
-                        "statsJson": false,
+                        "statsJson": true,
                         "styles": [
                             {
                                 "input": "src/assets/themes/base/styles/base.less",
