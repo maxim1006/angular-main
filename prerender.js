@@ -15,6 +15,7 @@ const HOST = `http://localhost:${PORT}`;
 process.argv = process.argv.splice(2);
 
 let PAGES = process.argv.length ? process.argv : [
+    '',
     'home',
     'components',
     'css',
