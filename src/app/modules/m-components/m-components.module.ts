@@ -33,6 +33,7 @@ import { DebounceComponent } from './components/debounce/debounce.component';
 import { InterviewTasksComponent } from './components/interview-tasks/interview-tasks.component';
 import { ThrottleComponent } from './components/throttle/throttle.component';
 import { MapComponent } from './components/map/map.component';
+import {SmoothScrollComponent} from './components/smooth-scroll/smooth-scroll.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -68,7 +69,7 @@ const directives = [
 @NgModule({
     imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
     declarations: [
-        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent, LinkBlankComponent, NetworkEffectiveTipeComponent, InheritanceCompositionComponent, DebounceComponent, ThrottleComponent, MapComponent
+        ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent, LinkBlankComponent, NetworkEffectiveTipeComponent, InheritanceCompositionComponent, DebounceComponent, ThrottleComponent, MapComponent, SmoothScrollComponent
     ],
     exports: [MComponentsComponent],
     entryComponents: [...components],
