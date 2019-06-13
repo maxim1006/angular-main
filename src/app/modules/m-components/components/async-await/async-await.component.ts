@@ -36,6 +36,9 @@ export class AsyncAwaitComponent implements OnInit {
         //     .then((data) => console.log(data))
         //     .catch(err => console.log(err));
         //
+        // const response = await fetch("http://localhost:4201/assets/mocks/family.json");
+        // const json = await response.json();
+        // console.log(json);
         //
         // Promise.resolve().then(_ => console.log("promise resolve"));
 
