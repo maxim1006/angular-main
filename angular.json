@@ -47,8 +47,7 @@
                         "scripts": [
                             {
                                 "input": "src/global.script.ts",
-                                "bundleName": "renamed-global",
-                                "lazy": true
+                                "bundleName": "renamed-global"
                             }
                         ]
                     },
