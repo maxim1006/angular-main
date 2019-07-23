@@ -247,6 +247,13 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
 // .pipe(doOnSubscribe(() => {console.log("subscribed");}))
+// const s = of([1, 2]);
+//
+// s.pipe(doOnSubscribe(() => {
+//     console.log(123);
+// })).subscribe((value) => {
+//     console.log(value);
+// });
 
 export function doOnSubscribe<T>(onSubscribe: () => void): (source: Observable<T>) =>  Observable<T> {
     return function inner(source: Observable<T>): Observable<T> {
