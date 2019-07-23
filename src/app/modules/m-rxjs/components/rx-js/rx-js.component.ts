@@ -14,6 +14,7 @@ import {
     throwError
 } from 'rxjs/index';
 import {catchError, finalize, multicast, publishReplay, refCount, share} from 'rxjs/internal/operators';
+import {doOnSubscribe} from '../rxjs-example/rxjs-example.component';
 
 @Component({
     selector: 'rx-js',
@@ -182,6 +183,23 @@ export class RxJsComponent implements OnInit {
         });
 
         finalizeOSubscription.unsubscribe();
+
+
+        // finalize Subject
+        const s = new BehaviorSubject([1, 2]).pipe(
+            finalize(() => {console.log(`s is unsubscribed`); }),
+            // share() // так вызовется только 1 раз в сабскрайбах коллбек
+
+            // а так в каждой подписке выполнится коллбек
+            publishReplay(1),
+            refCount()
+        );
+
+        const subscr1 = s.subscribe(val => console.log(val));
+        const subscr2 = s.subscribe(val => console.log(val));
+
+        subscr1.unsubscribe();
+        subscr2.unsubscribe();
     }
 
     ngAfterViewInit() {
