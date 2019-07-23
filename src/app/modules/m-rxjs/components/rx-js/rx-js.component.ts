@@ -5,15 +5,15 @@ import {domenToken} from '../../../shared/tokens/tokens';
 import {HttpClient} from '@angular/common/http';
 import {
     AsyncSubject,
-    BehaviorSubject,
+    BehaviorSubject, from,
     Observable,
-    Observer,
+    Observer, of,
     ReplaySubject,
     Subject,
     Subscriber,
     throwError
 } from 'rxjs/index';
-import {catchError, finalize, share} from 'rxjs/internal/operators';
+import {catchError, finalize, multicast, publishReplay, refCount, share} from 'rxjs/internal/operators';
 
 @Component({
     selector: 'rx-js',
@@ -168,6 +168,20 @@ export class RxJsComponent implements OnInit {
         //
         // asyncSubject.complete(); // только когда сделаю complete, то сабджект вернет последнее значение
         /******************** /Subject **********************/
+
+
+        // finalyze проследить все отписки
+        const finalizeO = of([1, 2]);
+
+        const finalizeOSubscription = finalizeO.pipe(
+            finalize(() => {
+                console.log(`finalizeO is unsubscribed`);
+            })
+        ).subscribe((value) => {
+            console.log(`finalizeO subscribe `, value);
+        });
+
+        finalizeOSubscription.unsubscribe();
     }
 
     ngAfterViewInit() {
