@@ -23,6 +23,11 @@ export class DeferLoadDirective {
             // threshold: 0
         });
         this._intersectionObserver.observe((this._element.nativeElement));
+
+        // фоллбек
+        // if (this._element.nativeElement.getBoundingClientRect().top < window.innerHeight) {
+        //     console.log('visible');
+        // }
     }
 
     constructor (
