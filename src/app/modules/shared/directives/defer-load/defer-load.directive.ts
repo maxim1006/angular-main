@@ -25,7 +25,7 @@ export class DeferLoadDirective {
         this._intersectionObserver.observe((this._element.nativeElement));
 
         // фоллбек
-        // if (this._element.nativeElement.getBoundingClientRect().top < window.innerHeight) {
+        // if (this._element.nativeElement.getBoundingClientRect().top <= window.innerHeight) {
         //     console.log('visible');
         // }
     }
