@@ -9,6 +9,13 @@ import {Component, OnInit} from '@angular/core';
         <p></p>
         <input type="file" (change)="handleFiles($event)">
         <p>Uploaded json: {{uploadedJson}}</p>
+        
+        <p>Uplad image</p>
+        <input #inputFiles type="file" id="fileElem" multiple accept="image/*" style="display:none" (change)="handleImages($event)">
+        <a href="#" (click)="$event.preventDefault(); inputFiles.click()" id="fileSelect">Upload images</a>
+        <div id="fileList">
+            <p *ngIf="emptyFilesMessageVisible">No files selected!</p>
+        </div>
     `
 })
 
@@ -19,6 +26,7 @@ export class MUploadDownloadComponent {
     };
 
     uploadedJson: string;
+    emptyFilesMessageVisible = 'Choose files';
 
     onNameInput(event) {
         this.items.name = event.target.value;
@@ -50,5 +58,38 @@ export class MUploadDownloadComponent {
         link.href = URL.createObjectURL(file);
         link.download = filename;
         link.click();
+    }
+
+    handleImages(event) {
+        window.URL = window.URL || window['webkitURL'];
+
+        const files = event.target.files;
+
+        this.emptyFilesMessageVisible = files.length;
+
+        const fileList = document.querySelector('#fileList');
+
+        fileList.innerHTML = '';
+        fileList.appendChild(document.createElement('ul'));
+
+        if (files.length) {
+            for (let i = 0; i < files.length; i++) {
+                const img = document.createElement('img');
+                img.src = window.URL.createObjectURL(files[i]);
+                img.height = 150;
+                img.onload = function() {
+                    window.URL.revokeObjectURL(img.src);
+                };
+
+                const listItem = document.createElement('li');
+                const listItemInfo = document.createElement('span');
+
+                listItemInfo.innerHTML = files[i].name + ': ' + files[i].size + ' bytes';
+
+                listItem.appendChild(img);
+                listItem.appendChild(listItemInfo);
+                fileList.appendChild(listItem);
+            }
+        }
     }
 }    
