@@ -34,6 +34,7 @@ import { InterviewTasksComponent } from './components/interview-tasks/interview-
 import { ThrottleComponent } from './components/throttle/throttle.component';
 import { MapComponent } from './components/map/map.component';
 import {SmoothScrollComponent} from './components/smooth-scroll/smooth-scroll.component';
+import {MUploadDownloadComponent} from './components/upload-download/upload-download.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -58,7 +59,8 @@ const components = [
     MSlideToggleComponent,
     ProgressBarComponent,
     MGridComponent,
-    InterviewTasksComponent
+    InterviewTasksComponent,
+    MUploadDownloadComponent
 ];
 
 const directives = [
