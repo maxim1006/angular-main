@@ -13,12 +13,12 @@ export class MScrollComponent implements OnInit {
     @Input() public minSliderSize: number;
     @Input() public minSliderWidthSize: number;
 
-    @ViewChild('mScrollInner') mScrollInner: ElementRef;
-    @ViewChild('mScroll') mScroll: ElementRef;
-    @ViewChild('mScrollSlider') mScrollSlider: ElementRef;
-    @ViewChild('mScrollSliderWrap') mScrollSliderWrap: ElementRef;
-    @ViewChild('mScrollSliderHorizontal') mScrollSliderHorizontal: ElementRef;
-    @ViewChild('mScrollSliderWrapHorizontal') mScrollSliderWrapHorizontal: ElementRef;
+    @ViewChild('mScrollInner', {static: false}) mScrollInner: ElementRef;
+    @ViewChild('mScroll', {static: false}) mScroll: ElementRef;
+    @ViewChild('mScrollSlider', {static: false}) mScrollSlider: ElementRef;
+    @ViewChild('mScrollSliderWrap', {static: false}) mScrollSliderWrap: ElementRef;
+    @ViewChild('mScrollSliderHorizontal', {static: false}) mScrollSliderHorizontal: ElementRef;
+    @ViewChild('mScrollSliderWrapHorizontal', {static: false}) mScrollSliderWrapHorizontal: ElementRef;
 
     private obj: HTMLElement;
     private scroll: HTMLElement;

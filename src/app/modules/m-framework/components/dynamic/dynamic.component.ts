@@ -38,14 +38,14 @@ import {DynamicHostDirective} from './dynamic-host.directive';
     `
 })
 export class DynamicComponent {
-    @ViewChild('tmpl')
+    @ViewChild('tmpl', {static: false})
     public template: any;
 
-    @ViewChild('viewFromSomeDiv', {read: ViewContainerRef}) viewFromSomeDiv: ViewContainerRef;
+    @ViewChild('viewFromSomeDiv', {read: ViewContainerRef, static: false}) viewFromSomeDiv: ViewContainerRef;
 
-    @ViewChild('viewFromSomeDivElementRef') viewFromSomeDivElementRef: ElementRef;
+    @ViewChild('viewFromSomeDivElementRef', {static: false}) viewFromSomeDivElementRef: ElementRef;
 
-    @ViewChild(DynamicHostDirective) host: DynamicHostDirective;
+    @ViewChild(DynamicHostDirective, {static: false}) host: DynamicHostDirective;
 
     private contentEmbeddedView: EmbeddedViewRef<any>;
 

@@ -1,4 +1,4 @@
-import {CanLoad, RouterModule, Routes} from '@angular/router';
+import {CanLoad, PreloadingStrategy, Route, RouterModule, Routes} from '@angular/router';
 import {Injectable, NgModule} from '@angular/core';
 import {MHttpComponent} from './modules/m-http/m-http.component';
 import {MFormComponent} from './modules/m-forms/m-form.component';
@@ -7,9 +7,7 @@ import {MAdminComponent} from './modules/admin/admin.component';
 import {MAdminGuardService} from './modules/admin/admin-guard.service';
 import {MHomeComponent} from './modules/m-home/m-home.component';
 import {MRxjsComponent} from './modules/m-rxjs/m-rxjs.component';
-import {Route} from '@angular/router/src/config';
-import {Observable, of} from 'rxjs/index';
-import {PreloadingStrategy} from '@angular/router/src/router_preloader';
+import {Observable, of} from 'rxjs';
 
 
 @Injectable()
@@ -41,27 +39,29 @@ const routes: Routes = [
     // {path: '', redirectTo: '/framework', pathMatch: 'full'}, //redirect example
     // {path: 'framework', component: MFrameworkComponent}, //simple module loading
     // {path: 'components', component: MComponentsComponent},
-    {path: 'components', loadChildren: './modules/m-components/m-components.module#MComponentsModule', data: { state: 'components', preload: true }},
-    {path: 'css', loadChildren: './modules/css/css.module#CssModule'},
-    {path: 'typescript', loadChildren: './modules/typescript/typescript.module#TypescriptModule'},
+    {path: 'components', loadChildren: () => import('./modules/m-components/m-components.module').then(m => m.MComponentsModule), data: { state: 'components', preload: true }
+    },
+    {path: 'css', loadChildren: () => import('./modules/css/css.module').then(m => m.CssModule)},
+    {path: 'typescript', loadChildren: () => import('./modules/typescript/typescript.module').then(m => m.TypescriptModule)},
     {path: 'http', component: MHttpComponent, data: { state: 'http' }},
     {path: 'forms', component: MFormComponent, data: { state: 'forms' }},
     {path: 'rxjs', component: MRxjsComponent, data: { state: 'rxjs' }},
-    {path: 'framework', loadChildren: './modules/m-framework/m-framework.module#MFrameworkModule', data: {state: 'framework', preload: true}},
-    {path: 'router', loadChildren: './modules/router/router.module#MRouterModule', data: {state: 'router', preload: true}},
-    {path: 'ngrx', loadChildren: './modules/ngrx/ngrx.module#MNgrxModule', data: {state: 'ngrx', preload: true}},
-    {path: 'redux', loadChildren: './modules/redux/redux.module#MReduxModule', data: {state: 'ngrx', preload: true}},
-    {path: 'my-store', loadChildren: './modules/my-store/my-store.module#MyStoreModule'},
-    {path: 'my-redux-store', loadChildren: './modules/my-redux-store/my-redux-store.module#MyReduxStoreModule'},
+    {path: 'framework', loadChildren: () => import('./modules/m-framework/m-framework.module').then(m => m.MFrameworkModule), data: {state: 'framework', preload: true}},
+    {path: 'router', loadChildren: () => import('./modules/router/router.module').then(m => m.MRouterModule), data: {state: 'router', preload: true}},
+    {path: 'ngrx', loadChildren: () => import('./modules/ngrx/ngrx.module').then(m => m.MNgrxModule), data: {state: 'ngrx', preload: true}},
+    {path: 'redux', loadChildren: () => import('./modules/redux/redux.module').then(m => m.MReduxModule), data: {state: 'ngrx', preload: true}},
+    {path: 'my-store', loadChildren: () => import('./modules/my-store/my-store.module').then(m => m.MyStoreModule)},
+    {path: 'my-redux-store', loadChildren: () => import('./modules/my-redux-store/my-redux-store.module').then(m => m.MyReduxStoreModule)},
     //  preload: true - делаю специально, чтобы не подгружать лезийный модуль с помощью прелоадинга
-    {path: 'lazy', loadChildren: './modules/lazy/lazy.module#MLazyModule', data: { state: 'lazy'}},
+    {path: 'lazy', loadChildren: () => import('./modules/lazy/lazy.module').then(m => m.MLazyModule), data: { state: 'lazy'}},
     {path: 'protected-lazy',
         canLoad: [ProtectedLazyGuard], // cпецифично для лезийных модулей или лезийных чайлдов
-        loadChildren: './modules/m-protected-lazy/m-protected-lazy.module#MProtectedLazyModule', data: { state: 'protectedLazy'}},
+        loadChildren: () => import('./modules/m-protected-lazy/m-protected-lazy.module').then(m => m.MProtectedLazyModule), data: { state: 'protectedLazy'}
+    },
     {
         path: 'admin',
         component: MAdminComponent,
-        canActivate: [MAdminGuardService], //этот гард работает, просто в апп модуле подключил админ модуль со своим роутером.
+        canActivate: [MAdminGuardService], // этот гард работает, просто в апп модуле подключил админ модуль со своим роутером.
         canDeactivate: [MAdminGuardService]
     },
     {path: '**', component: PageNotFoundComponent},
@@ -69,7 +69,7 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        //preloadingStrategy: PreloadAllModules - начинает загрузку модулей сразу после загрузки основного
+        // preloadingStrategy: PreloadAllModules - начинает загрузку модулей сразу после загрузки основного
         // enableTracing: true позволяет посмотреть все переходы роутера
         // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
         RouterModule.forRoot(routes, {

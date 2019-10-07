@@ -9,10 +9,10 @@ export class NgTemplateExampleComponent {
     public constructor() {
     }
 
-    @ViewChild('tmpl')
+    @ViewChild('tmpl', {static: false})
     public _tmpl: TemplateRef<any>;
 
-    @ViewChild('someDiv', {read: ViewContainerRef})
+    @ViewChild('someDiv', {read: ViewContainerRef, static: false})
     public _someDiv: ViewContainerRef;
 
     ngAfterContentInit() {

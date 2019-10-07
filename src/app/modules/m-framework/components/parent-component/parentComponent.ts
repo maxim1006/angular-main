@@ -42,10 +42,10 @@ export class ParentComponent implements OnInit {
 
     //так могу находить любой компонент в темплейте и дергать его апи, тоже самое, что и с #child, только с локальной переменной я могу это сделать только в шаблоне, а так могу и в контроллере
     //@ViewChild('child', {read: ElementRef}) //если кастомный элемент, то пишу так, чтобы получить его дом элемент, даже п
-    @ViewChild('child')
+    @ViewChild('child', {static: false})
     private childComponent: ChildComponent;
 
-    @ViewChild('child', {read: ElementRef})
+    @ViewChild('child', {read: ElementRef, static: false})
     private childComponentElementRef: ChildComponent;
 
     @ViewChildren('button')

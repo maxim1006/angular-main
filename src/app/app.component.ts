@@ -67,7 +67,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     /*************************************/
 
 
-    @ViewChild('dynamicComponent', {read: ViewContainerRef})
+    @ViewChild('dynamicComponent', {read: ViewContainerRef, static: false})
     dynamicComponentRef: ViewContainerRef;
 
     @HostBinding('class')

@@ -25,7 +25,7 @@ import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 
 export class ProgressBarComponent {
 
-    @ViewChild('progressBarLineInner')
+    @ViewChild('progressBarLineInner', {static: false})
     private line: ElementRef;
 
 

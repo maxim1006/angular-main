@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ViewContainerRef} from '@angular/core';
+import {Component, ViewChild, ViewContainerRef} from '@angular/core';
 import {LazyRuntimeModuleService} from '../../services/lazy-module.service';
 
 // демонстрация lazy-af модуля
@@ -9,14 +9,15 @@ import {LazyRuntimeModuleService} from '../../services/lazy-module.service';
     styleUrls: ['./run-lazy-runtime.component.less']
 })
 export class RunLazyRuntimeComponent {
-    @ViewChild('vcr', {read: ViewContainerRef})
+    @ViewChild('vcr', {read: ViewContainerRef, static: false})
     vcrRef: ViewContainerRef;
 
     public load: boolean;
 
     constructor(
         private lazyRuntimeModuleService: LazyRuntimeModuleService
-    ) {}
+    ) {
+    }
 
 
     // это пример лезийной подгрузки модуля 'src/app/modules/lazy-runtime/lazy-runtime.module#LazyRuntimeModule', затем

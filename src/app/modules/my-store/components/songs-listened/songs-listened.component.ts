@@ -25,7 +25,7 @@ export class SongsListenedComponent implements OnInit {
     ngOnInit() {
         this.listened$ = this.store.select('playlist').pipe(
             filter(Boolean), // так проверяю есть ли дата в потоке
-            map((playlist) => playlist.filter((song) => song.listened))
+            map((playlist) => (playlist as any).filter((song) => song.listened))
         );
     }
 

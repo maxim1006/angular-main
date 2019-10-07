@@ -9,9 +9,9 @@ import {auditTime} from 'rxjs/operators';
 })
 export class ThrottleComponent implements AfterViewInit {
 
-    @ViewChild('testEl')
+    @ViewChild('testEl', {static: false})
     testElRef: ElementRef;
-    @ViewChild('testEl1')
+    @ViewChild('testEl1', {static: false})
     testElRef1: ElementRef;
 
     constructor(private elRef: ElementRef) {

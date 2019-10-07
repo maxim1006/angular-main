@@ -134,7 +134,7 @@ const routes: Routes = [
         children: [
             {
                 path: 'products',
-                loadChildren: './modules/products/products.module#ProductsModule',
+                loadChildren: () => import('./modules/products/products.module').then(m => m.ProductsModule),
             },
         ]
     }

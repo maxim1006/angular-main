@@ -39,7 +39,7 @@ export class MDynamicComponent implements OnDestroy {
     //а в компоненте:
     // @ViewChild(MDynamicDirective) mDynamic: MDynamicDirective;
 
-    @ViewChild('mDynamic', {read: ViewContainerRef}) mDynamic: ViewContainerRef;
+    @ViewChild('mDynamic', {read: ViewContainerRef, static: false}) mDynamic: ViewContainerRef;
 
     constructor(private _componentFactoryResolver: ComponentFactoryResolver) {}
 

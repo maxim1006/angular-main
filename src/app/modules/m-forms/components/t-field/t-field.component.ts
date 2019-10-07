@@ -22,7 +22,7 @@ export class TField implements ControlValueAccessor {
     @HostBinding('class._disabled')
     private disabledState = false;
 
-    @ViewChild('input')
+    @ViewChild('input', {static: false})
     private inputRef: ElementRef;
 
     @Output()

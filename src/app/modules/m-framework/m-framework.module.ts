@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {HttpModule} from '@angular/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MFrameworkComponent} from './m-framework.component';
 import {ElementLinkComponent} from './components/element-link_viewChild_viewChildren/elementLinkComponent';
@@ -44,9 +43,10 @@ import {MyForDirective} from './directives/my-for.directive';
 import {MComponentAsDirectiveComponent} from './components/component-as-directive/component-as-directive.component';
 import {OutputListenersComponent} from './components/output-listeners/output-listeners.component';
 import {RunLazyRuntimeComponent} from './components/run-lazy-runtime/run-lazy-runtime.component';
-import {LazyModule} from '@herodevs/lazy-af';
 import {TextareaTestComponent} from './components/textarea-test/textarea-test.component';
 import {LazyRuntimeModuleService} from './services/lazy-module.service';
+import {HttpClientModule} from '@angular/common/http';
+import {HeroLoaderModule} from '@herodevs/hero-loader';
 
 const routes: Routes = [
     {path: '', component: MFrameworkComponent},
@@ -55,9 +55,9 @@ const routes: Routes = [
 @NgModule({
     imports: [
         SharedModule,
-        HttpModule,
+        HttpClientModule,
         FormsModule,
-        LazyModule,
+        HeroLoaderModule,
         ReactiveFormsModule,
         RouterModule.forChild(routes)
     ],
