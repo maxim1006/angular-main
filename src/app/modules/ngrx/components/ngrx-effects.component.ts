@@ -66,7 +66,7 @@ export class MNgrxEffectsComponent implements OnInit {
     constructor(private store: Store<AppState>) {}
 
     ngOnInit() {
-        this.store.dispatch(new fromStore.LoadFamilyAction());
+        this.store.dispatch(fromStore.LoadFamilyAction());
     }
 
     /** @internal */
@@ -81,7 +81,7 @@ export class MNgrxEffectsComponent implements OnInit {
             return;
         }
 
-        this.store.dispatch(new fromStore.FamilyAddAction({
+        this.store.dispatch(fromStore.FamilyAddAction({
             name,
             age,
             id: + new Date()
@@ -90,16 +90,16 @@ export class MNgrxEffectsComponent implements OnInit {
 
     /** @internal */
     public _removeFamilyMember(familyMember: FamilyMember): void {
-        this.store.dispatch(new fromStore.FamilyRemoveAction(familyMember));
+        this.store.dispatch(fromStore.FamilyRemoveAction(familyMember));
     }
 
     /** @internal */
     public _resetFamily(): void {
-        this.store.dispatch(new fromStore.FamilyResetAction());
+        this.store.dispatch(fromStore.FamilyResetAction());
     }
 
     /** @internal */
     public _onInput(value): void {
-        this.store.dispatch(new fromStore.FamilyServerSearchAction(value));
+        this.store.dispatch(fromStore.FamilyServerSearchAction(value));
     }
 }

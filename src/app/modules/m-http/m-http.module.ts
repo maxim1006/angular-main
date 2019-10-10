@@ -12,7 +12,8 @@ export abstract class RestrictedNewService {
     restrictedMethod: () => any;
 }
 
-export const ValueConfig = new InjectionToken('Value'); // делаю этот токен, чтобы не перезаписывался сервис, если вдруг 2 одинаковых имени зададут подряд.
+// делаю этот токен, чтобы не перезаписывался сервис, если вдруг 2 одинаковых имени зададут подряд.
+export const ValueConfig = new InjectionToken('Value');
 
 
 @NgModule({
