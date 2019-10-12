@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/internal/Observable';
 import * as fromStore from '../store';
+import * as familyActions from '../store/actions/family.action';
 import {FamilyMember} from '@models/family.model';
 
 
@@ -66,7 +67,7 @@ export class MNgrxEffectsComponent implements OnInit {
     constructor(private store: Store<AppState>) {}
 
     ngOnInit() {
-        this.store.dispatch(fromStore.LoadFamilyAction());
+        this.store.dispatch(familyActions.load());
     }
 
     /** @internal */
@@ -81,25 +82,29 @@ export class MNgrxEffectsComponent implements OnInit {
             return;
         }
 
-        this.store.dispatch(fromStore.FamilyAddAction({
+        const newFamilyMember = {
             name,
             age,
             id: + new Date()
+        };
+
+        this.store.dispatch(familyActions.add({
+            newFamilyMember
         }));
     }
 
     /** @internal */
     public _removeFamilyMember(familyMember: FamilyMember): void {
-        this.store.dispatch(fromStore.FamilyRemoveAction(familyMember));
+        this.store.dispatch(familyActions.remove({removedMember: familyMember}));
     }
 
     /** @internal */
     public _resetFamily(): void {
-        this.store.dispatch(fromStore.FamilyResetAction());
+        this.store.dispatch(familyActions.reset());
     }
 
     /** @internal */
     public _onInput(value): void {
-        this.store.dispatch(fromStore.FamilyServerSearchAction(value));
+        this.store.dispatch(familyActions.serverSearch(value));
     }
 }
