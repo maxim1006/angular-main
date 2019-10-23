@@ -29,7 +29,7 @@ export class BootstrapInTagModule {
         }
 
         if (element = document.querySelector('#bootstrapInTag2')) {
-            this._appRef.bootstrap(BootstrapInTag1Component, element);
+            this._appRef.bootstrap(BootstrapInTag2Component, element);
         }
     }
 }
