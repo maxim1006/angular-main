@@ -13,7 +13,7 @@ export class MDynamicComponent implements OnDestroy {
     _model: MDynamicComponentConstructor;
 
     @Input()
-    public set componentModel(value: MDynamicComponentConstructor) {
+    public set componentModel(value: any) {
         this._model = value;
         this._createComponent();
     }

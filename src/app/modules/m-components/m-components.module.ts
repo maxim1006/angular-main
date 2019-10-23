@@ -35,6 +35,7 @@ import { ThrottleComponent } from './components/throttle/throttle.component';
 import { MapComponent } from './components/map/map.component';
 import {SmoothScrollComponent} from './components/smooth-scroll/smooth-scroll.component';
 import {MUploadDownloadComponent} from './components/upload-download/upload-download.component';
+import {MSvgComponent} from './components/svg/svg.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -60,7 +61,8 @@ const components = [
     ProgressBarComponent,
     MGridComponent,
     InterviewTasksComponent,
-    MUploadDownloadComponent
+    MUploadDownloadComponent,
+    MSvgComponent,
 ];
 
 const directives = [
