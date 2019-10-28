@@ -47,6 +47,7 @@ import {TextareaTestComponent} from './components/textarea-test/textarea-test.co
 import {LazyRuntimeModuleService} from './services/lazy-module.service';
 import {HttpClientModule} from '@angular/common/http';
 import {HeroLoaderModule} from '@herodevs/hero-loader';
+import {MixinsComponent} from './components/mixins/mixins.component';
 
 const routes: Routes = [
     {path: '', component: MFrameworkComponent},
@@ -105,6 +106,7 @@ const routes: Routes = [
         OutputListenersComponent,
         RunLazyRuntimeComponent,
         TextareaTestComponent,
+        MixinsComponent
     ],
     exports: [MFrameworkComponent, ClassExampleComponent, DynamicComponent],
     providers: [LazyRuntimeModuleService],
