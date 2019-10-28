@@ -4,7 +4,7 @@ import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {MHomeModule} from './modules/m-home/m-home.module';
 import {MRxjsModule} from './modules/m-rxjs/m-rxjs.module';
 import {MForRootModule} from './modules/m-for-root/m-for-root.module';
@@ -25,6 +25,8 @@ import {MDynamicInternalService} from '@services/dynamic-internal.service';
 import {MDynamicAppComponent} from './components/dynamic-app/dynamic-app.component';
 import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
+import {MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 
 export function routeServiceFactory(route: RouteService): () => {} {
@@ -36,6 +38,19 @@ export class MyHammerConfig extends HammerGestureConfig {
         'swipe': {velocity: 0.4, threshold: 20} // override default settings
     };
 }
+
+// ngx-translate
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
+
+export class MyMissingTranslationHandler implements MissingTranslationHandler {
+    handle(params: MissingTranslationHandlerParams) {
+        return 'Missing translate value';
+    }
+}
+/////////////////////////////
 
 
 /*Создать инстанс сервиса*/
@@ -62,6 +77,14 @@ const childInjector: Injector = Injector.create({
         MRxjsModule,
         MForRootModule.forRoot({data: 1}), //так могу в модуль прокинуть инфу
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
+        TranslateModule.forRoot({
+            missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler},
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
         AppRoutingModule,  //этот модуль, в котором все руты приложения должен идти в самом конце, после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
     ],
     providers: [

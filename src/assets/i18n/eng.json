@@ -1,0 +1,7 @@
+{
+    "HOME": {
+        "hello": "Welcome {{value}}",
+        "first": "First message",
+        "html": "Welcome <strong>{{value}}</strong>"
+    }
+}

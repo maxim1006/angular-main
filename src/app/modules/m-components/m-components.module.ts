@@ -22,20 +22,22 @@ import {MSlideToggleComponent} from './components/slide-toggle/slide-toggle.comp
 import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';
 import {MGridExampleComponent} from './components/grid-example/grid-example.component';
 import {MGridComponent} from './components/grid/grid.component';
-import { IntercectionObserverComponent } from './components/intercection-observer/intercection-observer.component';
-import { AsyncAwaitComponent } from './components/async-await/async-await.component';
-import { KeydownComponent } from './components/keydown/keydown.component';
+import {IntercectionObserverComponent} from './components/intercection-observer/intercection-observer.component';
+import {AsyncAwaitComponent} from './components/async-await/async-await.component';
+import {KeydownComponent} from './components/keydown/keydown.component';
 import {ConsoleExamplesComponent} from './components/console-examples/console-examples.component';
-import { LinkBlankComponent } from './components/link-blank/link-blank.component';
-import { NetworkEffectiveTipeComponent } from './components/network-effective-tipe/network-effective-tipe.component';
-import { InheritanceCompositionComponent } from './components/inheritance-composition/inheritance-composition.component';
-import { DebounceComponent } from './components/debounce/debounce.component';
-import { InterviewTasksComponent } from './components/interview-tasks/interview-tasks.component';
-import { ThrottleComponent } from './components/throttle/throttle.component';
-import { MapComponent } from './components/map/map.component';
+import {LinkBlankComponent} from './components/link-blank/link-blank.component';
+import {NetworkEffectiveTipeComponent} from './components/network-effective-tipe/network-effective-tipe.component';
+import {InheritanceCompositionComponent} from './components/inheritance-composition/inheritance-composition.component';
+import {DebounceComponent} from './components/debounce/debounce.component';
+import {InterviewTasksComponent} from './components/interview-tasks/interview-tasks.component';
+import {ThrottleComponent} from './components/throttle/throttle.component';
+import {MapComponent} from './components/map/map.component';
 import {SmoothScrollComponent} from './components/smooth-scroll/smooth-scroll.component';
 import {MUploadDownloadComponent} from './components/upload-download/upload-download.component';
 import {MSvgComponent} from './components/svg/svg.component';
+import {TranslateComponent} from './components/translate/translate.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -63,15 +65,14 @@ const components = [
     InterviewTasksComponent,
     MUploadDownloadComponent,
     MSvgComponent,
+    TranslateComponent,
 ];
 
-const directives = [
-];
-
+const directives = [];
 
 
 @NgModule({
-    imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes)],
+    imports: [SharedModule, HttpClientModule, FormsModule, RouterModule.forChild(routes), TranslateModule],
     declarations: [
         ...components, ...directives, MGridExampleComponent, IntercectionObserverComponent, AsyncAwaitComponent, KeydownComponent, ConsoleExamplesComponent, LinkBlankComponent, NetworkEffectiveTipeComponent, InheritanceCompositionComponent, DebounceComponent, ThrottleComponent, MapComponent, SmoothScrollComponent
     ],
