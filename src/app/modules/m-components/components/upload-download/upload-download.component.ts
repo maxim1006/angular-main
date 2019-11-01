@@ -1,4 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {domenToken} from '../../../shared/tokens/tokens';
 
 @Component({
     selector: 'm-upload-download',
@@ -9,13 +11,20 @@ import {Component, OnInit} from '@angular/core';
         <p></p>
         <input type="file" (change)="handleFiles($event)">
         <p>Uploaded json: {{uploadedJson}}</p>
-        
+
         <p>Uplad image</p>
-        <input #inputFiles type="file" id="fileElem" multiple accept="image/*" style="display:none" (change)="handleImages($event)">
+        <input #inputFiles type="file" id="fileElem" multiple accept="image/*" style="display:none" (change)="upload($event)">
         <a href="#" (click)="$event.preventDefault(); inputFiles.click()" id="fileSelect">Upload images</a>
         <div id="fileList">
             <p *ngIf="emptyFilesMessageVisible">No files selected!</p>
         </div>
+
+        <h3>Multer upload</h3>
+        <form action="/" method="post" enctype="multipart/form-data" (submit)="_submit($event, fileInput)">
+            <label>Файл</label><br>
+            <input type="file" name="filedata" #fileInput multiple/><br><br>
+            <input type="submit" value="Send"/>
+        </form>
     `
 })
 
@@ -27,6 +36,10 @@ export class MUploadDownloadComponent {
 
     uploadedJson: string;
     emptyFilesMessageVisible = 'Choose files';
+
+    constructor(private http: HttpClient) {
+
+    }
 
     onNameInput(event) {
         this.items.name = event.target.value;
@@ -60,7 +73,7 @@ export class MUploadDownloadComponent {
         link.click();
     }
 
-    handleImages(event) {
+    upload(event) {
         window.URL = window.URL || window['webkitURL'];
 
         const files = event.target.files;
@@ -77,7 +90,7 @@ export class MUploadDownloadComponent {
                 const img = document.createElement('img');
                 img.src = window.URL.createObjectURL(files[i]);
                 img.height = 150;
-                img.onload = function() {
+                img.onload = function () {
                     window.URL.revokeObjectURL(img.src);
                 };
 
@@ -91,5 +104,19 @@ export class MUploadDownloadComponent {
                 fileList.appendChild(listItem);
             }
         }
+    }
+
+    _submit(e, fileInput) {
+        e.preventDefault();
+
+        const formData: FormData = new FormData();
+
+        for (const file of fileInput.files) {
+            formData.append('fileData', file, file.name);
+        }
+
+        this.http.post(`${domenToken}api/upload`, formData).subscribe((data) => {
+            console.log(data);
+        });
     }
 }    

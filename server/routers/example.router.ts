@@ -27,13 +27,4 @@ exampleRouter.post('/', (req, res) => {
     res.status(200).json(body);
 });
 
-// TODO доделать аплоад
-// exampleRouter.post('/upload', multer({ dest: 'uploads/' }).array('files'), function (req, res, next) {
-//     const body = req.file;
-//
-//     console.log('example upload', body);
-//
-//     // res.json(req.body);
-// });
-
 export { exampleRouter };
