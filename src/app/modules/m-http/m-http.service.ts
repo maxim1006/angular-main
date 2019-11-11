@@ -15,25 +15,25 @@ export class MHttpService {
 
     getData(): Observable<FamilyMember[]> {
         return this.http
-            .get<FamilyMember[]>(`${domenToken}api/family`)
+            .get<FamilyMember[]>(`${domenToken}family`)
             .pipe(catchError((error: any) => throwError(error)));
     }
 
     getDataById(): Observable<number> {
         return this.http
-            .get<number>(`${domenToken}api/example/1`)
+            .get<number>(`${domenToken}example/1`)
             .pipe(catchError((error: any) => throwError(error)));
     }
 
     postData(data): Observable<FamilyMember> {
         return this.http
-            .post<FamilyMember>(`${domenToken}api/family`, data)
+            .post<FamilyMember>(`${domenToken}family`, data)
             .pipe(catchError((error: any) => throwError(error)));
     }
 
     postFile(formData: FormData): Observable<any> {
         return this.http
-            .post<FamilyMember>(`${domenToken}api/example/upload`, formData)
+            .post<FamilyMember>(`${domenToken}example/upload`, formData)
             .pipe(catchError((error: any) => throwError(error)));
     }
 

@@ -73,7 +73,7 @@ export class RouterIdComponent implements OnInit {
             switchMap(
                     (params: Params) => {
                         this.params = params;
-                        return this.http.get(`${domenTokenDb}family` + params['id'])
+                        return this.http.get(`${domenToken}family` + params['id'])
                             .pipe(map((family) => ({family, params})));
                     }
             ))

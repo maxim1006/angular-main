@@ -1,7 +1,6 @@
 import * as express from 'express';
 import * as fromFamily from '../mocks';
-import {exampleRouter} from './example.router';
-import {clearTimeout} from "timers";
+import {clearTimeout} from 'timers';
 
 const familyRouter = express.Router();
 
@@ -16,12 +15,14 @@ familyRouter.get('/search', (req, res) => {
     clearTimeout(timeoutId);
 
     timeoutId = setTimeout(() => {
-        if (req.query && typeof req.query.query === "string") {
-            const foundFamilyMembers = fromFamily.family.filter(item => item.name.toLowerCase().indexOf(req.query.query.toLowerCase()) > -1);
+        if (req.query && typeof req.query.query === 'string') {
+            const foundFamilyMembers =
+                fromFamily.family
+                    .filter(item => item.name.toLowerCase().indexOf(req.query.query.toLowerCase()) > -1);
 
             if (foundFamilyMembers.length) {
                 res.status(200).json(foundFamilyMembers);
-            }  else {
+            } else {
                 res.status(200).json([]);
             }
         } else {
@@ -31,11 +32,11 @@ familyRouter.get('/search', (req, res) => {
 });
 
 familyRouter.get('/families/:id', (req, res) => {
-    if (req.params && typeof +req.params.id === "number") {
-        if (fromFamily["family" + req.params.id]) {
-            res.status(200).json(fromFamily["family" + req.params.id]);
+    if (req.params && typeof +req.params.id === 'number') {
+        if (fromFamily['family' + req.params.id]) {
+            res.status(200).json(fromFamily['family' + req.params.id]);
         } else {
-            res.status(200).json("no such family");
+            res.status(200).json('no such family');
         }
     }
 });
@@ -48,5 +49,5 @@ familyRouter.post('/', (req, res) => {
     res.status(200).json(body);
 });
 
-export { familyRouter };
+export {familyRouter};
 

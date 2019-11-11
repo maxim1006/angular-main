@@ -7,8 +7,8 @@ import {MRouterPopupComponent} from './components/router-popup.component';
 import {ActivatedRouteSnapshot, Resolve, RouterModule, RouterStateSnapshot, Routes} from '@angular/router';
 import {domenToken, domenTokenDb} from '../shared/tokens/tokens';
 import {HttpClient} from '@angular/common/http';
-import {of} from 'rxjs';
-import {delay} from 'rxjs/internal/operators';
+import {of, throwError} from 'rxjs';
+import {catchError, delay} from 'rxjs/internal/operators';
 
 
 @Injectable()
@@ -19,7 +19,7 @@ export class RouterResolve implements Resolve<any> {
     // state - state роутера, нод в роутере и т.д.
     // могу их использовать чтобы чтото подгружать в компонент относительно пути
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        return this.http.get(`${domenTokenDb}family`);
+        return this.http.get(`${domenToken}family`).pipe(catchError((error: any) => throwError(error)));
     }
 }
 

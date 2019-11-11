@@ -27,6 +27,7 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import {AuthInterceptor} from './modules/auth/auth.interceptor';
 
 
 export function routeServiceFactory(route: RouteService): () => {} {
@@ -120,6 +121,11 @@ const childInjector: Injector = Injector.create({
         {
             provide: HTTP_INTERCEPTORS,
             useClass: MHttpRequestInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
             multi: true
         },
 
