@@ -60,7 +60,7 @@ import {Router} from '@angular/router';
 
 export class AuthComponent implements OnInit {
     public loginForm: FormGroup;
-    private html: SafeHtml;
+    public html: SafeHtml;
 
     constructor(
         private sanitizer: DomSanitizer,
