@@ -141,6 +141,10 @@ export class DynamicComponent {
     }
 
     ngOnDestroy() {
+        // если вдруг к вью сделал несколько дайнемик компонент, то чищу вью + приравинваю собственную ссылку
+        // на componentRef к null
+        // this.viewFromSomeDiv.clear();
+
         if (this._componentRef) {
             this._componentRef.destroy();
         }
