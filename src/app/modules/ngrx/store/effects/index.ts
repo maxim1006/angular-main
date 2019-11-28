@@ -28,3 +28,13 @@ shipOrder = this.actions.pipe(
    map(res => new SaveSuccess(res))
 );
 * */
+
+// возвращаю несколькко экшенов
+@Effect() save = this.update$.pipe(
+    map(action => action.payload),
+    switchMap(payload => this.myService.save(payload)),
+    switchMap(res => [
+        new Notification('save success'),
+        new SaveSuccess(res)
+    ])
+);
