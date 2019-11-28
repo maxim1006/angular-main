@@ -1,12 +1,10 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import * as fromFeature from '../reducers';
-import * as fromFamilyReducers from '../reducers/family.reducer';
 import * as fromFamilyReducer from '../reducers/family.reducer';
 
 export const getFamilyState = createFeatureSelector<fromFamilyReducer.FamilyState>('family');
 
 export const getFamilyEntities = createSelector(
-    getFamilyState, fromFamilyReducers.getFamilyEntities
+    getFamilyState, fromFamilyReducer.getFamilyEntities
 );
 
 export const getFamilyMembers = createSelector(
@@ -15,10 +13,10 @@ export const getFamilyMembers = createSelector(
     });
 
 export const getFamilyLoaded = createSelector(
-    getFamilyState, fromFamilyReducers.getFamilyLoaded);
+    getFamilyState, fromFamilyReducer.getFamilyLoaded);
 
 export const getFamilyFoundEntities = createSelector(
-    getFamilyState, fromFamilyReducers.getFamilyFoundEntities
+    getFamilyState, fromFamilyReducer.getFamilyFoundEntities
 );
 
 export const getFamilyFoundMembers = createSelector(
@@ -27,4 +25,4 @@ export const getFamilyFoundMembers = createSelector(
     });
 
 export const getFamilySearchLoading = createSelector(
-    getFamilyState, fromFamilyReducers.getFamilysSarchLoading);
+    getFamilyState, fromFamilyReducer.getFamilysSarchLoading);
