@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {domenToken, domenTokenDb} from '../../../shared/tokens/tokens';
 import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler, merge, defer} from 'rxjs';
+import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler, merge, defer, from} from 'rxjs';
 import {mergeAll, observeOn} from 'rxjs/operators';
 import {concatMap, delay, map} from 'rxjs/internal/operators';
 
@@ -72,7 +72,7 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
         // Запросы по нескольким id в порядке очереди приходят, сабскрйбится к каждому обзерваблу в отдельности,
         // дождется выполнения первого и лишь затем второго, сработает когда все придут
-        // let idsObservable$ = Observable.from([0,1,2]);
+        let idsObservable$ = from([0, 1, 2]);
 
         // let idsObservableInOrder$ = idsObservable$.pipe(
         //     map((id) => {
@@ -84,11 +84,11 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
         // let idsObservableInOrder$ = idsObservable$.pipe(
         //     concatMap((id) => {
-        //         return self._http.get(`${domenToken}family${id}.json`)
+        //         return self._http.get(`${domenToken}family/families/${id}`);
         //     })
         // );
         //
-        // idsObservableInOrder$.subscribe((data) => {console.log(data);});
+        // idsObservableInOrder$.subscribe((data) => {console.log(data); });
         /*****************************************/
 
 
@@ -121,10 +121,10 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
 
 
-        const source = of(
-            this._http.get(`${domenToken}family0.json`),
-            this._http.get(`${domenToken}family1.json`),
-            this._http.get(`${domenToken}family2.json`));
+        // const source = of(
+        //     this._http.get(`${domenToken}family0.json`),
+        //     this._http.get(`${domenToken}family1.json`),
+        //     this._http.get(`${domenToken}family2.json`));
 
         // const concatedAll$ = source.pipe(concatAll());
         //
@@ -170,7 +170,7 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         const intervalOne$ = interval(1000);
         const intervalTwo$ = interval(3000);
 
-        // когда хоть одно значение хоть у 1 обзервабла сработало выдает результат 2х
+        // когда хоть одно значение хоть у 1 обзервабла сработало выдает результат 2х, в начале подождет хотябы 1 результат всех обзервблов
         // combineLatest(intervalOne$, intervalTwo$)
         //     .subscribe(all => console.log('combineLatest ', all)); // [2, 0], [3, 0]...
 

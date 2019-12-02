@@ -6,7 +6,7 @@ mergeMap: when you want to concurrently handle all the emissions
 
 concatMap: when you want to handle the emissions one after the other as they are emitted
 
-exhaustMap: when you want to cancel all the new emissions while processing a previous emisssion
+exhaustMap: when you want to cancel all the new emissions while processing a previous emission
 
 
 ### Value from 2 observables
