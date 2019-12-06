@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { fromEvent, Subject, of, from, range, interval } from 'rxjs';
+import {fromEvent, Subject, of, from, range, interval, pipe} from 'rxjs';
 import {
     debounceTime,
     takeUntil,
@@ -259,12 +259,29 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         // });
 
         // flatMap - создает потоки обзервеблов, в данном примере на каждый клик будет создан
-        //обзервбл и в параллели выполнен, 3 клика, 3 потока, за которыми будем следить
-        // fromEvent(document, "click"); flatMap === mergeMap
-        //     .pipe(flatMap(_ => interval(1000)))
-        //     .subscribe((value) => {
-        //         console.log("flatMap subscribe ", value); 0,1,2,3 click 4,4,5,5
-        //     });
+        //обзервбл и последовательно выполнен, 3 клика, 3 потока, за которыми будем следить
+        fromEvent(document, "click")
+            .pipe(flatMap(_ => interval(1000)))
+            .subscribe((value) => {
+                console.log("flatMap subscribe ", value); // 0,1,2,3 click 4,4,5,5
+            });
+
+        // вместо внутрнних subscribe могу использовать flatMap
+        const o1$ = of(2);
+        const o2$ = of(3);
+
+        of(1).pipe(
+            flatMap(data => {
+                console.log("data o$ ", data);
+                return o1$;
+            }),
+            flatMap(data => {
+                console.log("data o1$ ", data);
+                return o2$;
+            })
+        ).subscribe(data => {
+            console.log("data o2$ ", data);
+        }); // последовательно получу 1 затем 2 затем 3
 
         // в отличие от flatMap не параллельно запускает потоки, а уничтожает предыдущий заменяя его новым
         // fromEvent(document, "click")

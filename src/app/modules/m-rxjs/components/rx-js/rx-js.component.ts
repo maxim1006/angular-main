@@ -172,34 +172,34 @@ export class RxJsComponent implements OnInit {
 
 
         // finalyze проследить все отписки
-        const finalizeO = of([1, 2]);
-
-        const finalizeOSubscription = finalizeO.pipe(
-            finalize(() => {
-                console.log(`finalizeO is unsubscribed`);
-            })
-        ).subscribe((value) => {
-            console.log(`finalizeO subscribe `, value);
-        });
-
-        finalizeOSubscription.unsubscribe();
+        // const finalizeO = of([1, 2]);
+        //
+        // const finalizeOSubscription = finalizeO.pipe(
+        //     finalize(() => {
+        //         console.log(`finalizeO is unsubscribed`);
+        //     })
+        // ).subscribe((value) => {
+        //     console.log(`finalizeO subscribe `, value);
+        // });
+        //
+        // finalizeOSubscription.unsubscribe();
 
 
         // finalize Subject
-        const s = new BehaviorSubject([1, 2]).pipe(
-            finalize(() => {console.log(`s is unsubscribed`); }),
-            // share() // так вызовется только 1 раз в сабскрайбах коллбек
-
-            // а так в каждой подписке выполнится коллбек
-            publishReplay(1),
-            refCount()
-        );
-
-        const subscr1 = s.subscribe(val => console.log(val));
-        const subscr2 = s.subscribe(val => console.log(val));
-
-        subscr1.unsubscribe();
-        subscr2.unsubscribe();
+        // const s = new BehaviorSubject([1, 2]).pipe(
+        //     finalize(() => {console.log(`s is unsubscribed`); }),
+        //     // share() // так вызовется только 1 раз в сабскрайбах коллбек
+        //
+        //     // а так в каждой подписке выполнится коллбек
+        //     publishReplay(1),
+        //     refCount()
+        // );
+        //
+        // const subscr1 = s.subscribe(val => console.log(val));
+        // const subscr2 = s.subscribe(val => console.log(val));
+        //
+        // subscr1.unsubscribe();
+        // subscr2.unsubscribe();
     }
 
     ngAfterViewInit() {
