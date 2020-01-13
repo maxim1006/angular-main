@@ -63,8 +63,9 @@ export class RouterIdComponent implements OnInit {
 
 
     ngOnInit() {
-        // так могу получить 1 раз
+        // так могу получить 1 раз, и посмотреть к примеру :id
         // this.params = this.route.snapshot.params;
+        // this.params = this.route.parent.snapshot.params;
 
         // в этом примере показываю как получить параметры из роутера, сделать запрос и прокинуть дальше
         // также тут пример сохранения params и прокидывания дальше на всякий случа, если нужно и family
