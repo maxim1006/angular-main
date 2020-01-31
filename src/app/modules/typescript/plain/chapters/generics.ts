@@ -1,3 +1,14 @@
+// Replace any type example
+// export interface GModel<T> {
+//     [prop: string]: T;
+// }
+//
+// const gModel: GModel<string> = {
+//     a: "1"
+// };
+
+
+
 const obj = {
     name: 'Max',
     age: 30

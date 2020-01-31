@@ -17,3 +17,25 @@
 //         }
 //     };
 // }
+
+
+
+// Union example
+interface BaseTest {
+    n: number;
+}
+
+interface BaseTestExtended extends BaseTest {
+    str: "";
+}
+
+interface BaseTestExtended1 extends BaseTest {
+    str1: "";
+}
+
+export type baseTestUnion = BaseTestExtended | BaseTestExtended1;
+
+const baseTest: BaseTest = {n: 1};
+const baseTestExtended: BaseTestExtended = {str: "", n: 1};
+const baseTestUnion: baseTestUnion = {str1: "", n: 1};
+const baseTestUnion1: baseTestUnion = {str: "", n: 1};
