@@ -32,6 +32,14 @@ export class InterviewTasksComponent implements OnInit {
       // task
       const initString = 'ar2ya Jo3hn Deyne1ris';
 
+      const matchAllString = initString["matchAll"](/\d/g);
+      for (const item of matchAllString) {
+          // ["2", index: 2, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+          // ["3", index: 8, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+          // ["1", index: 17, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+          console.log(item);
+      }
+
       const arr = initString.split(' ').sort((a, b) => {
           const aNumber = +a.match(/\d/)[0];
           const bNumber = +b.match(/\d/)[0];
