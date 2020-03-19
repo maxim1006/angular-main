@@ -1,5 +1,5 @@
 import {BrowserModule, EVENT_MANAGER_PLUGINS, HAMMER_GESTURE_CONFIG, HammerGestureConfig} from '@angular/platform-browser';
-import {APP_INITIALIZER, Injector, NgModule} from '@angular/core';
+import {APP_INITIALIZER, ErrorHandler, Injector, NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
@@ -28,6 +28,7 @@ import {environment} from '../environments/environment';
 import {MissingTranslationHandler, MissingTranslationHandlerParams, TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {AuthInterceptor} from './modules/auth/auth.interceptor';
+import {MGlobalErrorService} from '@services/global-error.service';
 
 
 export function routeServiceFactory(route: RouteService): () => {} {
@@ -76,7 +77,8 @@ const childInjector: Injector = Injector.create({
         MHttpModule,
         SharedModule,
         MRxjsModule,
-        MForRootModule.forRoot({data: 1}), //так могу в модуль прокинуть инфу
+        // так могу в модуль прокинуть инфу
+        MForRootModule.forRoot({data: 1}),
         ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
         TranslateModule.forRoot({
             missingTranslationHandler: {provide: MissingTranslationHandler, useClass: MyMissingTranslationHandler},
@@ -86,7 +88,9 @@ const childInjector: Injector = Injector.create({
                 deps: [HttpClient]
             }
         }),
-        AppRoutingModule,  //этот модуль, в котором все руты приложения должен идти в самом конце, после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
+        // этот модуль, в котором все руты приложения должен идти в самом конце,
+        // после всех модулей с RouterModule.forChild(routes), это из-за wildCard модуля
+        AppRoutingModule,
     ],
     providers: [
         MAdminGuardService,
@@ -100,6 +104,12 @@ const childInjector: Injector = Injector.create({
         {
             provide: HAMMER_GESTURE_CONFIG,
             useClass: MyHammerConfig
+        },
+
+        // создаю глобальный errorHandler
+        {
+            provide: ErrorHandler,
+            useClass: MGlobalErrorService
         },
 
         /*Эта часть нужна, чтобы загрузить какие-то данные перед всей аппликухой*/
