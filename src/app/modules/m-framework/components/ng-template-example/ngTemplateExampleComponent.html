@@ -28,3 +28,11 @@
 
 <ng-template *ngTemplateOutlet="example; context: {from: 'ng-template like structual directive'}"
 ></ng-template>
+
+<!--Пример с имплисит и директивой-->
+<div *mTemplateExampleDirective="let data">
+    Implicit data {{data?.prop}}
+</div>
+
+<div #templateExampleDirectiveContainer></div>
+<!----------------------------------->
