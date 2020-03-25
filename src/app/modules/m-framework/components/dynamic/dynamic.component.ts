@@ -38,7 +38,7 @@ import {DynamicHostDirective} from './dynamic-host.directive';
     `
 })
 export class DynamicComponent {
-    @ViewChild('tmpl', {static: false})
+    @ViewChild('tmpl', {static: true})
     public template: any;
 
     @ViewChild('viewFromSomeDiv', {read: ViewContainerRef, static: false}) viewFromSomeDiv: ViewContainerRef;
@@ -77,6 +77,7 @@ export class DynamicComponent {
         // только createComponent еще и вставляет в вью, а  с create еще нужно сделать
         // кастомно, смотри пример в ngAfterViewInit
         this._componentRef = this.view.createComponent(componentFactory);
+        this._componentRef.onDestroy(() => console.log("_componentRef destroyed"));
 
         // так получаю инстанс компоненты
         this._componentRefInstance = this._componentRef.instance;
