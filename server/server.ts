@@ -2,10 +2,12 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as routers from './routers';
 import * as path from 'path';
+import "./mail/mail";
 
 const app = express(),
     port = process.env.NODEJS_PORT || 3000,
-    root = '/api/';
+    root = '/api/',
+    isProduction = process.env.NODE_ENV === "production";
 
 const allowCrossDomain = (req, res, next) => {
     // Website you wish to allow to connect
@@ -24,6 +26,13 @@ const allowCrossDomain = (req, res, next) => {
     // Pass to next layer of middleware
     next();
 };
+
+
+// Передаю в переменнные окружения значения из .env с помощью dotenv нпм пакета
+if (!isProduction) {
+    require('dotenv').config();
+    // console.log(process.env.CUSTOM_VARIABLE);
+}
 
 // Add your mock router here
 const appRouters = [
