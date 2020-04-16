@@ -44,6 +44,11 @@
                                 "bundleName": "base"
                             }
                         ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/assets/themes/base/styles/common"
+                            ]
+                        },
                         "scripts": [
                             {
                                 "input": "src/global.script.ts",

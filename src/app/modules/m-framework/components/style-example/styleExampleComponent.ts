@@ -2,7 +2,8 @@ import {Component} from '@angular/core';
 
 @Component({
     selector: 'style-example',
-    templateUrl: './styleExampleComponent.html'
+    templateUrl: './styleExampleComponent.html',
+    styleUrls: ["./style-example.component.less"]
 })
 
 export class StyleExampleComponent {
