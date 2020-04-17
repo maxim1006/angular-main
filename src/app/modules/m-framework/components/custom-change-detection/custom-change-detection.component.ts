@@ -40,7 +40,7 @@ export class CustomChangeDetectionComponent implements OnInit {
     obj: { name: number|string; };
     name: string;
 
-    @ViewChild('inner', {static: false}) inner;
+    @ViewChild('inner') inner;
 
     constructor(private cdr: ChangeDetectorRef, private appRef: ApplicationRef, private ngZone: NgZone) {
 

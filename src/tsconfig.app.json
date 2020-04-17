@@ -4,6 +4,11 @@
         "outDir": "../out-tsc/app",
         "strictFunctionTypes": false
     },
+    "files": [
+        "./main.ts",
+        "./polyfills.ts",
+        "./app/modules/lazy-runtime/lazy-runtime.module.ts"
+    ],
     "exclude": [
         "src/test.ts",
         "**/*.spec.ts"

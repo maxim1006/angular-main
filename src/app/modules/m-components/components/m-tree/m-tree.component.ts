@@ -108,7 +108,7 @@ export class MTreeComponent implements OnInit {
     @Output()
     clickOutput: EventEmitter<string> = new EventEmitter();
 
-    @ViewChild('rootEl', {static: false}) rootEl: ElementRef;
+    @ViewChild('rootEl') rootEl: ElementRef;
     
     el: any;
     currentModel: any;

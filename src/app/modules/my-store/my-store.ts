@@ -8,11 +8,13 @@
 import {BehaviorSubject, Observable} from 'rxjs';
 import {MyState} from './my-state';
 import {distinctUntilChanged, pluck} from 'rxjs/internal/operators';
+import { Injectable } from "@angular/core";
 
 const myState: MyState = {
     playlist: undefined
 };
 
+@Injectable()
 export class MyStore {
 
     private subject = new BehaviorSubject<MyState>(myState);

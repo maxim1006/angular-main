@@ -56,10 +56,10 @@ export class MGridComponent implements OnInit, AfterViewInit {
     @ViewChildren('itemRef')
     private itemList: QueryList<ElementRef>;
 
-    @ViewChild('gridCanvas', {static: false})
+    @ViewChild('gridCanvas')
     private gridCanvasRef: ElementRef;
 
-    @ViewChild('gridCanvasInner', {static: false})
+    @ViewChild('gridCanvasInner')
     private gridCanvasInnerRef: ElementRef;
 
     private rowElementList: HTMLElement[];

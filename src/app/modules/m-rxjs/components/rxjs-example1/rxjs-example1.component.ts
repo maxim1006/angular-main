@@ -41,10 +41,10 @@ import {domenToken} from '../../../shared/tokens/tokens';
 export class RxjsExample1Component implements AfterViewInit, OnDestroy {
     form: FormGroup;
 
-    @ViewChild('myForm', {static: false})
+    @ViewChild('myForm')
     myFormRef: ElementRef;
 
-    @ViewChild('input', {static: false})
+    @ViewChild('input')
     private inputRef: ElementRef;
 
     private destroy$: Subject<any> = new Subject();

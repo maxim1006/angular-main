@@ -19,7 +19,7 @@ import {inputMixin} from './input.mixin';
     `
 })
 
-export class MixinsComponent extends state1Mixin(state2Mixin(destroyMixin(inputMixin()))) implements OnInit {
+export class MixinsComponent extends state1Mixin(state2Mixin(destroyMixin(inputMixin(class {})))) implements OnInit {
     mousemove$: Subscription;
 
     ngOnInit() {

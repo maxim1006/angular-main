@@ -11,7 +11,7 @@ export const ForRootDataServiceConfig = new InjectionToken('mForRootDataService'
     providers: [],
 })
 export class MForRootModule {
-    static forRoot(data: any): ModuleWithProviders {
+    static forRoot(data: any): ModuleWithProviders<MForRootModule> {
 
         return {
             ngModule: MForRootModule,

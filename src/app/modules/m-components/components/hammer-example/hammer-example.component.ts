@@ -13,8 +13,8 @@ export class HammerExampleComponent {
     private lastPosY = 0;
     private hammerManager: any;
 
-    @ViewChild('draggableArea', {static: false}) draggableArea: ElementRef;
-    @ViewChild('draggableContent', {static: false}) draggableContent: ElementRef;
+    @ViewChild('draggableArea') draggableArea: ElementRef;
+    @ViewChild('draggableContent') draggableContent: ElementRef;
 
 
     private _styleClass = '';

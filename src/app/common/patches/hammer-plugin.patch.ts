@@ -1,4 +1,4 @@
-import {Inject} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {HAMMER_GESTURE_CONFIG, HammerGestureConfig, ɵHammerGesturesPlugin} from '@angular/platform-browser';
 import {DOCUMENT} from '@angular/common';
 
@@ -11,10 +11,15 @@ import 'hammerjs/hammer';
  * https://github.com/angular/angular/pull/22156
  * @todo update after fix in angular
  */
+@Injectable()
 export class HammerPluginPatch extends ɵHammerGesturesPlugin {
     constructor(@Inject(DOCUMENT) doc: any,
                 @Inject(HAMMER_GESTURE_CONFIG) private config: HammerGestureConfig) {
-        super(doc, config, {log(message: string) {}, warn(message: string) {}});
+        super(doc, config, {
+            log(message: string) {
+            }, warn(message: string) {
+            }
+        });
     }
 
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function {

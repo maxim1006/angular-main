@@ -12,16 +12,16 @@ export class NgTemplateExampleComponent implements AfterViewInit {
     public constructor(private cdr: ChangeDetectorRef) {
     }
 
-    @ViewChild('tmpl', {static: false})
+    @ViewChild('tmpl')
     public _tmpl: TemplateRef<any>;
 
-    @ViewChild('someDiv', {read: ViewContainerRef, static: false})
+    @ViewChild('someDiv', { read: ViewContainerRef })
     public _someDiv: ViewContainerRef;
 
-    @ViewChild('templateExampleDirectiveContainer', {read: ViewContainerRef, static: false})
+    @ViewChild('templateExampleDirectiveContainer', { read: ViewContainerRef })
     public _templateExampleDirectiveContainer: ViewContainerRef;
 
-    @ViewChild(MTemplateExampleDirective, {static: false})
+    @ViewChild(MTemplateExampleDirective)
     public _mTemplateExampleDirective: MTemplateExampleDirective;
 
     ngAfterViewInit() {

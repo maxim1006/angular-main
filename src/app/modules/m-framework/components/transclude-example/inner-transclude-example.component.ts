@@ -7,7 +7,7 @@ import {AfterViewInit, Component, ContentChild, ElementRef, ViewChild} from '@an
 
 export class InnerTranscludeExampleComponent implements AfterViewInit {
 
-    @ContentChild('innerTranscludeExampleDiv', {static: false}) innerTranscludeExampleDivEl: ElementRef;
+    @ContentChild('innerTranscludeExampleDiv') innerTranscludeExampleDivEl: ElementRef;
 
     constructor(private el: ElementRef) {}
 

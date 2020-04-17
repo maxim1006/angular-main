@@ -1,5 +1,5 @@
 import {BrowserModule, EVENT_MANAGER_PLUGINS, HAMMER_GESTURE_CONFIG, HammerGestureConfig} from '@angular/platform-browser';
-import {APP_INITIALIZER, ErrorHandler, Injector, NgModule} from '@angular/core';
+import { APP_INITIALIZER, ErrorHandler, Injector, NgModule, Injectable } from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {FormsModule} from '@angular/forms';
@@ -35,6 +35,7 @@ export function routeServiceFactory(route: RouteService): () => {} {
     return () => route.init();
 }
 
+@Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
     overrides = <any>{
         'swipe': {velocity: 0.4, threshold: 20} // override default settings

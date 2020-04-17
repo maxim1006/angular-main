@@ -21,6 +21,7 @@ export class ProtectedLazyGuard implements CanLoad {
 
 
 // Можно создать свой класс с preloadStrategy
+@Injectable()
 export class MyPreloadStrategy implements PreloadingStrategy {
     preload(route: Route, load: () => Observable<any>): Observable<any> {
         return of(null); // если не хочу прелоад

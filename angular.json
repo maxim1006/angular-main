@@ -10,13 +10,14 @@
             "prefix": "m",
             "schematics": {
                 "@schematics/angular:component": {
-                    "styleext": "less"
+                    "style": "less"
                 }
             },
             "architect": {
                 "build": {
                     "builder": "@angular-builders/custom-webpack:browser",
                     "options": {
+                        "aot": true,
                         "customWebpackConfig": {
                             "path": "./extra-webpack.config.js",
                             "replaceDuplicatePlugins": true,

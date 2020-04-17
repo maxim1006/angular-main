@@ -78,7 +78,13 @@ export function PropertyHandler<T>(handlers: PropertyHandlers<T>): PropertyDecor
             }
         };
 
-        Object.defineProperty(target, propertyKey, propertyDescriptor);
+        // TODO update when https://github.com/angular/angular/issues/31495 is closed
+        try {
+            Object.defineProperty(target, propertyKey, propertyDescriptor);
+        } catch (e) {
+            console.log("can't set decorator in m-decorators.component.ts");
+        }
+
     };
 }
 

@@ -6,7 +6,7 @@ import {Component, ViewChild, ViewChildren, ElementRef} from '@angular/core';
 })
 
 export class ElementLinkComponent {
-    @ViewChild('myInput', {static: false})
+    @ViewChild('myInput')
     input: ElementRef; //nativeElement - cвойство объекта ElementRef - который вернет декоратор
 
     @ViewChildren('inputItem')

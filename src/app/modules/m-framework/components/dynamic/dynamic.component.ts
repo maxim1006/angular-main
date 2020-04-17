@@ -41,11 +41,11 @@ export class DynamicComponent {
     @ViewChild('tmpl', {static: true})
     public template: any;
 
-    @ViewChild('viewFromSomeDiv', {read: ViewContainerRef, static: false}) viewFromSomeDiv: ViewContainerRef;
+    @ViewChild('viewFromSomeDiv', { read: ViewContainerRef }) viewFromSomeDiv: ViewContainerRef;
 
-    @ViewChild('viewFromSomeDivElementRef', {static: false}) viewFromSomeDivElementRef: ElementRef;
+    @ViewChild('viewFromSomeDivElementRef') viewFromSomeDivElementRef: ElementRef;
 
-    @ViewChild(DynamicHostDirective, {static: false}) host: DynamicHostDirective;
+    @ViewChild(DynamicHostDirective) host: DynamicHostDirective;
 
     private contentEmbeddedView: EmbeddedViewRef<any>;
 

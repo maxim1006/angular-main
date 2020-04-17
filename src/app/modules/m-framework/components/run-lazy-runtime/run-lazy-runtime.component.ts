@@ -9,7 +9,7 @@ import {LazyRuntimeModuleService} from '../../services/lazy-module.service';
     styleUrls: ['./run-lazy-runtime.component.less']
 })
 export class RunLazyRuntimeComponent {
-    @ViewChild('vcr', {read: ViewContainerRef, static: false})
+    @ViewChild('vcr', { read: ViewContainerRef })
     vcrRef: ViewContainerRef;
 
     public load: boolean;
