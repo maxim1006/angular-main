@@ -5,6 +5,10 @@
 /tmp
 /out-tsc
 
+# auth
+/server/auth/private.pem
+/server/auth/public.pem
+
 # dependencies
 /node_modules
 
