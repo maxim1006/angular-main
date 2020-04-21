@@ -20,6 +20,7 @@
     "report": "webpack-bundle-analyzer dist/stats-es2015.json",
     "analyze": "source-map-explorer 'dist/*.js'",
     "ts": "tsc-watch --onSuccess \"node ./src/app/modules/typescript/plain/dist/typescript-plain.js\"  --onFailure \"echo Beep! Compilation Failed\" --compiler typescript/bin/tsc -p ./src/app/modules/typescript/plain/",
+    "ts:serve": "cd ./src/app/modules/typescript/plain && ws --spa index.html --compress --open --static.maxage -1",
     "ng-high-memory": "node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng"
   },
   "browserslist": [
