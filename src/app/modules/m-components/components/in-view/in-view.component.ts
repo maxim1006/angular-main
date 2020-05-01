@@ -6,6 +6,7 @@ import {Subject} from 'rxjs';
 @Component({
     selector: 'm-in-view',
     template: `
+        <h3>In view with Intersection oberver</h3>
         <div class="m-in-view__inner">
             <div class="m-in-view__block"></div>
             <div class="m-in-view__block">

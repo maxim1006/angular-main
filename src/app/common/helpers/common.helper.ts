@@ -74,3 +74,16 @@ export const getRandomInteger = (min: number = 0, max: number = 1000): number =>
 
     return Math.round(randomNumber);
 };
+
+export function debounce(func: (e: Event) => any, time: number = 0) {
+    let timeout;
+
+    return function (...args) {
+        const context = this;
+
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, time);
+    };
+}

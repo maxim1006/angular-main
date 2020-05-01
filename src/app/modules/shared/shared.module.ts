@@ -12,6 +12,7 @@ import {MLoaderComponent} from './components/m-loader/m-loader.component';
 import {ImpurePipe} from './pipes/impure.pipe';
 import {FileSizePipe} from './pipes/filesize.pipe';
 import {DeferLoadDirective} from './directives/defer-load/defer-load.directive';
+import {ResizeObserverDirective} from './directives/resize-observer/resize-observer.directive';
 
 @NgModule({
     imports: [CommonModule],
@@ -25,6 +26,7 @@ import {DeferLoadDirective} from './directives/defer-load/defer-load.directive';
         EllipsisDirective,
         SlideToggleDirective,
         DeferLoadDirective,
+        ResizeObserverDirective,
 
         /*Components*/
         MLoaderComponent,
@@ -47,6 +49,7 @@ import {DeferLoadDirective} from './directives/defer-load/defer-load.directive';
         EllipsisDirective,
         SlideToggleDirective,
         DeferLoadDirective,
+        ResizeObserverDirective,
 
         /*Pipes*/
         CustomPipe,

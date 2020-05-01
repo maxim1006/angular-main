@@ -39,6 +39,7 @@ import {MSvgComponent} from './components/svg/svg.component';
 import {TranslateComponent} from './components/translate/translate.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {MInViewComponent} from './components/in-view/in-view.component';
+import {MResizeObserverComponent} from './components/resize-observer/resize-observer.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -67,7 +68,8 @@ const components = [
     MUploadDownloadComponent,
     MSvgComponent,
     TranslateComponent,
-    MInViewComponent
+    MInViewComponent,
+    MResizeObserverComponent
 ];
 
 const directives = [];
