@@ -38,6 +38,7 @@ import {MUploadDownloadComponent} from './components/upload-download/upload-down
 import {MSvgComponent} from './components/svg/svg.component';
 import {TranslateComponent} from './components/translate/translate.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {MInViewComponent} from './components/in-view/in-view.component';
 
 const routes: Routes = [
     {path: '', component: MComponentsComponent},
@@ -66,6 +67,7 @@ const components = [
     MUploadDownloadComponent,
     MSvgComponent,
     TranslateComponent,
+    MInViewComponent
 ];
 
 const directives = [];

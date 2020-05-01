@@ -142,14 +142,14 @@ while (i--) {
     });
 }
 
-console.log(array[0](), array[1]());
+// console.log(array[0](), array[1]());
 
 
 
 // Задача на микротаски и макротаски
-console.log(1);
-Promise.resolve('resolve').then(a => console.log(a));
-console.log(2);
-setTimeout(() => console.log('setTimeout'), 0);
+// console.log(1);
+// Promise.resolve('resolve').then(a => console.log(a));
+// console.log(2);
+// setTimeout(() => console.log('setTimeout'), 0);
 
 // 1 затем 2 затем resolve затем setTimeout
