@@ -17,14 +17,15 @@ if (environment.production) {
 //     //ngZone: "noop" //так отключаю зоны в приложении
 // });
 
-const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule).then((ngModuleRef) => {
-    if ('serviceWorker' in navigator && environment.production) {
-        navigator.serviceWorker.register('ngsw-worker.js');
-    }
+const bootstrap = () => platformBrowserDynamic().bootstrapModule(AppModule)
+    .then((ngModuleRef) => {
+        if ('serviceWorker' in navigator && environment.production) {
+            navigator.serviceWorker.register('ngsw-worker.js');
+        }
 
-    return ngModuleRef;
-});
-// так не хочет работать hmrBootstrap так как ему нужен ngModuleRef
+        return ngModuleRef;
+    });
+// так не хочет работать hmrBootstrap так как ему нужен ngModuleRef, если не использую hmr то дописываю catch
 // .catch(err => console.log(err));
 
 if (environment.hmr) {
@@ -38,11 +39,3 @@ if (environment.hmr) {
 } else {
     bootstrap();
 }
-
-
-
-//cat ./dist{file1, file2, file3}.js | gzip > gulpfile.js.gzip - //собрать все в 1 файл и добавить в gzip
-
-//ngx build plus
-
-// посмотреть все версии пакета npm: npm show  @netcracker/ux-ng2@* version
