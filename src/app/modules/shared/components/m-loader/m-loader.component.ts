@@ -1,4 +1,5 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, PLATFORM_ID, Inject} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
         selector: 'm-loader',
@@ -31,13 +32,15 @@ export class MLoaderComponent implements OnInit {
 
          if (this._isLoading) { return; }
 
-         this._timeout = window.setTimeout(() => {
-             this._isLoading = true;
-             this.cancelTimeout();
-         }, this.delay);
+        if (isPlatformBrowser(this.platformId)) {
+            this._timeout = window.setTimeout(() => {
+                this._isLoading = true;
+                this.cancelTimeout();
+            }, this.delay);
+        }
     }
 
-    constructor() {}
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
     ngOnInit() {}
 

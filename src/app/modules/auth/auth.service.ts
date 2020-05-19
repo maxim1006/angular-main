@@ -1,7 +1,8 @@
-import {Injectable} from "@angular/core";
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {shareReplay, tap} from 'rxjs/operators';
 import {domenToken} from '../shared/tokens/tokens';
+import {isPlatformBrowser} from '@angular/common';
 
 
 export interface User<T> {
@@ -13,7 +14,7 @@ export interface User<T> {
     providedIn: "root"
 })
 export class AuthService {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object,) {}
 
     login({login, password}) {
         return this.http
@@ -35,13 +36,17 @@ export class AuthService {
         const date = new Date();
         const expiresAt = date.setSeconds(date.getSeconds() + expiresIn);
 
-        localStorage.setItem('id_token', idToken);
-        localStorage.setItem("expires_at", JSON.stringify(+expiresAt));
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.setItem('id_token', idToken);
+            localStorage.setItem("expires_at", JSON.stringify(+expiresAt));
+        }
     }
 
     logout() {
-        localStorage.removeItem("id_token");
-        localStorage.removeItem("expires_at");
+        if (isPlatformBrowser(this.platformId)) {
+            localStorage.removeItem("id_token");
+            localStorage.removeItem("expires_at");
+        }
     }
 
     public isLoggedIn() {
@@ -54,8 +59,10 @@ export class AuthService {
     }
 
     getExpirationDate(): Date {
-        const expiration = localStorage.getItem("expires_at");
-        const expiresAt = JSON.parse(expiration);
-        return new Date(expiresAt);
+        if (isPlatformBrowser(this.platformId)) {
+            const expiration = localStorage.getItem("expires_at");
+            const expiresAt = JSON.parse(expiration);
+            return new Date(expiresAt);
+        }
     }
 }

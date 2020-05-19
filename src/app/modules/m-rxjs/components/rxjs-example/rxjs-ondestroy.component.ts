@@ -13,7 +13,7 @@ import {combineLatest, fromEvent, interval, merge, of, Subject} from 'rxjs';
 export class RxjsOnDestroyComponent implements OnInit, OnDestroy {
     private onDestroy$ = new Subject<void>();
 
-    constructor(private _http: HttpClient) {                  
+    constructor(private _http: HttpClient) {
     }
 
     ngOnInit() {
@@ -59,20 +59,22 @@ export class RxjsOnDestroyComponent implements OnInit, OnDestroy {
         //     );
 
         // example with merge in takeUntil
-        observable
-            .pipe(
-                takeUntil(merge(click$, this.onDestroy$))
-            )
-            .subscribe(
-                (data) => console.log('onDestroy takeUntil ', data),
-                _ => {},
-                () => console.log('onDestroy completed by click$ or ngOnDestroy')
-            );
+        // observable
+        //     .pipe(
+        //         takeUntil(merge(click$, this.onDestroy$))
+        //     )
+        //     .subscribe(
+        //         (data) => console.log('onDestroy takeUntil ', data),
+        //         _ => {},
+        //         () => console.log('onDestroy completed by click$ or ngOnDestroy')
+        //     );
     }
 
     ngOnDestroy() {
-        this.onDestroy$.next();
-        this.onDestroy$.complete();
-        this.onDestroy$ = null;
+        if (this.onDestroy$) {
+            this.onDestroy$.next();
+            this.onDestroy$.complete();
+            this.onDestroy$ = null;
+        }
     }
 }

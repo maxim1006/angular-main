@@ -1,7 +1,8 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {Observable, Subscriber} from 'rxjs';
 import {Media} from '../models/media';
 import {share} from 'rxjs/operators';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable({
     providedIn: 'root',
@@ -18,21 +19,23 @@ export class PageUtilsService {
         desktop: false
     };
 
-    constructor() {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,) {
         this.mediaObserver = Observable.create((subscriber: Subscriber<Media>) => {
             this.mediaSubscriber = subscriber;
             this.updateMediaData();
             this.mediaSubscriber.next(this.mediaData);
         }).pipe(share()); // share result to all subscriber, if delete only the last one will get it
 
-        window.addEventListener('resize', () => {
-            this.documentWidth = document.documentElement.clientWidth;
-            this.updateMediaData();
+        if (isPlatformBrowser(this.platformId)) {
+            window.addEventListener('resize', () => {
+                this.documentWidth = document.documentElement.clientWidth;
+                this.updateMediaData();
 
-            if (this.mediaSubscriber) {
-                this.mediaSubscriber.next(this.mediaData);
-            }
-        });
+                if (this.mediaSubscriber) {
+                    this.mediaSubscriber.next(this.mediaData);
+                }
+            });
+        }
     }
 
     getMedia() {

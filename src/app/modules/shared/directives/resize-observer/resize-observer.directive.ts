@@ -2,7 +2,7 @@ import {AfterViewInit, Directive, ElementRef, EventEmitter, OnDestroy, Output} f
 import {debounce} from '../../../../common/helpers/common.helper';
 import ResizeObserver from 'resize-observer-polyfill';
 
-const resizeObserverIsSupported = 'ResizeObserver' in window;
+// const resizeObserverIsSupported = 'ResizeObserver' in window;
 
 // TODO support older browsers if needed
 @Directive({

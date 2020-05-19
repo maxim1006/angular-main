@@ -3,6 +3,13 @@ import * as bodyParser from 'body-parser';
 import * as routers from './routers';
 import * as path from 'path';
 import "./mail/mail";
+import * as compression from 'compression';
+import shouldCompress from './helpers/server.helper';
+import {ngExpressEngine} from '@nguniversal/express-engine';
+import {AppServerModule} from '../src/main.server';
+import {join} from "path";
+import {APP_BASE_HREF} from '@angular/common';
+import {existsSync} from "fs";
 
 const app = express(),
     port = process.env.NODEJS_PORT || 3000,
@@ -65,11 +72,39 @@ const appRouters = [
 app.use(allowCrossDomain);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
+// включаю гзип
+app.use(compression({filter: shouldCompress}));
 
 // TODO переносить картинки, так как tsw этого не делает, приходится подкладывать в dist руками
 app.use(root + 'images', express.static(path.join(__dirname, './mocks/images')));
 
 appRouters.forEach(router => app.use(root + router.url, router.middleware));
+
+
+
+// start dev server
+// Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
+const distFolder = join(process.cwd(), '../dist/angular-cli-project/browser');
+const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+
+app.engine('html', ngExpressEngine({
+    bootstrap: AppServerModule,
+}));
+
+app.set('view engine', 'html');
+app.set('views', distFolder);
+
+app.get('*.*', express.static(distFolder, {
+    maxAge: '1y'
+}));
+
+// All regular routes use the Universal engine
+app.get('*', (req, res) => {
+    res.render(indexHtml, {req, providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}]});
+});
+/////////////////////////////
+
+
 
 app.listen(port, () => {
     console.log(`Mock server is listening on port ${port}`);

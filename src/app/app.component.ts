@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, ViewChild, ViewContainerRef} from '@angular/core';
+import {AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, PLATFORM_ID, ViewChild, ViewContainerRef} from '@angular/core';
 import {SwUpdate} from '@angular/service-worker';
 import {PageLoaderService} from '@services/page-loader.service';
 import {animate, group, query, style, transition, trigger} from '@angular/animations';
 import {MDynamicService} from '@services/dynamic.service';
 import {MDynamicAppComponent} from './components/dynamic-app/dynamic-app.component';
+import {isPlatformBrowser} from '@angular/common';
 
 export const routerTransition: any = trigger('routerTransition', [
     transition('* <=> *', [
@@ -74,19 +75,20 @@ export class AppComponent implements OnInit, AfterViewInit {
     public hostClass: String = 'app-component';
 
     public ngOnInit(): void {
-        if (this.swUpdate.isEnabled) {
-
-            this.swUpdate.available.subscribe(() => {
-
-                if (confirm('New version available. Load New Version?')) {
-
-                    window.location.reload();
-                }
-            });
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.swUpdate.isEnabled) {
+                this.swUpdate.available.subscribe(() => {
+                    // подключаю сервис воркеры
+                    if (confirm('New version available. Load New Version?')) {
+                        window.location.reload();
+                    }
+                });
+            }
         }
     }
 
     constructor(
+        @Inject(PLATFORM_ID) private platformId: Object,
         @Optional() @Inject('someOptionalObject.someOptionalProperty') private optionalPropery,
         public pageLoaderService: PageLoaderService,
         private mDynamicService: MDynamicService,

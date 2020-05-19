@@ -14,6 +14,7 @@ import {Observable, of} from 'rxjs';
 export class ProtectedLazyGuard implements CanLoad {
     constructor() {}
     canLoad() {
+
         return JSON.parse(localStorage.getItem('lazy'));
     }
 }

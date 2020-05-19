@@ -1,4 +1,5 @@
-import {Component, ElementRef, Input, NgZone, OnInit, ViewChild, ChangeDetectorRef} from '@angular/core';
+import {Component, ElementRef, Input, NgZone, OnInit, ViewChild, ChangeDetectorRef, PLATFORM_ID, Inject} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
     selector: 'm-scroll',
@@ -72,7 +73,11 @@ export class MScrollComponent implements OnInit {
     private autoResizeBind:      () => void;
     private autoResizeEndBind:   () => void;
 
-    constructor(private zone: NgZone, private cdr: ChangeDetectorRef) {
+    constructor(
+        private zone: NgZone,
+        private cdr: ChangeDetectorRef,
+        @Inject(PLATFORM_ID) private platformId: Object,
+    ) {
     }
 
     ngOnInit() {
@@ -186,54 +191,56 @@ export class MScrollComponent implements OnInit {
     }
 
     private bindEvents() {
-        this.zone.runOutsideAngular(() => {
-            this.scrollStartBind = this.scrollStart.bind(this);
-            this.mouseWheelBind = this.mouseWheel.bind(this);
-            this.scrollStartXBind = this.scrollStartX.bind(this);
-            this.mouseMoveBind = this.mouseMove.bind(this);
-            this.mouseUpBind = this.mouseUp.bind(this);
-            this.windowResizeBind = this.windowResize.bind(this);
-            this.mouseScrollBind = this.mouseScroll.bind(this);
-            this.clickBind = this.click.bind(this);
-            this.clickHorizontalBind = this.clickHorizontal.bind(this);
-            this.autoResizeBind = this.autoResize.bind(this);
-            this.autoResizeEndBind = this.autoResizeEnd.bind(this);
+        if (isPlatformBrowser(this.platformId)) {
+            this.zone.runOutsideAngular(() => {
+                this.scrollStartBind = this.scrollStart.bind(this);
+                this.mouseWheelBind = this.mouseWheel.bind(this);
+                this.scrollStartXBind = this.scrollStartX.bind(this);
+                this.mouseMoveBind = this.mouseMove.bind(this);
+                this.mouseUpBind = this.mouseUp.bind(this);
+                this.windowResizeBind = this.windowResize.bind(this);
+                this.mouseScrollBind = this.mouseScroll.bind(this);
+                this.clickBind = this.click.bind(this);
+                this.clickHorizontalBind = this.clickHorizontal.bind(this);
+                this.autoResizeBind = this.autoResize.bind(this);
+                this.autoResizeEndBind = this.autoResizeEnd.bind(this);
 
-            this.ySlider.addEventListener('mousedown', this.scrollStartBind);
-            this.ySlider.addEventListener('touchstart', this.scrollStartBind);
+                this.ySlider.addEventListener('mousedown', this.scrollStartBind);
+                this.ySlider.addEventListener('touchstart', this.scrollStartBind);
 
-            this.ySliderWrap.addEventListener('DOMMouseScroll', this.mouseWheelBind);
-            this.ySliderWrap.addEventListener('mousewheel', this.mouseWheelBind);
-            this.ySliderWrap.addEventListener('MozMousePixelScroll', this.mouseWheelBind);
+                this.ySliderWrap.addEventListener('DOMMouseScroll', this.mouseWheelBind);
+                this.ySliderWrap.addEventListener('mousewheel', this.mouseWheelBind);
+                this.ySliderWrap.addEventListener('MozMousePixelScroll', this.mouseWheelBind);
 
-            this.ySliderHorizontal.addEventListener('mousedown', this.scrollStartXBind);
-            this.ySliderHorizontal.addEventListener('touchstart', this.scrollStartXBind);
+                this.ySliderHorizontal.addEventListener('mousedown', this.scrollStartXBind);
+                this.ySliderHorizontal.addEventListener('touchstart', this.scrollStartXBind);
 
-            this.ySliderHorizontalWrap.addEventListener('DOMMouseScroll', this.mouseWheelBind);
-            this.ySliderHorizontalWrap.addEventListener('mousewheel', this.mouseWheelBind);
-            this.ySliderHorizontalWrap.addEventListener('MozMousePixelScroll', this.mouseWheelBind);
+                this.ySliderHorizontalWrap.addEventListener('DOMMouseScroll', this.mouseWheelBind);
+                this.ySliderHorizontalWrap.addEventListener('mousewheel', this.mouseWheelBind);
+                this.ySliderHorizontalWrap.addEventListener('MozMousePixelScroll', this.mouseWheelBind);
 
-            this.doc.addEventListener('mousemove', this.mouseMoveBind);
-            this.doc.addEventListener('touchmove', this.mouseMoveBind);
+                this.doc.addEventListener('mousemove', this.mouseMoveBind);
+                this.doc.addEventListener('touchmove', this.mouseMoveBind);
 
-            this.doc.addEventListener('mouseup', this.mouseUpBind);
-            this.doc.addEventListener('touchend', this.mouseUpBind);
+                this.doc.addEventListener('mouseup', this.mouseUpBind);
+                this.doc.addEventListener('touchend', this.mouseUpBind);
 
-            this.win.addEventListener('resize', this.windowResizeBind);
+                this.win.addEventListener('resize', this.windowResizeBind);
 
-            this.scroll.addEventListener('scroll', this.mouseScrollBind);
+                this.scroll.addEventListener('scroll', this.mouseScrollBind);
 
-            this.ySliderWrap.addEventListener('mousedown', this.clickBind);
-            this.ySliderWrap.addEventListener('touchstart', this.clickBind);
+                this.ySliderWrap.addEventListener('mousedown', this.clickBind);
+                this.ySliderWrap.addEventListener('touchstart', this.clickBind);
 
-            this.ySliderHorizontalWrap.addEventListener('mousedown', this.clickHorizontalBind);
-            this.ySliderHorizontalWrap.addEventListener('touchstart', this.clickHorizontalBind);
+                this.ySliderHorizontalWrap.addEventListener('mousedown', this.clickHorizontalBind);
+                this.ySliderHorizontalWrap.addEventListener('touchstart', this.clickHorizontalBind);
 
-            this.obj.addEventListener('mouseenter', this.autoResizeBind);
-            this.obj.addEventListener('touchstart', this.autoResizeBind);
-            this.obj.addEventListener('mouseleave', this.autoResizeEndBind);
-            this.obj.addEventListener('touchend', this.autoResizeEndBind);
-        });
+                this.obj.addEventListener('mouseenter', this.autoResizeBind);
+                this.obj.addEventListener('touchstart', this.autoResizeBind);
+                this.obj.addEventListener('mouseleave', this.autoResizeEndBind);
+                this.obj.addEventListener('touchend', this.autoResizeEndBind);
+            });
+        }
     }
 
     ngOnDestroy() {

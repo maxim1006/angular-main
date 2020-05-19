@@ -1,5 +1,5 @@
 import {Component, ElementRef, HostBinding, NgZone, ViewChild} from '@angular/core';
-import * as Hammer from 'hammerjs';
+import Hammer from '@egjs/hammerjs';
 
 @Component({
     selector: 'hammer-example',

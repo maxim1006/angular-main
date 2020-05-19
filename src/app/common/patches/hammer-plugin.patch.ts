@@ -1,8 +1,8 @@
-import {Inject, Injectable} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HAMMER_GESTURE_CONFIG, HammerGestureConfig, ɵHammerGesturesPlugin} from '@angular/platform-browser';
-import {DOCUMENT} from '@angular/common';
+import {DOCUMENT, isPlatformBrowser} from '@angular/common';
 
-import 'hammerjs/hammer';
+import '@egjs/hammerjs';
 
 /**
  * Hot fix of built-in HammerGesturesPlugin to avoid memory leaks,
@@ -14,12 +14,30 @@ import 'hammerjs/hammer';
 @Injectable()
 export class HammerPluginPatch extends ɵHammerGesturesPlugin {
     constructor(@Inject(DOCUMENT) doc: any,
-                @Inject(HAMMER_GESTURE_CONFIG) private config: HammerGestureConfig) {
+                @Inject(HAMMER_GESTURE_CONFIG) private config: HammerGestureConfig,
+                @Inject(PLATFORM_ID) private platformId: Object,
+                ) {
         super(doc, config, {
             log(message: string) {
             }, warn(message: string) {
             }
         });
+
+        if (isPlatformBrowser(this.platformId)) {
+            // Allow user selection
+            // delete window['Hammer'].defaults.cssProps.userSelect;
+
+            /*if browser supports touch-action set it to "pan-x pan-y" to allow control
+            for touch devices (allow scroll within zooming on touch devices, scrolls on page or blocks), because Hammer makes touch-action="none" by default.
+            If you need Hammer 'swipe' action, you should disable touch-action on exact block like this:
+
+            .block-with-swipe {
+                touch-action: none !important;
+            }
+
+            */
+            // window['Hammer'].defaults.touchAction = 'pan-x pan-y';
+        }
     }
 
     addEventListener(element: HTMLElement, eventName: string, handler: Function): Function {
@@ -130,16 +148,4 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
 }
 
 
-// Allow user selection
-delete window['Hammer'].defaults.cssProps.userSelect;
 
-/*if browser supports touch-action set it to "pan-x pan-y" to allow control
-for touch devices (allow scroll within zooming on touch devices, scrolls on page or blocks), because Hammer makes touch-action="none" by default.
-If you need Hammer 'swipe' action, you should disable touch-action on exact block like this:
-
-.block-with-swipe {
-    touch-action: none !important;
-}
-
-*/
-window['Hammer'].defaults.touchAction = 'pan-x pan-y';

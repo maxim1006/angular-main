@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, Inject, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {Component} from '@angular/core';
     `
 })
 export class MAdminComponent {
-    constructor() {
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
         // window.onload = window.onunload = function analytics(event) {
         //     if (!navigator.sendBeacon) return;
         //
@@ -27,14 +28,16 @@ export class MAdminComponent {
         //     console.log("sendBeacon: URL = ", url, "; data = ", data, "; status = ", status);
         // };
 
-        window.addEventListener('beforeunload', (e) => {
-            e.preventDefault();
-            e.returnValue = 'Are you sure you want away?';
-        });
+        if (isPlatformBrowser(this.platformId)) {
+            window.addEventListener('beforeunload', (e) => {
+                e.preventDefault();
+                e.returnValue = 'Are you sure you want away?';
+            });
 
-        window.onunload = function(event) {
-            console.log('left page');
-        };
+            window.onunload = function (event) {
+                console.log('left page');
+            };
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 import {
-    Directive, ElementRef, Input, OnInit, HostBinding, NgZone, ChangeDetectorRef
+    Directive, ElementRef, Input, OnInit, HostBinding, NgZone, ChangeDetectorRef, PLATFORM_ID, Inject
 } from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Directive({
     selector: '[ellipsis]'
@@ -23,7 +24,7 @@ export class EllipsisDirective implements OnInit {
     private TIMEOUT_ID: number;
     private resizeStartFlag = true;
 
-    constructor(private elRef: ElementRef, private zone: NgZone, private cdr: ChangeDetectorRef) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: Object, private elRef: ElementRef, private zone: NgZone, private cdr: ChangeDetectorRef) {}
 
     ngOnChanges(value: any) {
         if (value.ellipsis && value.ellipsis.currentValue && this.viewInited) {
@@ -38,44 +39,51 @@ export class EllipsisDirective implements OnInit {
         this.el = this.elRef.nativeElement;
         this.initialText = this.el.textContent;
 
-        if (this.ellipsis) {
-            this.createFakeDiv();
-            document.body.appendChild(this.fakeDiv);
-            this.updateEllipsis();
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.ellipsis) {
+                this.createFakeDiv();
+                document.body.appendChild(this.fakeDiv);
+                this.updateEllipsis();
+            }
         }
 
         this.viewInited = true;
 
-        this.cb = (e: Event) => {
-            if (this.resizeStartFlag) {
-                this.zone.run(() => {
-                    this.el.style.maxHeight = this.ellipsis + 'px';
-                    this.el.style.overflow = 'hidden';
-                    this.resizeStartFlag = false;
-                });
-            }
+        if (isPlatformBrowser(this.platformId)) {
+            this.cb = (e: Event) => {
+                if (this.resizeStartFlag) {
+                    this.zone.run(() => {
+                        this.el.style.maxHeight = this.ellipsis + 'px';
+                        this.el.style.overflow = 'hidden';
+                        this.resizeStartFlag = false;
+                    });
+                }
 
-            clearTimeout(this.TIMEOUT_ID);
-            this.TIMEOUT_ID = window.setTimeout(() => {
-                this.zone.run(() => {
-                    this.el.style.maxHeight = 'auto';
-                    this.el.style.overflow = 'visible';
-                    this.updateEllipsis();
-                    this.resizeStartFlag = true;
-                });
-            }, 300);
-        };
+                clearTimeout(this.TIMEOUT_ID);
+                this.TIMEOUT_ID = window.setTimeout(() => {
+                    this.zone.run(() => {
+                        this.el.style.maxHeight = 'auto';
+                        this.el.style.overflow = 'visible';
+                        this.updateEllipsis();
+                        this.resizeStartFlag = true;
+                    });
+                }, 300);
+            };
 
-        this.zone.runOutsideAngular(() => {
-            window.addEventListener('resize', this.cb);
-        });
+            this.zone.runOutsideAngular(() => {
+                window.addEventListener('resize', this.cb);
+            });
+        }
 
         this.cdr.detectChanges();
     }
 
     ngOnDestroy() {
-        document.body.removeChild(this.fakeDiv);
-        window.removeEventListener('resize', this.cb);
+        if (isPlatformBrowser(this.platformId)) {
+            document.body.removeChild(this.fakeDiv);
+            window.removeEventListener('resize', this.cb);
+        }
+
         this.fakeDiv = null;
     }
 
@@ -101,9 +109,11 @@ export class EllipsisDirective implements OnInit {
     }
 
     createFakeDiv(): void {
-        this.fakeDiv = document.createElement('div');
-        this.fakeDiv.style.position = 'absolute';
-        this.fakeDiv.style.left = '-99999px';
+        if (isPlatformBrowser(this.platformId)) {
+            this.fakeDiv = document.createElement('div');
+            this.fakeDiv.style.position = 'absolute';
+            this.fakeDiv.style.left = '-99999px';
+        }
     }
 
     fitText(text: string): string {

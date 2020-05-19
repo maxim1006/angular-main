@@ -1,7 +1,8 @@
 import {
     Directive, HostListener, ElementRef, Input, Output, EventEmitter, OnInit, HostBinding,
-    ChangeDetectorRef
+    ChangeDetectorRef, PLATFORM_ID, Inject
 } from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 @Directive({
     selector: '[contentEditable]',
@@ -50,7 +51,11 @@ export class ContentEditableDirective implements OnInit {
         this.el.textContent = this.initialText;
     }
 
-    constructor(private elRef: ElementRef, private cdr: ChangeDetectorRef) {
+    constructor(
+        private elRef: ElementRef,
+        private cdr: ChangeDetectorRef,
+        @Inject(PLATFORM_ID) private platformId: Object,
+    ) {
     }
 
     ngOnChanges(value: any) {
@@ -72,18 +77,22 @@ export class ContentEditableDirective implements OnInit {
 
         this.el = this.elRef.nativeElement;
 
-        if (this.contentEditableMaxHeight) {
-            this.createFakeDiv();
-            document.body.appendChild(this.fakeDiv);
-            this.updateEllipsis();
+        if (isPlatformBrowser(this.platformId)) {
+            if (this.contentEditableMaxHeight) {
+                this.createFakeDiv();
+                document.body.appendChild(this.fakeDiv);
+                this.updateEllipsis();
+            }
         }
 
         this.viewInited = true;
     }
 
     ngOnDestroy() {
-        document.body.removeChild(this.fakeDiv);
-        this.fakeDiv = null;
+        if (isPlatformBrowser(this.platformId)) {
+            document.body.removeChild(this.fakeDiv);
+            this.fakeDiv = null;
+        }
     }
 
     isEllipsisActive(e: HTMLElement): boolean {
@@ -114,9 +123,11 @@ export class ContentEditableDirective implements OnInit {
     }
 
     createFakeDiv(): void {
-        this.fakeDiv = document.createElement('div');
-        this.fakeDiv.style.position = 'absolute';
-        this.fakeDiv.style.left = '-99999px';
+        if (isPlatformBrowser(this.platformId)) {
+            this.fakeDiv = document.createElement('div');
+            this.fakeDiv.style.position = 'absolute';
+            this.fakeDiv.style.left = '-99999px';
+        }
     }
 
     fitText(text: string): string {

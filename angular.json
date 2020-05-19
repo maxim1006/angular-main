@@ -28,7 +28,7 @@
                         "lazyModules": [
                             "src/app/modules/lazy-runtime/lazy-runtime.module"
                         ],
-                        "outputPath": "dist",
+                        "outputPath": "dist/angular-cli-project/browser",
                         "index": "src/index.html",
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
@@ -132,6 +132,58 @@
                         "exclude": [
                             "**/node_modules/**"
                         ]
+                    }
+                },
+                "server": {
+                    "builder": "@angular-devkit/build-angular:server",
+                    "options": {
+                        "outputPath": "dist/angular-cli-project/server",
+                        "main": "server.ts",
+                        "tsConfig": "src/tsconfig.server.json",
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "src/assets/themes/base/styles/common"
+                            ]
+                        }
+                    },
+                    "configurations": {
+                        "production": {
+                            "outputHashing": "media",
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "sourceMap": false,
+                            "optimization": true
+                        }
+                    }
+                },
+                "serve-ssr": {
+                    "builder": "@nguniversal/builders:ssr-dev-server",
+                    "options": {
+                        "browserTarget": "angular-cli-project:build",
+                        "serverTarget": "angular-cli-project:server"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "angular-cli-project:build:production",
+                            "serverTarget": "angular-cli-project:server:production"
+                        }
+                    }
+                },
+                "prerender": {
+                    "builder": "@nguniversal/builders:prerender",
+                    "options": {
+                        "browserTarget": "angular-cli-project:build:production",
+                        "serverTarget": "angular-cli-project:server:production",
+                        "routes": [
+                            "/"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {}
                     }
                 }
             }

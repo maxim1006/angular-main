@@ -1,4 +1,5 @@
-import {AfterViewInit, Directive, ElementRef, EventEmitter, Input, NgZone, Output} from '@angular/core';
+import {AfterViewInit, Directive, ElementRef, EventEmitter, Inject, Input, NgZone, Output, PLATFORM_ID} from '@angular/core';
+import {isPlatformBrowser} from '@angular/common';
 
 
 export interface SlideToggleEvent {
@@ -47,6 +48,7 @@ export class SlideToggleDirective implements AfterViewInit {
     @Output() public onSlideTick = new EventEmitter<SlideToggleEvent>();
 
     constructor(private _elementRef: ElementRef,
+                @Inject(PLATFORM_ID) private platformId: Object,
                 private _zone: NgZone) {
     }
 
@@ -110,7 +112,10 @@ export class SlideToggleDirective implements AfterViewInit {
 
     private _onAnimationEnd(): void {
         const self = this;
-        window.cancelAnimationFrame(self._requestAnimationFrameId);
+
+        if (isPlatformBrowser(this.platformId)) {
+            window.cancelAnimationFrame(self._requestAnimationFrameId);
+        }
 
         if (self._toggleStateOnAnimationStart !== self._toggled) {
             requestAnimationFrame(self._runAnimation.bind(self));

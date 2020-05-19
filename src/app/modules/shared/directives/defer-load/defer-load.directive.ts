@@ -1,6 +1,6 @@
 import {AfterViewInit, Directive, ElementRef, EventEmitter, HostBinding, Output} from '@angular/core';
 
-const intersectionObserverIsSupported = 'IntersectionObserver' in window;
+// const intersectionObserverIsSupported = 'IntersectionObserver' in window;
 
 // TODO support older browsers if needed
 @Directive({

@@ -1,14 +1,22 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {CanActivate, CanDeactivate} from '@angular/router';
 import {MAdminComponent} from './admin.component';
+import {isPlatformBrowser} from '@angular/common';
 
 @Injectable()
 export class MAdminGuardService implements CanActivate, CanDeactivate<MAdminComponent> {
-    canActivate(component: MAdminComponent) {
-        return JSON.parse(localStorage.getItem('admin'));
+    constructor(@Inject(PLATFORM_ID) private platformId: Object,) {
     }
 
-    canDeactivate(component: MAdminComponent) {
-        return !JSON.parse(localStorage.getItem('admin'));
+    canActivate() {
+        if (isPlatformBrowser(this.platformId)) {
+            return JSON.parse(localStorage.getItem('admin'));
+        }
+    }
+
+    canDeactivate() {
+        if (isPlatformBrowser(this.platformId)) {
+            return !JSON.parse(localStorage.getItem('admin'));
+        }
     }
 }

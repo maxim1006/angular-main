@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
 
 import {Pizza} from '@models/pizza.model';
 
@@ -8,6 +8,7 @@ import * as fromStore from '../../store';
 import {Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {CreatePizzaAction} from '../../store';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
     selector: 'product-item',
@@ -34,7 +35,7 @@ export class ProductItemComponent implements OnInit {
     visualise$: Observable<Pizza>;
     toppings$: Observable<Topping[]>;
 
-    constructor(private store: Store<fromStore.ProductsState>, ) {
+    constructor(private store: Store<fromStore.ProductsState>, @Inject(PLATFORM_ID) private platformId: Object) {
     }
 
     ngOnInit() {
@@ -97,12 +98,14 @@ export class ProductItemComponent implements OnInit {
     }
 
     onRemove(event: Pizza) {
-        const remove = window.confirm('Are you sure?');
-        if (remove) {
-            this.store.dispatch(new fromStore.RemovePizzaAction(event));
-            // this.pizzaService.removePizza(event).subscribe(() => {
-            //   this.router.navigate([`/ngrx/products`]);
-            // });
+        if (isPlatformBrowser(this.platformId)) {
+            const remove = window.confirm('Are you sure?');
+            if (remove) {
+                this.store.dispatch(new fromStore.RemovePizzaAction(event));
+                // this.pizzaService.removePizza(event).subscribe(() => {
+                //   this.router.navigate([`/ngrx/products`]);
+                // });
+            }
         }
     }
 }

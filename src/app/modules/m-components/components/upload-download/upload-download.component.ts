@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, Inject, PLATFORM_ID} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {domenToken} from '../../../shared/tokens/tokens';
+import {isPlatformBrowser} from '@angular/common';
 
 @Component({
     selector: 'm-upload-download',
@@ -37,7 +38,7 @@ export class MUploadDownloadComponent {
     uploadedJson: string;
     emptyFilesMessageVisible = 'Choose files';
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
 
     }
 
@@ -74,34 +75,36 @@ export class MUploadDownloadComponent {
     }
 
     upload(event) {
-        window.URL = window.URL || window['webkitURL'];
+        if (isPlatformBrowser(this.platformId)) {
+            window.URL = window.URL || window['webkitURL'];
 
-        const files = event.target.files;
+            const files = event.target.files;
 
-        this.emptyFilesMessageVisible = files.length;
+            this.emptyFilesMessageVisible = files.length;
 
-        const fileList = document.querySelector('#fileList');
+            const fileList = document.querySelector('#fileList');
 
-        fileList.innerHTML = '';
-        fileList.appendChild(document.createElement('ul'));
+            fileList.innerHTML = '';
+            fileList.appendChild(document.createElement('ul'));
 
-        if (files.length) {
-            for (let i = 0; i < files.length; i++) {
-                const img = document.createElement('img');
-                img.src = window.URL.createObjectURL(files[i]);
-                img.height = 150;
-                img.onload = function () {
-                    window.URL.revokeObjectURL(img.src);
-                };
+            if (files.length) {
+                for (let i = 0; i < files.length; i++) {
+                    const img = document.createElement('img');
+                    img.src = window.URL.createObjectURL(files[i]);
+                    img.height = 150;
+                    img.onload = function () {
+                        window.URL.revokeObjectURL(img.src);
+                    };
 
-                const listItem = document.createElement('li');
-                const listItemInfo = document.createElement('span');
+                    const listItem = document.createElement('li');
+                    const listItemInfo = document.createElement('span');
 
-                listItemInfo.innerHTML = files[i].name + ': ' + files[i].size + ' bytes';
+                    listItemInfo.innerHTML = files[i].name + ': ' + files[i].size + ' bytes';
 
-                listItem.appendChild(img);
-                listItem.appendChild(listItemInfo);
-                fileList.appendChild(listItem);
+                    listItem.appendChild(img);
+                    listItem.appendChild(listItemInfo);
+                    fileList.appendChild(listItem);
+                }
             }
         }
     }
@@ -119,4 +122,4 @@ export class MUploadDownloadComponent {
             console.log(data);
         });
     }
-}    
+}

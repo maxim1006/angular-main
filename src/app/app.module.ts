@@ -69,7 +69,7 @@ const childInjector: Injector = Injector.create({
         MDynamicAppComponent
     ],
     imports: [
-        BrowserModule, //подключает коммон модуль, директивы, пайпы
+        BrowserModule.withServerTransition({ appId: 'serverApp' }), //подключает коммон модуль, директивы, пайпы
         FormsModule, //подключает ngModel модуль
         BrowserAnimationsModule, //модуль для анимаций
         HttpClientModule,
@@ -127,16 +127,6 @@ const childInjector: Injector = Injector.create({
         {
             provide: EVENT_MANAGER_PLUGINS,
             useClass: HammerPluginPatch,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: MHttpRequestInterceptor,
-            multi: true
-        },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: AuthInterceptor,
             multi: true
         },
 

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, PLATFORM_ID} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {Observable} from 'rxjs/internal/Observable';
 import {CounterDecrementAction, CounterIncrementAction, CounterMultiplyByAction} from './store/actions/counter.action';
@@ -7,6 +7,7 @@ import * as fromProductsStore from './modules/products/store';
 import {switchMap, takeUntil} from 'rxjs/internal/operators';
 import {of, Subject} from 'rxjs/index';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {isPlatformBrowser} from '@angular/common';
 
 interface AppState {
     counter: number;
@@ -51,7 +52,11 @@ export class MNgrxComponent implements OnInit, OnDestroy {
         this.store.dispatch(new CounterDecrementAction(-1));
     }
 
-    constructor(private router: Router, private store: Store<AppState>) {
+    constructor(
+        private router: Router,
+        private store: Store<AppState>,
+        @Inject(PLATFORM_ID) private platformId: Object,
+    ) {
     }
 
     ngOnInit() {
@@ -66,10 +71,12 @@ export class MNgrxComponent implements OnInit, OnDestroy {
         ).subscribe((hint) => {
             this.pizzasHint = hint;
 
-            clearTimeout(this.pizzaTimeout);
-            this.pizzaTimeout = window.setTimeout(() => {
-                this.pizzasHint = null;
-            }, 500);
+            if (isPlatformBrowser(this.platformId)) {
+                clearTimeout(this.pizzaTimeout);
+                this.pizzaTimeout = window.setTimeout(() => {
+                    this.pizzasHint = null;
+                }, 500);
+            }
         });
     }
 
@@ -84,10 +91,12 @@ export class MNgrxComponent implements OnInit, OnDestroy {
                         takeUntil(this.destroy$)
                     ).subscribe((hint) => {
                         this.pizzasHint = hint;
-                        clearTimeout(this.pizzaTimeout);
-                        this.pizzaTimeout = window.setTimeout(() => {
-                            this.pizzasHint = null;
-                        }, 500);
+                        if (isPlatformBrowser(this.platformId)) {
+                            clearTimeout(this.pizzaTimeout);
+                            this.pizzaTimeout = window.setTimeout(() => {
+                                this.pizzasHint = null;
+                            }, 500);
+                        }
                     });
                 }
             }
