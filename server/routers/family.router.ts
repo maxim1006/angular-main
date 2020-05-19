@@ -18,7 +18,7 @@ familyRouter.get('/search', (req, res) => {
         if (req.query && typeof req.query.query === 'string') {
             const foundFamilyMembers =
                 fromFamily.family
-                    .filter(item => item.name.toLowerCase().indexOf(req.query.query.toLowerCase()) > -1);
+                    .filter(item => item.name.toLowerCase().indexOf((req.query.query + "").toLowerCase()) > -1);
 
             if (foundFamilyMembers.length) {
                 res.status(200).json(foundFamilyMembers);

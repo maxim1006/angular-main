@@ -1,3 +1,11 @@
+# ssr
+1) при переходе на ssr добавил в server.ts в корне нормальные настройки
+
++ пакеты изза new Bufffer() ошибки в ноде (в основном проблема была в multer так что для его использования либо спускаемся на ноду 12 либо ждемс когда все проапдейтятся)
+"dicer": "^0.3.0",
+npm i buffer@latest --SD
+
+
 # AngularCliProject
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.

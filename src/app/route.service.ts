@@ -16,22 +16,26 @@ export class RouteService {
 
     init(): Promise<Routes> {
         const {domenUrl} = environment;
-        const o = this.http.get(`${domenUrl}/assets/mocks/route.json`).toPromise();
+        const o = this.http
+            .get(`${domenUrl}/assets/mocks/route.json`).toPromise();
 
-        o.then(
-            (routes) => {
-                this.routes = <Routes>routes;
-                console.log(this.routes, ' this is the route.json, that loaded before app had initialized');
-            },
-            (error) => console.log('RouteService init data ', error)
-        );
+        // o.then(
+        //     (routes) => {
+        //         this.routes = <Routes>routes;
+        //         console.log(this.routes, ' this is the route.json, that loaded before app had initialized');
+        //     },
+        //     (error) => console.log('RouteService init data ', error)
+        // ).catch(() => {
+        //     return Promise.resolve("http://");
+        // });
 
-        return o as Promise<Routes>;
+        // return o as Promise<Routes>;
+        return Promise.resolve({});
     }
 }
 
 export interface Routes {
-    domain: string;
-    gateWay: string;
-    identityProvider: string;
+    domain?: string;
+    gateWay?: string;
+    identityProvider?: string;
 }

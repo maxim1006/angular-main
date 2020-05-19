@@ -1,57 +1,117 @@
 import 'zone.js/dist/zone-node';
-
-import {ngExpressEngine} from '@nguniversal/express-engine';
 import * as express from 'express';
-import {join} from 'path';
-
-import {AppServerModule} from './src/main.server';
-import {APP_BASE_HREF} from '@angular/common';
-import {existsSync} from 'fs';
+import * as bodyParser from 'body-parser';
+import * as routers from './server/routers';
+import * as path from 'path';
+import "./server/mail/mail";
 import * as compression from 'compression';
 import shouldCompress from './server/helpers/server.helper';
+import {ngExpressEngine} from '@nguniversal/express-engine';
+import {AppServerModule} from './src/main.server';
+import {join} from "path";
+import {APP_BASE_HREF} from '@angular/common';
+import {existsSync} from "fs";
 
-// The Express app is exported so that it can be used by serverless Functions.
-export function app() {
-    const server = express();
-    const distFolder = join(process.cwd(), 'dist/angular-cli-project/browser');
-    const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+const app = express(),
+    // тут обязательно process.env.PORT а то будет конфликт с ангуларовскими настройками
+    port = process.env.PORT || 4000,
+    root = '/api/',
+    isProduction = process.env.NODE_ENV === "production";
 
-    // включаю гзип
-    server.use(compression({filter: shouldCompress}));
+const allowCrossDomain = (req, res, next) => {
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
-    // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-    server.engine('html', ngExpressEngine({
-        bootstrap: AppServerModule,
-    }));
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-    server.set('view engine', 'html');
-    server.set('views', distFolder);
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
-    // Example Express Rest API endpoints
-    // server.get('/api/**', (req, res) => { });
-    // Serve static files from /browser
-    server.get('*.*', express.static(distFolder, {
-        maxAge: '1y'
-    }));
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
 
-    // All regular routes use the Universal engine
-    server.get('*', (req, res) => {
-        res.render(indexHtml, {req, providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}]});
-    });
+    // Pass to next layer of middleware
+    next();
+};
 
-    return server;
+
+// Передаю в переменнные окружения значения из .env с помощью dotenv нпм пакета
+if (!isProduction) {
+    require('dotenv').config();
+    // console.log(process.env.CUSTOM_VARIABLE);
 }
 
-function run() {
-    const port = process.env.PORT || 4000;
 
-    // Start up the Node server
-    const server = app();
-    server.listen(port, () => {
-        console.log(`Node Express server listening on http://localhost:${port}`);
-    });
-}
+// Add your mock router here
+const appRouters = [
+    {
+        url: 'dictionaries',
+        middleware: routers.dictionariesRouter
+    },
+    {
+        url: 'example',
+        middleware: routers.exampleRouter
+    },
+    {
+        url: 'family',
+        middleware: routers.familyRouter
+    },
+    {
+        url: 'rxjs',
+        middleware: routers.rxjsRouter
+    },
+    // у multer есть зависимости которые ссылаются на new Buffer, на это ругается нода и не собирается как починят
+    // раскомментировать
+    {
+        url: 'upload',
+        middleware: routers.uploadRouter
+    },
+    {
+        url: 'login',
+        middleware: routers.loginRouter
+    }
+];
 
+app.use(allowCrossDomain);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
+// включаю гзип
+app.use(compression({filter: shouldCompress}));
+
+// TODO переносить картинки, так как tsw этого не делает, приходится подкладывать в dist руками
+app.use(root + 'images', express.static(path.join(__dirname, './mocks/images')));
+
+appRouters.forEach(router => app.use(root + router.url, router.middleware));
+
+
+
+// start angular server
+// Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
+const distFolder = join(process.cwd(), './dist/angular-cli-project/browser');
+const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+
+app.engine('html', ngExpressEngine({
+    bootstrap: AppServerModule,
+}));
+
+app.set('view engine', 'html');
+app.set('views', distFolder);
+
+app.get('*.*', express.static(distFolder, {
+    maxAge: '1y'
+}));
+
+// All regular routes use the Universal engine
+app.get('*', (req, res) => {
+    res.render(indexHtml, {req, providers: [{provide: APP_BASE_HREF, useValue: req.baseUrl}]});
+});
+/////////////////////////////
+
+
+
+// Непонятная чуйня-обертка и main.server реэкспорт от ангулар
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.
@@ -59,7 +119,11 @@ declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
 const moduleFilename = mainModule && mainModule.filename || '';
 if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
-    run();
+    app.listen(port, () => {
+        console.log(`Mock server is listening on port ${port}`);
+    });
 }
 
 export * from './src/main.server';
+
+
