@@ -1,68 +1,64 @@
 module.exports = {
-    "extends": [
+    extends: [
         "eslint:recommended",
         "prettier",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
-        "plugin:@angular-eslint/recommended"
+        "plugin:@angular-eslint/recommended",
     ],
-    "env": {
-        "browser": true,
-        "es6": true,
-        "node": true
+    env: {
+        browser: true,
+        es6: true,
+        node: true,
     },
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "project": "tsconfig.json",
-        "sourceType": "module"
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        project: "tsconfig.json",
+        sourceType: "module",
     },
-    "plugins": [
+    plugins: [
         "prettier",
         "@typescript-eslint/eslint-plugin",
         "rxjs",
-        "@angular-eslint/template"
+        "@angular-eslint/template",
     ],
-    "processor": "@angular-eslint/template/extract-inline-html",
-    "rules": {
+    processor: "@angular-eslint/template/extract-inline-html",
+    rules: {
         "prettier/prettier": ["warn"],
         "max-len": [
             "error",
             {
-                "code": 230
-            }
+                code: 230,
+            },
         ],
         "@typescript-eslint/require-await": "error",
-        "@typescript-eslint/quotes": [
-            "error",
-            "double"
-        ],
+        quotes: "off",
+        "@typescript-eslint/quotes": ["error", "double"],
         "@typescript-eslint/no-unused-vars": [
             "error",
             {
-                "args": "none"
-            }
+                args: "none",
+            },
         ],
         "@typescript-eslint/camelcase": [
             "error",
             {
-                "properties": "never"
-            }
+                properties: "never",
+            },
         ],
         "@typescript-eslint/no-use-before-define": [
             "error",
             {
-                "functions": false
-            }
+                functions: false,
+            },
         ],
-        "@typescript-eslint/semi": [
-            "error"
-        ],
+        "@typescript-eslint/semi": ["error"],
         "@typescript-eslint/consistent-type-assertions": [
             "error",
             {
-                "assertionStyle": "angle-bracket"
-            }
+                assertionStyle: "angle-bracket",
+            },
         ],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
@@ -74,6 +70,6 @@ module.exports = {
         "rxjs/no-ignored-observable": "error",
         "rxjs/no-ignored-subscription": "error",
         "rxjs/no-nested-subscribe": "error",
-        "rxjs/no-unbound-methods": "error"
-    }
+        "rxjs/no-unbound-methods": "error",
+    },
 };
