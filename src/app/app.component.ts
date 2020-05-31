@@ -1,85 +1,142 @@
-import {AfterViewInit, Component, HostBinding, Inject, OnInit, Optional, PLATFORM_ID, ViewChild, ViewContainerRef} from '@angular/core';
-import {SwUpdate} from '@angular/service-worker';
-import {PageLoaderService} from '@services/page-loader.service';
-import {animate, group, query, style, transition, trigger} from '@angular/animations';
-import {MDynamicService} from '@services/dynamic.service';
-import {MDynamicAppComponent} from './components/dynamic-app/dynamic-app.component';
-import {isPlatformBrowser} from '@angular/common';
+import {
+    AfterViewInit,
+    Component,
+    HostBinding,
+    Inject,
+    OnDestroy,
+    OnInit,
+    Optional,
+    PLATFORM_ID,
+    ViewChild,
+    ViewContainerRef,
+} from "@angular/core";
+import { SwUpdate } from "@angular/service-worker";
+import { PageLoaderService } from "@services/page-loader.service";
+import {
+    animate,
+    group,
+    query,
+    style,
+    transition,
+    trigger,
+} from "@angular/animations";
+import { MDynamicService } from "@services/dynamic.service";
+import { MDynamicAppComponent } from "./components/dynamic-app/dynamic-app.component";
+import { isPlatformBrowser } from "@angular/common";
+import { Subscription } from "rxjs";
 
-export const routerTransition: any = trigger('routerTransition', [
-    transition('* <=> *', [
+export const routerTransition: any = trigger("routerTransition", [
+    transition("* <=> *", [
         /* order */
-        /* 1 */ query(':enter, :leave', style({position: 'fixed', width: '100%'})
-            , {optional: true}),
-        query(':enter', style({transform: 'translateY(200px)', opacity: 0})
-            , {optional: true}),
+        /* 1 */ query(
+            ":enter, :leave",
+            style({ position: "fixed", width: "100%" }),
+            { optional: true }
+        ),
+        query(":enter", style({ transform: "translateY(200px)", opacity: 0 }), {
+            optional: true,
+        }),
         // /* 2 */ group([  // block executes in parallel
-        query(':leave', [
-            style({transform: 'translateY(0%)'}),
-            animate('0.3s ease-out', style({transform: 'translateY(200px)', opacity: 0}))
-        ], {optional: true}),
-        query(':enter', [
-            style({transform: 'translateY(200px)', opacity: 0}),
-            animate('0.3s ease-in', style({transform: 'translateY(0%)', opacity: 1}))
-        ], {optional: true}),
+        query(
+            ":leave",
+            [
+                style({ transform: "translateY(0%)" }),
+                animate(
+                    "0.3s ease-out",
+                    style({ transform: "translateY(200px)", opacity: 0 })
+                ),
+            ],
+            { optional: true }
+        ),
+        query(
+            ":enter",
+            [
+                style({ transform: "translateY(200px)", opacity: 0 }),
+                animate(
+                    "0.3s ease-in",
+                    style({ transform: "translateY(0%)", opacity: 1 })
+                ),
+            ],
+            { optional: true }
+        ),
 
         // ])
-    ])
+    ]),
 ]);
 
-export const routerTransition1: any = trigger('routerTransition', [
-    transition('* <=> *', [
+export const routerTransition1: any = trigger("routerTransition", [
+    transition("* <=> *", [
         /* order */
-        /* 1 */ query(':enter, :leave', style({position: 'fixed', width: '100%'})
-            , {optional: true}),
-        query(':enter', style({transform: 'translateX(200px)', opacity: 0})
-            , {optional: true}),
+        /* 1 */ query(
+            ":enter, :leave",
+            style({ position: "fixed", width: "100%" }),
+            { optional: true }
+        ),
+        query(":enter", style({ transform: "translateX(200px)", opacity: 0 }), {
+            optional: true,
+        }),
         // /* 2 */ group([  // block executes in parallel
-        group([  // block executes in parallel
-            query(':leave', [
-                style({transform: 'translateX(0%)'}),
-                animate('0.2s cubic-bezier(0.4, 0.0, 1, 1)', style({transform: 'translateX(-300px)', opacity: 0}))
-            ], {optional: true}),
-            query(':enter', [
-                style({transform: 'translateX(200px)'}),
-                animate('0.4s cubic-bezier(0.0, 0.0, 0.2, 1)', style({transform: 'translateX(0%)', opacity: 1}))
-            ], {optional: true}),
-        ])
+        group([
+            // block executes in parallel
+            query(
+                ":leave",
+                [
+                    style({ transform: "translateX(0%)" }),
+                    animate(
+                        "0.2s cubic-bezier(0.4, 0.0, 1, 1)",
+                        style({ transform: "translateX(-300px)", opacity: 0 })
+                    ),
+                ],
+                { optional: true }
+            ),
+            query(
+                ":enter",
+                [
+                    style({ transform: "translateX(200px)" }),
+                    animate(
+                        "0.4s cubic-bezier(0.0, 0.0, 0.2, 1)",
+                        style({ transform: "translateX(0%)", opacity: 1 })
+                    ),
+                ],
+                { optional: true }
+            ),
+        ]),
         // ])
-    ])
+    ]),
 ]);
 
 @Component({
-    selector: 'app-component',
-    templateUrl: './app.component.html',
+    selector: "app-component",
+    templateUrl: "./app.component.html",
     // styleUrls: ['./app.component.css']
-    animations: [routerTransition1]
+    animations: [routerTransition1],
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+    private subscription: Subscription;
 
     // пример readonly объекта и массива
     public readOnlyObject: Readonly<{ name: string }> = {
-        name: 'Max'
+        name: "Max",
     };
 
-    public readOnlyArray: ReadonlyArray<{ name: string }> = [{
-        name: 'Max'
-    }];
+    public readOnlyArray: ReadonlyArray<{ name: string }> = [
+        {
+            name: "Max",
+        },
+    ];
     /*************************************/
 
-
-    @ViewChild('dynamicComponent', { read: ViewContainerRef })
+    @ViewChild("dynamicComponent", { read: ViewContainerRef })
     dynamicComponentRef: ViewContainerRef;
 
-    @HostBinding('class')
-    public hostClass: String = 'app-component';
+    @HostBinding("class.app-component") true;
 
     public ngOnInit(): void {
         if (isPlatformBrowser(this.platformId)) {
             if (this.swUpdate.isEnabled) {
-                this.swUpdate.available.subscribe(() => {
+                this.subscription = this.swUpdate.available.subscribe(() => {
                     // подключаю сервис воркеры
-                    if (confirm('New version available. Load New Version?')) {
+                    if (confirm("New version available. Load New Version?")) {
                         window.location.reload();
                     }
                 });
@@ -89,7 +146,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     constructor(
         @Inject(PLATFORM_ID) private platformId: Object,
-        @Optional() @Inject('someOptionalObject.someOptionalProperty') private optionalPropery,
+        @Optional()
+        @Inject("someOptionalObject.someOptionalProperty")
+        private optionalPropery,
         public pageLoaderService: PageLoaderService,
         private mDynamicService: MDynamicService,
         private swUpdate: SwUpdate
@@ -97,12 +156,12 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     activateEvent(event) {
         // this.pageLoaderService.activateRoute(event);
-        console.log(event, ' activated component');
+        console.log(event, " activated component");
     }
 
     deactivateEvent(event) {
         // this.pageLoaderService.deactivateRoute();
-        console.log(event, ' deactivated component');
+        console.log(event, " deactivated component");
     }
 
     getState(outlet) {
@@ -113,9 +172,12 @@ export class AppComponent implements OnInit, AfterViewInit {
         this.mDynamicService.init(this.dynamicComponentRef);
 
         // Создаю динамический компонент, как пример для динамического сервиса.
-        const dynamicComponentRef = this.mDynamicService.createDynamicComponent(MDynamicAppComponent, {
-            text: 'text from MDynamicAppComponent'
-        });
+        const dynamicComponentRef = this.mDynamicService.createDynamicComponent(
+            MDynamicAppComponent,
+            {
+                text: "text from MDynamicAppComponent",
+            }
+        );
 
         // делаю детект только в апп компоненте, так как обычно буду вставлять в onInit, но в данном случае изначальный инит сервиса нужен.
         dynamicComponentRef.changeDetectorRef.detectChanges();
@@ -124,7 +186,7 @@ export class AppComponent implements OnInit, AfterViewInit {
         setTimeout(_ => dynamicComponentRef.destroy(), 3000);
     }
 
-
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 }
-
-

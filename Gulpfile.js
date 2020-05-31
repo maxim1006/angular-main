@@ -1,11 +1,32 @@
 "use strict";
 
-const gulp     = require("gulp"),
-      path     = require("path"),
-      svgmin   = require("gulp-svgmin"),
-      rename   = require("gulp-rename"),
-      inject   = require("gulp-inject"),
-      svgstore = require("gulp-svgstore");
+const directoryMoment = './node_modules/moment/locale';
+const localesMoment = /en-gb|ru/;
+
+const gulp = require("gulp"),
+    path = require("path"),
+    svgmin = require("gulp-svgmin"),
+    rename = require("gulp-rename"),
+    inject = require("gulp-inject"),
+    fs = require("fs"),
+    svgstore = require("gulp-svgstore");
+
+
+gulp.task("moment", (done) => {
+    fs.readdir(directoryMoment, (err, files) => {
+        if (err) throw err;
+
+        for (const file of files) {
+            if (!localesMoment.test(file)) {
+                fs.unlink(path.join(directoryMoment, file), err => {
+                    if (err) throw err;
+                });
+            }
+        }
+    });
+
+    done();
+});
 
 
 gulp.task("svg", () => {
@@ -50,7 +71,6 @@ gulp.task("svg", () => {
 });
 
 
-
 /*HELPERS*/
 process.on("uncaughtException", (err) => {
     console.error(err.message, err.stack, err.errors);
@@ -59,13 +79,11 @@ process.on("uncaughtException", (err) => {
 ;
 
 gulp.on("err", (gulpErr) => {
-    if(gulpErr.err) {
+    if (gulpErr.err) {
         console.error("Gulp error details", [gulpErr.err.message, gulpErr.err.stack, gulpErr.err.errors].filter(Boolean));
         process.exit(255);
     }
 });
-
-
 
 
 ////////// Temp solution ///////////

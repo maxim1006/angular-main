@@ -1,3 +1,12 @@
+# eslint instead of tslint
+ng add @angular-eslint/schematics
+
+then
+"eslint-plugin-rxjs": "0.0.2-beta.16"
+
+then
+ tslint -> .eslintrc.json 
+
 # ssr
 1) при переходе на ssr добавил в server.ts в корне нормальные настройки
 
