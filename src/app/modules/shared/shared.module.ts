@@ -54,7 +54,7 @@ import { ResizeObserverDirective } from "./directives/resize-observer/resize-obs
         /*Pipes*/
         CustomPipe,
         ImpurePipe,
-        objToArrPipe,
+        ObjToArrPipe,
         FileSizePipe,
     ],
 })
