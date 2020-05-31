@@ -1,6 +1,6 @@
-import {Observable} from 'rxjs';
+import { Observable } from "rxjs";
 
-const hasSupport = 'IntersectionObserver' in window;
+const hasSupport = "IntersectionObserver" in window;
 
 const inViewHelper = (
     element: Element,
@@ -9,7 +9,7 @@ const inViewHelper = (
         threshold: 0.5,
     }
 ) => {
-    return new Observable((subscriber) => {
+    return new Observable(subscriber => {
         if (!hasSupport) {
             subscriber.next(true);
             subscriber.complete();

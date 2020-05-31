@@ -1,12 +1,11 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-    name: 'filesize'
+    name: "filesize",
 })
-
 export class FileSizePipe implements PipeTransform {
     transform(value: number, extension: string): string {
         console.log(value);
-        return (` (${value}${extension || 'kb'})`);
+        return ` (${value}${extension || "kb"})`;
     }
 }

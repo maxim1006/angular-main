@@ -9,18 +9,16 @@ interface Person {
 }
 
 const person: Person = {
-    name: 'Max',
-    age: 31
+    name: "Max",
+    age: 31,
 };
 
 // const frozePerson = Object.freeze(person);
 // frozePerson.name = 'Aliya'; // ошибка, так как frozePerson имеет тип Readonly<Person>
 
-
 // const sealedPerson = Object.seal(person);
 // sealedPerson.name = 'Aliya'; // норм
 // sealedPerson.occupation = 'accounting'; // ошибка
-
 
 // const readonlyPerson: Readonly<Person> = {
 //     name: 'Max',
@@ -29,14 +27,12 @@ const person: Person = {
 //
 // readonlyPerson.name = 'Aliya'; // ошибка
 
-
 // функция для получения readonly объекта
 // function freeze<T>(obj: T): Readonly<T> {
 //     return Object.freeze(obj);
 // }
 //
 // const readonlyByFreezPerson = freeze(person);
-
 
 // проходимся по всем пропертям T и делаем их readonly
 // type MyReadonly<T> = {
@@ -50,8 +46,6 @@ const person: Person = {
 //
 // newReadonlyPerson.name = 'Aliya'; // ошибка
 /////////////////////////////////////////////////
-
-
 
 // Partial type (Partial<T>)
 // обычно чтобы победить добавление проперти в существующий интерфейс мы делаем новый интерфейс с дублированием
@@ -84,8 +78,6 @@ const person: Person = {
 //
 // updatePerson(person, {name: 'Aliya'});
 
-
-
 // Required type (Required<T>)
 
 // type MyRequired<T> = {
@@ -108,8 +100,6 @@ const person: Person = {
 // const printablePerson: Required<Person> = {name: 'Max', age: 31};
 //
 // printName(printablePerson); // должен еще передать age, даже несмотря на то что в оригинальном интерфейсе он optional
-
-
 
 // Pick<T, K> - могу работать с отдельным свойством в интерфейсе, этим оно удобнее чем Partial
 // interface PickedPerson {
@@ -134,13 +124,11 @@ const person: Person = {
 //     age: 31,
 // };
 
-
-
 // Record
 
 // let dictionary: { [key: string]: any } = {}; // обычно так разрешаю добавлять любое свойство, но это не очень удобно.
-let dictionary: Record<string, TrackStates> = {};
-let dictionary1: Record<string, typeof item> = {}; // могу указать не конкретный интерфейс TrackStates как выше, а взять тип у item
+const dictionary: Record<string, TrackStates> = {};
+const dictionary1: Record<string, typeof item> = {}; // могу указать не конкретный интерфейс TrackStates как выше, а взять тип у item
 
 interface TrackStates {
     current: string;
@@ -149,13 +137,10 @@ interface TrackStates {
 
 // говорю что item имеет свойства 'current' | 'next' которые равны строкам
 const item: Record<keyof TrackStates, string> = {
-    current: 'id1',
-    next: 'id2'
+    current: "id1",
+    next: "id2",
 };
 
 // пример добавления записи в словарик
 dictionary[0] = item;
 dictionary1[0] = item;
-
-
-

@@ -1,7 +1,7 @@
-import {OnDestroy, OnInit} from '@angular/core';
-import {Media} from '../../../common/models/media';
-import {PageUtilsService} from '../../../common/services/page-utils.service';
-import {Subscription} from 'rxjs/index';
+import { OnDestroy, OnInit } from "@angular/core";
+import { Media } from "../../../common/models/media";
+import { PageUtilsService } from "../../../common/services/page-utils.service";
+import { Subscription } from "rxjs";
 
 export abstract class PageUtils implements OnInit, OnDestroy {
     media: Media;
@@ -11,10 +11,12 @@ export abstract class PageUtils implements OnInit, OnDestroy {
     constructor(protected pageUtilsService: PageUtilsService) {}
 
     ngOnInit() {
-        this.mediaSubscription = this.pageUtilsService.getMedia().subscribe((media: Media) => {
-            this.media = media;
-            console.log(this.media, ' this.media subscription');
-        });
+        this.mediaSubscription = this.pageUtilsService
+            .getMedia()
+            .subscribe((media: Media) => {
+                this.media = media;
+                console.log(this.media, " this.media subscription");
+            });
     }
 
     ngOnDestroy() {

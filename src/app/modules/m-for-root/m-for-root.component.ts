@@ -1,14 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'm-for-root',
-    template: `Hello from forRoot`
+    selector: "m-for-root",
+    template: "Hello from forRoot",
 })
-
-export class MForRootComponent implements OnInit {
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
-}
+export class MForRootComponent {}

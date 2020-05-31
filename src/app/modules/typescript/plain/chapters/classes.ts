@@ -10,10 +10,9 @@ interface Size1Model extends Size2Model {
     bestSize: string;
 }
 
-
 // абстрактный класс нельзя создать через new, нужен только для наследования
 abstract class Size implements SizeModel, Size1Model {
-    public bestSize: string = '';
+    public bestSize = "";
 
     get availableSizes(): string[] {
         return this.sizes;
@@ -27,12 +26,12 @@ abstract class Size implements SizeModel, Size1Model {
 }
 
 class Pizza extends Size {
-    public readonly name: string = '';
-    static readonly call: string = '';
+    public readonly name: string = "";
+    static readonly call: string = "";
 
     constructor(sizes: string[]) {
         super(sizes);
     }
 }
 
-console.log(new Pizza(['small', 'medium']));
+console.log(new Pizza(["small", "medium"]));

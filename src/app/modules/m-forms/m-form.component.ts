@@ -1,36 +1,44 @@
 //Форм билдер не сохраняет в форме дизейблд значения
 //Встроенные валидаторы https://angular.io/api/forms/Validators
 
-import {Component, OnInit, SimpleChange, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ayncNameValidator, dynamicFieldValidator, nameValidator} from './validators/validators';
-import {ValidationConstants} from '../shared/constants/validation.constant';
-import {switchMap} from 'rxjs/operators';
-import {Observable, of} from 'rxjs';
-import {doOnSubscribe} from '../m-rxjs/components/rxjs-example/rxjs-example.component';
+import { Component, OnInit, SimpleChange, SimpleChanges } from "@angular/core";
+import {
+    FormArray,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from "@angular/forms";
+import {
+    ayncNameValidator,
+    dynamicFieldValidator,
+    nameValidator,
+} from "./validators/validators";
+import { ValidationConstants } from "../shared/constants/validation.constant";
+import { switchMap } from "rxjs/operators";
+import { Observable, of } from "rxjs";
+import { doOnSubscribe } from "../m-rxjs/components/rxjs-example/rxjs-example.component";
 
 @Component({
-    selector: 'm-form',
-    templateUrl: './m-form.component.html'
+    selector: "m-form",
+    templateUrl: "./m-form.component.html",
 })
-
 export class MFormComponent implements OnInit {
-
     public myForm: FormGroup;
     public formModel: any = {};
     public service: string;
 
     /** @internal */
     public get _dynamicFields(): FormArray {
-        return this.myForm.get('dynamicFields') as FormArray;
+        return this.myForm.get("dynamicFields") as FormArray;
     }
 
     /** @internal */
     public _addField(): void {
         const control = new FormControl();
 
-        control['customData'] = {
-            customDataInControl: true
+        control["customData"] = {
+            customDataInControl: true,
         };
 
         this._dynamicFields.push(control);
@@ -45,7 +53,7 @@ export class MFormComponent implements OnInit {
     public _resetForm(): void {
         this.myForm.reset();
 
-        Object.keys(this.myForm.controls).forEach((name) => {
+        Object.keys(this.myForm.controls).forEach(name => {
             this.myForm.controls[name].markAsUntouched();
         });
 
@@ -57,48 +65,57 @@ export class MFormComponent implements OnInit {
     /** @internal */
     public _patchValue(): void {
         this.myForm.patchValue({
-            name: 'Max',
-            surname: 'Maximov'
+            name: "Max",
+            surname: "Maximov",
         });
     }
 
-
-    constructor(private fb: FormBuilder) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         const self = this;
 
-        self.service = 'testServ`ice';
+        self.service = "testServ`ice";
 
-        this.myForm = this.fb.group({
-            'name': [
-                //исходный value в input, нужно еще проставить disabled иначе приходит object, либо первым аргументом передавать не объект, а значение
-                '',
-                Validators.compose([Validators.required, Validators.maxLength(10), nameValidator()])
-            ], //пример с кастомной валидацией
-            'surname': [
-                '',
-                [Validators.required, Validators.maxLength(10)],
-                [ayncNameValidator]
-            ],
-            'age': [
-                ''
-            ],
-            'phone': ['',
-                // disabled: false
-                Validators.compose([Validators.pattern(ValidationConstants.PHONE_NUMBER)])
-            ],
-            'nested': this.fb.group({
-                'email': ['',
-                    // disabled: false
-                    Validators.compose([Validators.pattern(ValidationConstants.EMAIL)])
+        this.myForm = this.fb.group(
+            {
+                name: [
+                    //исходный value в input, нужно еще проставить disabled иначе приходит object, либо первым аргументом передавать не объект, а значение
+                    "",
+                    Validators.compose([
+                        Validators.required,
+                        Validators.maxLength(10),
+                        nameValidator(),
+                    ]),
+                ], //пример с кастомной валидацией
+                surname: [
+                    "",
+                    [Validators.required, Validators.maxLength(10)],
+                    [ayncNameValidator],
                 ],
-            }),
-            'dynamicFields': this.fb.array([])
-        }, {
-            validator: dynamicFieldValidator()
-        });
+                age: [""],
+                phone: [
+                    "",
+                    // disabled: false
+                    Validators.compose([
+                        Validators.pattern(ValidationConstants.PHONE_NUMBER),
+                    ]),
+                ],
+                nested: this.fb.group({
+                    email: [
+                        "",
+                        // disabled: false
+                        Validators.compose([
+                            Validators.pattern(ValidationConstants.EMAIL),
+                        ]),
+                    ],
+                }),
+                dynamicFields: this.fb.array([]),
+            },
+            {
+                validator: dynamicFieldValidator(),
+            }
+        );
 
         // listen control change
         // this.myForm.controls["name"].valueChanges.subscribe((value: string) => {
@@ -111,11 +128,11 @@ export class MFormComponent implements OnInit {
         // });
 
         // listen form change only fields that changed
-        this.myForm.valueChanges.pipe(
-            ngFormChanges(this.myForm)
-        ).subscribe((form: SimpleChanges) => {
-            console.log('form changed to: ', form);
-        });
+        this.myForm.valueChanges
+            .pipe(ngFormChanges(this.myForm))
+            .subscribe((form: SimpleChanges) => {
+                console.log("form changed to: ", form);
+            });
 
         // enable/disable controls
         // this.objectToArray(this.myForm.controls).map((control: any) => {
@@ -145,29 +162,29 @@ export class MFormComponent implements OnInit {
 
         // update all form
         // this.myForm.controls['date'].updateValueAndValidity();
-
     }
 
     onSubmit(value: string): void {
-        console.log('submitted info: ', value);
-        console.log('formModel: ', this.formModel);
+        console.log("submitted info: ", value);
+        console.log("formModel: ", this.formModel);
     }
 
     public _getErrorText(controlName: string): string {
-        let errorText = '',
+        let errorText = "",
             control = this.myForm.controls[controlName];
 
         if (control.errors) {
-            if (control.errors['maxlength'] !== undefined) {
-                errorText = `Value should be less then ${control.errors['maxlength'].requiredLength}`;
+            if (control.errors["maxlength"] !== undefined) {
+                errorText = `Value should be less then ${control.errors["maxlength"].requiredLength}`;
             }
 
-            if (control.errors['nameValidation'] !== undefined) {
-                errorText = `Should start with capital letter`;
+            if (control.errors["nameValidation"] !== undefined) {
+                errorText = "Should start with capital letter";
             }
 
-            if (control.errors['ayncNameValidation'] !== undefined) {
-                errorText = `Async validation: should start with capital letter`;
+            if (control.errors["ayncNameValidation"] !== undefined) {
+                errorText =
+                    "Async validation: should start with capital letter";
             }
         }
 
@@ -183,28 +200,32 @@ export class MFormComponent implements OnInit {
     }
 }
 
-
 // export function ngFormChanges(form: FormGroup) {
-export const ngFormChanges = (form: FormGroup): (source: Observable<SimpleChanges>) => Observable<SimpleChanges> =>
-    (source: Observable<SimpleChanges>): Observable<SimpleChanges> => {
+export const ngFormChanges = (
+    form: FormGroup
+): ((source: Observable<SimpleChanges>) => Observable<SimpleChanges>) => (
+    source: Observable<SimpleChanges>
+): Observable<SimpleChanges> => {
+    let prevValue;
 
-        let prevValue;
+    return source.pipe(
+        doOnSubscribe(() => (prevValue = form.value)),
+        switchMap(value => {
+            const changes = {};
 
-        return source.pipe(
-            doOnSubscribe(() => prevValue = form.value),
-            switchMap((value) => {
+            Object.keys(value).forEach(key => {
+                if (prevValue[key] !== value[key]) {
+                    changes[key] = new SimpleChange(
+                        prevValue[key],
+                        value[key],
+                        false
+                    );
+                }
+            });
 
-                const changes = {};
+            prevValue = value;
 
-                Object.keys(value).forEach(key => {
-                    if (prevValue[key] !== value[key]) {
-                        changes[key] = new SimpleChange(prevValue[key], value[key], false);
-                    }
-                });
-
-                prevValue = value;
-
-                return of(changes);
-            })
-        );
-    };
+            return of(changes);
+        })
+    );
+};

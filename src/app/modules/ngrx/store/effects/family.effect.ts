@@ -1,19 +1,24 @@
-import {Injectable} from '@angular/core';
-import {Actions, createEffect, Effect, ofType} from '@ngrx/effects';
-import {Observable, of} from 'rxjs';
-import {Action, select, Store} from '@ngrx/store';
-import {HttpClient} from '@angular/common/http';
-import {catchError, map, switchMap, withLatestFrom, auditTime, distinctUntilChanged} from 'rxjs/operators';
-import * as fromFamilyActions from '../actions/family.action';
-import * as fromFamilySelectors from '../selectors/family.selector';
-import {FamilyMember} from '@models/family.model';
-import {MFamilyService} from '../../services/family.service';
-import {State} from '../reducers';
-
+import { Injectable } from "@angular/core";
+import { Actions, createEffect, Effect, ofType } from "@ngrx/effects";
+import { Observable, of } from "rxjs";
+import { Action, select, Store } from "@ngrx/store";
+import { HttpClient } from "@angular/common/http";
+import {
+    catchError,
+    map,
+    switchMap,
+    withLatestFrom,
+    auditTime,
+    distinctUntilChanged,
+} from "rxjs/operators";
+import * as fromFamilyActions from "../actions/family.action";
+import * as fromFamilySelectors from "../selectors/family.selector";
+import { FamilyMember } from "@models/family.model";
+import { MFamilyService } from "../../services/family.service";
+import { State } from "../reducers";
 
 @Injectable()
 export class FamilyEffects {
-
     constructor(
         private http: HttpClient,
         private actions$: Actions,
@@ -36,16 +41,19 @@ export class FamilyEffects {
     //     }
     // ));
 
-    loadFamily$ = createEffect(() => this.actions$.pipe(
-        ofType(fromFamilyActions.load),
-        switchMap(action => this.mFamilyService.getFamily().pipe(
-            map((familyMembers: FamilyMember[]) => {
-                return fromFamilyActions.loadSuccess({familyMembers});
-            }),
-            catchError(err => of(fromFamilyActions.loadFail(err)))
-        ))
-
-    ));
+    loadFamily$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(fromFamilyActions.load),
+            switchMap(action =>
+                this.mFamilyService.getFamily().pipe(
+                    map((familyMembers: FamilyMember[]) => {
+                        return fromFamilyActions.loadSuccess({ familyMembers });
+                    }),
+                    catchError(err => of(fromFamilyActions.loadFail(err)))
+                )
+            )
+        )
+    );
 
     // @Effect()
     // searchFamilyMembers$: Observable<Action> = this.actions$.pipe(

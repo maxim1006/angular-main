@@ -1,24 +1,31 @@
 import {
-    Directive, HostListener, ElementRef, Input, Output, EventEmitter, OnInit, HostBinding,
-    ChangeDetectorRef, PLATFORM_ID, Inject
-} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
+    Directive,
+    HostListener,
+    ElementRef,
+    Input,
+    Output,
+    EventEmitter,
+    OnInit,
+    HostBinding,
+    ChangeDetectorRef,
+    PLATFORM_ID,
+    Inject,
+} from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 
 @Directive({
-    selector: '[contentEditable]',
+    selector: "[contentEditable]",
 })
-
 export class ContentEditableDirective implements OnInit {
-
     @Input() contentEditable: any;
     @Input() contentEditableRequired: boolean;
     @Input() contentEditableMaxHeight: number;
     @Input() fixed: boolean;
     @Output() contentEditableChange = new EventEmitter();
 
-    @HostBinding('attr.title') public titleAttr = '';
+    @HostBinding("attr.title") public titleAttr = "";
 
-    @HostBinding('class._content-editable')
+    @HostBinding("class._content-editable")
     public contentEditableStyleClass: boolean;
 
     private fakeDiv: HTMLDivElement;
@@ -27,15 +34,17 @@ export class ContentEditableDirective implements OnInit {
     private manuallyUpdatedView = true;
     private viewInited: boolean;
 
-    @HostListener('blur', ['$event'])
+    @HostListener("blur", ["$event"])
     public onBlur(): void {
-
-        if (!this.elRef.nativeElement.textContent.trim().length && this.contentEditableRequired) {
+        if (
+            !this.elRef.nativeElement.textContent.trim().length &&
+            this.contentEditableRequired
+        ) {
             this.elRef.nativeElement.textContent = this.contentEditable;
             return;
         }
 
-        if (this.el.textContent !== '...') {
+        if (this.el.textContent !== "...") {
             this.initialText = this.elRef.nativeElement.textContent;
         }
 
@@ -45,21 +54,23 @@ export class ContentEditableDirective implements OnInit {
         this.contentEditableChange.emit(this.initialText);
     }
 
-    @HostListener('focus', ['$event'])
+    @HostListener("focus", ["$event"])
     public onFocus(): void {
-
         this.el.textContent = this.initialText;
     }
 
     constructor(
         private elRef: ElementRef,
         private cdr: ChangeDetectorRef,
-        @Inject(PLATFORM_ID) private platformId: Object,
-    ) {
-    }
+        @Inject(PLATFORM_ID) private platformId: Record<string, any>
+    ) {}
 
     ngOnChanges(value: any) {
-        if (value.contentEditable && value.contentEditable.currentValue && this.viewInited) {
+        if (
+            value.contentEditable &&
+            value.contentEditable.currentValue &&
+            this.viewInited
+        ) {
             this.elRef.nativeElement.textContent = this.contentEditable;
             this.onBlur();
         }
@@ -96,7 +107,7 @@ export class ContentEditableDirective implements OnInit {
     }
 
     isEllipsisActive(e: HTMLElement): boolean {
-        return (e.offsetWidth < e.scrollWidth - 1);
+        return e.offsetWidth < e.scrollWidth - 1;
     }
 
     updateEllipsis() {
@@ -110,8 +121,8 @@ export class ContentEditableDirective implements OnInit {
             this.titleAttr = this.initialText;
         } else {
             this.el.textContent = this.fitText(this.initialText);
-            if (this.initialText && this.initialText.slice(-3) !== '...') {
-                this.titleAttr = '';
+            if (this.initialText && !this.initialText.endsWith("...")) {
+                this.titleAttr = "";
             }
         }
 
@@ -119,19 +130,17 @@ export class ContentEditableDirective implements OnInit {
             this.manuallyUpdatedView = true;
             this.cdr.detectChanges();
         }
-
     }
 
     createFakeDiv(): void {
         if (isPlatformBrowser(this.platformId)) {
-            this.fakeDiv = document.createElement('div');
-            this.fakeDiv.style.position = 'absolute';
-            this.fakeDiv.style.left = '-99999px';
+            this.fakeDiv = document.createElement("div");
+            this.fakeDiv.style.position = "absolute";
+            this.fakeDiv.style.left = "-99999px";
         }
     }
 
     fitText(text: string): string {
-
         while (this.fakeDiv.offsetHeight > this.contentEditableMaxHeight) {
             text = this.removeWord(text);
             this.fakeDiv.textContent = text;
@@ -141,13 +150,13 @@ export class ContentEditableDirective implements OnInit {
     }
 
     removeWord(text: string): string {
-        const arr = text.split(' ');
+        const arr = text.split(" ");
         arr.pop();
-        return arr.join(' ');
+        return arr.join(" ");
     }
 
     addDots(text: string): string {
-        return text.slice(0, -3) + '...';
+        return text.slice(0, -3) + "...";
     }
 
     getDotFlag() {

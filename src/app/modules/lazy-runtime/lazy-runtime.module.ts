@@ -1,14 +1,13 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from "@angular/core";
 
-import {LazyRuntimeComponent} from './lazy-runtime.component';
-import {CommonModule} from '@angular/common';
+import { LazyRuntimeComponent } from "./lazy-runtime.component";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     imports: [CommonModule],
     exports: [],
     declarations: [LazyRuntimeComponent],
     bootstrap: [LazyRuntimeComponent],
-    entryComponents: [LazyRuntimeComponent]
+    entryComponents: [LazyRuntimeComponent],
 })
-export class LazyRuntimeModule {
-}
+export class LazyRuntimeModule {}

@@ -1,26 +1,29 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {combineAll, concatAll, map, mergeAll, take, takeUntil} from 'rxjs/operators';
-import {combineLatest, fromEvent, interval, merge, of, Subject} from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import {
+    combineAll,
+    concatAll,
+    map,
+    mergeAll,
+    take,
+    takeUntil,
+} from "rxjs/operators";
+import { combineLatest, fromEvent, interval, merge, of, Subject } from "rxjs";
 
 @Component({
-    selector: 'rxjs-ondestroy',
-    template: `
-        <h2>Rxjs OnDestroy example</h2>
-    `
+    selector: "rxjs-ondestroy",
+    template: " <h2>Rxjs OnDestroy example</h2> ",
 })
-
 export class RxjsOnDestroyComponent implements OnInit, OnDestroy {
     private onDestroy$ = new Subject<void>();
 
-    constructor(private _http: HttpClient) {
-    }
+    constructor(private _http: HttpClient) {}
 
     ngOnInit() {
         const observable = interval(2000);
         const observable1 = interval(4000);
         const observable2 = of([]);
-        const click$ = fromEvent(document, 'click');
+        const click$ = fromEvent(document, "click");
 
         // observable2.pipe(
         //     //takeUntil(this.onDestroy$) // ERROR!!! если поставить сюда то сабскрайб не умрет!!!!! так не делать

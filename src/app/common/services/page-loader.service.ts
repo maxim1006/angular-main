@@ -1,16 +1,13 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root",
 })
 export class PageLoaderService {
     public pageLoading = false;
     public pageLoadingStart = true;
     private _deactivatedRoute = false;
     private _visitedRoutesCache: any = {};
-
-    constructor() {
-    }
 
     activateRoute(event) {
         const constructorName = event.constructor.name;
@@ -24,7 +21,6 @@ export class PageLoaderService {
             } else {
                 this._deferLoaders(false, 50);
             }
-
         } else {
             deferLoading(this.pageLoading, false, 0);
             this.pageLoadingStart = false;
@@ -44,7 +40,6 @@ export class PageLoaderService {
         }, time);
     }
 }
-
 
 /*Helpers*/
 function deferLoading(param: boolean, value: boolean, time) {

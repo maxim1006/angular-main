@@ -1,27 +1,28 @@
-import {Component, OnInit} from "@angular/core";
-import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from './auth.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AuthService } from "./auth.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "m-auth",
-    styles: [`
-        .login-form__field {
-            margin-bottom: 20px;
-        }
-        
-        .login-form__field-required {
-            margin: 0 10px 0 0;
-            color: red;
-        }
-        
-        .login-form__button._submit:disabled {
-            opacity: 0.4;
-        }
-    `],
-    template: `
+    styles: [
+        `
+            .login-form__field {
+                margin-bottom: 20px;
+            }
 
+            .login-form__field-required {
+                margin: 0 10px 0 0;
+                color: red;
+            }
+
+            .login-form__button._submit:disabled {
+                opacity: 0.4;
+            }
+        `,
+    ],
+    template: `
         <div [innerHTML]="html"></div>
 
         <!--Пример для работы с ]JWT токеном-->
@@ -32,7 +33,10 @@ import {Router} from '@angular/router';
             (ngSubmit)="_login()"
         >
             <div class="login-form__field">
-                <label for="loginInput">Enter login <sup class="login-form__field-required">*</sup></label>
+                <label for="loginInput"
+                    >Enter login
+                    <sup class="login-form__field-required">*</sup></label
+                >
                 <input
                     id="loginInput"
                     type="text"
@@ -41,7 +45,10 @@ import {Router} from '@angular/router';
                 />
             </div>
             <div class="login-form__field">
-                <label for="loginInput">Enter password <sup class="login-form__field-required">*</sup></label>
+                <label for="loginInput"
+                    >Enter password
+                    <sup class="login-form__field-required">*</sup></label
+                >
                 <input
                     id="passwordInput"
                     type="password"
@@ -50,14 +57,18 @@ import {Router} from '@angular/router';
                     formControlName="password"
                 />
             </div>
-            <button class="login-form__button _submit" type="submit" [disabled]="!loginForm.valid">login</button>
+            <button
+                class="login-form__button _submit"
+                type="submit"
+                [disabled]="!loginForm.valid"
+            >
+                login
+            </button>
         </form>
-        
+
         <button (click)="_getAuthData()">Make request for auth data</button>
-
-    `
+    `,
 })
-
 export class AuthComponent implements OnInit {
     public loginForm: FormGroup;
     public html: SafeHtml;
@@ -67,33 +78,31 @@ export class AuthComponent implements OnInit {
         private fb: FormBuilder,
         private authService: AuthService,
         private router: Router
-    ) {
-    }
+    ) {}
 
     ngOnInit() {
-        this.html = this.sanitizer.bypassSecurityTrustHtml("<h3>bypassSecurityTrustHtml</h3><script>script()</script>");
+        this.html = this.sanitizer.bypassSecurityTrustHtml(
+            "<h3>bypassSecurityTrustHtml</h3><script>script()</script>"
+        );
 
         this.loginForm = this.fb.group({
-            "login": ["", Validators.compose([Validators.required])],
-            "password": ["", Validators.compose([Validators.required])],
+            login: ["", Validators.compose([Validators.required])],
+            password: ["", Validators.compose([Validators.required])],
         });
     }
 
     _login() {
         console.log("data from login form: ", this.loginForm.value);
 
-        this.authService
-            .login(this.loginForm.value)
-            .subscribe((data) => {
-                console.log("user is logged in ", data);
-                // this.router.navigateByUrl('/');
-            });
+        this.authService.login(this.loginForm.value).subscribe(data => {
+            console.log("user is logged in ", data);
+            // this.router.navigateByUrl('/');
+        });
     }
 
     _getAuthData() {
-        this.authService.getAuthData()
-            .subscribe((data) => {
-                console.log("_getAuthData ", data);
-            });
+        this.authService.getAuthData().subscribe(data => {
+            console.log("_getAuthData ", data);
+        });
     }
 }

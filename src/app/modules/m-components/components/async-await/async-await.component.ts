@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'm-async-await',
-    templateUrl: './async-await.component.html',
-    styleUrls: ['./async-await.component.less']
+    selector: "m-async-await",
+    templateUrl: "./async-await.component.html",
+    styleUrls: ["./async-await.component.less"],
 })
 export class AsyncAwaitComponent implements OnInit {
-
     ngAfterViewInit() {
-
         // console.log("start"); // 1
         //
         // setTimeout(_ => {
@@ -42,7 +40,6 @@ export class AsyncAwaitComponent implements OnInit {
         //
         // Promise.resolve().then(_ => console.log("promise resolve"));
 
-
         // async - автоматом заставляет функцию возвращать промис
         const getAsync = async () => {
             return [1, 2, 3];
@@ -55,8 +52,8 @@ export class AsyncAwaitComponent implements OnInit {
         // getAsync1().then((data) => {console.log(data);})
 
         const getArrays = async () => {
-            let arr = await getAsync();
-            let arr1 = await getAsync();
+            const arr = await getAsync();
+            const arr1 = await getAsync();
 
             // console.log([...arr, ...arr1]);
         };
@@ -65,24 +62,21 @@ export class AsyncAwaitComponent implements OnInit {
 
         const getAllArrays = async () => {
             try {
-
-                let arr = getAsync();
-                let arr1 = getAsync();
+                const arr = getAsync();
+                const arr1 = getAsync();
 
                 return await Promise.all([arr, arr1]);
-
             } catch (e) {
                 console.log(e);
-                throw(e); // эту ошибку можно поймать в кетч
+                throw e; // эту ошибку можно поймать в кетч
                 // return []; // если что-то верну то вместо кетч слушатель получит []
             }
         };
 
         // getAllArrays().then(data => console.log(data)).catch(e => console.log(e));
 
-
-        const getFruit = async (name) => {
-            const o = {apple: 'apple', banana: 'banana', orange: 'orange'};
+        const getFruit = async name => {
+            const o = { apple: "apple", banana: "banana", orange: "orange" };
             console.log(o[name]);
             return o[name];
         };
@@ -97,7 +91,6 @@ export class AsyncAwaitComponent implements OnInit {
         //
         // fruitLoop();
 
-
         // const concurrentFruitLoop = async() => {
         //     const arr = [getFruit("apple"), getFruit("orange"), getFruit("banana")];
         //
@@ -109,15 +102,13 @@ export class AsyncAwaitComponent implements OnInit {
         // concurrentFruitLoop();
 
         async function isApple() {
-            if (await getFruit('apple') === 'apple') {
-                console.log('it is apple!');
+            if ((await getFruit("apple")) === "apple") {
+                console.log("it is apple!");
             }
         }
 
         isApple();
     }
 
-    ngOnInit() {
-    }
-
+    ngOnInit() {}
 }

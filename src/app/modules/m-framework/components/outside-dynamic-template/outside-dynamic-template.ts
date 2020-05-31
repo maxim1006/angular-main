@@ -1,23 +1,16 @@
-import {Component, OnInit, Input, TemplateRef} from '@angular/core';
+import { Component, OnInit, Input, TemplateRef } from "@angular/core";
 
 @Component({
-    selector: 'outside-dynamic-template',
-    templateUrl: 'outside-dynamic-template.component.html'
+    selector: "outside-dynamic-template",
+    templateUrl: "outside-dynamic-template.component.html",
 })
-
-export class OutsideDynamicTemplateComponent implements OnInit {
+export class OutsideDynamicTemplateComponent {
     @Input() inputTemplate: TemplateRef<any>;
 
     /** @Internal */
-    public _prop = 'default prop';
-
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
+    public _prop = "default prop";
 
     ngAfterViewInit() {
-        console.log('this.inputTemplate ', this.inputTemplate);
+        console.log("this.inputTemplate ", this.inputTemplate);
     }
 }

@@ -1,12 +1,19 @@
 // в данном случае это типо апп редюсеры
-import * as fromRouter from '@ngrx/router-store';
-import * as fromCounterReducer from './counter.reducer';
-import * as fromFamilyReducer from './family.reducer';
-import {ActivatedRouteSnapshot, Params, RouterStateSnapshot} from '@angular/router';
-import {ActionReducerMap, createFeatureSelector, createSelector} from '@ngrx/store';
-import {RouterStateSerializer} from '@ngrx/router-store';
+import * as fromRouter from "@ngrx/router-store";
+import * as fromCounterReducer from "./counter.reducer";
+import * as fromFamilyReducer from "./family.reducer";
+import {
+    ActivatedRouteSnapshot,
+    Params,
+    RouterStateSnapshot,
+} from "@angular/router";
+import {
+    ActionReducerMap,
+    createFeatureSelector,
+    createSelector,
+} from "@ngrx/store";
+import { RouterStateSerializer } from "@ngrx/router-store";
 import { Injectable } from "@angular/core";
-
 
 export interface RouterStateUrl {
     url: string;
@@ -23,15 +30,16 @@ export interface State {
 export const reducers: ActionReducerMap<State> = {
     routerReducer: fromRouter.routerReducer,
     counter: fromCounterReducer.reducer,
-    family: fromFamilyReducer.reducer
+    family: fromFamilyReducer.reducer,
 };
 
+export const getCounterState = createFeatureSelector<
+    fromCounterReducer.CounterState
+>("counter");
 
-
-export const getCounterState = createFeatureSelector<fromCounterReducer.CounterState>('counter');
-
-export const getRouterState = createFeatureSelector<fromRouter.RouterReducerState<RouterStateUrl>>('routerReducer');
-
+export const getRouterState = createFeatureSelector<
+    fromRouter.RouterReducerState<RouterStateUrl>
+>("routerReducer");
 
 @Injectable()
 export class CustomSerializer implements RouterStateSerializer<RouterStateUrl> {

@@ -1,15 +1,14 @@
-import * as fromStore from '../store';
+import * as fromStore from "../store";
 
-import {Injectable} from '@angular/core';
-import {CanActivate} from '@angular/router';
-import {Observable, of} from 'rxjs';
-import {select, Store} from '@ngrx/store';
-import {filter, tap, take} from 'rxjs/operators';
-import {catchError, switchMap} from 'rxjs/internal/operators';
+import { Injectable } from "@angular/core";
+import { CanActivate } from "@angular/router";
+import { Observable, of } from "rxjs";
+import { select, Store } from "@ngrx/store";
+import { filter, tap, take } from "rxjs/operators";
+import { catchError, switchMap } from "rxjs/operators";
 
 @Injectable()
 export class PizzasGuard implements CanActivate {
-
     constructor(private store: Store<fromStore.ProductsState>) {}
 
     public canActivate(): Observable<boolean> {
@@ -22,7 +21,7 @@ export class PizzasGuard implements CanActivate {
     public checkStore(): Observable<boolean> {
         return this.store.pipe(
             select(fromStore.getPizzasLoaded),
-            tap((loaded) => {
+            tap(loaded => {
                 if (!loaded) {
                     this.store.dispatch(new fromStore.LoadPizzasAction());
                 }

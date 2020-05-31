@@ -1,7 +1,6 @@
-import {Directive, ViewContainerRef} from '@angular/core';
+import { Directive, ViewContainerRef } from "@angular/core";
 
-@Directive({selector: '[dynamicHost]'})
+@Directive({ selector: "[dynamicHost]" })
 export class DynamicHostDirective {
-    constructor(public view: ViewContainerRef) {
-    }
+    constructor(public view: ViewContainerRef) {}
 }

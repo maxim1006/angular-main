@@ -1,33 +1,29 @@
-import {Component, ElementRef, Input, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from "@angular/core";
 
 @Component({
-    selector: 'progress-bar',
+    selector: "progress-bar",
     template: `
         <div class="progress-bar__content">
             <div class="progress-bar__line">
-                <div class="progress-bar__line-inner" 
-                     #progressBarLineInner
-                     [ngStyle]="{
-                        'transitionDuration': animationSpeed + 'ms',
-                        'left': (value || 0) + '%'
-                     }"
+                <div
+                    class="progress-bar__line-inner"
+                    #progressBarLineInner
+                    [ngStyle]="{
+                        transitionDuration: animationSpeed + 'ms',
+                        left: (value || 0) + '%'
+                    }"
                 ></div>
             </div>
-            <div class="progress-bar__text"
-                 *ngIf="text"
-            >{{text}}</div>
+            <div class="progress-bar__text" *ngIf="text">{{ text }}</div>
         </div>
     `,
     host: {
-        '[class.progress-bar]': 'true'
-    }
+        "[class.progress-bar]": "true",
+    },
 })
-
 export class ProgressBarComponent {
-
-    @ViewChild('progressBarLineInner')
+    @ViewChild("progressBarLineInner")
     private line: ElementRef;
-
 
     @Input()
     public set value(value: number) {
@@ -44,7 +40,6 @@ export class ProgressBarComponent {
 
     @Input()
     public text: string;
-
 
     private _value: number;
 

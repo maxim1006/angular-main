@@ -1,13 +1,12 @@
-import {Injectable} from '@angular/core';
-import {Observable, Observer, Subscriber, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
-import {domenToken} from '../shared/tokens/tokens';
-import {HttpClient} from '@angular/common/http';
-import {FamilyMember} from './m-http.component';
-
+import { Injectable } from "@angular/core";
+import { Observable, Observer, Subscriber, throwError } from "rxjs";
+import { catchError } from "rxjs/operators";
+import { domenToken } from "../shared/tokens/tokens";
+import { HttpClient } from "@angular/common/http";
+import { FamilyMember } from "./m-http.component";
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root",
 })
 export class MHttpService {
     public _data: any;
@@ -37,7 +36,10 @@ export class MHttpService {
             .pipe(catchError((error: any) => throwError(error)));
     }
 
-    postFileOld(url: string, files: File[]): { response: Observable<Response>, progress: Observable<number> } {
+    postFileOld(
+        url: string,
+        files: File[]
+    ): { response: Observable<Response>; progress: Observable<number> } {
         let formData: FormData = new FormData(),
             progressObserver: Subscriber<number>,
             progress = Observable.create((subscriber: Subscriber<number>) => {
@@ -45,7 +47,7 @@ export class MHttpService {
             });
 
         for (let i = 0; i < files.length; i++) {
-            formData.append('files[]', files[i]);
+            formData.append("files[]", files[i]);
         }
 
         const response = Observable.create((observer: Observer<Response>) => {
@@ -66,21 +68,19 @@ export class MHttpService {
                 console.log(error.target.status);
             };
 
-            xhr.upload.onprogress = (event) => {
+            xhr.upload.onprogress = event => {
                 if (progressObserver) {
-                    progressObserver.next(Math.round(event.loaded / event.total * 100));
+                    progressObserver.next(
+                        Math.round((event.loaded / event.total) * 100)
+                    );
                 }
             };
 
-            xhr.open('POST', url, true);
+            xhr.open("POST", url, true);
 
             xhr.send(formData);
         });
 
-        return {response, progress};
+        return { response, progress };
     }
 }
-
-
-
-

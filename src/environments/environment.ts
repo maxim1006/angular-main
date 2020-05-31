@@ -5,7 +5,7 @@
 export const environment = {
     production: false,
     hmr: false,
-    domenUrl: "http://localhost:4200"
+    domenUrl: "http://localhost:4200",
 };
 
 /*

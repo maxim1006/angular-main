@@ -1,23 +1,21 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input } from "@angular/core";
 
 @Component({
-    selector: 'class-example',
-    templateUrl: './classExampleComponent.html'
+    selector: "class-example",
+    templateUrl: "./classExampleComponent.html",
 })
-
 export class ClassExampleComponent {
-
     @Input()
     public prop;
 
     public constructor() {
-        console.log('class-example component constructor init');
+        console.log("class-example component constructor init");
     }
 
     getClasses() {
         return {
             item: true,
-            _next: true
+            _next: true,
         };
     }
 

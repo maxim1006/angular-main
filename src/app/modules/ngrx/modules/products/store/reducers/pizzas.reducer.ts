@@ -1,8 +1,8 @@
-import {Pizza} from '@models/pizza.model';
-import * as fromPizzaActions from '../actions';
+import { Pizza } from "@models/pizza.model";
+import * as fromPizzaActions from "../actions";
 
 export interface PizzaState {
-    entities?: {[id: number]: Pizza};
+    entities?: { [id: number]: Pizza };
     loaded?: boolean;
     loading?: boolean;
     hint?: string;
@@ -12,16 +12,19 @@ export const initialState: PizzaState = {
     entities: {},
     loaded: false,
     loading: false,
-    hint: null
+    hint: null,
 };
 
-export function reducer(state = initialState, action: fromPizzaActions.PizzasActionUnion): PizzaState {
+export function reducer(
+    state = initialState,
+    action: fromPizzaActions.PizzasActionUnion
+): PizzaState {
     switch (action.type) {
         case fromPizzaActions.PizzasActionTypes.Load: {
             return {
                 ...state,
                 loading: true,
-                loaded: false
+                loaded: false,
             };
         }
 
@@ -29,20 +32,21 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             const pizzas = action.payload;
 
             // превращаю массив в объект
-            const entities =  pizzas.reduce((entities: {[id: number]: Pizza}, pizza) => {
+            const entities = pizzas.reduce(
+                (entities: { [id: number]: Pizza }, pizza) => {
                     return {
                         ...entities,
-                        [pizza.id]: pizza
+                        [pizza.id]: pizza,
                     };
                 },
-                {...state.entities}
+                { ...state.entities }
             );
 
             return {
                 ...state,
                 loading: false,
                 loaded: true,
-                entities
+                entities,
             };
         }
 
@@ -50,7 +54,7 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             return {
                 ...state,
                 loading: false,
-                loaded: false
+                loaded: false,
             };
         }
 
@@ -59,7 +63,7 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
                 ...state,
                 loading: true,
                 loaded: false,
-                hint: 'Create in progress'
+                hint: "Create in progress",
             };
         }
 
@@ -68,7 +72,7 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
                 ...state,
                 loading: true,
                 loaded: false,
-                hint: 'Update in progress'
+                hint: "Update in progress",
             };
         }
 
@@ -77,13 +81,13 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             const newPizza = action.payload;
             const entities = {
                 ...state.entities,
-                [newPizza.id]: newPizza
+                [newPizza.id]: newPizza,
             };
 
             return {
                 ...state,
                 entities,
-                hint: 'Create success'
+                hint: "Create success",
             };
         }
 
@@ -91,20 +95,20 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             const newPizza = action.payload;
             const entities = {
                 ...state.entities,
-                [newPizza.id]: newPizza
+                [newPizza.id]: newPizza,
             };
 
             return {
                 ...state,
                 entities,
-                hint: 'Update success'
+                hint: "Update success",
             };
         }
 
         case fromPizzaActions.PizzasActionTypes.Remove: {
             return {
                 ...state,
-                hint: 'Remove in progress'
+                hint: "Remove in progress",
             };
         }
 
@@ -113,20 +117,20 @@ export function reducer(state = initialState, action: fromPizzaActions.PizzasAct
             // тут делаю деструктуризацию, нахожу пиццу по id п присваиваю ей переменную removed
             // console.log(removed); // removed pizza
             // а в entities попадут все пиццы кроме удаленной
-            const { [pizza.id]: removed, ...entities  } = state.entities;
+            const { [pizza.id]: removed, ...entities } = state.entities;
 
             return {
                 ...state,
                 entities,
-                hint: 'Remove success'
+                hint: "Remove success",
             };
         }
 
         case fromPizzaActions.PizzasActionTypes.ShowHint: {
-            console.log('romPizzaActions.PizzasActionTypes.ShowHint ', action);
+            console.log("romPizzaActions.PizzasActionTypes.ShowHint ", action);
             return {
                 ...state,
-                hint: action.payload
+                hint: action.payload,
             };
         }
 

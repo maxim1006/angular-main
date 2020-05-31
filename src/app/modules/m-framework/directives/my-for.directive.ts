@@ -1,8 +1,8 @@
-import {Directive, Input, TemplateRef, ViewContainerRef} from '@angular/core';
+import { Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
 
 //myForOf - Of на конце это то что в item of items, of могу поменять на max и будет item max items
 @Directive({
-    selector: '[myFor][myForOf]'
+    selector: "[myFor][myForOf]",
 })
 export class MyForDirective {
     @Input()
@@ -11,11 +11,13 @@ export class MyForDirective {
         list.forEach((item, index) => {
             this.view.createEmbeddedView(this.template, {
                 $implicit: item,
-                index
+                index,
             });
         });
     }
 
-    constructor(private view: ViewContainerRef, private template: TemplateRef<any>) {
-    }
+    constructor(
+        private view: ViewContainerRef,
+        private template: TemplateRef<any>
+    ) {}
 }

@@ -1,18 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
     moduleId: module.id,
-    selector: 'm-redux',
-    templateUrl: 'redux.component.html'
+    selector: "m-redux",
+    templateUrl: "redux.component.html",
 })
-
-export class MReduxComponent implements OnInit {
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
-}
+export class MReduxComponent {}
 
 /*  Принципы redux:
 *   Single source of truth - единственный объект на все приложение

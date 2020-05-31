@@ -1,18 +1,21 @@
-import {CounterActionTypes, CounterActionsUnion} from '../actions/counter.action';
+import {
+    CounterActionTypes,
+    CounterActionsUnion,
+} from "../actions/counter.action";
 
 export type CounterState = number;
 
 const initialState = 0;
 
-
-export function reducer(state: CounterState = initialState, action: CounterActionsUnion) {
+export function reducer(
+    state: CounterState = initialState,
+    action: CounterActionsUnion
+) {
     switch (action.type) {
         case CounterActionTypes.Increment:
-
             return state + action.payload;
 
         case CounterActionTypes.Decrement:
-
             return state + action.payload;
 
         case CounterActionTypes.MultiplyBy:
@@ -20,7 +23,6 @@ export function reducer(state: CounterState = initialState, action: CounterActio
             return state * action.payload;
 
         default:
-
             return state;
     }
 }

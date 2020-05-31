@@ -1,10 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {select$} from './select.helper';
-import {deepFreeze, naiveObjectComparison} from './common.helper';
-
-
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { select$ } from "./select.helper";
+import { deepFreeze, naiveObjectComparison } from "./common.helper";
 
 interface UserData {
     userName?: string;
@@ -16,7 +14,6 @@ interface Message {
     date: Date;
     body: string;
 }
-
 
 export class Store<T> extends BehaviorSubject<T> {
     constructor(initialData: T) {
@@ -31,12 +28,10 @@ export class Store<T> extends BehaviorSubject<T> {
     }
 }
 
-
-
 const USER_DATA_INIT = {};
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: "root",
 })
 export class UserService {
     private userData$: Store<UserData>;
@@ -45,29 +40,19 @@ export class UserService {
     public age$: Observable<number>;
     public messages$: Observable<Message[]>;
 
-    constructor(
-        private http: HttpClient
-    ) {
+    constructor(private http: HttpClient) {
         this.userData$ = new Store(USER_DATA_INIT);
 
-        this.userName$ = select$(
-            this.userData$,
-            userData => userData.userName,
-        );
+        this.userName$ = select$(this.userData$, userData => userData.userName);
 
-        this.age$ = select$(
-            this.userData$,
-            userData => userData.age,
-        );
+        this.age$ = select$(this.userData$, userData => userData.age);
 
-        this.messages$ = select$(
-            this.userData$,
-            userData => userData.messages
-        );
+        this.messages$ = select$(this.userData$, userData => userData.messages);
     }
 
     fetchUserData() {
-        this.http.get<UserData>('http://some-user-api.com')
+        return this.http
+            .get<UserData>("http://some-user-api.com")
             .subscribe(userData => this.userData$.next(userData));
     }
 }

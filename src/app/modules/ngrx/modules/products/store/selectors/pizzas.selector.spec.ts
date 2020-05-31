@@ -1,46 +1,49 @@
-import {StoreModule, Store, combineReducers, select} from '@ngrx/store';
-import {ROUTER_NAVIGATION, StoreRouterConnectingModule} from '@ngrx/router-store';
+import { StoreModule, Store, combineReducers, select } from "@ngrx/store";
+import {
+    ROUTER_NAVIGATION,
+    StoreRouterConnectingModule,
+} from "@ngrx/router-store";
 
-import {fakeAsync, flush, TestBed} from '@angular/core/testing';
-import {Pizza} from '@models/pizza.model';
+import { fakeAsync, flush, TestBed } from "@angular/core/testing";
+import { Pizza } from "@models/pizza.model";
 
-import * as fromRoot from '../../../../store/reducers';
-import * as fromReducers from '../reducers';
-import * as fromActions from '../actions';
-import * as fromSelectors from '../selectors/pizzas.selectors';
+import * as fromRoot from "../../../../store/reducers";
+import * as fromReducers from "../reducers";
+import * as fromActions from "../actions";
+import * as fromSelectors from "../selectors/pizzas.selectors";
 
-describe('Pizzas Selectors', () => {
+describe("Pizzas Selectors", () => {
     let store: Store<fromReducers.ProductsState>;
 
     const pizza1: Pizza = {
         id: 1,
-        name: 'Fish \'n Chips',
+        name: "Fish 'n Chips",
         toppings: [
-            {id: 1, name: 'fish'},
-            {id: 2, name: 'chips'},
-            {id: 3, name: 'cheese'},
+            { id: 1, name: "fish" },
+            { id: 2, name: "chips" },
+            { id: 3, name: "cheese" },
         ],
     };
 
     const pizza2: Pizza = {
         id: 2,
-        name: 'Aloha',
+        name: "Aloha",
         toppings: [
-            {id: 1, name: 'ham'},
-            {id: 2, name: 'pineapple'},
-            {id: 3, name: 'cheese'},
+            { id: 1, name: "ham" },
+            { id: 2, name: "pineapple" },
+            { id: 3, name: "cheese" },
         ],
     };
 
     const pizza3: Pizza = {
         id: 3,
-        name: 'Burrito',
+        name: "Burrito",
         toppings: [
-            {id: 1, name: 'beans'},
-            {id: 2, name: 'beef'},
-            {id: 3, name: 'rice'},
-            {id: 4, name: 'cheese'},
-            {id: 5, name: 'avocado'},
+            { id: 1, name: "beans" },
+            { id: 2, name: "beef" },
+            { id: 3, name: "rice" },
+            { id: 4, name: "cheese" },
+            { id: 5, name: "avocado" },
         ],
     };
 
@@ -58,15 +61,15 @@ describe('Pizzas Selectors', () => {
                 StoreModule.forRoot({
                     ...fromRoot.reducers,
                     products: combineReducers(fromReducers.productsReducers),
-                })
+                }),
             ],
         });
 
         store = TestBed.get(Store);
     });
 
-    describe('getPizzaState', () => {
-        it('should return state of pizza store slice', () => {
+    describe("getPizzaState", () => {
+        it("should return state of pizza store slice", () => {
             let result;
 
             store
@@ -89,8 +92,8 @@ describe('Pizzas Selectors', () => {
         });
     });
 
-    describe('getPizzaEntities', () => {
-        it('should return pizzas as entities', () => {
+    describe("getPizzaEntities", () => {
+        it("should return pizzas as entities", () => {
             let result;
 
             store
@@ -105,20 +108,20 @@ describe('Pizzas Selectors', () => {
         });
     });
 
-    describe('getSelectedPizza', () => {
-        it('should return selected pizza as an entity', () => {
+    describe("getSelectedPizza", () => {
+        it("should return selected pizza as an entity", () => {
             let result;
             let params;
 
             store.dispatch(new fromActions.LoadPizzasSuccessAction(pizzas));
 
             store.dispatch({
-                type: 'ROUTER_NAVIGATION',
+                type: "ROUTER_NAVIGATION",
                 payload: {
                     routerState: {
-                        url: '/ngrx/products',
+                        url: "/ngrx/products",
                         queryParams: {},
-                        params: {pizzaId: '2'},
+                        params: { pizzaId: "2" },
                     },
                     event: {},
                 },
@@ -127,38 +130,36 @@ describe('Pizzas Selectors', () => {
             store
                 .pipe(select(fromRoot.getRouterState))
                 .subscribe(routerState => {
-                        params = routerState.state.params;
-                    }
-                );
-
+                    params = routerState.state.params;
+                });
 
             store
                 .pipe(select(fromSelectors.getSelectedPizza))
                 .subscribe(selectedPizza => (result = selectedPizza));
 
             if (params) {
-                expect(params).toEqual({pizzaId: '2'});
+                expect(params).toEqual({ pizzaId: "2" });
             }
             expect(result).toEqual(entities[2]);
         });
     });
 
-    describe('getPizzaVisualised', () => {
-        it('should return selected pizza composed with selected toppings', () => {
+    describe("getPizzaVisualised", () => {
+        it("should return selected pizza composed with selected toppings", () => {
             let result;
             let params;
             const toppings = [
                 {
                     id: 6,
-                    name: 'mushroom',
+                    name: "mushroom",
                 },
                 {
                     id: 9,
-                    name: 'pepper',
+                    name: "pepper",
                 },
                 {
                     id: 11,
-                    name: 'sweetcorn',
+                    name: "sweetcorn",
                 },
             ];
 
@@ -167,12 +168,12 @@ describe('Pizzas Selectors', () => {
             store.dispatch(new fromActions.VisualiseToppingsAction([11, 9, 6]));
 
             store.dispatch({
-                type: 'ROUTER_NAVIGATION',
+                type: "ROUTER_NAVIGATION",
                 payload: {
                     routerState: {
-                        url: '/ngrx/products',
+                        url: "/ngrx/products",
                         queryParams: {},
-                        params: {pizzaId: '2'},
+                        params: { pizzaId: "2" },
                     },
                     event: {},
                 },
@@ -184,12 +185,15 @@ describe('Pizzas Selectors', () => {
 
             const expectedToppings = [toppings[2], toppings[1], toppings[0]];
 
-            expect(result).toEqual({...entities[2], toppings: expectedToppings});
+            expect(result).toEqual({
+                ...entities[2],
+                toppings: expectedToppings,
+            });
         });
     });
 
-    describe('getAllPizzas', () => {
-        it('should return pizzas as an array', () => {
+    describe("getAllPizzas", () => {
+        it("should return pizzas as an array", () => {
             let result;
 
             store
@@ -204,8 +208,8 @@ describe('Pizzas Selectors', () => {
         });
     });
 
-    describe('getPizzasLoaded', () => {
-        it('should return the pizzas loaded state', () => {
+    describe("getPizzasLoaded", () => {
+        it("should return the pizzas loaded state", () => {
             let result;
 
             store
@@ -220,8 +224,8 @@ describe('Pizzas Selectors', () => {
         });
     });
 
-    describe('getPizzasLoading', () => {
-        it('should return the pizzas loading state', () => {
+    describe("getPizzasLoading", () => {
+        it("should return the pizzas loading state", () => {
             let result;
 
             store

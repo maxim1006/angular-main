@@ -16,8 +16,6 @@ console.log(sumAll(1, 2, 3, 4, 5)); // 15
 */
 /***************************************/
 
-
-
 // Spread operator in array example
 /*
 const arr1 = [1];
@@ -28,8 +26,6 @@ const arr4 = [...arr1, ...arr2, ...arr3];
 console.log(arr4);
 */
 /***************************************/
-
-
 
 // Destructuring
 /*
@@ -44,8 +40,6 @@ function f([one, two]: number[]) {
 f(arr);
 */
 /***************************************/
-
-
 
 // Apply
 /*

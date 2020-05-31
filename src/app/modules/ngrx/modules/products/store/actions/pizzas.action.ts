@@ -1,25 +1,25 @@
-import {Action} from '@ngrx/store';
-import {Pizza} from '@models/pizza.model';
+import { Action } from "@ngrx/store";
+import { Pizza } from "@models/pizza.model";
 
 // load pizzaz
 export enum PizzasActionTypes {
-    Load = '[Products] Load Pizzas',
-    LoadSuccess = '[Products] Load Pizzas Success',
-    LoadFail = '[Products] Load Pizzas Fail',
+    Load = "[Products] Load Pizzas",
+    LoadSuccess = "[Products] Load Pizzas Success",
+    LoadFail = "[Products] Load Pizzas Fail",
 
-    Create = '[Products] Create Pizza',
-    CreateSuccess = '[Products] Create Pizza Success',
-    CreateFail = '[Products] Create Pizza Fail',
+    Create = "[Products] Create Pizza",
+    CreateSuccess = "[Products] Create Pizza Success",
+    CreateFail = "[Products] Create Pizza Fail",
 
-    Update = '[Products] Update Pizza',
-    UpdateSuccess = '[Products] Update Pizza Success',
-    UpdateFail = '[Products] Update Pizza Fail',
+    Update = "[Products] Update Pizza",
+    UpdateSuccess = "[Products] Update Pizza Success",
+    UpdateFail = "[Products] Update Pizza Fail",
 
-    Remove = '[Products] Remove Pizza',
-    RemoveSuccess = '[Products] Remove Pizza Success',
-    RemoveFail = '[Products] Remove Pizza Fail',
+    Remove = "[Products] Remove Pizza",
+    RemoveSuccess = "[Products] Remove Pizza Success",
+    RemoveFail = "[Products] Remove Pizza Fail",
 
-    ShowHint = '[Products] Show hint'
+    ShowHint = "[Products] Show hint",
 }
 
 // Load
@@ -105,5 +105,3 @@ export type PizzasActionUnion =
     | RemovePizzaSuccessAction
     | RemovePizzaFailAction
     | ShowHintAction;
-
-

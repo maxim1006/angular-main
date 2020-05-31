@@ -1,20 +1,29 @@
 import {
-    Directive, ElementRef, Input, OnInit, HostBinding, NgZone, ChangeDetectorRef, PLATFORM_ID, Inject
-} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
+    AfterViewInit,
+    ChangeDetectorRef,
+    Directive,
+    ElementRef,
+    HostBinding,
+    Inject,
+    Input,
+    NgZone,
+    OnChanges,
+    OnDestroy,
+    PLATFORM_ID,
+} from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 
 @Directive({
-    selector: '[ellipsis]'
+    selector: "[ellipsis]",
 })
-
-export class EllipsisDirective implements OnInit {
+export class EllipsisDirective implements OnChanges, AfterViewInit, OnDestroy {
     cb: (e: Event) => void;
 
     @Input() ellipsis: number;
 
-    @HostBinding('attr.title') public titleAttr = '';
+    @HostBinding("attr.title") public titleAttr = "";
 
-    @HostBinding('class._ellipsis')
+    @HostBinding("class._ellipsis")
     public ellipsisStyleClass = true;
 
     private fakeDiv: HTMLDivElement;
@@ -24,7 +33,12 @@ export class EllipsisDirective implements OnInit {
     private TIMEOUT_ID: number;
     private resizeStartFlag = true;
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object, private elRef: ElementRef, private zone: NgZone, private cdr: ChangeDetectorRef) {}
+    constructor(
+        @Inject(PLATFORM_ID) private platformId: Record<string, any>,
+        private elRef: ElementRef,
+        private zone: NgZone,
+        private cdr: ChangeDetectorRef
+    ) {}
 
     ngOnChanges(value: any) {
         if (value.ellipsis && value.ellipsis.currentValue && this.viewInited) {
@@ -32,10 +46,7 @@ export class EllipsisDirective implements OnInit {
         }
     }
 
-    ngOnInit() {}
-
     ngAfterViewInit() {
-
         this.el = this.elRef.nativeElement;
         this.initialText = this.el.textContent;
 
@@ -50,11 +61,11 @@ export class EllipsisDirective implements OnInit {
         this.viewInited = true;
 
         if (isPlatformBrowser(this.platformId)) {
-            this.cb = (e: Event) => {
+            this.cb = () => {
                 if (this.resizeStartFlag) {
                     this.zone.run(() => {
-                        this.el.style.maxHeight = this.ellipsis + 'px';
-                        this.el.style.overflow = 'hidden';
+                        this.el.style.maxHeight = this.ellipsis + "px";
+                        this.el.style.overflow = "hidden";
                         this.resizeStartFlag = false;
                     });
                 }
@@ -62,8 +73,8 @@ export class EllipsisDirective implements OnInit {
                 clearTimeout(this.TIMEOUT_ID);
                 this.TIMEOUT_ID = window.setTimeout(() => {
                     this.zone.run(() => {
-                        this.el.style.maxHeight = 'auto';
-                        this.el.style.overflow = 'visible';
+                        this.el.style.maxHeight = "auto";
+                        this.el.style.overflow = "visible";
                         this.updateEllipsis();
                         this.resizeStartFlag = true;
                     });
@@ -71,7 +82,7 @@ export class EllipsisDirective implements OnInit {
             };
 
             this.zone.runOutsideAngular(() => {
-                window.addEventListener('resize', this.cb);
+                window.addEventListener("resize", this.cb);
             });
         }
 
@@ -81,15 +92,15 @@ export class EllipsisDirective implements OnInit {
     ngOnDestroy() {
         if (isPlatformBrowser(this.platformId)) {
             document.body.removeChild(this.fakeDiv);
-            window.removeEventListener('resize', this.cb);
+            window.removeEventListener("resize", this.cb);
         }
 
         this.fakeDiv = null;
     }
 
-    isEllipsisActive(e: HTMLElement): boolean {
-        return (e.offsetWidth < e.scrollWidth - 1);
-    }
+    // isEllipsisActive(e: HTMLElement): boolean {
+    //     return e.offsetWidth < e.scrollWidth - 1;
+    // }
 
     updateEllipsis() {
         this.setupFakeDiv();
@@ -102,22 +113,22 @@ export class EllipsisDirective implements OnInit {
             this.titleAttr = this.initialText;
         } else {
             this.el.textContent = this.fitText(this.initialText);
-            if (this.initialText && this.initialText.slice(-3) !== '...') {
-                this.titleAttr = '';
+            if (this.initialText && !this.initialText.endsWith("...")) {
+                this.titleAttr = "";
             }
         }
     }
 
     createFakeDiv(): void {
         if (isPlatformBrowser(this.platformId)) {
-            this.fakeDiv = document.createElement('div');
-            this.fakeDiv.style.position = 'absolute';
-            this.fakeDiv.style.left = '-99999px';
+            this.fakeDiv = document.createElement("div");
+            this.fakeDiv.style.position = "absolute";
+            this.fakeDiv.style.left = "-99999px";
         }
     }
 
     fitText(text: string): string {
-        let fittedTextBeforeLastWord = '';
+        let fittedTextBeforeLastWord = "";
 
         while (this.fakeDiv.offsetHeight > this.ellipsis) {
             fittedTextBeforeLastWord = text;
@@ -139,9 +150,9 @@ export class EllipsisDirective implements OnInit {
     }
 
     removeWord(text: string): string {
-        const arr = text.split(' ');
+        const arr = text.split(" ");
         arr.pop();
-        return arr.join(' ');
+        return arr.join(" ");
     }
 
     removeSymbol(text: string): string {
@@ -149,7 +160,7 @@ export class EllipsisDirective implements OnInit {
     }
 
     addDots(text: string): string {
-        return text.slice(0, -3) + '...';
+        return text.slice(0, -3) + "...";
     }
 
     getDotFlag() {
@@ -166,7 +177,7 @@ export class EllipsisDirective implements OnInit {
         this.fakeDiv.style.letterSpacing = computedStyle.letterSpacing;
         this.fakeDiv.style.fontFamily = computedStyle.fontFamily;
         this.fakeDiv.style.lineHeight = computedStyle.lineHeight;
-        this.fakeDiv.style.wordWrap = 'break-word';
+        this.fakeDiv.style.wordWrap = "break-word";
         this.fakeDiv.textContent = this.initialText;
     }
 }

@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 
 @Component({
-    selector: 'm-output-listeners',
-    templateUrl: './output-listeners.component.html',
-    styleUrls: ['./output-listeners.component.less']
+    selector: "m-output-listeners",
+    templateUrl: "./output-listeners.component.html",
+    styleUrls: ["./output-listeners.component.less"],
 })
 export class OutputListenersComponent implements OnInit {
     @Output()
@@ -11,11 +11,7 @@ export class OutputListenersComponent implements OnInit {
 
     outputListenersLength: number;
 
-    constructor() {
-    }
-
     ngOnInit() {
         this.outputListenersLength = this.outputListener.observers.length;
     }
-
 }

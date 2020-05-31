@@ -1,20 +1,19 @@
-import { Component } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component } from "@angular/core";
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 
 // useExisting: forwardRef(() => MFormControlComponent), //- делаю так если задаю класс после вызова, чтобы избежать ошибки компиляции
 
 @Component({
-    selector: 'm-form-control',
-    templateUrl: './form-control.component.html',
+    selector: "m-form-control",
+    templateUrl: "./form-control.component.html",
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: MFormControlComponent, // еще используется, чтобы выдать только методы, которые хотел
-            multi: true
-        }
-    ]
+            multi: true,
+        },
+    ],
 })
-
 export class MFormControlComponent implements ControlValueAccessor {
     public propagateChange: Function;
     public propagateTouch: Function;

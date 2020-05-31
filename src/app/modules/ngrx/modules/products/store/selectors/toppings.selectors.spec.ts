@@ -1,33 +1,32 @@
-import * as fromReducers from '../reducers';
-import * as fromSelectors from '../selectors';
-import * as fromActions from '../actions';
-import {combineReducers, select, Store, StoreModule} from '@ngrx/store';
-import {Topping} from '@models/topping.model';
-import {TestBed} from '@angular/core/testing';
+import * as fromReducers from "../reducers";
+import * as fromSelectors from "../selectors";
+import * as fromActions from "../actions";
+import { combineReducers, select, Store, StoreModule } from "@ngrx/store";
+import { Topping } from "@models/topping.model";
+import { TestBed } from "@angular/core/testing";
 
-describe('Toppings selectors', () => {
-
+describe("Toppings selectors", () => {
     let store: Store<fromReducers.ProductsState>;
 
     const toppings: Topping[] = [
-        {id: 1, name: 'tomato'},
-        {id: 2, name: 'bacon'},
-        {id: 3, name: 'pepperoni'},
+        { id: 1, name: "tomato" },
+        { id: 2, name: "bacon" },
+        { id: 3, name: "pepperoni" },
     ];
 
     const entities = {
         1: toppings[0],
         2: toppings[1],
-        3: toppings[2]
-};
+        3: toppings[2],
+    };
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [
                 StoreModule.forRoot({
-                    products: combineReducers(fromReducers.productsReducers)
-                })
-            ]
+                    products: combineReducers(fromReducers.productsReducers),
+                }),
+            ],
         });
 
         store = TestBed.get(Store);
@@ -36,13 +35,13 @@ describe('Toppings selectors', () => {
         // spyOn(store, 'dispatch').and.callThrough();
     });
 
-    describe('getToppingEntities', () => {
-        it('should return toppings as entities', () => {
+    describe("getToppingEntities", () => {
+        it("should return toppings as entities", () => {
             let result;
 
             store
                 .pipe(select(fromSelectors.getToppingEntities))
-                .subscribe((value) => {
+                .subscribe(value => {
                     result = value;
                 });
 
@@ -54,13 +53,13 @@ describe('Toppings selectors', () => {
         });
     });
 
-    describe('getSelectedEntities', () => {
-        it('should return selected toppings as ids', () => {
+    describe("getSelectedEntities", () => {
+        it("should return selected toppings as ids", () => {
             let result;
 
             store
                 .pipe(select(fromSelectors.getSelectedToppings))
-                .subscribe((value) => {
+                .subscribe(value => {
                     result = value;
                 });
 

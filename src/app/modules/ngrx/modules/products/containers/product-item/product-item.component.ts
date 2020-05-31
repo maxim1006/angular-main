@@ -1,31 +1,29 @@
-import {Component, Inject, OnInit, PLATFORM_ID} from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 
-import {Pizza} from '@models/pizza.model';
+import { Pizza } from "@models/pizza.model";
 
-import {Topping} from '@models/topping.model';
-import {select, Store} from '@ngrx/store';
-import * as fromStore from '../../store';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {CreatePizzaAction} from '../../store';
-import {isPlatformBrowser} from '@angular/common';
+import { Topping } from "@models/topping.model";
+import { select, Store } from "@ngrx/store";
+import * as fromStore from "../../store";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
+import { CreatePizzaAction } from "../../store";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
-    selector: 'product-item',
-    styleUrls: ['product-item.component.less'],
+    selector: "product-item",
+    styleUrls: ["product-item.component.less"],
     template: `
-        <div
-            class="product-item">
+        <div class="product-item">
             <pizza-form
                 [pizza]="pizza$ | async"
                 [toppings]="toppings$ | async"
                 (selected)="onSelect($event)"
                 (create)="onCreate($event)"
                 (update)="onUpdate($event)"
-                (remove)="onRemove($event)">
-                <pizza-display
-                    [pizza]="visualise$ | async">
-                </pizza-display>
+                (remove)="onRemove($event)"
+            >
+                <pizza-display [pizza]="visualise$ | async"> </pizza-display>
             </pizza-form>
         </div>
     `,
@@ -35,24 +33,28 @@ export class ProductItemComponent implements OnInit {
     visualise$: Observable<Pizza>;
     toppings$: Observable<Topping[]>;
 
-    constructor(private store: Store<fromStore.ProductsState>, @Inject(PLATFORM_ID) private platformId: Object) {
-    }
+    constructor(
+        private store: Store<fromStore.ProductsState>,
+        @Inject(PLATFORM_ID) private platformId: Record<string, any>
+    ) {}
 
     ngOnInit() {
-        this.pizza$ = this.store.pipe(select(fromStore.getSelectedPizza))
-            .pipe(tap((pizza: Pizza = null) => {
+        this.pizza$ = this.store.pipe(select(fromStore.getSelectedPizza)).pipe(
+            tap((pizza: Pizza = null) => {
                 let toppings = [];
 
                 if (pizza && pizza.toppings) {
                     toppings = pizza.toppings.map(topping => topping.id);
                 }
 
-                this.store.dispatch(new fromStore.VisualiseToppingsAction(toppings));
-            }));
+                this.store.dispatch(
+                    new fromStore.VisualiseToppingsAction(toppings)
+                );
+            })
+        );
 
         this.toppings$ = this.store.pipe(select(fromStore.getAllToppings));
         this.visualise$ = this.store.pipe(select(fromStore.getPizzaVisualised));
-
 
         // this.pizzaService.getPizzas().subscribe(pizzas => {
         //   const param = this.route.snapshot.params.id;
@@ -99,7 +101,7 @@ export class ProductItemComponent implements OnInit {
 
     onRemove(event: Pizza) {
         if (isPlatformBrowser(this.platformId)) {
-            const remove = window.confirm('Are you sure?');
+            const remove = window.confirm("Are you sure?");
             if (remove) {
                 this.store.dispatch(new fromStore.RemovePizzaAction(event));
                 // this.pizzaService.removePizza(event).subscribe(() => {

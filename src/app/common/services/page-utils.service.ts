@@ -1,11 +1,11 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {Observable, Subscriber} from 'rxjs';
-import {Media} from '../models/media';
-import {share} from 'rxjs/operators';
-import {isPlatformBrowser} from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { Observable, Subscriber } from "rxjs";
+import { Media } from "../models/media";
+import { share } from "rxjs/operators";
+import { isPlatformBrowser } from "@angular/common";
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: "root",
 })
 export class PageUtilsService {
     documentWidth: number = document.documentElement.clientWidth;
@@ -16,18 +16,19 @@ export class PageUtilsService {
     mediaData: Media = {
         mobile: false,
         tablet: false,
-        desktop: false
+        desktop: false,
     };
 
-    constructor(@Inject(PLATFORM_ID) private platformId: Object,) {
-        this.mediaObserver = Observable.create((subscriber: Subscriber<Media>) => {
+    constructor(@Inject(PLATFORM_ID) private platformId: Record<string, any>) {
+        this.mediaObserver = new Observable((subscriber: Subscriber<Media>) => {
+            console.log(subscriber);
             this.mediaSubscriber = subscriber;
             this.updateMediaData();
             this.mediaSubscriber.next(this.mediaData);
         }).pipe(share()); // share result to all subscriber, if delete only the last one will get it
 
         if (isPlatformBrowser(this.platformId)) {
-            window.addEventListener('resize', () => {
+            window.addEventListener("resize", () => {
                 this.documentWidth = document.documentElement.clientWidth;
                 this.updateMediaData();
 
@@ -44,7 +45,9 @@ export class PageUtilsService {
 
     updateMediaData() {
         this.mediaData.mobile = this.documentWidth <= this.MOBILE_VIEW_WIDTH;
-        this.mediaData.tablet = this.documentWidth > this.MOBILE_VIEW_WIDTH && this.documentWidth <= this.TABLET_VIEW_WIDTH;
+        this.mediaData.tablet =
+            this.documentWidth > this.MOBILE_VIEW_WIDTH &&
+            this.documentWidth <= this.TABLET_VIEW_WIDTH;
         this.mediaData.desktop = this.documentWidth > this.TABLET_VIEW_WIDTH;
     }
 }

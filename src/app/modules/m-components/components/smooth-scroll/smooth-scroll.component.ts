@@ -1,10 +1,10 @@
-import {Component} from '@angular/core';
-import smoothscroll from 'smoothscroll-polyfill';
+import { Component } from "@angular/core";
+import smoothscroll from "smoothscroll-polyfill";
 
 @Component({
-  selector: 'm-smooth-scroll',
-  templateUrl: './smooth-scroll.component.html',
-  styleUrls: ['./smooth-scroll.component.less']
+    selector: "m-smooth-scroll",
+    templateUrl: "./smooth-scroll.component.html",
+    styleUrls: ["./smooth-scroll.component.less"],
 })
 export class SmoothScrollComponent {
     constructor() {
@@ -13,12 +13,12 @@ export class SmoothScrollComponent {
     }
 
     _click(headerNumber: number) {
-        document.querySelector(`.m-smooth-scroll__header.__header${headerNumber}`)
+        document
+            .querySelector(`.m-smooth-scroll__header.__header${headerNumber}`)
             .scrollIntoView({
-                behavior: 'smooth'
+                behavior: "smooth",
             });
     }
-
 }
 //
 // window.scroll({

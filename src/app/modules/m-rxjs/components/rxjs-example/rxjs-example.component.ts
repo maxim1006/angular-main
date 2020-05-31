@@ -1,24 +1,36 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {domenToken, domenTokenDb} from '../../../shared/tokens/tokens';
-import {HttpClient} from '@angular/common/http';
-import {forkJoin, Observable, zip, of, Subscription, interval, combineLatest, asyncScheduler, merge, defer, from} from 'rxjs';
-import {mergeAll, observeOn} from 'rxjs/operators';
-import {concatMap, delay, map} from 'rxjs/internal/operators';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { domenToken, domenTokenDb } from "../../../shared/tokens/tokens";
+import { HttpClient } from "@angular/common/http";
+import {
+    forkJoin,
+    Observable,
+    zip,
+    of,
+    Subscription,
+    interval,
+    combineLatest,
+    asyncScheduler,
+    merge,
+    defer,
+    from,
+} from "rxjs";
+import { mergeAll, observeOn } from "rxjs/operators";
+import { concatMap, delay, map } from "rxjs/operators";
 
 @Component({
-    selector: 'rxjs-example',
+    selector: "rxjs-example",
     template: `
         <h2>Rxjs Example</h2>
-        {{number}}
-        
-        <p *ngIf="_rxjsOnDestroyVisible">
-            <rxjs-ondestroy></rxjs-ondestroy>  
-            <button (click)="_rxjsOnDestroyVisible = false">Remove component</button>
-        </p>
-        
-    `
-})
+        {{ number }}
 
+        <p *ngIf="_rxjsOnDestroyVisible">
+            <rxjs-ondestroy></rxjs-ondestroy>
+            <button (click)="_rxjsOnDestroyVisible = false">
+                Remove component
+            </button>
+        </p>
+    `,
+})
 export class RxjsExampleComponent implements OnInit, OnDestroy {
     public _rxjsOnDestroyVisible = true;
 
@@ -27,11 +39,9 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
     number = 1;
     private observer: Observable<any>;
 
-    constructor(private _http: HttpClient) {
-    }
+    constructor(private _http: HttpClient) {}
 
     ngOnInit() {
-
         const self = this;
 
         // не делаю внутренние сабскрайбы
@@ -55,9 +65,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //         console.log(`Combined values are: ${firstValue} & ${secondValue}`);
         //     });
 
-
-
-
         // this.observer = Observable.create((subscriber: Subscriber<any>) => {
         //     this.interval = window.setInterval(() => {
         //         subscriber.next(++this.number);
@@ -72,7 +79,7 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 
         // Запросы по нескольким id в порядке очереди приходят, сабскрйбится к каждому обзерваблу в отдельности,
         // дождется выполнения первого и лишь затем второго, сработает когда все придут
-        let idsObservable$ = from([0, 1, 2]);
+        const idsObservable$ = from([0, 1, 2]);
 
         // let idsObservableInOrder$ = idsObservable$.pipe(
         //     map((id) => {
@@ -91,7 +98,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         // idsObservableInOrder$.subscribe((data) => {console.log(data); });
         /*****************************************/
 
-
         // если нужно дождаться 1го и потом 2ой делай так
         // const queueObservable$ = this._http.get(`${domenTokenDb}mocks`).pipe(
         //     concatMap(
@@ -107,7 +113,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //     console.log('queueObservable$ second', data);
         // });
 
-
         // пример c finally
         // this.http.get(url, {withCredentials: true, responseType: "text"})
         //     .finally(() => {
@@ -118,8 +123,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //         (error) => Observable.throw(error),
         //         () => {}
         //     );
-
-
 
         // const source = of(
         //     this._http.get(`${domenToken}family0.json`),
@@ -133,10 +136,8 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //    //(3) [{…}, {…}, {…}]
         //    //(3) [{…}, {…}, {…}]
         //    //(3) [{…}, {…}, {…}]
-              // подписываемся к каждому обзервблу, когда заканчивается предыдущий и получаем для каждого console.log
+        // подписываемся к каждому обзервблу, когда заканчивается предыдущий и получаем для каждого console.log
         // })
-
-
 
         // const switchAll$ = source.pipe(switchAll());
         //
@@ -144,8 +145,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //    console.log(data);
         //    //(3) [{…}, {…}, {…}] - только результат последнего запроса family2.json
         // })
-
-
 
         // const mergeAll$ = source.pipe(mergeAll());
         //
@@ -156,16 +155,12 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //     //    //(3) [{…}, {…}, {…}] - подряд выводит 3 массива
         // });
 
-
-
         // const combineAll$ = source.pipe(combineAll());
         //
         // combineAll$.subscribe((data) => {
         //     console.log(data);
         //     //(3) [Array(3), Array(3), Array(3)] - результат сразу 3 запроса в 1 ом
         // })
-
-
 
         const intervalOne$ = interval(1000);
         const intervalTwo$ = interval(3000);
@@ -201,7 +196,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //     combineLatest(this._http.get(`${domenToken}family1.json`), this._http.get(`${domenToken}family2.json`))
         // ).subscribe(all => console.log(all));
 
-
         // расписания
         // const o1 = of(1, 2).pipe(observeOn(asyncScheduler));
         // const o2 = of(10);
@@ -210,14 +204,11 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         //     console.log('combineLatest value ', value); // сработает 2 раза, сперва выдаст [1, 10], затем [2, 10]
         // });
 
-
-
         // forkJoin([
         //     this._http.get(`${domenToken}family0.json`),
         //     this._http.get(`${domenToken}family1.json`),
         //     this._http.get(`${domenToken}family2.json`)
         // ]).subscribe(all => console.log(all)); // (3) [Array(3), Array(3), Array(3)] - результат сразу 3 запроса в 1 ом
-
 
         // https://www.youtube.com/watch?v=QfvwQEJVOig&feature=youtu.be&t=1h12s
     }
@@ -229,7 +220,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
         clearInterval(this.interval);
     }
 }
-
 
 // Создать кастомный оператор
 // type Operator<I, O> = (in: Observable<I>) => Observable<O>;
@@ -244,8 +234,6 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 //
 // const charCount$ = strings$.pipe(countChars());
 
-
-
 // .pipe(doOnSubscribe(() => {console.log("subscribed");}))
 // const s = of([1, 2]);
 //
@@ -255,7 +243,9 @@ export class RxjsExampleComponent implements OnInit, OnDestroy {
 //     console.log(value);
 // });
 
-export function doOnSubscribe<T>(onSubscribe: () => void): (source: Observable<T>) =>  Observable<T> {
+export function doOnSubscribe<T>(
+    onSubscribe: () => void
+): (source: Observable<T>) => Observable<T> {
     return function inner(source: Observable<T>): Observable<T> {
         return defer(() => {
             onSubscribe();

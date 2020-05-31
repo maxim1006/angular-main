@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-    selector: 'm-resize-observer',
+    selector: "m-resize-observer",
     template: `
         <div
             mResizeObserver
@@ -13,20 +13,19 @@ import {Component} from '@angular/core';
         </div>
     `,
     styles: [
-            `
+        `
             .m-resize-observer__observed-block {
                 display: block;
                 width: 80%;
                 height: 300px;
                 border: 1px solid;
             }
-        `
-    ]
+        `,
+    ],
 })
-
 export class MResizeObserverComponent {
     resize(e) {
-        console.log('onResize');
+        console.log("onResize");
 
         /**
          * target: div.m-resize-observer__observed-block

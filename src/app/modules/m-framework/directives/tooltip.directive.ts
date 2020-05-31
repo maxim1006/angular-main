@@ -1,8 +1,8 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import { Directive, ElementRef, Input } from "@angular/core";
 
 @Directive({
-    selector: '[tooltip]',
-    exportAs: 'tooltip'
+    selector: "[tooltip]",
+    exportAs: "tooltip",
 })
 export class TooltipDirective {
     @Input()
@@ -11,7 +11,7 @@ export class TooltipDirective {
     private tooltipElement: HTMLElement;
 
     constructor(private element: ElementRef) {
-        this.tooltipElement = document.createElement('div');
+        this.tooltipElement = document.createElement("div");
     }
 
     ngOnInit() {
@@ -20,10 +20,10 @@ export class TooltipDirective {
     }
 
     show() {
-        this.tooltipElement.style.display = 'block';
+        this.tooltipElement.style.display = "block";
     }
 
     hide() {
-        this.tooltipElement.style.display = 'none';
+        this.tooltipElement.style.display = "none";
     }
 }

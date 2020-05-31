@@ -1,9 +1,14 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {finalize, delay, filter, tap} from 'rxjs/operators';
-import {NavigationEnd, NavigationStart, Router} from '@angular/router';
-import {isPlatformBrowser} from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import {
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest,
+} from "@angular/common/http";
+import { Observable } from "rxjs";
+import { delay, filter, finalize, tap } from "rxjs/operators";
+import { NavigationEnd, NavigationStart, Router } from "@angular/router";
+import { isPlatformBrowser } from "@angular/common";
 
 @Injectable()
 export class MHttpRequestInterceptor implements HttpInterceptor {
@@ -13,31 +18,37 @@ export class MHttpRequestInterceptor implements HttpInterceptor {
 
     constructor(
         private router: Router,
-        @Inject(PLATFORM_ID) private platformId: Object,
+        @Inject(PLATFORM_ID) private platformId: Record<string, any>
     ) {
         if (isPlatformBrowser(this.platformId)) {
+            // eslint-disable-next-line rxjs/no-ignored-observable
             this.router.events.pipe(
-                filter(event => event instanceof NavigationEnd)
-            ).subscribe(_ => {
-                this.canShowLoader = false;
-            });
+                filter(event => event instanceof NavigationEnd),
+                tap(_ => {
+                    this.canShowLoader = false;
+                })
+            );
 
+            // eslint-disable-next-line rxjs/no-ignored-observable
             this.router.events.pipe(
                 filter(event => event instanceof NavigationStart),
-            ).subscribe(_ => {
-                this.canShowLoader = true;
-            });
+                tap(_ => {
+                    this.canShowLoader = false;
+                })
+            );
         }
     }
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    intercept(
+        request: HttpRequest<any>,
+        next: HttpHandler
+    ): Observable<HttpEvent<any>> {
         if (this.canShowLoader) {
             this.showLoader();
         }
 
         if (isPlatformBrowser(this.platformId)) {
-
-            if (request.url.includes('http-request-interceptor')) {
+            if (request.url.includes("http-request-interceptor")) {
                 return next.handle(request).pipe(
                     /* Only for showcase to show delay of loader*/
                     delay(5000),
@@ -53,15 +64,14 @@ export class MHttpRequestInterceptor implements HttpInterceptor {
                     })
                 );
             }
-
         }
     }
 
     private initLoader() {
         if (isPlatformBrowser(this.platformId)) {
             if (!this.loaderElement) {
-                this.loaderElement = document.createElement('div');
-                this.loaderElement.className = 'm-http-request-loader';
+                this.loaderElement = document.createElement("div");
+                this.loaderElement.className = "m-http-request-loader";
                 document.body.appendChild(this.loaderElement);
             }
         }
@@ -74,12 +84,13 @@ export class MHttpRequestInterceptor implements HttpInterceptor {
             if (this.requestsNumber === 0) {
                 requestAnimationFrame(() => {
                     if (this.requestsNumber !== 0) {
-
-                        this.loaderElement.className = 'm-http-request-loader _loading-start';
+                        this.loaderElement.className =
+                            "m-http-request-loader _loading-start";
 
                         requestAnimationFrame(() => {
                             if (this.requestsNumber !== 0) {
-                                this.loaderElement.className = 'm-http-request-loader _loading';
+                                this.loaderElement.className =
+                                    "m-http-request-loader _loading";
                             }
                         });
                     }
@@ -95,7 +106,7 @@ export class MHttpRequestInterceptor implements HttpInterceptor {
             if (this.requestsNumber === 1) {
                 requestAnimationFrame(() => {
                     if (this.requestsNumber === 0) {
-                        this.loaderElement.className = 'm-http-request-loader';
+                        this.loaderElement.className = "m-http-request-loader";
                     }
                 });
             }

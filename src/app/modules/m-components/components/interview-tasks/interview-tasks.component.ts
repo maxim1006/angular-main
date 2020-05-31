@@ -1,88 +1,82 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'm-interview-tasks',
-  templateUrl: './interview-tasks.component.html',
-  styleUrls: ['./interview-tasks.component.less']
+    selector: "m-interview-tasks",
+    templateUrl: "./interview-tasks.component.html",
+    styleUrls: ["./interview-tasks.component.less"],
 })
 export class InterviewTasksComponent implements OnInit {
+    ngOnInit() {
+        // task
+        function sum(num) {
+            let currentSum = num;
 
-  constructor() { }
+            function f(arg) {
+                currentSum += arg;
+                return f;
+            }
 
-  ngOnInit() {
-      // task
-      function sum(num) {
-          let currentSum = num;
+            f.toString = () => {
+                return currentSum;
+            };
 
-          function f(arg) {
-              currentSum += arg;
-              return f;
-          }
+            return f;
+        }
 
-          f.toString = () => {
-              return currentSum;
-          };
+        console.log(sum(0)(1)(2)(3)(4)(5));
 
-          return f;
-      }
+        // task
+        const initString = "ar2ya Jo3hn Deyne1ris";
 
-      console.log(sum(0)(1)(2)(3)(4)(5));
+        const matchAllString = initString["matchAll"](/\d/g);
+        for (const item of matchAllString) {
+            // ["2", index: 2, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+            // ["3", index: 8, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+            // ["1", index: 17, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+            console.log(item);
+        }
 
+        const arr = initString.split(" ").sort((a, b) => {
+            const aNumber = +a.match(/\d/)[0];
+            const bNumber = +b.match(/\d/)[0];
 
-      // task
-      const initString = 'ar2ya Jo3hn Deyne1ris';
+            console.log(aNumber, bNumber);
 
-      const matchAllString = initString["matchAll"](/\d/g);
-      for (const item of matchAllString) {
-          // ["2", index: 2, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
-          // ["3", index: 8, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
-          // ["1", index: 17, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
-          console.log(item);
-      }
+            return aNumber - bNumber;
+        });
 
-      const arr = initString.split(' ').sort((a, b) => {
-          const aNumber = +a.match(/\d/)[0];
-          const bNumber = +b.match(/\d/)[0];
+        console.log(arr.join(" "));
 
-          console.log(aNumber, bNumber);
+        // task
+        const obj = {
+            a: {
+                num: 1,
+                a: {
+                    num: 2,
+                    a: {
+                        num: 3,
+                        a: {
+                            num: 4,
+                        },
+                    },
+                },
+            },
+        };
 
-          return aNumber - bNumber;
-      });
+        function sumObj(o) {
+            let sum = 0;
 
-      console.log(arr.join(' '));
+            if (o.a) {
+                sum += o.a.num;
+                return (sum += sumObj(o.a));
+            }
 
-      // task
-      const obj = {
-          a: {
-              num: 1,
-              a: {
-                  num: 2,
-                  a: {
-                      num: 3,
-                      a: {
-                          num: 4
-                      }
-                  }
-              }
-          }
-      };
+            return sum;
+        }
 
-      function sumObj(o) {
-          let sum = 0;
-
-          if (o.a) {
-              sum += o.a.num;
-              return sum += sumObj(o.a);
-          }
-
-          return sum;
-      }
-
-      console.log(sumObj(obj));
-  }
-
+        console.log(sumObj(obj));
+    }
 }
-
 
 // Дана строка, состоящая из букв A-Z:
 // AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB
@@ -95,23 +89,21 @@ export class InterviewTasksComponent implements OnInit {
 // Если символ встречается 1 раз, он остается без изменений;
 // Если символ повторяется более 1 раза, к нему добавляется количество повторений.
 
-
 // На входе массив
 // var arr = [
 //     {name: 'width', value: 10},
 //     {name: 'height', value: 20}
 // ];
 // На выходе объект {width: 10, height: 20}
-function  convertToObject(arr) {
+function convertToObject(arr) {
     const obj = {};
 
-    arr.forEach(({name, value}) => {
+    arr.forEach(({ name, value }) => {
         obj[name] = value;
     });
 
     return obj;
 }
-
 
 // var i = 10;
 // var array = [];
@@ -137,14 +129,12 @@ const array = [];
 while (i--) {
     const currentI = i;
 
-    array.push(function() {
+    array.push(function () {
         return currentI + currentI;
     });
 }
 
 // console.log(array[0](), array[1]());
-
-
 
 // Задача на микротаски и макротаски
 // console.log(1);

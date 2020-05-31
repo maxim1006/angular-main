@@ -1,20 +1,22 @@
-import {Component, OnInit, Renderer2} from '@angular/core';
+import { Component, OnInit, Renderer2 } from "@angular/core";
 
 @Component({
-    selector: 'renderer-example',
-    templateUrl: 'renderer-example.component.html'
+    selector: "renderer-example",
+    templateUrl: "renderer-example.component.html",
 })
-
 export class RendererExampleComponent implements OnInit {
-    constructor(private renderer: Renderer2) {
-    }
+    constructor(private renderer: Renderer2) {}
 
     private documentClickListener: Function;
 
     ngOnInit() {
-        this.documentClickListener = this.renderer.listen('body', 'click', () => {
-            console.log('body click');
-        });
+        this.documentClickListener = this.renderer.listen(
+            "body",
+            "click",
+            () => {
+                console.log("body click");
+            }
+        );
     }
 
     private unbindDocumentClickListener(): void {

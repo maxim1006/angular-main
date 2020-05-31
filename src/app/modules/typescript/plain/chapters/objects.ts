@@ -17,7 +17,6 @@ o.m(); o1.m(); o2.m();
 */
 /*********************************/
 
-
 // destructuring
 /*
 const obj = {
@@ -36,7 +35,6 @@ console.log(one);
 */
 /*********************************/
 
-
 // Пример типа объекта
 /*
 let o: {name: string, getName(): string} = {
@@ -44,4 +42,3 @@ let o: {name: string, getName(): string} = {
     getName() { console.log(this);return this.name }
 };
 */
-

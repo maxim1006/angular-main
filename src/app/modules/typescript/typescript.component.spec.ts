@@ -1,16 +1,15 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import {TypescriptComponent} from './typescript.component';
+import { TypescriptComponent } from "./typescript.component";
 
-describe('TypescriptComponent', () => {
+describe("TypescriptComponent", () => {
     let component: TypescriptComponent;
     let fixture: ComponentFixture<TypescriptComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [TypescriptComponent]
-        })
-            .compileComponents();
+            declarations: [TypescriptComponent],
+        }).compileComponents();
     }));
 
     beforeEach(() => {
@@ -19,7 +18,7 @@ describe('TypescriptComponent', () => {
         fixture.detectChanges();
     });
 
-    it('should create', () => {
+    it("should create", () => {
         expect(component).toBeTruthy();
     });
 });

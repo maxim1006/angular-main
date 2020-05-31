@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-    selector: 'm-select',
-    templateUrl: 'm-select.component.html'
+    selector: "m-select",
+    templateUrl: "m-select.component.html",
 })
 export class MSelectComponent {
     @Input() options: any;
@@ -36,5 +36,4 @@ export class MSelectComponent {
     trackByFn(index: number, item: any) {
         return index;
     }
-
 }

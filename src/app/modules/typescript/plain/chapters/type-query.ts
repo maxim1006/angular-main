@@ -24,8 +24,6 @@ const dog: typeof person = {
 */
 /***************************************/
 
-
-
 // keyof
 /*
 const person = {
@@ -58,4 +56,3 @@ const number: PersonTypes = 123;
 // };
 
 /***************************************/
-

@@ -1,5 +1,5 @@
-import {Action, createAction, props} from '@ngrx/store';
-import {FamilyMember} from '@models/family.model';
+import { Action, createAction, props } from "@ngrx/store";
+import { FamilyMember } from "@models/family.model";
 
 // export enum FamilyActionTypes {
 //     Load = '[Family] Load',
@@ -17,7 +17,7 @@ import {FamilyMember} from '@models/family.model';
 //     readonly type = FamilyActionTypes.Load;
 // }
 
-export const load = createAction('[Family] Load');
+export const load = createAction("[Family] Load");
 
 // export class LoadFamilySuccessAction implements Action {
 //     readonly type = FamilyActionTypes.LoadSuccess;
@@ -26,7 +26,7 @@ export const load = createAction('[Family] Load');
 // }
 
 export const loadSuccess = createAction(
-    '[Family] Load Success',
+    "[Family] Load Success",
     props<{ familyMembers: FamilyMember[] }>()
 );
 
@@ -37,7 +37,7 @@ export const loadSuccess = createAction(
 // }
 
 export const loadFail = createAction(
-    '[Family] Load Failure',
+    "[Family] Load Failure",
     props<{ payload: any }>()
 );
 
@@ -48,12 +48,11 @@ export const loadFail = createAction(
 // }
 
 export const add = createAction(
-    '[Family] Add',
+    "[Family] Add",
     props<{
-        newFamilyMember: FamilyMember
+        newFamilyMember: FamilyMember;
     }>()
 );
-
 
 // export class FamilyRemoveAction implements Action {
 //     readonly type = FamilyActionTypes.Remove;
@@ -62,18 +61,15 @@ export const add = createAction(
 // }
 
 export const remove = createAction(
-    '[Family] Remove',
-    props<{removedMember: FamilyMember}>()
+    "[Family] Remove",
+    props<{ removedMember: FamilyMember }>()
 );
-
 
 // export class FamilyResetAction implements Action {
 //     readonly type = FamilyActionTypes.Reset;
 // }
 
-export const reset = createAction(
-    '[Family] Reset',
-);
+export const reset = createAction("[Family] Reset");
 
 // export class FamilyServerSearchAction implements Action {
 //     readonly type = FamilyActionTypes.ServerSearch;
@@ -82,7 +78,7 @@ export const reset = createAction(
 // }
 
 export const serverSearch = createAction(
-    '[Family] Server Search',
+    "[Family] Server Search",
     props<{ payload: string }>()
 );
 
@@ -93,7 +89,7 @@ export const serverSearch = createAction(
 // }
 
 export const serverSearchSuccess = createAction(
-    '[Family] Server Search success',
+    "[Family] Server Search success",
     props<{ foundFamily: FamilyMember[] }>()
 );
 
@@ -104,10 +100,9 @@ export const serverSearchSuccess = createAction(
 // }
 
 export const serverSearchFail = createAction(
-    '[Family] Server Search fail',
+    "[Family] Server Search fail",
     props<{ payload: any }>()
 );
-
 
 // export type FamilyActionsUnion =
 //     | LoadFamilyAction

@@ -1,9 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-    selector: 'bootstrap-in-tag1',
-    template: `bootstrap-in-tag component`
+    selector: "bootstrap-in-tag1",
+    template: "bootstrap-in-tag component",
 })
-
-export class BootstrapInTag1Component {
-}
+export class BootstrapInTag1Component {}

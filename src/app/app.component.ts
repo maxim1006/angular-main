@@ -145,7 +145,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     constructor(
-        @Inject(PLATFORM_ID) private platformId: Object,
+        @Inject(PLATFORM_ID) private platformId: Record<string, any>,
         @Optional()
         @Inject("someOptionalObject.someOptionalProperty")
         private optionalPropery,

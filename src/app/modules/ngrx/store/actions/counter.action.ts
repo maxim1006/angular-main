@@ -1,9 +1,9 @@
-import {Action} from '@ngrx/store';
+import { Action } from "@ngrx/store";
 
 export enum CounterActionTypes {
-    Increment = '[Counter] Increment',
-    Decrement = '[Counter] Decrement',
-    MultiplyBy = '[Counter] MultiplyBy',
+    Increment = "[Counter] Increment",
+    Decrement = "[Counter] Decrement",
+    MultiplyBy = "[Counter] MultiplyBy",
 }
 
 export class CounterIncrementAction implements Action {

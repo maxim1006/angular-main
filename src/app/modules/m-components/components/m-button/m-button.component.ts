@@ -1,11 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
-    selector: 'm-button',
-    templateUrl: 'm-button.component.html'
+    selector: "m-button",
+    templateUrl: "m-button.component.html",
 })
-
-export class MButtonComponent implements OnInit {
+export class MButtonComponent {
     @Input() styleClass: string;
     @Input() text: string;
     @Input() disabled: boolean;
@@ -14,14 +13,8 @@ export class MButtonComponent implements OnInit {
     @Output()
     onClick = new EventEmitter();
 
-    constructor() {
-    }
-
-    ngOnInit() {
-    }
-
     onButtonClick(event: MouseEvent) {
         this.onClick.emit(event);
-         console.log('button is clicked');
+        console.log("button is clicked");
     }
 }

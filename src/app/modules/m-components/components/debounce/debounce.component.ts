@@ -1,21 +1,19 @@
-import {AfterViewInit, Component, ElementRef} from '@angular/core';
-import {fromEvent} from 'rxjs';
-import {debounce, debounceTime} from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef } from "@angular/core";
+import { fromEvent } from "rxjs";
+import { debounce, debounceTime } from "rxjs/operators";
 
 @Component({
-    selector: 'm-debounce',
-    templateUrl: './debounce.component.html',
-    styleUrls: ['./debounce.component.less']
+    selector: "m-debounce",
+    templateUrl: "./debounce.component.html",
+    styleUrls: ["./debounce.component.less"],
 })
 export class DebounceComponent implements AfterViewInit {
-
-    constructor(private elRef: ElementRef) {
-    }
+    constructor(private elRef: ElementRef) {}
 
     ngAfterViewInit() {
         const element = this.elRef.nativeElement as HTMLElement;
-        const cb = (e) => {
-            console.log('debounce ', e);
+        const cb = e => {
+            console.log("debounce ", e);
         };
 
         // fromEvent(element, 'mousemove')
@@ -35,7 +33,6 @@ export class DebounceComponent implements AfterViewInit {
             };
         }
 
-        element.addEventListener('mousemove', debounce(cb, 1000));
+        element.addEventListener("mousemove", debounce(cb, 1000));
     }
-
 }

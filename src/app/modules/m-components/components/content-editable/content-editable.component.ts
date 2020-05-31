@@ -1,19 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'content-editable',
-    templateUrl: 'content-editable.component.html'
+    selector: "content-editable",
+    templateUrl: "content-editable.component.html",
 })
-
 export class ContentEditableComponent implements OnInit {
-
     public text: string;
 
     constructor() {
-        this.text = 'Content editable text';
+        this.text = "Content editable text";
     }
 
-    ngOnInit() {
-    }
-
+    ngOnInit() {}
 }

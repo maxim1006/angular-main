@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
     hmr: false,
-    domenUrl: 'http://localhost:4000'
+    domenUrl: "http://localhost:4000",
 };

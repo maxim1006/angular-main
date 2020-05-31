@@ -1,16 +1,18 @@
 export interface State1MixinModel {
     state: {
-        prop: string
+        prop: string;
     };
-    getState(): {[key: string]: any};
+    getState(): { [key: string]: any };
 }
 
-type Constructor<T> = new(...args: any[]) => T;
+type Constructor<T> = new (...args: any[]) => T;
 
-export function state1Mixin<T extends Constructor<{}>>(Base: T = (class {} as any)) {
+export function state1Mixin<T extends Constructor<{}>>(
+    Base: T = <any>class {}
+) {
     return class extends Base implements State1MixinModel {
         state = {
-            prop: 'prop'
+            prop: "prop",
         };
 
         getState() {

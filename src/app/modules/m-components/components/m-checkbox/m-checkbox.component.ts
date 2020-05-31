@@ -1,16 +1,15 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-    selector: 'm-checkbox',
-    templateUrl: 'm-checkbox.component.html',
+    selector: "m-checkbox",
+    templateUrl: "m-checkbox.component.html",
 })
-
 export class MCheckboxComponent {
     @Input()
     checked: boolean;
 
     @Input()
-    text = '';
+    text = "";
 
     @Output() checkedChange = new EventEmitter();
 

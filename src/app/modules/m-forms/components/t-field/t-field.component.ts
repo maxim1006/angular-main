@@ -1,28 +1,39 @@
-import {Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {AbstractControl, ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    ViewChild,
+} from "@angular/core";
+import {
+    AbstractControl,
+    ControlValueAccessor,
+    FormGroup,
+    NG_VALUE_ACCESSOR,
+} from "@angular/forms";
 
 @Component({
-        selector: 't-field',
-        templateUrl: './t-field.component.html',
-        providers: [
-            {
-                provide: NG_VALUE_ACCESSOR,
-                useExisting: TField,
-                multi: true
-            }
-        ]
+    selector: "t-field",
+    templateUrl: "./t-field.component.html",
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: TField,
+            multi: true,
+        },
+    ],
 })
-
-
 export class TField implements ControlValueAccessor {
-
-    @HostBinding('class.t-field')
+    @HostBinding("class.t-field")
     private hostClass = true;
 
-    @HostBinding('class._disabled')
+    @HostBinding("class._disabled")
     private disabledState = false;
 
-    @ViewChild('input')
+    @ViewChild("input")
     private inputRef: ElementRef;
 
     @Output()
@@ -71,7 +82,7 @@ export class TField implements ControlValueAccessor {
     public isRequired: boolean;
 
     @Input()
-    public placeholder = '';
+    public placeholder = "";
 
     @Input()
     public inputStyleClass: string;
@@ -80,9 +91,7 @@ export class TField implements ControlValueAccessor {
     public fieldLabel: string;
 
     @Input()
-    public type = 'text';
-
-    constructor() {}
+    public type = "text";
 
     ngAfterViewInit() {
         this.updateInputValue();
@@ -116,5 +125,4 @@ export class TField implements ControlValueAccessor {
     public setDisabledState(isDisabled: boolean): void {
         this.disabledState = isDisabled;
     }
-
 }

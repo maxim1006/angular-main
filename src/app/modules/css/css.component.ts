@@ -1,13 +1,12 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import { Component, HostBinding, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'm-css',
-  templateUrl: './css.component.html',
-  styleUrls: ['./css.component.less']
+    selector: "m-css",
+    templateUrl: "./css.component.html",
+    styleUrls: ["./css.component.less"],
 })
 export class CssComponent implements OnInit {
-
-    @HostBinding('class.css') hostClass = true;
+    @HostBinding("class.css") hostClass = true;
 
     scrollFindingSnippet = `
     [].forEach.call($$("*"), function(a) {
@@ -16,7 +15,5 @@ export class CssComponent implements OnInit {
         });
     `;
 
-  ngOnInit() {
-  }
-
+    ngOnInit() {}
 }

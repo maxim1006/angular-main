@@ -1,8 +1,12 @@
-import {Directive, ElementRef, TemplateRef, ViewContainerRef} from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    TemplateRef,
+    ViewContainerRef,
+} from "@angular/core";
 
-@Directive({selector: '[customStructuralDirective]'})
+@Directive({ selector: "[customStructuralDirective]" })
 export class CustomStructuralDirective {
-
     constructor(
         private view: ViewContainerRef, //ссылка на вью
         private template: TemplateRef<ElementRef>
@@ -17,16 +21,16 @@ export class CustomStructuralDirective {
 
 //
 /* 1) Эта директива как пример создания динамической компоненты через createEmbeddedView
-*
-*   <div *ngIf="value"><div>
-*
-*   тоже что и
-*
-*   <ng-template [ngIf]="value">
-*       <div></div>
-*   </ng-template>
-*
-*
-*
-*
-* */
+ *
+ *   <div *ngIf="value"><div>
+ *
+ *   тоже что и
+ *
+ *   <ng-template [ngIf]="value">
+ *       <div></div>
+ *   </ng-template>
+ *
+ *
+ *
+ *
+ * */

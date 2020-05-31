@@ -1,28 +1,26 @@
-import {Component, OnInit, HostBinding} from '@angular/core';
+import { Component, OnInit, HostBinding } from "@angular/core";
 
 @Component({
-    selector: 'm-framework',
-    templateUrl: './m-framework.component.html'
+    selector: "m-framework",
+    templateUrl: "./m-framework.component.html",
 })
-
 export class MFrameworkComponent implements OnInit {
-
-    @HostBinding('class.framework-component')
+    @HostBinding("class.framework-component")
     addClass = true;
     public detectVisiblePropertyChange: boolean;
 
     public constructor() {
-        console.log('start');
+        console.log("start");
     }
 
-    public title = 'app works!';
+    public title = "app works!";
 
     public onClick(e): void {
         console.log(e);
     }
 
     public person = {
-        name: 'Max'
+        name: "Max",
     };
 
     public getValue(): number {
@@ -30,13 +28,11 @@ export class MFrameworkComponent implements OnInit {
     }
 
     public detectPropertyChange() {
-         this.detectVisiblePropertyChange = !this.detectVisiblePropertyChange;
+        this.detectVisiblePropertyChange = !this.detectVisiblePropertyChange;
     }
 
-    ngOnInit() {
-    }
+    ngOnInit() {}
 
     /** @internal */
     public _outputListener() {}
-
 }

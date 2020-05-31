@@ -2,13 +2,11 @@ import {
     ComponentFactory,
     ComponentRef,
     Injectable,
-    ViewContainerRef
-} from '@angular/core';
-
+    ViewContainerRef,
+} from "@angular/core";
 
 @Injectable()
 export class MDynamicInternalService {
-
     private viewContainerRef: ViewContainerRef;
 
     /**
@@ -16,10 +14,16 @@ export class MDynamicInternalService {
      *
      * @internal
      */
-    renderDynamicComponent(componentFactory: ComponentFactory<any>, data?: any, viewContainerRef?: ViewContainerRef): ComponentRef<any> {
+    renderDynamicComponent(
+        componentFactory: ComponentFactory<any>,
+        data?: any,
+        viewContainerRef?: ViewContainerRef
+    ): ComponentRef<any> {
         const targetContainerRef = viewContainerRef || this.viewContainerRef;
         if (targetContainerRef) {
-            const componentRef = targetContainerRef.createComponent(componentFactory);
+            const componentRef = targetContainerRef.createComponent(
+                componentFactory
+            );
 
             if (data) {
                 for (const i in data) {
@@ -47,5 +51,4 @@ export class MDynamicInternalService {
     getContainer(): ViewContainerRef {
         return this.viewContainerRef;
     }
-
 }

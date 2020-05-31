@@ -1,10 +1,9 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class NewService2 {
     public value = 2;
 }
-
 
 @Injectable()
 export class NewService {

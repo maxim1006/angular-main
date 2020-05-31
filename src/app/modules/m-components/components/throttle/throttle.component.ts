@@ -1,26 +1,17 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import {fromEvent} from 'rxjs/internal/observable/fromEvent';
-import {auditTime} from 'rxjs/operators';
+import { AfterViewInit, Component, ElementRef } from "@angular/core";
 
 @Component({
-    selector: 'm-throttle',
-    templateUrl: './throttle.component.html',
-    styleUrls: ['./throttle.component.less']
+    selector: "m-throttle",
+    templateUrl: "./throttle.component.html",
+    styleUrls: ["./throttle.component.less"],
 })
 export class ThrottleComponent implements AfterViewInit {
-
-    @ViewChild('testEl')
-    testElRef: ElementRef;
-    @ViewChild('testEl1')
-    testElRef1: ElementRef;
-
-    constructor(private elRef: ElementRef) {
-    }
+    constructor(private elRef: ElementRef) {}
 
     ngAfterViewInit() {
-        const element = this.elRef.nativeElement as HTMLElement;
-        const cb = (e) => {
-            console.log('throttle ', e);
+        const element = <HTMLElement>this.elRef.nativeElement;
+        const cb = e => {
+            console.log("throttle ", e);
         };
 
         // Variant 1
@@ -28,12 +19,12 @@ export class ThrottleComponent implements AfterViewInit {
         //     .pipe(auditTime(1000))
         //     .subscribe(cb);
 
-
         // My Variant 1
         function throttle(func: (e: Event) => any, time: number) {
             let prevDate;
 
-            return function(...args) {
+            return function (...args) {
+                // eslint-disable-next-line @typescript-eslint/no-this-alias
                 const context = this;
                 const currentDate = +new Date();
 
@@ -69,7 +60,6 @@ export class ThrottleComponent implements AfterViewInit {
         //     };
         // }
 
-        element.addEventListener('mousemove', throttle(cb, 1000));
+        element.addEventListener("mousemove", throttle(cb, 1000));
     }
-
 }

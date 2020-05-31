@@ -1,12 +1,10 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from "@angular/core";
 
-import {CssComponent} from './css.component';
-import {RouterModule, Routes} from "@angular/router";
-import {SharedModule} from "../shared/shared.module";
+import { CssComponent } from "./css.component";
+import { RouterModule, Routes } from "@angular/router";
+import { SharedModule } from "../shared/shared.module";
 
-const routes: Routes = [
-    {path: '', component: CssComponent},
-];
+const routes: Routes = [{ path: "", component: CssComponent }];
 
 @NgModule({
     imports: [SharedModule, RouterModule.forChild(routes)],
@@ -14,5 +12,4 @@ const routes: Routes = [
     declarations: [CssComponent],
     providers: [],
 })
-export class CssModule {
-}
+export class CssModule {}

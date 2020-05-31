@@ -1,8 +1,12 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {HAMMER_GESTURE_CONFIG, HammerGestureConfig, ɵHammerGesturesPlugin} from '@angular/platform-browser';
-import {DOCUMENT, isPlatformBrowser} from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import {
+    HAMMER_GESTURE_CONFIG,
+    HammerGestureConfig,
+    ɵHammerGesturesPlugin,
+} from "@angular/platform-browser";
+import { DOCUMENT, isPlatformBrowser } from "@angular/common";
 
-import '@egjs/hammerjs';
+import "@egjs/hammerjs";
 
 /**
  * Hot fix of built-in HammerGesturesPlugin to avoid memory leaks,
@@ -13,20 +17,19 @@ import '@egjs/hammerjs';
  */
 @Injectable()
 export class HammerPluginPatch extends ɵHammerGesturesPlugin {
-    constructor(@Inject(DOCUMENT) doc: any,
-                @Inject(HAMMER_GESTURE_CONFIG) private config: HammerGestureConfig,
-                @Inject(PLATFORM_ID) private platformId: Object,
-                ) {
+    constructor(
+        @Inject(DOCUMENT) doc: any,
+        @Inject(HAMMER_GESTURE_CONFIG) private config: HammerGestureConfig,
+        @Inject(PLATFORM_ID) private platformId: Record<string, any>
+    ) {
         super(doc, config, {
-            log(message: string) {
-            }, warn(message: string) {
-            }
+            log(message: string) {},
+            warn(message: string) {},
         });
 
         if (isPlatformBrowser(this.platformId)) {
             // Allow user selection
             // delete window['Hammer'].defaults.cssProps.userSelect;
-
             /*if browser supports touch-action set it to "pan-x pan-y" to allow control
             for touch devices (allow scroll within zooming on touch devices, scrolls on page or blocks), because Hammer makes touch-action="none" by default.
             If you need Hammer 'swipe' action, you should disable touch-action on exact block like this:
@@ -40,18 +43,22 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
         }
     }
 
-    addEventListener(element: HTMLElement, eventName: string, handler: Function): Function {
+    addEventListener(
+        element: HTMLElement,
+        eventName: string,
+        handler: Function
+    ): Function {
         const self = this;
 
         const zone = this.manager.getZone();
         eventName = eventName.toLowerCase();
 
-        if (!element['uxEvents']) {
-            element['uxEvents'] = {};
+        if (!element["uxEvents"]) {
+            element["uxEvents"] = {};
         }
 
         // store handlers for each event
-        element['uxEvents'][eventName] = handler;
+        element["uxEvents"][eventName] = handler;
 
         return zone.runOutsideAngular(() => {
             // Creating the manager bind events, must be done outside of angular
@@ -75,12 +82,12 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
             return () => {
                 mc.off(eventName, callback);
                 // destroy mc to prevent memory leak
-                if (typeof mc['destroy'] === 'function') {
-                    mc['destroy']();
+                if (typeof mc["destroy"] === "function") {
+                    mc["destroy"]();
                 }
 
                 // delete uxEvents from element
-                delete element['uxEvents'][eventName];
+                delete element["uxEvents"][eventName];
             };
         });
     }
@@ -92,19 +99,24 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
      * @param {HTMLElement} element
      * @param {string} eventName
      */
-    private triggerEvents(eventObj: any, element: HTMLElement, eventName: string): void {
+    private triggerEvents(
+        eventObj: any,
+        element: HTMLElement,
+        eventName: string
+    ): void {
         const elements = this.getElements(eventObj, element);
 
         if (!eventObj.srcEvent.triggered) {
-
             for (let i = 0; i < elements.length; i++) {
-                if (elements[i]['uxEvents'] && elements[i]['uxEvents'][eventName]) {
-
+                if (
+                    elements[i]["uxEvents"] &&
+                    elements[i]["uxEvents"][eventName]
+                ) {
                     if (eventObj.srcEvent.propagationStopped) {
                         break;
                     }
 
-                    elements[i]['uxEvents'][eventName](eventObj);
+                    elements[i]["uxEvents"][eventName](eventObj);
                 }
             }
 
@@ -120,10 +132,10 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
      * @returns {HTMLElement[]}
      */
     private getElements(eventObj: any, element: HTMLElement): HTMLElement[] {
-
         if (Array.isArray(eventObj.srcEvent.path)) {
             return eventObj.srcEvent.path;
-        } else {  // for IE
+        } else {
+            // for IE
             let arr = [],
                 parent = eventObj.target;
 
@@ -139,13 +151,9 @@ export class HammerPluginPatch extends ɵHammerGesturesPlugin {
     }
 
     public supports(eventName: string): boolean {
-        if (eventName === 'doubletap') {
+        if (eventName === "doubletap") {
             return true;
         }
         return super.supports(eventName);
     }
-
 }
-
-
-

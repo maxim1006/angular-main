@@ -1,13 +1,17 @@
 import {
-    Component, ComponentFactoryResolver, ComponentRef, Input, OnDestroy, Type, ViewChild,
-    ViewContainerRef
-} from '@angular/core';
-
-
+    Component,
+    ComponentFactoryResolver,
+    ComponentRef,
+    Input,
+    OnDestroy,
+    Type,
+    ViewChild,
+    ViewContainerRef,
+} from "@angular/core";
 
 @Component({
-    selector: 'm-dynamic',
-    template: `<ng-template #mDynamic></ng-template>`
+    selector: "m-dynamic",
+    template: "<ng-template #mDynamic></ng-template>",
 })
 export class MDynamicComponent implements OnDestroy {
     _model: MDynamicComponentConstructor;
@@ -39,7 +43,8 @@ export class MDynamicComponent implements OnDestroy {
     //а в компоненте:
     // @ViewChild(MDynamicDirective) mDynamic: MDynamicDirective;
 
-    @ViewChild('mDynamic', { read: ViewContainerRef }) mDynamic: ViewContainerRef;
+    @ViewChild("mDynamic", { read: ViewContainerRef })
+    mDynamic: ViewContainerRef;
 
     constructor(private _componentFactoryResolver: ComponentFactoryResolver) {}
 
@@ -48,13 +53,15 @@ export class MDynamicComponent implements OnDestroy {
             data;
 
         if (!model) {
-            console.log('Please add componentModel to m-dynamic');
+            console.log("Please add componentModel to m-dynamic");
             return;
         }
 
-        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(model.component),
+        const componentFactory = this._componentFactoryResolver.resolveComponentFactory(
+                model.component
+            ),
             viewContainerRef = this.mDynamic;
-        
+
         viewContainerRef.clear();
 
         this._componentRef = viewContainerRef.createComponent(componentFactory);
@@ -63,7 +70,8 @@ export class MDynamicComponent implements OnDestroy {
 
         if (data) {
             Object.keys(data).forEach((key: string) => {
-                (<MDynamicComponentData>this._componentRef.instance)[key] = data[key];
+                (<MDynamicComponentData>this._componentRef.instance)[key] =
+                    data[key];
             });
         }
     }
@@ -73,10 +81,7 @@ export class MDynamicComponent implements OnDestroy {
             this._componentRef.destroy();
         }
     }
-
 }
-
-
 
 export class MDynamicComponentConstructor {
     constructor(public component: Type<any>, public data: any) {}
@@ -85,5 +90,3 @@ export class MDynamicComponentConstructor {
 export interface MDynamicComponentData {
     data: any;
 }
-
-

@@ -1,99 +1,106 @@
-import {Component, ElementRef, OnInit, ViewChild, Input, EventEmitter, Output} from '@angular/core';
+import {
+    Component,
+    ElementRef,
+    OnInit,
+    ViewChild,
+    Input,
+    EventEmitter,
+    Output,
+} from "@angular/core";
 
 export abstract class Tree {
-    children: (TreeLeaf|TreeBrunch)[];
+    children: (TreeLeaf | TreeBrunch)[];
 }
 
 export abstract class TreeBrunch {
     text: string;
-    type: 'brunch';
+    type: "brunch";
     opened?: boolean;
-    children?: (TreeLeaf|TreeBrunch)[];
+    children?: (TreeLeaf | TreeBrunch)[];
 }
 
-export  abstract class TreeLeaf {
+export abstract class TreeLeaf {
     text: string;
-    type: 'leaf';
+    type: "leaf";
     selected?: boolean;
 }
 
 @Component({
-    selector: 'm-tree',
-    templateUrl: 'm-tree.component.html'
+    selector: "m-tree",
+    templateUrl: "m-tree.component.html",
 })
-
 export class MTreeComponent implements OnInit {
     @Input()
     multipleChoice = false;
 
-    @Input() model: {children: (TreeLeaf|TreeBrunch)[]} = {
+    @Input() model: { children: (TreeLeaf | TreeBrunch)[] } = {
         children: [
             {
-                text: 'Configuration Params v 2',
-                type: 'brunch',
+                text: "Configuration Params v 2",
+                type: "brunch",
                 opened: true,
                 children: [
                     {
-                        text: 'Parameters Deploying Edit v 8.yaml',
-                        type: 'leaf',
-                        selected: true
+                        text: "Parameters Deploying Edit v 8.yaml",
+                        type: "leaf",
+                        selected: true,
                     },
                     {
-                        text: 'Debug Config 4.conf',
-                        type: 'leaf'
+                        text: "Debug Config 4.conf",
+                        type: "leaf",
                     },
                     {
-                        text: 'Image.jpg',
-                        type: 'leaf'
+                        text: "Image.jpg",
+                        type: "leaf",
                     },
                     {
-                        text: 'Configuration Params v 2',
-                        type: 'brunch',
+                        text: "Configuration Params v 2",
+                        type: "brunch",
                         opened: true,
                         children: [
                             {
-                                text: 'Parameters Deploying Edit v 8.yaml',
-                                type: 'leaf',
+                                text: "Parameters Deploying Edit v 8.yaml",
+                                type: "leaf",
                             },
                             {
-                                text: 'Debug Config 4.conf',
-                                type: 'leaf'
+                                text: "Debug Config 4.conf",
+                                type: "leaf",
                             },
                             {
-                                text: 'Image.jpg',
-                                type: 'leaf'
-                            }
-                        ]
-                    }
-                ]
+                                text: "Image.jpg",
+                                type: "leaf",
+                            },
+                        ],
+                    },
+                ],
             },
             {
-                text: 'Configuration Params v 1',
-                type: 'brunch',
+                text: "Configuration Params v 1",
+                type: "brunch",
                 children: [
                     {
-                        text: '1',
-                        type: 'leaf'
+                        text: "1",
+                        type: "leaf",
                     },
                     {
-                        text: '2',
-                        type: 'leaf',
+                        text: "2",
+                        type: "leaf",
                     },
                     {
-                        text: '3',
-                        type: 'leaf'
-                    }
-                ]
+                        text: "3",
+                        type: "leaf",
+                    },
+                ],
             },
             {
-                text: 'Configuration Params v 0',
-                type: 'brunch'
+                text: "Configuration Params v 0",
+                type: "brunch",
             },
             {
-                text: 'Another One Folder',
-                type: 'leaf'
-            }
-        ]
+                text: "Another One Folder",
+                type: "leaf",
+            },
+        ],
     };
 
     @Input()
@@ -108,12 +115,10 @@ export class MTreeComponent implements OnInit {
     @Output()
     clickOutput: EventEmitter<string> = new EventEmitter();
 
-    @ViewChild('rootEl') rootEl: ElementRef;
-    
+    @ViewChild("rootEl") rootEl: ElementRef;
+
     el: any;
     currentModel: any;
-
-    constructor() {}
 
     ngOnInit() {
         this.level += 1;
@@ -121,7 +126,8 @@ export class MTreeComponent implements OnInit {
     }
 
     ngAfterViewInit() {
-        this.el = this.level === 1 ? this.rootEl.nativeElement : this.rootInputEl;
+        this.el =
+            this.level === 1 ? this.rootEl.nativeElement : this.rootInputEl;
     }
 
     brunchClick(e: Event, item: TreeBrunch) {
@@ -132,7 +138,9 @@ export class MTreeComponent implements OnInit {
     leafClick(e: Event, item: TreeLeaf) {
         e.stopPropagation();
 
-        if (item.selected) { return; }
+        if (item.selected) {
+            return;
+        }
 
         if (!this.multipleChoice) {
             this.removeSelectedLeafs(this.currentModel);
@@ -150,14 +158,18 @@ export class MTreeComponent implements OnInit {
     trackByFn(index, item) {
         return index;
     }
-    
+
     removeSelectedLeafs(model: any) {
         model.children.forEach((item: any) => {
-            if (item.type === 'leaf') {
+            if (item.type === "leaf") {
                 item.selected = false;
             }
 
-            if (item.type === 'brunch' && item.children && item.children.length) {
+            if (
+                item.type === "brunch" &&
+                item.children &&
+                item.children.length
+            ) {
                 this.removeSelectedLeafs(item);
             }
         });

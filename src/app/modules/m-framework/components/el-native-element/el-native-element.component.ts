@@ -1,12 +1,10 @@
-import {Component, OnInit, AfterViewInit, ElementRef} from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef } from "@angular/core";
 
 @Component({
-    selector: 'el-native-element',
-    templateUrl: './el-native-element.component.html'
+    selector: "el-native-element",
+    templateUrl: "./el-native-element.component.html",
 })
-
-export class ElNativeElementComponent implements OnInit, AfterViewInit  {
-
+export class ElNativeElementComponent implements OnInit, AfterViewInit {
     public constructor(private el: ElementRef) {}
 
     public ngOnInit() {
@@ -16,6 +14,4 @@ export class ElNativeElementComponent implements OnInit, AfterViewInit  {
     public ngAfterViewInit() {
         console.log(this.el.nativeElement);
     }
-
 }
-

@@ -1,12 +1,11 @@
-import {Component} from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-    selector: 'm-inheritance-composition',
-    templateUrl: './inheritance-composition.component.html',
-    styleUrls: ['./inheritance-composition.component.less']
+    selector: "m-inheritance-composition",
+    templateUrl: "./inheritance-composition.component.html",
+    styleUrls: ["./inheritance-composition.component.less"],
 })
 export class InheritanceCompositionComponent {
-
     constructor() {
         // this.implementInheritance();
         this.implementComposition();
@@ -16,7 +15,7 @@ export class InheritanceCompositionComponent {
         // основной минус, что я стараюсь предугадать что делают/любят все животные
         class Animal {
             walk() {
-                console.log('animal is walking');
+                console.log("animal is walking");
             }
 
             hasName(kind) {
@@ -30,23 +29,23 @@ export class InheritanceCompositionComponent {
 
         class Cat extends Animal {
             meow() {
-                console.log('cat is meowing');
+                console.log("cat is meowing");
             }
 
             likesSwimming() {
-                console.log('cat doesnt like swim');
+                console.log("cat doesnt like swim");
             }
         }
 
         class Dog extends Animal {
             bark() {
-                console.log('dog is barking');
+                console.log("dog is barking");
             }
         }
 
         const dog = new Dog();
         dog.bark();
-        dog.likesSwimming('dog');
+        dog.likesSwimming("dog");
 
         const cat = new Cat();
         cat.meow();
@@ -55,34 +54,34 @@ export class InheritanceCompositionComponent {
 
     implementComposition() {
         // inheritance describes what objects are, composition - what they do
-        const barker = (state) => ({
+        const barker = state => ({
             bark() {
-                console.log('dog is barking');
-            }
+                console.log("dog is barking");
+            },
         });
 
-        const meower = (state) => ({
+        const meower = state => ({
             meow() {
-                console.log('cat is meowing');
-            }
+                console.log("cat is meowing");
+            },
         });
 
-        const swimLiker = (state) => ({
+        const swimLiker = state => ({
             likesSwimming() {
                 console.log(`${state.kind} likes swimming`);
-            }
+            },
         });
 
-        const nameOwner = (state) => ({
+        const nameOwner = state => ({
             hasName() {
                 console.log(`${state.kind} has name`);
                 console.log(this);
-            }
+            },
         });
 
         const Dog = () => {
             const state = {
-                kind: 'dog'
+                kind: "dog",
             };
 
             return Object.assign(
@@ -101,14 +100,10 @@ export class InheritanceCompositionComponent {
 
         const Cat = () => {
             const state = {
-                kind: 'cat'
+                kind: "cat",
             };
 
-            return Object.assign(
-                {},
-                meower(state),
-                nameOwner(state)
-            );
+            return Object.assign({}, meower(state), nameOwner(state));
         };
 
         const cat = Cat();
@@ -116,5 +111,4 @@ export class InheritanceCompositionComponent {
         cat.hasName();
         // cat.swimLiker(); // error
     }
-
 }

@@ -1,7 +1,7 @@
 export class Store {
     private subscribers: Function[];
-    private reducers: {[key: string]: Function};
-    private state: {[key: string]: any};
+    private reducers: { [key: string]: Function };
+    private state: { [key: string]: any };
 
     constructor(reducers = {}, initialState = {}) {
         this.subscribers = [];
@@ -28,8 +28,8 @@ export class Store {
     }
 
     private notify() {
-        this.subscribers.forEach((fn) => {
-           fn(this.value);
+        this.subscribers.forEach(fn => {
+            fn(this.value);
         });
     }
 

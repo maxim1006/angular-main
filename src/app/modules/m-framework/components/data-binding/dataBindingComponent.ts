@@ -1,14 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'data-binding',
-    templateUrl: './dataBindingComponent.html'
+    selector: "data-binding",
+    templateUrl: "./dataBindingComponent.html",
 })
-
 export class DataBindingComponent implements OnInit {
-    public constructor() {
-    }
-
     ngOnInit() {
         // setInterval(()=> {
         //     console.log(this.prop);
@@ -16,20 +12,20 @@ export class DataBindingComponent implements OnInit {
     }
 
     //one-way binding
-    public image = 'http://grinz.ru/jquery/imagePreloading/images/14.jpg';
-    public image1 = 'http://grinz.ru/jquery/imagePreloading/images/11.jpg';
+    public image = "http://grinz.ru/jquery/imagePreloading/images/14.jpg";
+    public image1 = "http://grinz.ru/jquery/imagePreloading/images/11.jpg";
 
     public onImage1Click(): void {
-        console.log(`image1 clicked!`);
+        console.log("image1 clicked!");
     }
 
     public inputValue: string;
 
     public prop = {
-        name: 'Property from parent component'
+        name: "Property from parent component",
     };
 
-    public aliasProp = 'alias prop';
+    public aliasProp = "alias prop";
 
     public onModelChange(): void {
         console.log(this.inputValue);
@@ -41,6 +37,6 @@ export class DataBindingComponent implements OnInit {
     }
 
     public onSelectItem(event): void {
-        console.log('get item in parent directive: ', event);
+        console.log("get item in parent directive: ", event);
     }
 }

@@ -1,12 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-    selector: 'm-autocomplete',
-    templateUrl: './m-autocomplete.component.html'
+    selector: "m-autocomplete",
+    templateUrl: "./m-autocomplete.component.html",
 })
-
 export class MAutocompleteComponent implements OnInit {
-
     @Input()
     styleClass: string;
 
@@ -23,9 +21,6 @@ export class MAutocompleteComponent implements OnInit {
     public currentValue: string;
     public filteredItems: any = [];
 
-    constructor() {
-    }
-
     ngOnInit() {
         this.filteredItems = this.items && this.items.slice();
     }
@@ -33,8 +28,12 @@ export class MAutocompleteComponent implements OnInit {
     filterResults() {
         if (this.currentValue) {
             this.filteredItems = this.items.filter((item: any) => {
-                return (item.name ? item.name.toLowerCase() :
-                        item.toLowerCase()).indexOf(this.currentValue.toLowerCase()) !== -1;
+                return (
+                    (item.name
+                        ? item.name.toLowerCase()
+                        : item.toLowerCase()
+                    ).indexOf(this.currentValue.toLowerCase()) !== -1
+                );
             });
         } else {
             this.filteredItems = this.items;
@@ -60,15 +59,18 @@ export class MAutocompleteComponent implements OnInit {
         this.currentValue = item.name || item;
         this.opened = false;
 
-        if (typeof item !== 'string') {
-            this.items.forEach((currentItem: any) => currentItem.selected = currentItem === item);
+        if (typeof item !== "string") {
+            this.items.forEach(
+                (currentItem: any) =>
+                    (currentItem.selected = currentItem === item)
+            );
         }
 
         this.currentItemChange.emit(this.currentItem);
     }
 
     trackByFn(index: number, item: any) {
-         return index;
+        return index;
     }
 
     blur(e: any) {

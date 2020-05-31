@@ -1,25 +1,18 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-    selector: 'inner-data-binding',
-    templateUrl: './innerDataBindingComponent.html'
+    selector: "inner-data-binding",
+    templateUrl: "./innerDataBindingComponent.html",
 })
-
 export class InnerDataBindingComponent {
     public selectedItem: string;
-
-    public constructor() {
-    }
-
-    ngOnInit() {
-    }
 
     @Input() oneTimeStringBinding: string;
 
     @Input()
     public prop;
 
-    @Input('alias-prop')
+    @Input("alias-prop")
     public aliasPropInner: string;
 
     @Input()

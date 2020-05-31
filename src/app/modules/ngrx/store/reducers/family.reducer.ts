@@ -1,15 +1,15 @@
-import * as fromFamilyActions from '../actions/family.action';
-import {FamilyMember} from '@models/family.model';
-import {Action, createReducer, on} from '@ngrx/store';
+import * as fromFamilyActions from "../actions/family.action";
+import { FamilyMember } from "@models/family.model";
+import { Action, createReducer, on } from "@ngrx/store";
 
 export interface FamilyState {
     entities: {
-        [id: number]: FamilyMember
+        [id: number]: FamilyMember;
     };
     loaded: boolean;
     loading: boolean;
     foundFamilyEntities: {
-        [id: number]: FamilyMember
+        [id: number]: FamilyMember;
     };
     searchLoading: boolean;
 }
@@ -19,7 +19,7 @@ const initialState: FamilyState = {
     loaded: false,
     loading: false,
     foundFamilyEntities: [],
-    searchLoading: false
+    searchLoading: false,
 };
 
 // export function reducer(state: FamilyState = initialState, action: fromFamilyActions.FamilyActionsUnion) {
@@ -124,61 +124,75 @@ const initialState: FamilyState = {
 
 const featureReducer = createReducer(
     initialState,
-    on(fromFamilyActions.loadSuccess, (state, {familyMembers}) => {
-        const entities = familyMembers.reduce((currentEntities: { [id: number]: FamilyMember }, currentValue) => {
+    on(fromFamilyActions.loadSuccess, (state, { familyMembers }) => {
+        const entities = familyMembers.reduce(
+            (currentEntities: { [id: number]: FamilyMember }, currentValue) => {
                 return {
                     ...currentEntities,
-                    [currentValue.id]: currentValue
+                    [currentValue.id]: currentValue,
                 };
             },
-            {...state.entities}
+            { ...state.entities }
         );
 
         return {
             ...state,
             loaded: true,
             loading: false,
-            entities
+            entities,
         };
     }),
-    on(fromFamilyActions.loadFail, state => ({...state, loaded: false, loading: false})),
-    on(fromFamilyActions.add, (state, {newFamilyMember}) => {
+    on(fromFamilyActions.loadFail, state => ({
+        ...state,
+        loaded: false,
+        loading: false,
+    })),
+    on(fromFamilyActions.add, (state, { newFamilyMember }) => {
         const entities = {
             ...state.entities,
-            [newFamilyMember.id]: newFamilyMember
+            [newFamilyMember.id]: newFamilyMember,
         };
 
         return {
             ...state,
-            entities
+            entities,
         };
     }),
-    on(fromFamilyActions.remove, (state, {removedMember}) => {
-        const {[removedMember.id]: removed, ...entities} = state.entities;
+    on(fromFamilyActions.remove, (state, { removedMember }) => {
+        const { [removedMember.id]: removed, ...entities } = state.entities;
 
         return {
             ...state,
-            entities
+            entities,
         };
     }),
-    on(fromFamilyActions.serverSearch, state => ({...state, searchLoading: true})),
-    on(fromFamilyActions.serverSearchSuccess, (state, {foundFamily}) => {
+    on(fromFamilyActions.serverSearch, state => ({
+        ...state,
+        searchLoading: true,
+    })),
+    on(fromFamilyActions.serverSearchSuccess, (state, { foundFamily }) => {
         const foundFamilyEntities = foundFamily.reduce(
-            ((accumulator, currentValue) => {
+            (accumulator, currentValue) => {
                 return {
                     ...accumulator,
-                    [currentValue.id]: currentValue
+                    [currentValue.id]: currentValue,
                 };
-            }), {});
+            },
+            {}
+        );
 
         return {
             ...state,
             foundFamilyEntities,
-            searchLoading: false
+            searchLoading: false,
         };
     }),
-    on(fromFamilyActions.serverSearchFail, state => ({...state, foundFamilyEntities: {}, searchLoading: false})),
-    on(fromFamilyActions.reset, state => ({...initialState})),
+    on(fromFamilyActions.serverSearchFail, state => ({
+        ...state,
+        foundFamilyEntities: {},
+        searchLoading: false,
+    })),
+    on(fromFamilyActions.reset, state => ({ ...initialState }))
 );
 
 export function reducer(state: FamilyState | undefined, action: Action) {
@@ -188,5 +202,7 @@ export function reducer(state: FamilyState | undefined, action: Action) {
 export const getFamilyEntities = (state: FamilyState) => state.entities;
 export const getFamilyLoading = (state: FamilyState) => state.loading;
 export const getFamilyLoaded = (state: FamilyState) => state.loaded;
-export const getFamilyFoundEntities = (state: FamilyState) => state.foundFamilyEntities;
-export const getFamilysSarchLoading = (state: FamilyState) => state.searchLoading;
+export const getFamilyFoundEntities = (state: FamilyState) =>
+    state.foundFamilyEntities;
+export const getFamilysSarchLoading = (state: FamilyState) =>
+    state.searchLoading;

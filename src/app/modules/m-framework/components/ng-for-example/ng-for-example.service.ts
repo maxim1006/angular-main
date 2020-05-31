@@ -1,8 +1,8 @@
-import {Inject, Injectable} from '@angular/core';
-import {domenToken} from '../../../shared/tokens/tokens';
-import {HttpClient} from '@angular/common/http';
-import {Observable, of} from 'rxjs/index';
-import {catchError, map} from 'rxjs/internal/operators';
+import { Inject, Injectable } from "@angular/core";
+import { domenToken } from "../../../shared/tokens/tokens";
+import { HttpClient } from "@angular/common/http";
+import { Observable, of } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 
 @Injectable() //дает возможность инжектировать что-нибудь.
 export class NgForExampleService {
@@ -12,19 +12,17 @@ export class NgForExampleService {
     ) {}
 
     public getFamily(): Observable<any> {
-
-        return this._http.get(`${this._domenToken}family.json`)
-            .pipe(
-               map(res => {
-                   return res;
-                   //console.log(res.json());
-               }),
-               catchError(err => {
-                   console.log(err);
-                   return of([]);
-                   //return Observable.throw(err);
-               })
-            );
+        return this._http.get(`${this._domenToken}family.json`).pipe(
+            map(res => {
+                return res;
+                //console.log(res.json());
+            }),
+            catchError(err => {
+                console.log(err);
+                return of([]);
+                //return Observable.throw(err);
+            })
+        );
 
         // return [
         //     {
@@ -43,7 +41,5 @@ export class NgForExampleService {
         //         sex: "male"
         //     }
         // ];
-
     }
-
 }

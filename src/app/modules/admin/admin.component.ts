@@ -1,19 +1,20 @@
-import {Component, Inject, PLATFORM_ID} from '@angular/core';
-import {isPlatformBrowser} from '@angular/common';
-
+import { Component, Inject, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
-    selector: 'm-admin',
+    selector: "m-admin",
     template: `
         <h3>Admin component</h3>
-<!--        по таким ссылкам все равно перейдет даже с canDeativate-->
+        <!--        по таким ссылкам все равно перейдет даже с canDeativate-->
         <a href="http://google.com">google</a>
         <p></p>
-        <a href="http://google.com"  rel="noopener noreferrer" target="_blank">google _blank</a>
-    `
+        <a href="http://google.com" rel="noopener noreferrer" target="_blank"
+            >google _blank</a
+        >
+    `,
 })
 export class MAdminComponent {
-    constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+    constructor(@Inject(PLATFORM_ID) private platformId: Record<string, any>) {
         // window.onload = window.onunload = function analytics(event) {
         //     if (!navigator.sendBeacon) return;
         //
@@ -29,15 +30,14 @@ export class MAdminComponent {
         // };
 
         if (isPlatformBrowser(this.platformId)) {
-            window.addEventListener('beforeunload', (e) => {
+            window.addEventListener("beforeunload", e => {
                 e.preventDefault();
-                e.returnValue = 'Are you sure you want away?';
+                e.returnValue = "Are you sure you want away?";
             });
 
             window.onunload = function (event) {
-                console.log('left page');
+                console.log("left page");
             };
         }
     }
 }
-

@@ -33,7 +33,9 @@ module.exports = {
             },
         ],
         "@typescript-eslint/require-await": "error",
+        "@typescript-eslint/prefer-regexp-exec": "off",
         quotes: "off",
+        "@angular-eslint/no-output-on-prefix": "off",
         "@typescript-eslint/quotes": ["error", "double"],
         "@typescript-eslint/no-unused-vars": [
             "error",

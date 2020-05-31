@@ -1,10 +1,8 @@
-import { Component, OnInit, Inject} from '@angular/core';
-import {MHttpService} from './m-http.service';
-import {NewService} from './new.service';
-import {Observable} from 'rxjs';
-import {shareReplay} from 'rxjs/internal/operators';
-
-
+import { Component, OnInit, Inject } from "@angular/core";
+import { MHttpService } from "./m-http.service";
+import { NewService } from "./new.service";
+import { Observable } from "rxjs";
+import { shareReplay } from "rxjs/operators";
 
 export class FamilyMember {
     name: string;
@@ -17,11 +15,9 @@ export class UploadedFile {
     size: number;
 }
 
-
-
 @Component({
-    selector: 'm-http',
-    templateUrl: './m-http.component.html'
+    selector: "m-http",
+    templateUrl: "./m-http.component.html",
 })
 export class MHttpComponent implements OnInit {
     public progress: string;
@@ -33,26 +29,24 @@ export class MHttpComponent implements OnInit {
     public postData$: Observable<FamilyMember>;
 
     constructor(
-        @Inject('KEY1') private key1: string,
-        @Inject('KEY2') private key2: string,
+        @Inject("KEY1") private key1: string,
+        @Inject("KEY2") private key2: string,
         private mHttpService: MHttpService,
-        @Inject('Value') private _value: string,
-        private _newService: NewService,
-    ) { }
+        @Inject("Value") private _value: string,
+        private _newService: NewService
+    ) {}
 
     ngOnInit() {
         // при каждом | async будет subscribe и будет вызов, а при shareReplay(1) - вызовется 1 раз и всем
         // последующим сабскрайберам раздаст последний результат, удобно использовать если в шаблоне
         // много | async и трудно сделать через ng-container
         // Еще можно создать компонент обертку и внутрь него сложный код положить
-        this.family$ = this.mHttpService.getData().pipe(
-            shareReplay(1)
-        );
+        this.family$ = this.mHttpService.getData().pipe(shareReplay(1));
 
         this.dataById$ = this.mHttpService.getDataById();
         this.postData$ = this.mHttpService.postData({
-            name: 'Anna',
-            age: 0
+            name: "Anna",
+            age: 0,
         });
     }
 
@@ -67,15 +61,16 @@ export class MHttpComponent implements OnInit {
 
         const formData = new FormData();
 
-        if (files.length > 0) { // a file was selected
+        if (files.length > 0) {
+            // a file was selected
             for (let i = 0; i < files.length; i++) {
-                formData.append('files', files[i]);
+                formData.append("files", files[i]);
             }
         }
 
         this.isLoading = true;
 
-        this.mHttpService.postFile(formData).subscribe((data) => {
+        this.mHttpService.postFile(formData).subscribe(data => {
             console.log(data);
         });
 
@@ -98,15 +93,11 @@ export class MHttpComponent implements OnInit {
     }
 }
 
-
-
 const KEY1 = 1;
 const KEY2 = 2;
 
 export const httpInjectables: any[] = [
-    {provide: 'KEY1', useValue: KEY1},
-    {provide: 'KEY2', useValue: KEY2},
-    {provide: 'Value', useValue: 'Value'},
+    { provide: "KEY1", useValue: KEY1 },
+    { provide: "KEY2", useValue: KEY2 },
+    { provide: "Value", useValue: "Value" },
 ];
-
-

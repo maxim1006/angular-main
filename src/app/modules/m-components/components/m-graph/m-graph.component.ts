@@ -1,13 +1,20 @@
-import {Component, OnInit, HostBinding, NgZone, ElementRef, AfterViewInit, Input} from '@angular/core';
-import * as Highcharts from 'highcharts';
+import {
+    Component,
+    OnInit,
+    HostBinding,
+    NgZone,
+    ElementRef,
+    AfterViewInit,
+    Input,
+} from "@angular/core";
+import * as Highcharts from "highcharts";
 
-require('highcharts/highcharts-more')(Highcharts);
+require("highcharts/highcharts-more")(Highcharts);
 
 @Component({
-    selector: 'm-graph',
-    templateUrl: 'm-graph.component.html',
+    selector: "m-graph",
+    templateUrl: "m-graph.component.html",
 })
-
 export class MGraphComponent implements OnInit, AfterViewInit {
     private _viewInited = false;
 
@@ -25,7 +32,7 @@ export class MGraphComponent implements OnInit, AfterViewInit {
 
     public el: HTMLElement;
 
-    @HostBinding('class.m-graph') classes = true;
+    @HostBinding("class.m-graph") classes = true;
 
     constructor(private _elRef: ElementRef, private _zone: NgZone) {}
 
@@ -44,7 +51,7 @@ export class MGraphComponent implements OnInit, AfterViewInit {
 
         if (value && self._viewInited) {
             self._zone.runOutsideAngular(() => {
-                Highcharts.chart(self.el, value as any);
+                Highcharts.chart(self.el, <any>value);
             });
         }
     }

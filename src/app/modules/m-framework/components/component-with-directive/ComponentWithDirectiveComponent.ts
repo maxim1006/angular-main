@@ -1,44 +1,35 @@
-import { Component, OnInit, Directive, Input } from '@angular/core';
+import { Component, OnInit, Directive, Input } from "@angular/core";
 
 @Directive({
-    selector: '[custom-directive]'
+    selector: "[custom-directive]",
 })
 export class CustomDirective implements OnInit {
-    @Input('custom-directive') options: any = {};
+    @Input("custom-directive") options: any = {};
 
-    private Input() {
+    private Input() {}
 
+    ngOnInit() {
+        console.log(this.options);
     }
-
-     ngOnInit() {
-         console.log(this.options);
-     }
 }
 
 @Component({
-    selector: 'component-with-directive',
-    templateUrl: './ComponentWithDirectiveComponent.html'
+    selector: "component-with-directive",
+    templateUrl: "./ComponentWithDirectiveComponent.html",
 })
 export class ComponentWithDirectiveComponent implements OnInit {
-
-    public value = '';
+    public value = "";
 
     public options: any;
-
-    public constructor() {}
 
     ngOnInit() {
         const prop2 = 2;
 
         this.options = {
             prop: 1,
-            prop2
+            prop2,
         };
     }
 
-    items = [
-        'Max',
-        'Aliya',
-        'Lili'
-    ];
+    items = ["Max", "Aliya", "Lili"];
 }

@@ -1,15 +1,20 @@
-import {Component, Input, EventEmitter, Output, OnInit, OnDestroy} from '@angular/core';
-import {ParentComponentService} from '../parent-component.service';
-import {Subscription} from 'rxjs';
+import {
+    Component,
+    Input,
+    EventEmitter,
+    Output,
+    OnInit,
+    OnDestroy,
+} from "@angular/core";
+import { ParentComponentService } from "../parent-component.service";
+import { Subscription } from "rxjs";
 
 @Component({
-    selector: 'child-component',
-    templateUrl: './childComponent.html'
+    selector: "child-component",
+    templateUrl: "./childComponent.html",
 })
-
 export class ChildComponent implements OnInit, OnDestroy {
-
-    childComponentModel = '';
+    childComponentModel = "";
 
     @Input()
     valueFromParent: any;
@@ -28,25 +33,26 @@ export class ChildComponent implements OnInit, OnDestroy {
     private subscription: Subscription;
 
     constructor(private parentComponentService: ParentComponentService) {
-        console.log('child constructor');
+        console.log("child constructor");
     }
 
     ngOnInit() {
         this.subscription = this.parentComponentService.serviceProp$.subscribe(
-            (value) => {
+            value => {
                 console.log(value);
-            });
+            }
+        );
 
         if (this.functionInput) {
-            this.functionInput('functionInput text');
+            this.functionInput("functionInput text");
         }
 
-        console.log('child ngOnInit');
+        console.log("child ngOnInit");
     }
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
-        console.log('child ngOnDestroy');
+        console.log("child ngOnDestroy");
     }
 
     getProp() {
@@ -58,27 +64,25 @@ export class ChildComponent implements OnInit, OnDestroy {
     }
 
     public start() {
-        console.log('child component start');
+        console.log("child component start");
     }
 
     public stop() {
-        console.log('child component stop');
+        console.log("child component stop");
     }
 
     public valueChange(data: string) {
-        console.log(data, 'data from child component input');
+        console.log(data, "data from child component input");
     }
 
     public onCheckboxValueChange(event: Event) {
         // console.dir(event);
-        this.valueFromParent.arr[0].checked = event.srcElement['checked'];
+        this.valueFromParent.arr[0].checked = event.srcElement["checked"];
         // console.dir(this.valueFromParent);
         this.valueFromParentChange.emit(this.valueFromParent);
     }
 
     public ngAfterViewInit() {
-        console.log('child ngAfterViewInit');
+        console.log("child ngAfterViewInit");
     }
-
-
 }

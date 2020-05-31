@@ -2,13 +2,13 @@
 let variable;
 
 variable = 1;
-variable = '1';
+variable = "1";
 variable = true;
 
 type numberOrString = number | string;
 
 let a: numberOrString = 1;
-a = 'a';
+a = "a";
 
 // тут будет ошибка
 /*
@@ -20,11 +20,9 @@ a = 'a';
 */
 ///////////////////////////
 
-
 // Type Assertions
 // так могу превращать что угодно во что угодно
 // type Pizza = {name: string, toppings: number};
-
 
 // обернув в скобки ts сразу подсказывает нормально
 // это новая запись

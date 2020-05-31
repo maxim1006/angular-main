@@ -1,29 +1,33 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {shareReplay, tap} from 'rxjs/operators';
-import {domenToken} from '../shared/tokens/tokens';
-import {isPlatformBrowser} from '@angular/common';
-
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { shareReplay, tap } from "rxjs/operators";
+import { domenToken } from "../shared/tokens/tokens";
+import { isPlatformBrowser } from "@angular/common";
 
 export interface User<T> {
     [key: string]: T;
 }
 
-
 @Injectable({
-    providedIn: "root"
+    providedIn: "root",
 })
 export class AuthService {
-    constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object,) {}
+    constructor(
+        private http: HttpClient,
+        @Inject(PLATFORM_ID) private platformId: Record<string, any>
+    ) {}
 
-    login({login, password}) {
+    login({ login, password }) {
         return this.http
-            .post<{expiresIn: string; idToken: string}>(`${domenToken}login`, {login, password})
+            .post<{ expiresIn: string; idToken: string }>(
+                `${domenToken}login`,
+                { login, password }
+            )
             .pipe(
                 tap(res => {
                     this.setSession(res);
                 }),
-            // делаю горячий обзервбл и возвращаю всем новым подписчикам значение логина
+                // делаю горячий обзервбл и возвращаю всем новым подписчикам значение логина
                 shareReplay()
             );
     }
@@ -32,12 +36,12 @@ export class AuthService {
         return this.http.get<string>(`${domenToken}login/data`);
     }
 
-    setSession({expiresIn, idToken}) {
+    setSession({ expiresIn, idToken }) {
         const date = new Date();
         const expiresAt = date.setSeconds(date.getSeconds() + expiresIn);
 
         if (isPlatformBrowser(this.platformId)) {
-            localStorage.setItem('id_token', idToken);
+            localStorage.setItem("id_token", idToken);
             localStorage.setItem("expires_at", JSON.stringify(+expiresAt));
         }
     }

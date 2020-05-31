@@ -1,62 +1,53 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import {fromEvent, Subject, of, from, range, interval, pipe} from 'rxjs';
+/* eslint-disable */
 import {
-    debounceTime,
-    takeUntil,
-    distinctUntilChanged,
-    take,
-    scan,
-    reduce,
-    map,
-    mapTo,
-    flatMap,
-    switchMap, exhaustMap, pluck, delay, timeout, catchError, retry, tap, retryWhen, share, shareReplay, switchAll, mergeAll
-} from 'rxjs/operators';
-import {Observable, throwError, Observer} from 'rxjs';
-import {observable} from 'rxjs/internal-compatibility';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {concatMap, mergeMap, switchMapTo} from 'rxjs/internal/operators';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {domenToken} from '../../../shared/tokens/tokens';
+    AfterViewInit,
+    Component,
+    ElementRef,
+    OnDestroy,
+    ViewChild,
+} from "@angular/core";
+import { fromEvent, interval, of, Subject } from "rxjs";
+import { exhaustMap, flatMap, map } from "rxjs/operators";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { domenToken } from "../../../shared/tokens/tokens";
 
 @Component({
-    selector: 'rxjs-example1',
+    selector: "rxjs-example1",
     template: `
         <span id="rxjsExample1Span">Click</span>
 
-        <form 
-            #myForm
-            novalidate 
-            [formGroup]="form"
-        >
+        <form #myForm novalidate [formGroup]="form">
             <h2>Rxjs Example 1</h2>
-            <input formControlName="text" #input type='text' style='border: 1px solid;'/>
-    
-            <button (click)='_unsubscribeInputEvent()'>Unsubscribe input event</button>
+            <input
+                formControlName="text"
+                #input
+                type="text"
+                style="border: 1px solid;"
+            />
+
+            <button (click)="_unsubscribeInputEvent()">
+                Unsubscribe input event
+            </button>
         </form>
-
-    `
+    `,
 })
-
 export class RxjsExample1Component implements AfterViewInit, OnDestroy {
     form: FormGroup;
 
-    @ViewChild('myForm')
+    @ViewChild("myForm")
     myFormRef: ElementRef;
 
-    @ViewChild('input')
+    @ViewChild("input")
     private inputRef: ElementRef;
 
     private destroy$: Subject<any> = new Subject();
 
-    constructor(
-        private fb: FormBuilder,
-        private http: HttpClient
-    ) {}
+    constructor(private fb: FormBuilder, private http: HttpClient) {}
 
     public ngOnInit() {
         this.form = this.fb.group({
-            'text': ['']
+            text: [""],
         });
 
         // ConcatMap - запросы посылаются по очереди, пока предыдущий обзервбл не закомлитится второй не пойдет и т.д. Косяк в том, что даже если сейчас запросы не отправились то очередь запросов в любом случае
@@ -112,20 +103,19 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //     .subscribe((value) => {
         //         console.log("form value ", value);
         //     });
-
-
     }
 
     public ngAfterViewInit(): void {
-
-
         // high order observable example
-        const event$ = fromEvent(document.querySelector('#rxjsExample1Span'), 'click');
-        const interval$ = interval(1000);
+        // const event$ = fromEvent(
+        //     document.querySelector("#rxjsExample1Span"),
+        //     "click"
+        // );
+        // const interval$ = interval(1000);
 
         // так обзервбл высшего порядка возвращает обезрбл, нет подписки поэтому возвращается обзервбл
         // event$.pipe(map(() => interval$)).subscribe((data) => {
-        //     console.log(data); // Observable {_isScalar: false, _subscribe: ƒ}
+        // console.log(data); // Observable {_isScalar: false, _subscribe: ƒ}
         // });
 
         // mergeAll делает подписку к внутреннему обзервблу
@@ -137,7 +127,6 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         // event$.pipe(mergeMap(() => interval$)).subscribe((data) => {
         //     console.log(data); // 0,1,2,3
         // });
-
 
         // event$.pipe(map(() => interval$), switchAll()).subscribe((data) => {
         //     console.log(data); // 0,1,2,3... и если кликну то снова 0,1,2,3...
@@ -165,17 +154,19 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         // });
 
         // жму 10 раз а уйдет только 1й запрос
-        fromEvent(this.myFormRef.nativeElement, 'submit')
+        fromEvent(this.myFormRef.nativeElement, "submit")
             .pipe(
                 map(() => {
-                    return new HttpParams().set('value', this.form.value.text);
+                    return new HttpParams().set("value", this.form.value.text);
                 }),
-                exhaustMap(params => this.http.get(`${domenToken}api/rxjs/words`, {
-                    params
-                }))
+                exhaustMap(params =>
+                    this.http.get(`${domenToken}api/rxjs/words`, {
+                        params,
+                    })
+                )
             )
-            .subscribe((value) => {
-                console.log('form value ', value);
+            .subscribe(value => {
+                console.log("form value ", value);
             });
 
         // const input = this.inputRef.nativeElement;
@@ -262,7 +253,7 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //обзервбл и последовательно выполнен, 3 клика, 3 потока, за которыми будем следить
         fromEvent(document, "click")
             .pipe(flatMap(_ => interval(1000)))
-            .subscribe((value) => {
+            .subscribe(value => {
                 console.log("flatMap subscribe ", value); // 0,1,2,3 click 4,4,5,5
             });
 
@@ -270,18 +261,20 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         const o1$ = of(2);
         const o2$ = of(3);
 
-        of(1).pipe(
-            flatMap(data => {
-                console.log("data o$ ", data);
-                return o1$;
-            }),
-            flatMap(data => {
-                console.log("data o1$ ", data);
-                return o2$;
-            })
-        ).subscribe(data => {
-            console.log("data o2$ ", data);
-        }); // последовательно получу 1 затем 2 затем 3
+        of(1)
+            .pipe(
+                flatMap(data => {
+                    console.log("data o$ ", data);
+                    return o1$;
+                }),
+                flatMap(data => {
+                    console.log("data o1$ ", data);
+                    return o2$;
+                })
+            )
+            .subscribe(data => {
+                console.log("data o2$ ", data);
+            }); // последовательно получу 1 затем 2 затем 3
 
         // в отличие от flatMap не параллельно запускает потоки, а уничтожает предыдущий заменяя его новым
         // fromEvent(document, "click")
@@ -337,7 +330,6 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //         console.log("throwError and subscribe retryWhen", value);
         //     });
 
-
         // // упращенная схема multicast, т.е. так превращаю обзервабл в сабджект
         // let Observer;
         //
@@ -359,7 +351,6 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         //
         // Observer.next("next from multicasted Observable")
 
-
         // let o = interval(1000)
         //     .pipe(
         //         tap((value) => {
@@ -372,8 +363,6 @@ export class RxjsExample1Component implements AfterViewInit, OnDestroy {
         // o.subscribe();
         // o.subscribe();
         // o.subscribe();
-
-
     }
 
     public ngOnDestroy(): void {

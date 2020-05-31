@@ -1,10 +1,16 @@
-import {Component, HostBinding, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import inViewHelper from './in-view.helper';
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {
+    Component,
+    HostBinding,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from "@angular/core";
+import inViewHelper from "./in-view.helper";
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 
 @Component({
-    selector: 'm-in-view',
+    selector: "m-in-view",
     template: `
         <h3>In view with Intersection oberver</h3>
         <div class="m-in-view__inner">
@@ -17,7 +23,7 @@ import {Subject} from 'rxjs';
         </div>
     `,
     styles: [
-            `
+        `
             .m-in-view {
                 display: block;
             }
@@ -32,14 +38,13 @@ import {Subject} from 'rxjs';
             .m-in-view__block {
                 height: 400px;
             }
-        `
-    ]
+        `,
+    ],
 })
-
 export class MInViewComponent implements OnInit, OnDestroy {
-    @HostBinding('class.m-in-view') true;
+    @HostBinding("class.m-in-view") true;
 
-    @ViewChild('intersectionElement', {static: true}) intersectionElement;
+    @ViewChild("intersectionElement", { static: true }) intersectionElement;
 
     private destroy$ = new Subject();
 
