@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/ssl
 
 # auth
 /server/auth/private.pem

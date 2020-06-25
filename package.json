@@ -4,6 +4,7 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve --open",
+        "start:ssl": "ng serve --ssl --ssl-key ./ssl/localhost.key  --ssl-cert ./ocalhost.crt",
         "start:proxy": "ng serve --proxy-config proxy.conf.json --open",
         "hmr": "ng serve --configuration hmr --open --port 4201",
         "db": "json-server --port 3004 --watch db/db.js",
