@@ -89,7 +89,10 @@
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "options": {
-                        "browserTarget": "angular-cli-project:build"
+                        "browserTarget": "angular-cli-project:build",
+                        "ssl": true,
+                        "sslKey": "ssl/localhost.key",
+                        "sslCert": "ssl/localhost.crt"
                     },
                     "configurations": {
                         "hmr": {
