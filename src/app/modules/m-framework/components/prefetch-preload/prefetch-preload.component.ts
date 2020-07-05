@@ -59,7 +59,7 @@ export class MPrefetchPreloadComponent implements OnInit {
         import(/* webpackPrefetch: 4 */ "../../../../../assets/scripts/prefetch-preload/prefetch1.js");
     }
     async linkPreload() {
-        // // Загрузятся сразу но не выполнятся, имеет более высокий приоритет чем прелоад
+        // // Загрузятся сразу но не выполнятся, имеет более высокий приоритет чем префетч
         // this.loadScript({ href: "/assets/scripts/prefetch-preload/preload.js", rel: "preload", as: "script" });
         // this.loadScript({ href: "/assets/scripts/prefetch-preload/preload.css", rel: "preload", as: "style" });
         //
