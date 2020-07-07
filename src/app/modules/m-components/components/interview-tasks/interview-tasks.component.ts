@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { Observable, Subject } from "rxjs";
+import { take } from "rxjs/operators";
 
 @Component({
     selector: "m-interview-tasks",
@@ -8,73 +10,71 @@ import { Component, OnInit } from "@angular/core";
 export class InterviewTasksComponent implements OnInit {
     ngOnInit() {
         // task
-        function sum(num) {
-            let currentSum = num;
-
-            function f(arg) {
-                currentSum += arg;
-                return f;
-            }
-
-            f.toString = () => {
-                return currentSum;
-            };
-
-            return f;
-        }
-
-        console.log(sum(0)(1)(2)(3)(4)(5));
-
+        // function sum(num) {
+        //     let currentSum = num;
+        //
+        //     function f(arg) {
+        //         currentSum += arg;
+        //         return f;
+        //     }
+        //
+        //     f.toString = () => {
+        //         return currentSum;
+        //     };
+        //
+        //     return f;
+        // }
+        //
+        // console.log(sum(0)(1)(2)(3)(4)(5));
         // task
-        const initString = "ar2ya Jo3hn Deyne1ris";
-
-        const matchAllString = initString["matchAll"](/\d/g);
-        for (const item of matchAllString) {
-            // ["2", index: 2, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
-            // ["3", index: 8, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
-            // ["1", index: 17, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
-            console.log(item);
-        }
-
-        const arr = initString.split(" ").sort((a, b) => {
-            const aNumber = +a.match(/\d/)[0];
-            const bNumber = +b.match(/\d/)[0];
-
-            console.log(aNumber, bNumber);
-
-            return aNumber - bNumber;
-        });
-
-        console.log(arr.join(" "));
-
+        // const initString = "ar2ya Jo3hn Deyne1ris";
+        //
+        // const matchAllString = initString["matchAll"](/\d/g);
+        // for (const item of matchAllString) {
+        //     // ["2", index: 2, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+        //     // ["3", index: 8, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+        //     // ["1", index: 17, input: "ar2ya Jo3hn Deyne1ris", groups: undefined]
+        //     console.log(item);
+        // }
+        //
+        // const arr = initString.split(" ").sort((a, b) => {
+        //     const aNumber = +a.match(/\d/)[0];
+        //     const bNumber = +b.match(/\d/)[0];
+        //
+        //     console.log(aNumber, bNumber);
+        //
+        //     return aNumber - bNumber;
+        // });
+        //
+        // console.log(arr.join(" "));
         // task
-        const obj = {
-            a: {
-                num: 1,
-                a: {
-                    num: 2,
-                    a: {
-                        num: 3,
-                        a: {
-                            num: 4,
-                        },
-                    },
-                },
-            },
-        };
-
-        function sumObj(o) {
-            let sum = 0;
-
-            if (o.a) {
-                sum += o.a.num;
-                return (sum += sumObj(o.a));
-            }
-
-            return sum;
-        }
-
-        console.log(sumObj(obj));
+        // const obj = {
+        //     a: {
+        //         num: 1,
+        //         a: {
+        //             num: 2,
+        //             a: {
+        //                 num: 3,
+        //                 a: {
+        //                     num: 4,
+        //                 },
+        //             },
+        //         },
+        //     },
+        // };
+        //
+        // function sumObj(o) {
+        //     let sum = 0;
+        //
+        //     if (o.a) {
+        //         sum += o.a.num;
+        //         return (sum += sumObj(o.a));
+        //     }
+        //
+        //     return sum;
+        // }
+        //
+        // console.log(sumObj(obj));
     }
 }
 
@@ -137,9 +137,23 @@ while (i--) {
 // console.log(array[0](), array[1]());
 
 // Задача на микротаски и макротаски
-// console.log(1);
-// Promise.resolve('resolve').then(a => console.log(a));
-// console.log(2);
-// setTimeout(() => console.log('setTimeout'), 0);
+function inNextTick(): Observable<void> {
+    const timer = new Subject<void>();
+    Promise.resolve().then(() => timer.next());
+    return timer.pipe(take(1));
+}
 
-// 1 затем 2 затем resolve затем setTimeout
+console.log(1);
+Promise.resolve("resolve").then(a => console.log(a));
+
+// eslint-disable-next-line rxjs/no-ignored-subscription
+inNextTick().subscribe(() => {
+    console.log("tick");
+    // также тут не забыть вызвать this.cdr.markForCheck();
+});
+
+requestAnimationFrame(() => console.log("raf"));
+console.log(2);
+setTimeout(() => console.log("setTimeout"), 0);
+
+// 1 затем 2 затем resolve, tick, raf, затем setTimeout
