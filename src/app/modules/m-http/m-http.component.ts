@@ -74,6 +74,15 @@ export class MHttpComponent implements OnInit {
             console.log(data);
         });
 
+        // пример если нужно прочитать файл в base64
+        // [...files].forEach(file => {
+        //     let fileReader = new FileReader();
+        //     fileReader.addEventListener("load", event => {
+        //         console.log("файл в base64 ", event.target.result);
+        //     });
+        //     fileReader.readAsDataURL(file);
+        // });
+
         // upload.progress.subscribe((progress: number) => {
         //      this.progress = progress + '%';
         // });
