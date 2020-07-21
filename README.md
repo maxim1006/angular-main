@@ -60,3 +60,16 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Webpack
 const ENV = process.env.npm_lifecycle_event;
+
+## `git one commit`
+1) git cherry -v feature/version-2.0 | find /c /v ""
+2) git rebase -i HEAD~n
+3) squash все кроме первого
+4) git push --force
+
+
+Для линуха
+git cherry -v master | wc -l
+git rebase -i HEAD~5
+squash все кроме первого
+git push --force
