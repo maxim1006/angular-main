@@ -80,6 +80,14 @@ export class InterviewTasksComponent implements OnInit {
 
 // Дана строка, состоящая из букв A-Z:
 // AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB
+//
+// Нужно написать функцию RLE, которая на выходе даст строку вида:
+//     A4B3C2XYZD4E3F3A6B28
+//
+// И сгенерирует ошибку, если на вход пришла невалидная строка.
+//     Пояснения:
+// Если символ встречается 1 раз, он остается без изменений;
+// Если символ повторяется более 1 раза, к нему добавляется количество повторений.
 
 // function RLE(str) {
 //     if (typeof str !== "string"
@@ -104,7 +112,7 @@ export class InterviewTasksComponent implements OnInit {
 //     return result;
 // }
 //
-// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));
+// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));  // "AB3C2XYZD4E3F3A6B28"
 
 // function RLE(str) {
 //     if (typeof str !== "string"
@@ -118,34 +126,20 @@ export class InterviewTasksComponent implements OnInit {
 //     for (let i = 0; i < str.length; i++) {
 //         if (previousSymbol !== str[i]) {
 //             result += str[i];
-//             previousSymbol = str[i];
 //             counter = 1;
 //             prevResult = result;
 //         } else {
 //             counter++;
-//             previousSymbol = str[i];
-//
-//             if (counter === 2) {
-//                 result += 2;
-//             } else {
-//                 result = prevResult + counter;
-//             }
+//             result = counter === 2 ? result += 2 : prevResult + counter;
 //         }
+//
+//         previousSymbol = str[i];
 //     }
 //
 //     return result;
 // }
 //
-// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));
-
-//
-// Нужно написать функцию RLE, которая на выходе даст строку вида:
-//     A4B3C2XYZD4E3F3A6B28
-//
-// И сгенерирует ошибку, если на вход пришла невалидная строка.
-//     Пояснения:
-// Если символ встречается 1 раз, он остается без изменений;
-// Если символ повторяется более 1 раза, к нему добавляется количество повторений.
+// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB")); // "AB3C2XYZD4E3F3A6B28"
 
 // На входе массив
 // var arr = [
