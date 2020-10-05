@@ -80,6 +80,64 @@ export class InterviewTasksComponent implements OnInit {
 
 // Дана строка, состоящая из букв A-Z:
 // AAAABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB
+
+// function RLE(str) {
+//     if (typeof str !== "string"
+//         || !/[A-Z]/.test(str)) throw "Not valid argument!";
+//
+//     let previousSymbol = str[0];
+//     let result = '';
+//     let counter = 0;
+//
+//     for (let i = 0; i < str.length; i++) {
+//         if (previousSymbol !== str[i]) {
+//             result += previousSymbol + (counter > 1 ? counter : "");
+//             previousSymbol = str[i];
+//             counter = 1;
+//         } else {
+//             counter++;
+//         }
+//     }
+//
+//     result += previousSymbol + (counter > 1 ? counter : "");
+//
+//     return result;
+// }
+//
+// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));
+
+// function RLE(str) {
+//     if (typeof str !== "string"
+//         || !/[A-Z]/.test(str)) throw "Not valid argument!";
+//
+//     let previousSymbol;
+//     let result = '';
+//     let prevResult = '';
+//     let counter = 1;
+//
+//     for (let i = 0; i < str.length; i++) {
+//         if (previousSymbol !== str[i]) {
+//             result += str[i];
+//             previousSymbol = str[i];
+//             counter = 1;
+//             prevResult = result;
+//         } else {
+//             counter++;
+//             previousSymbol = str[i];
+//
+//             if (counter === 2) {
+//                 result += 2;
+//             } else {
+//                 result = prevResult + counter;
+//             }
+//         }
+//     }
+//
+//     return result;
+// }
+//
+// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));
+
 //
 // Нужно написать функцию RLE, которая на выходе даст строку вида:
 //     A4B3C2XYZD4E3F3A6B28

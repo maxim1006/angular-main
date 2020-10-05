@@ -9,6 +9,7 @@ then generate public key
 
 command: openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 
+https://medium.com/@rubenvermeulen/running-angular-cli-over-https-with-a-trusted-certificate-4a0d5f92747a
 
 ### General notes
 
