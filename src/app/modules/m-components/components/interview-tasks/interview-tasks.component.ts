@@ -209,3 +209,30 @@ console.log(2);
 setTimeout(() => console.log("setTimeout"), 0);
 
 // 1 затем 2 затем resolve, tick, raf, затем setTimeout
+
+// debounce, throttle
+// document.addEventListener("mousemove", debounce(() => {
+//     console.log(123);
+// }, 1000));
+//
+// function throttle(func, ms) {
+//     let initialTime = 0;
+//
+//     return () => {
+//         let currentTime = Date.now();
+//
+//         if (currentTime - initialTime > ms) {
+//             initialTime = currentTime;
+//             func();
+//         }
+//     }
+// }
+//
+// function debounce(func, ms) {
+//     let timeoutId;
+//
+//     return () => {
+//         clearTimeout(timeoutId);
+//         timeoutId = setTimeout(func, ms)
+//     }
+// }
