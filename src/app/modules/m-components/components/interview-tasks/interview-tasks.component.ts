@@ -97,7 +97,7 @@ export class InterviewTasksComponent implements OnInit {
 //     let result = '';
 //     let counter = 0;
 //
-//     for (let i = 0; i < str.length; i++) {
+//     for (let i = 0; i <= str.length; i++) {
 //         if (previousSymbol !== str[i]) {
 //             result += previousSymbol + (counter > 1 ? counter : "");
 //             previousSymbol = str[i];
@@ -107,39 +107,10 @@ export class InterviewTasksComponent implements OnInit {
 //         }
 //     }
 //
-//     result += previousSymbol + (counter > 1 ? counter : "");
-//
 //     return result;
 // }
 //
 // console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));  // "AB3C2XYZD4E3F3A6B28"
-
-// function RLE(str) {
-//     if (typeof str !== "string"
-//         || !/[A-Z]/.test(str)) throw "Not valid argument!";
-//
-//     let previousSymbol;
-//     let result = '';
-//     let prevResult = '';
-//     let counter = 1;
-//
-//     for (let i = 0; i < str.length; i++) {
-//         if (previousSymbol !== str[i]) {
-//             result += str[i];
-//             counter = 1;
-//             prevResult = result;
-//         } else {
-//             counter++;
-//             result = counter === 2 ? result += 2 : prevResult + counter;
-//         }
-//
-//         previousSymbol = str[i];
-//     }
-//
-//     return result;
-// }
-//
-// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB")); // "AB3C2XYZD4E3F3A6B28"
 
 // На входе массив
 // var arr = [
@@ -156,6 +127,31 @@ function convertToObject(arr) {
 
     return obj;
 }
+
+// function convertToObject(arr) {
+//     const obj = {};
+//
+//     for (let i = 0; i < arr.length; i++) {
+//         const {name, value} = arr[i];
+//         obj[name] = value;
+//     }
+//
+//     return obj;
+// }
+
+// function convertToObject(arr) {
+//     const obj = {};
+//
+//     for (let {name, value} of arr) {
+//         obj[name] = value;
+//     }
+//
+//     return obj;
+// }
+
+// function convertToObject(arr) {
+//     return arr.reduce((acc, item) => ({...acc, [item.name]: item.value}), {});
+// }
 
 // var i = 10;
 // var array = [];
