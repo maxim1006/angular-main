@@ -274,11 +274,6 @@ setTimeout(() => console.log("setTimeout"), 0);
 // console.log(book2.getUpperName()); // error
 
 /////////// Task
-// console.log('o.a.b'); // c: "c"
-// console.log('o.a.b.c'); // "c"
-// console.log('o.a.b.d'); // "d"
-// console.log('o.e.x'); // undefined
-//
 // var o = {
 //     a: {
 //         b: {
@@ -287,3 +282,180 @@ setTimeout(() => console.log("setTimeout"), 0);
 //         d: "d"
 //     }
 // };
+//
+// function f(str) {
+//     const path = str.split(".");
+//
+//     let result = window;
+//
+//     for (i=0; i < path.length; i++) {
+//         if (result[path[i]]) {
+//             result = result[path[i]]
+//         } else {
+//             return;
+//         }
+//     }
+//
+//     return result;
+// }
+//
+// console.log(f('o.a.b')); // c: "c"
+// console.log(f('o.a.b.c')); // "c"
+// console.log(f('o.a.d')); // "d"
+// console.log(f('o.e.x')); // undefined
+
+/**
+ * Необходимо написать функцию, которая на вход принимает урл,
+ * асинхронно ходит по этому урлу GET запросом и возвращает данные (json).
+ * Для получении данных можно использовать $.get или fetch.
+ * Если во время запроса произошла ошибка, то пробовать запросить ещё 5 раз.
+ * Если в итоге информацию получить не удалось, вернуть ошибку "Заданный URL недоступен".
+ */
+// function get(url) {
+//     return privateGet(url, 0);
+// }
+//
+// function privateGet(url, attempt){
+//     return fetch(url).catch(()=>{
+//         if (attempt === 5) {
+//             throw "Заданный URL недоступен";
+//         } else {
+//             return privateGet(url, attempt+1);
+//         }
+//     });
+// }
+//
+// get(url)
+//     .then(res => console.log(res))
+//     .catch(err => console.error(err))
+
+/**
+ * Есть функция и объект. Необходимо, чтобы функция в консоли вывела значение 'yandex'.
+ * Как добиться желаемого, не изменяя тело функции?
+ */
+// function f() { console.log(this.x); }
+// var obj = {x: 'yandex'};
+//
+//
+// const a = f.bind(obj);
+//
+//
+// a();
+
+// Task
+// const promises = [
+//     delay(50).then(() => 42),
+//     delay(75).then(() => { throw 'nope'; })
+// ];
+//
+// function getResult(promises) {
+//     return Promise.all(promises.map((promise)=>{
+//         return promise.then((v) => {
+//             return {status: "resolved", "value": v};
+//         }).catch((e)=>{
+//             return {"status": "rejected", "value": e};
+//         })
+//     }));
+//     // return Promise.resolve([{"status": "resolved", "value": 42}, {"status": "rejected", "reason": "nope"}]);
+// }
+
+///////////////////////
+// Дан набор отрезков - надо объединить, если что-то пересекается
+// [
+//     [ 1,  3  ],
+//     [ 12, 16 ],
+//     [ 9,  15 ],
+//     [ 4,  4  ],
+//     [ 18, 18 ],
+//     [ 8,  11 ],
+// ]
+//
+// =>
+// [
+//     [ 1,   4 ]
+//         [ 8,  16 ]
+//         [ 18, 18 ]
+// ]
+
+// [1, 4]
+
+function convert(input) {
+    if (!input.length) {
+        return input;
+    }
+    const sorted = input.sort((a, b) => a[0] - b[0]);
+    const result = [sorted[0]];
+    let j = 0;
+    for (let i = 1; i < sorted.length; i++) {
+        const current = sorted[i];
+        if (current[0] <= result[j][1] + 1) {
+            //пересечение
+            result[j] = [result[j][0], Math.max(result[j][1], current[1])];
+        } else {
+            //нет пересечения
+            j++;
+            result[j] = current;
+        }
+    }
+    return result;
+}
+
+///////////////////////// deep copy
+
+const str = "....";
+
+const val = JSON.parse(str);
+
+function deepCopy(val) {
+    if (Array.isArray(val)) {
+        return val.map(v => deepCopy(v));
+    } else if (val && typeof val === "object") {
+        const result = {};
+        for (let k in val) {
+            result[k] = deepCopy(val);
+        }
+        return result;
+    }
+    return val;
+}
+
+JSON.stringify({ a: undefined }); // {}
+
+
+////////////////////////////
+// Goods
+[
+    { model: 'iPhone', color: 'black', memory: 64 },
+    { model: 'iPhone', color: 'white' },
+    { model: 'iPhone', color: 'silver' },
+    { model: 'macBook', color: 'silver' },
+    { model: 'iPod', abc: 0 },
+    ...
+];
+
+// Filters
+[
+    { key: 'color', value: 'silver' },
+    { key: 'abc', value: 0 },
+    { key: 'model', value: 'macBook'},
+    ...
+]
+
+// Expected output
+    [
+    { model: 'iPhone', color: 'black', memory: 64 },
+        { model: 'iPhone', color: 'white' }
+    ]
+
+
+
+function filterProducts(goods, filters){
+    return goods.filter((good)=>{
+        for (let filter of filters) {
+            if (typeof good[filter.key] !== 'undefined' && good[filter.key] === filter.value) {
+                return false;
+            }
+        }
+        return true;
+    });
+}
