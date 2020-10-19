@@ -232,3 +232,58 @@ setTimeout(() => console.log("setTimeout"), 0);
 //         timeoutId = setTimeout(func, ms)
 //     }
 // }
+
+/////////// Task
+// var book1, book2;
+//
+// // 1
+// function Book(_name) {
+//     this.name = _name;
+// }
+//
+// // 2
+// Book.prototype.getName = function() {
+//     return this.name;
+// };
+// Book.prototype.getUpperName = function() {
+//     return this.getName().toLowerCase();
+// };
+//
+// // 3
+// book1 = new Book('JavaScript with Promises'); // book = {name: 'JavaScript with Promises'}; book.__proto__ = {getName, getUpperName}
+//
+// // 4
+// Book.prototype.getUpperName = function() {
+//     return this.getName().toUpperCase();
+// };
+//
+// // 5
+// Book.prototype = {
+//     getName: function() {
+//         return '"' + this.name + '"';
+//     }
+// }
+//
+// // 6
+// book2 = new Book('JavaScript: The Definitive Guide, 6th Edition');
+
+// 7
+// console.log(book1.getName()); // "JavaScript with Promises"
+// console.log(book1.getUpperName()); // upperCase
+// console.log(book2.getName()); // "JavaScript: The Definitive Guide, 6th Edition"
+// console.log(book2.getUpperName()); // error
+
+/////////// Task
+// console.log('o.a.b'); // c: "c"
+// console.log('o.a.b.c'); // "c"
+// console.log('o.a.b.d'); // "d"
+// console.log('o.e.x'); // undefined
+//
+// var o = {
+//     a: {
+//         b: {
+//             c: "c"
+//         },
+//         d: "d"
+//     }
+// };
