@@ -274,35 +274,37 @@ setTimeout(() => console.log("setTimeout"), 0);
 // console.log(book2.getUpperName()); // error
 
 /////////// Task
-// var o = {
-//     a: {
-//         b: {
-//             c: "c"
-//         },
-//         d: "d"
-//     }
-// };
-//
-// function f(str) {
-//     const path = str.split(".");
-//
-//     let result = window;
-//
-//     for (i=0; i < path.length; i++) {
-//         if (result[path[i]]) {
-//             result = result[path[i]]
-//         } else {
-//             return;
-//         }
-//     }
-//
-//     return result;
-// }
-//
-// console.log(f('o.a.b')); // c: "c"
-// console.log(f('o.a.b.c')); // "c"
-// console.log(f('o.a.d')); // "d"
-// console.log(f('o.e.x')); // undefined
+/**
+ * Нужно написать функцию get. На вход функция принимает объект и путь до поля объекта.
+ * Путь – это строка, разделенная точкой. Функция должна вернуть соответствующее поле объекта.
+ * Запрашиваемого поля в объекте может не быть.
+ */
+
+function get(obj, path) {
+    const pathArray = path.split(".");
+    let result = obj;
+
+    for (let i = 0; i < pathArray.length; i++) {
+        if (typeof result[pathArray[i]] === "undefined") return;
+        result = result[pathArray[i]];
+    }
+
+    return result;
+}
+
+const obj = {
+    a: {
+        b: {
+            c: "d",
+        },
+        e: "f",
+    },
+};
+
+console.log(get(obj, "a.b")); // { c : 'd' }
+console.log(get(obj, "a.b.c")); // 'd'
+console.log(get(obj, "a.e")); // 'f'
+console.log(get(obj, "a.x.e")); // undefined
 
 /**
  * Необходимо написать функцию, которая на вход принимает урл,
@@ -421,41 +423,40 @@ function deepCopy(val) {
 
 JSON.stringify({ a: undefined }); // {}
 
-
 ////////////////////////////
-// Goods
-[
-    { model: 'iPhone', color: 'black', memory: 64 },
-    { model: 'iPhone', color: 'white' },
-    { model: 'iPhone', color: 'silver' },
-    { model: 'macBook', color: 'silver' },
-    { model: 'iPod', abc: 0 },
-    ...
-];
-
-// Filters
-[
-    { key: 'color', value: 'silver' },
-    { key: 'abc', value: 0 },
-    { key: 'model', value: 'macBook'},
-    ...
-]
-
-// Expected output
-    [
-    { model: 'iPhone', color: 'black', memory: 64 },
-        { model: 'iPhone', color: 'white' }
-    ]
-
-
-
-function filterProducts(goods, filters){
-    return goods.filter((good)=>{
-        for (let filter of filters) {
-            if (typeof good[filter.key] !== 'undefined' && good[filter.key] === filter.value) {
-                return false;
-            }
-        }
-        return true;
-    });
-}
+////////////////////////////
+// // Goods
+// const goods = [
+//     { model: "iPhone", color: "black", memory: 64 },
+//     { model: "iPhone", color: "white" },
+//     { model: "iPhone", color: "silver" },
+//     { model: "macBook", color: "silver" },
+//     { model: "iPod", abc: 0 },
+// ];
+//
+// // Filters
+// const filters = [
+//     { key: "color", value: "silver" },
+//     { key: "abc", value: 0 },
+//     { key: "model", value: "macBook" },
+// ];
+//
+// // Expected output
+// // [
+// //     { model: "iPhone", color: "black", memory: 64 },
+// //     { model: "iPhone", color: "white" },
+// // ];
+//
+// function filterProducts(goods, filters) {
+//     return goods.filter(item => {
+//         let accepted = true;
+//
+//         filters.forEach(({ key, value }) => {
+//             if (typeof item[key] !== "undefined" && item[key] === value) {
+//                 accepted = false;
+//             }
+//         });
+//
+//         return accepted;
+//     });
+// }
