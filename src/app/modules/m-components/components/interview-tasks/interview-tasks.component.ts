@@ -344,7 +344,7 @@ console.log(get(obj, "a.x.e")); // undefined
 //
 // a();
 
-// Task
+///////////////////////////////////////////////////////////////////// Task
 // const promises = [
 //     delay(50).then(() => 42),
 //     delay(75).then(() => { throw 'nope'; })
@@ -361,7 +361,33 @@ console.log(get(obj, "a.x.e")); // undefined
 //     // return Promise.resolve([{"status": "resolved", "value": 42}, {"status": "rejected", "reason": "nope"}]);
 // }
 
-///////////////////////
+// function getResult(promises) {
+//     return Promise.all(
+//         promises.map(async item => {
+//             try {
+//                 const value = await item;
+//                 return { status: "resolved", value };
+//             } catch (e) {
+//                 return { status: "rejected", reason: e };
+//             }
+//         })
+//     );
+//     // return Promise.resolve([{"status": "resolved", "value": 42}, {"status": "rejected", "reason": "nope"}]);
+// }
+// const getResult = promises =>
+//     Promise.all(
+//         promises.map(item =>
+//             item.then(
+//                 value => ({ status: "resolved", value }),
+//                 e => ({ status: "rejected", reason: e })
+//             )
+//         )
+//     );
+//
+// getResult(promises).then((e) => console.log(e));
+///////////////////////////////////////////////////////////////////// End
+
+///////////////////////////////////////////////////////////////////// Task
 // Дан набор отрезков - надо объединить, если что-то пересекается
 // [
 //     [ 1,  3  ],
@@ -410,14 +436,22 @@ const val = JSON.parse(str);
 
 function deepCopy(val) {
     if (Array.isArray(val)) {
-        return val.map(v => deepCopy(v));
-    } else if (val && typeof val === "object") {
+        return val.map(i => deepCopy(i));
+    }
+
+    // null, undefined
+    if (val == null) return val;
+
+    if (typeof val === "object") {
         const result = {};
-        for (let k in val) {
-            result[k] = deepCopy(val);
+        for (let i in val) {
+            if (val.hasOwnProperty(i)) {
+                result[i] = deepCopy(val[i]);
+            }
         }
         return result;
     }
+
     return val;
 }
 
@@ -426,26 +460,26 @@ JSON.stringify({ a: undefined }); // {}
 ////////////////////////////
 ////////////////////////////
 // // Goods
-// const goods = [
-//     { model: "iPhone", color: "black", memory: 64 },
-//     { model: "iPhone", color: "white" },
-//     { model: "iPhone", color: "silver" },
-//     { model: "macBook", color: "silver" },
-//     { model: "iPod", abc: 0 },
-// ];
+const goods = [
+    { model: "iPhone", color: "black", memory: 64 },
+    { model: "iPhone", color: "white" },
+    { model: "iPhone", color: "silver" },
+    { model: "macBook", color: "silver" },
+    { model: "iPod", abc: 0 },
+];
 //
 // // Filters
-// const filters = [
-//     { key: "color", value: "silver" },
-//     { key: "abc", value: 0 },
-//     { key: "model", value: "macBook" },
-// ];
+const filters = [
+    { key: "color", value: "silver" },
+    { key: "abc", value: 0 },
+    { key: "model", value: "macBook" },
+];
 //
 // // Expected output
-// // [
-// //     { model: "iPhone", color: "black", memory: 64 },
-// //     { model: "iPhone", color: "white" },
-// // ];
+const result = [
+    { model: "iPhone", color: "black", memory: 64 },
+    { model: "iPhone", color: "white" },
+];
 //
 // function filterProducts(goods, filters) {
 //     return goods.filter(item => {
@@ -460,3 +494,5 @@ JSON.stringify({ a: undefined }); // {}
 //         return accepted;
 //     });
 // }
+
+const filterProducts = (goods, filters) => goods.filter(good => !filters.some(({ key, value }) => good[key] === value));
