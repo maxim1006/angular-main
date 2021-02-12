@@ -113,10 +113,10 @@ export class InterviewTasksComponent implements OnInit {
 // console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));  // "AB3C2XYZD4E3F3A6B28"
 
 // На входе массив
-// var arr = [
-//     {name: 'width', value: 10},
-//     {name: 'height', value: 20}
-// ];
+var arr = [
+    { name: "width", value: 10 },
+    { name: "height", value: 20 },
+];
 // На выходе объект {width: 10, height: 20}
 function convertToObject(arr) {
     const obj = {};
@@ -234,38 +234,38 @@ setTimeout(() => console.log("setTimeout"), 0);
 // }
 
 /////////// Task
-// var book1, book2;
-//
-// // 1
-// function Book(_name) {
-//     this.name = _name;
-// }
-//
-// // 2
-// Book.prototype.getName = function() {
-//     return this.name;
-// };
-// Book.prototype.getUpperName = function() {
-//     return this.getName().toLowerCase();
-// };
-//
-// // 3
-// book1 = new Book('JavaScript with Promises'); // book = {name: 'JavaScript with Promises'}; book.__proto__ = {getName, getUpperName}
-//
-// // 4
-// Book.prototype.getUpperName = function() {
-//     return this.getName().toUpperCase();
-// };
-//
-// // 5
-// Book.prototype = {
-//     getName: function() {
-//         return '"' + this.name + '"';
-//     }
-// }
-//
-// // 6
-// book2 = new Book('JavaScript: The Definitive Guide, 6th Edition');
+var book1, book2;
+
+// 1
+function Book(_name) {
+    this.name = _name;
+}
+
+// 2
+Book.prototype.getName = function () {
+    return this.name;
+};
+Book.prototype.getUpperName = function () {
+    return this.getName().toLowerCase();
+};
+
+// 3
+book1 = new Book("JavaScript with Promises"); // book = {name: 'JavaScript with Promises'}; book.__proto__ = {getName, getUpperName}
+
+// 4
+Book.prototype.getUpperName = function () {
+    return this.getName().toUpperCase();
+};
+
+// 5
+Book.prototype = {
+    getName: function () {
+        return '"' + this.name + '"';
+    },
+};
+
+// 6
+book2 = new Book("JavaScript: The Definitive Guide, 6th Edition");
 
 // 7
 // console.log(book1.getName()); // "JavaScript with Promises"
