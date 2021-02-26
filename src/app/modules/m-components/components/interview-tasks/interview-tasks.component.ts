@@ -68,7 +68,19 @@ export class InterviewTasksComponent implements OnInit {
         //
         //     if (o.a) {
         //         sum += o.a.num;
-        //         return (sum += sumObj(o.a));
+        //         sum += sumObj(o.a);
+        //     }
+        //
+        //     return sum;
+        // }
+        // or
+        // function sum(obj) {
+        //
+        //     let sum = 0;
+        //
+        //     while (obj.a) {
+        //         sum += cur.a.num;
+        //         obj.a = obj.a.a;
         //     }
         //
         //     return sum;
