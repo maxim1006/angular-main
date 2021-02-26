@@ -223,27 +223,30 @@ setTimeout(() => console.log("setTimeout"), 0);
 //     console.log(123);
 // }, 1000));
 //
-// function throttle(func, ms) {
-//     let initialTime = 0;
+// function throttle(f, t) {
+//     let id;
 //
-//     return () => {
-//         let currentTime = Date.now();
-//
-//         if (currentTime - initialTime > ms) {
-//             initialTime = currentTime;
-//             func();
+//     return function (...args) {
+//         if (!id) {
+//             id = setTimeout(() => {
+//                 id = null;
+//                 console.log(this);
+//                 f.apply(this, args);
+//             }, t);
 //         }
+//     };
+// }
+//
+// function debounce(f, t) {
+//     let id;
+//
+//     return function(...args) {
+//         clearTimeout(id);
+//         id = setTimeout(f, t, ...args);
 //     }
 // }
 //
-// function debounce(func, ms) {
-//     let timeoutId;
-//
-//     return () => {
-//         clearTimeout(timeoutId);
-//         timeoutId = setTimeout(func, ms)
-//     }
-// }
+// document.onmousemove = debounce((...args) => console.log(...args), 1000);
 
 /////////// Task
 var book1, book2;
