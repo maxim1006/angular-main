@@ -1,3 +1,4 @@
+<div id="goToSmoothScrollLink" #divElement>Smooth Scroll id</div>
 
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 
@@ -47,3 +48,14 @@
     <img src="../../../assets/themes/base/images/other-images/panda-splash.png" width="200" height="100"  class="css__object-fit">
 </div>
 
+<div class="css__block">
+    <p class="css__paragraph">Smooth scrolling</p>
+    <a (click)="onSmoothScrollLinkClick($event, divElement)" href="#goToSmoothScrollLink">Go to link</a>
+</div>
+
+<div class="css__block">
+    <p class="css__paragraph">Center element</p>
+    <div class="css__center-parent">
+        <div class="css__center-child">Centered block</div>
+    </div>
+</div>

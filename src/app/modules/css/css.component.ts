@@ -16,4 +16,9 @@ export class CssComponent implements OnInit {
     `;
 
     ngOnInit() {}
+
+    onSmoothScrollLinkClick(event: Event, divElement: Element) {
+        event.preventDefault();
+        divElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
 }
