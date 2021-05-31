@@ -100,6 +100,7 @@ export class InterviewTasksComponent implements OnInit {
 //     Пояснения:
 // Если символ встречается 1 раз, он остается без изменений;
 // Если символ повторяется более 1 раза, к нему добавляется количество повторений.
+// console.log(RLE("ABBBCCXYZDDDDEEEFFFAAAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBB"));  // "AB3C2XYZD4E3F3A6B28"
 
 // function RLE(str) {
 //     if (typeof str !== "string"
@@ -360,6 +361,8 @@ console.log(get(obj, "a.x.e")); // undefined
 // a();
 
 ///////////////////////////////////////////////////////////////////// Task
+// function retry(attempts) {...}
+
 // const promises = [
 //     delay(50).then(() => 42),
 //     delay(75).then(() => { throw 'nope'; })
@@ -403,8 +406,8 @@ console.log(get(obj, "a.x.e")); // undefined
 ///////////////////////////////////////////////////////////////////// End
 
 ///////////////////////////////////////////////////////////////////// Task
-// Дан набор отрезков - пожалуйста напишите функцию которая объеденяет вхождения
-// [
+// Дан набор отрезков - пожалуйста напишите функцию convert() которая объеденяет вхождения
+// const input = [
 //     [ 1,  3  ],
 //     [ 12, 16 ],
 //     [ 9,  15 ],
@@ -415,7 +418,7 @@ console.log(get(obj, "a.x.e")); // undefined
 //
 // =>
 //
-// [
+// const output = [
 //     [ 1,   4 ]
 //     [ 8,  16 ]
 //     [ 18, 18 ]

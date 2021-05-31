@@ -11,11 +11,7 @@ const TYPES = {
 };
 
 function getType(o) {
-    return (
-        TYPES[typeof o] ||
-        TYPES[Object.prototype.toString.call(o)] ||
-        (o ? "object" : "null")
-    );
+    return TYPES[typeof o] || TYPES[Object.prototype.toString.call(o)] || (o ? "object" : "null");
 }
 
 export const isArray = o =>
@@ -29,9 +25,7 @@ export const isBoolean = o => {
 };
 
 export const isDate = o => {
-    return (
-        getType(o) === "date" && o.toString() !== "Invalid Date" && !isNaN(o)
-    );
+    return getType(o) === "date" && o.toString() !== "Invalid Date" && !isNaN(o);
 };
 
 export const isFunction = o => {
@@ -44,12 +38,7 @@ export const isNumber = o => {
 
 export const isObject = (o, failfn) => {
     const t = typeof o;
-    return (
-        (o &&
-            (t === "object" ||
-                (!failfn && (t === "function" || isFunction(o))))) ||
-        false
-    );
+    return (o && (t === "object" || (!failfn && (t === "function" || isFunction(o))))) || false;
 };
 
 export const isRegExp = value => {
@@ -81,14 +70,8 @@ export const isValue = o => {
     }
 };
 
-export const getRandomInteger = (
-    min: number = 0,
-    max: number = 1000
-): number => {
-    const randomNumber = min - 0.5 + Math.random() * (max - min + 1);
-
-    return Math.round(randomNumber);
-};
+export const getRandomInteger = (min: number, max: number): number =>
+    Math.floor(Math.ceil(min) + Math.random() * (Math.floor(max) + 1 - Math.ceil(min)));
 
 export function debounce(func: (e: Event) => any, time: number = 0) {
     let timeout;
