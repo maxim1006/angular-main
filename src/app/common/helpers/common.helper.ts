@@ -70,7 +70,7 @@ export const isValue = o => {
     }
 };
 
-export const getRandomInteger = (min: number, max: number): number =>
+export const getRandomInteger = (min?: number, max?: number): number =>
     Math.floor(Math.ceil(min) + Math.random() * (Math.floor(max) + 1 - Math.ceil(min)));
 
 export function debounce(func: (e: Event) => any, time: number = 0) {

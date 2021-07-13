@@ -231,7 +231,6 @@ setTimeout(() => console.log("setTimeout"), 0);
 //         if (!id) {
 //             id = setTimeout(() => {
 //                 id = null;
-//                 console.log(this);
 //                 f.apply(this, args);
 //             }, t);
 //         }
@@ -430,9 +429,12 @@ function convert(input) {
     }
     const sorted = input.sort((a, b) => a[0] - b[0]);
     const result = [sorted[0]];
+
     let j = 0;
+
     for (let i = 1; i < sorted.length; i++) {
         const current = sorted[i];
+
         if (current[0] <= result[j][1] + 1) {
             //пересечение
             result[j] = [result[j][0], Math.max(result[j][1], current[1])];
@@ -444,6 +446,30 @@ function convert(input) {
     }
     return result;
 }
+
+// function convert(input) {
+//     let sorted = input.sort((a, b) => a[0] - b[0]);
+//     let length = sorted.length;
+//     let temp = sorted[0];
+//     let result = [];
+//
+//     for (let i = 1; i < length; i++) {
+//         let current = sorted[i];
+//
+//         if (temp[1] + 1 >= current[0]) {
+//             temp = [temp[0], Math.max(temp[1], current[1])];
+//         } else {
+//             result.push(temp);
+//             temp = current;
+//
+//             if (i === length - 1) result.push(temp);
+//         }
+//     }
+//
+//     return result;
+// }
+//
+// console.log(convert(input));
 
 ///////////////////////// deep copy
 
@@ -512,4 +538,8 @@ const result = [
 //     });
 // }
 
-const filterProducts = (goods, filters) => goods.filter(good => !filters.some(({ key, value }) => good[key] === value));
+function filterProducts(goods, filters) {
+    return goods.filter(item => !filters.some(({ key, value }) => item[key] === value));
+}
+
+console.log(filterProducts(goods, filters));
