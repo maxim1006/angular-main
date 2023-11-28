@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve --open",
+        "start": "export NODE_OPTIONS=--openssl-legacy-provider && ng serve --open",
         "start:ssl": "ng serve --ssl true --open",
         "start:proxy": "ng serve --proxy-config proxy.conf.json --open",
         "hmr": "ng serve --configuration hmr --open --port 4201",
